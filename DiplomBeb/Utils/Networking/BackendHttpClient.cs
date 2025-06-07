@@ -24,13 +24,13 @@ public class BackendHttpClient
         HttpMethod method = null)
     {
         HttpResponseState state = new HttpResponseState(false);
-        ProtectedBrowserStorageResult<string> token = await Auth.GetAuthToken();
+        ProtectedBrowserStorageResult<string>? token = await Auth.GetAuthToken();
         
-        if (!token.Success)
+        if (!token.HasValue || !token.Value.Success)
         {
             return state;
         }
-        var tokenVal = token.Value;
+        var tokenVal = token.Value.Value;
             
         Action<HttpRequestHeaders>? fnAuth = string.IsNullOrEmpty(tokenVal) ? null :
             (HttpRequestHeaders h) =>

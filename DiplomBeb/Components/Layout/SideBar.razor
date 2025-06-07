@@ -17,14 +17,17 @@
 		<li>
 			<a href="/about"><img src="icons/info-ico.svg" alt="О сервисе" />О сервисе</a>
 		</li>
-		@if (AccountService.Account.ApiRole.IsMoreUser())
+		@if (AccountService?.Account?.ApiRole?.IsMoreUser() == true)
 		{
 			<li>
 				<a href=""><img src="/icons/moder-ico.svg" alt="О сервисе"/>Модерация</a>
 				<a href="/logs"><img/>Логи</a>
 				<a href="/profiles"><img/>Пользователи</a>
 				<a href="/docs"><img/>Документы</a>
-				<a href="/requests"><img/>Запросы</a>
+				@if (AccountService.Account.ApiRole.Name == "admin")
+				{
+					<a href="/requests"><img/>Запросы</a>
+				}
 			</li>
 		}
 	</ul>
@@ -45,7 +48,14 @@
 		</a>
 		<div class="spec-side">
 			<button class="spec-side">
-				<img class="img38" src="/icons/slab-vid-ico.svg" alt="Кнопка для слабовидящих" />
+				<!-- ДЛЯ СЛЕПЫХ -->
+				<script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+				<script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+				<!-- ДЛЯ СЛЕПЫХ -->
+				<!--<img id="specialButton" style="cursor:pointer;" src="https://lidrekon.ru/images/special.png" alt="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ" title="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ"/>-->
+				<img class="img38" id="specialButton" style="cursor:pointer;" src="/icons/slab-vid-ico.svg" alt="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ" title="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ"/>
+				<!--<img class="img38" src="/icons/slab-vid-ico.svg" alt="Кнопка для слабовидящих"/>-->
+				<!--<img class="img38" src="/icons/slab-vid-ico.svg" alt="Кнопка для слабовидящих"/>-->
 			</button>
 			<button id="theme-switch">
 				<img class="img38" src="/icons/sun-ico.svg" alt="Кнопка смены темы" />

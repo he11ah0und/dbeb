@@ -8,8 +8,18 @@ namespace DiplomBeb.Utils;
 public class AuthWorker
 {
     private BackendHttpClient BHttp;
-    public async ValueTask<ProtectedBrowserStorageResult<string>> GetAuthToken()
-        => await BHttp.ProtectedLocalStore.GetAsync<string>("auth");
+
+    public async ValueTask<ProtectedBrowserStorageResult<string>?> GetAuthToken()
+    {
+        try
+        {
+            return await BHttp.ProtectedLocalStore.GetAsync<string>("auth");
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
     public AuthWorker(BackendHttpClient client)
     {
         BHttp = client;
@@ -76,7 +86,7 @@ public class AuthWorker
     public async Task<bool> Validate()
     {
         var token = await GetAuthToken();
-        if (!token.Success)
+        if (!token.HasValue || !token.Value.Success)
             return false;
 
         var res = await BHttp.Request("Auth/validate");
