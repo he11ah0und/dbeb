@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <Folder Include="Components\NComponents\" />
-    <Folder Include="Middleware\" />
     <Folder Include="wwwroot\icons\" />
   </ItemGroup>
 
