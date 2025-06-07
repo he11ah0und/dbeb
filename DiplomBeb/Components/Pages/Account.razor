@@ -1,0 +1,15 @@
+﻿@page "/account"
+@rendermode RenderMode.InteractiveServer
+
+
+@if (!AccountService.Initialized)
+    return;
+
+@if (AccountService.IsLogged)
+{
+    <DiplomBeb.Components.Pages.Auth.Profile/>
+}
+else
+{
+    <DiplomBeb.Components.Pages.Auth.Signin/>
+}

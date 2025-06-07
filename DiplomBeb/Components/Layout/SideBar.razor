@@ -1,0 +1,55 @@
+﻿@rendermode RenderMode.InteractiveServer
+
+<div class="sidebar">
+	<h1 class="heading">
+		<img src="icons/logo-ico.svg" alt="Логотип портфолио" />Личное портфолио
+	</h1>
+	<ul class="navigation">
+		<li>
+			<a href="/"><img src="icons/star-ico.svg" alt="Общий рейтинг" />Общий рейтинг</a>
+		</li>
+		<li>
+			<a href="/library">
+				<img src="icons/biblio-ico.svg" alt="Библиотека ссылок" />Библиотека
+				ссылок
+			</a>
+		</li>
+		<li>
+			<a href="/about"><img src="icons/info-ico.svg" alt="О сервисе" />О сервисе</a>
+		</li>
+		@if (AccountService.Account.ApiRole.IsMoreUser())
+		{
+			<li>
+				<a href=""><img src="/icons/moder-ico.svg" alt="О сервисе"/>Модерация</a>
+				<a href="/logs"><img/>Логи</a>
+				<a href="/profiles"><img/>Пользователи</a>
+				<a href="/docs"><img/>Документы</a>
+				<a href="/requests"><img/>Запросы</a>
+			</li>
+		}
+	</ul>
+	<div class="bottom">
+		<a class="profile" href="/account">
+			<img class="img38" src="/icons/profil-ico.svg" alt="Аватар" />
+			<div>
+				@if (AccountService.IsLogged)
+				{
+					<h3>@AccountService.Account.Name @AccountService.Account.Middlename</h3>
+					<h4>@AccountService.Account.WebRole.Name</h4>
+				}
+				else
+				{
+					<h4>Авторизоваться</h4>
+				}
+			</div>
+		</a>
+		<div class="spec-side">
+			<button class="spec-side">
+				<img class="img38" src="/icons/slab-vid-ico.svg" alt="Кнопка для слабовидящих" />
+			</button>
+			<button id="theme-switch">
+				<img class="img38" src="/icons/sun-ico.svg" alt="Кнопка смены темы" />
+			</button>
+		</div>
+	</div>
+</div>

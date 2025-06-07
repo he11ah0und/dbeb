@@ -1,0 +1,93 @@
+﻿@page "/"
+@rendermode RenderMode.InteractiveServer
+
+<PageTitle>Личное портфолио - Главная страница</PageTitle>
+
+<main>
+    <div>
+        <div class="middle">
+            <div class="heading">
+                <div>Общая информация</div>
+                <div>Всего пользователей: @MainService.Users.TotalUsers</div>
+            </div>
+            <div class="container-list">
+                @if (MainService.Users.UsersTop is not null)
+                {
+                    <ul class="student-list">
+                        @for (int i = 1; i <= MainService.Users.UsersTop.Length; i++)
+                        {
+                            <li>
+                                <div class="place">@i</div>
+                                <div class="image"></div>
+                                <div class="name">
+                                    <h4>@MainService.Users.UsersTop[i - 1].Surname @MainService.Users.UsersTop[i - 1].Name @MainService.Users.UsersTop[i - 1].Middlename</h4>
+                                    <p>@MainService.Users.UsersTop[i - 1].WebRole?.Name</p>
+                                </div>
+                                <div class="score">
+                                    <h4>@MainService.Users.UsersTop[i - 1].Score</h4>
+                                    <img src="icons/star1-ico.svg" alt="звезды" />
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+                <div class="footer">
+                    <div class="footer-left">
+                        <button class="update" @onclick="OnUpdateClick">
+                            <img class="img-update" src="/icons/update.svg" alt="">
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            @if (AccountService.IsLogged)
+            {
+                <div class="container-current">
+                    <ul class="student-list">
+                        <li>
+                            <div class="place">@AccountService.UserRank.Position</div>
+                            <div class="image"></div>
+                            <div class="name">
+                                <h4>@AccountService.Account.Surname @AccountService.Account.Name @AccountService.Account.Middlename</h4>
+                                <p>@AccountService.Account.WebRole?.Name</p>
+                            </div>
+                            <div class="score">
+                                <h4>@AccountService.Account.Score</h4>
+                                <img src="icons/star1-ico.svg" alt="звезды" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            }
+        </div>
+        <div>
+            <div class="place-container">
+                <div class="place-image"></div>
+                <p>Ваше место в топе:</p>
+                @if (!AccountService.IsLogged)
+                {
+                    <p class="place-number">Не определено, авторизуйтесь.</p>
+                }
+                else
+                {
+                    <p class="place-number">#@AccountService.UserRank.Position</p>
+                }
+            </div>
+            <div class="about-container">
+                <p class="heading">Хотите больше?</p>
+                @if (MainService.Library.Random4Libs != null)
+                {
+                    <ul>
+                        @for (int i = 1; i <= MainService.Library.Random4Libs.Length; i++)
+                        {
+                            <li>
+                                <a target="_blank"
+                                   href="@MainService.Library.Random4Libs[i - 1].Link">@MainService.Library.Random4Libs[i - 1].Name</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</main>
