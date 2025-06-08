@@ -8,18 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c459eb89-ed39-4d00-8ef3-0675c81617aa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.DiplomBeb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DiplomBeb/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiplomBeb/Components/Layout/SideBar.razor" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/Components/Layout/SideBar.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Library.razor" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Library.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Library.razor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Library.razor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Moderating/Profiles.razor" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Moderating/Profiles.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Moderating/Profiles.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Moderating/Profiles.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiplomBeb/Controllers/LibraryController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/Controllers/LibraryController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiplomBeb/Controllers/UsersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/Controllers/UsersController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiplomBeb/DiplomBeb.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/DiplomBeb.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiplomBeb/Services/Client/Components/LibraryComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/Services/Client/Components/LibraryComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiplomBeb/Services/Client/ModerationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/Services/Client/ModerationService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiplomBeb/wwwroot/favicon.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +73,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1749375114012</updated>
-      <workItem from="1749375117498" duration="1596000" />
+      <workItem from="1749375117498" duration="2288000" />
     </task>
     <servers />
   </component>
