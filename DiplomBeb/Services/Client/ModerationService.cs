@@ -7,6 +7,11 @@ namespace DiplomBeb.Services.Client;
 public class ModerationService
 {
     public Callbacker UsersStateChanged;
+
+    public ModerationService()
+    {
+        UsersStateChanged = new Callbacker();
+    }
     
     public User[] Users { get; private set; }
     public async Task RequestUsers(BackendHttpClient http, ulong page)

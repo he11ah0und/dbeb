@@ -1,4 +1,4 @@
-@page "/library"
+@page "/library/{Page:long}"
 @rendermode RenderMode.InteractiveServer
 
 <main>
@@ -11,7 +11,7 @@
                 @if (MainService.Library.Libs != null)
                 {
                     <div class="link-list">
-                        @for (int i = 1; i <= MainService.Library.Libs.Length; i++)
+                        @for (long i = 1; i <= MainService.Library.Libs.LongLength; i++)
                         {
                             <div>
                                 <a target="_blank"
@@ -29,15 +29,23 @@
                         </button>
                     </div>
                     <div class="footer-right">
-                        <button class="nazad">
-                            <img src="icons/nazad.svg" alt="">
-                        </button>
-                        <a href="">1</a>
-                        <a href="">2</a>
-                        <a href="">3</a>
-                        <button href="" class="vpered">
-                            <img src="icons/vpered.svg" alt="">
-                        </button>
+                        @if (CanNext)
+                        {
+                            <button class="nazad">
+                                <img src="icons/nazad.svg" alt="">
+                            </button>
+                        }
+                        @for (ulong i = 1; i <= MainService.Library.TotalPages; i++)
+                        {
+                            var page = i;
+                            <button @onclick="() => { OpenPage(page); }">1</button>
+                        }
+                        @if (CanNext)
+                        {
+                            <button href="" class="vpered">
+                                <img src="icons/vpered.svg" alt="">
+                            </button>
+                        }
                     </div>
                 </div>
             </div>

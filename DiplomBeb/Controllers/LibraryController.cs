@@ -27,6 +27,16 @@ public class LibraryController : ControllerBase
     }
     
     [AuthFilter]
+    [HttpGet("pages")]
+    public async Task<IActionResult> GetPages()
+    {
+        var totake = 30;
+        var count = _context.Library.Count();
+        var pages = Math.Round((double)count / (double)totake, MidpointRounding.ToPositiveInfinity);
+        return Ok(pages);
+    }
+    
+    [AuthFilter]
     [HttpGet("total")]
     public async Task<IActionResult> GetTotal()
     {

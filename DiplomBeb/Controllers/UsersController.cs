@@ -161,5 +161,32 @@ namespace DiplomBeb.Controllers
                 .ToListAsync();
             return Ok(devs);
         }
+        
+        [AuthFilter("admin")]
+        [HttpGet("pages")]
+        public async Task<IActionResult> GetPages()
+        {
+            var users = _context.Users
+                .Include(x => x.WebRole)
+                .Include(x => x.Place)
+                .Select(x =>
+                    new
+                    {
+                        x.Id,
+                        x.Name,
+                        x.Middlename,
+                        x.Surname,
+                        x.Score,
+                        x.WebRole,
+                        x.Phone,
+                        x.Email,
+                        x.Place,
+                    })
+                .OrderByDescending(u => u.Id)
+                .Count();
+            var totake = 30;
+            var pages = users / totake;
+            return Ok(pages);
+        }
     }
 }

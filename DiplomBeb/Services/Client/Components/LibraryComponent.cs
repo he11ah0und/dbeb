@@ -11,6 +11,7 @@ public class LibraryComponent
     public Library[] Random4Libs { get; private set; }
     public Library[] Libs { get; private set; }
     public ulong TotalLibs { get; private set; }
+    public ulong TotalPages { get; private set; }
 
     public LibraryComponent()
     {
@@ -38,6 +39,16 @@ public class LibraryComponent
         
         if (res.ResultAsULong(out var total))
             TotalLibs = total;
+    }
+    
+    public void RequestLibsTotalPages(BackendHttpClient http)
+    {
+        var res = http.NativeRequest("Library/pages");
+        if (!res.IsOk)
+            return;
+        
+        if (res.ResultAsULong(out var total))
+            TotalPages = total;
     }
     
     public void RequestRandom4Libs(BackendHttpClient http)
