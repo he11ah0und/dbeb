@@ -90,14 +90,18 @@ main .container-list {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 4rem 0rem;
+}
+
+.column-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .column-center {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 4rem 0rem;
 }
 
 .column-center .column-left > div {
@@ -111,11 +115,30 @@ div > h4 {
     color: var(--color-text13);
 }
 
-.column-left {
+.name-column > input {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 4rem 0rem;
+    height: 1.4rem;
+    width: auto;
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--color-text13);
+}
+
+.email-column > input {
+    height: 1.4rem;
+    width: auto;
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--color-text13);
+}
+
+.number-column > input {
+    height: 1.4rem;
+    width: auto;
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--color-text13);
 }
 
 .place-linner-bottom {
