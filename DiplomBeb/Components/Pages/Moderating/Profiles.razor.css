@@ -1,21 +1,41 @@
 main {
     display: flex;
-    flex-direction: column;
     flex: 1;
     height: 100%;
     background-color: var(--main-color);
+
 }
 
-
-main .hedder {
+main > div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
+    width: 100%;
+
+    gap: 2rem;
     margin: 2rem;
 }
 
-main .hedder > div {
+main > div > div:nth-child(1) {
+    flex: 1;
+}
+
+main > div > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+
+    width: 30%;
+
+    gap: 2rem;
+}
+
+.warp .hedder {
+    display: flex;
+    justify-content: space-between;
+}
+
+.warp .hedder > div {
     padding: .8rem 2rem;
 
     border-radius: .5rem;
@@ -27,35 +47,11 @@ main .hedder > div {
     color: var(--color-text1);
 }
 
-main .warp {
-    margin-left: 2rem;
-    margin-right: 2rem;
-    max-height: 44.875rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    gap: 2rem;
-
-}
-
-.warp .warp-left {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    border-radius: .625rem;
-    overflow: hidden;
-    background-color: var(--color-light);
-}
-
 .hedder-list {
-    background-color: var(--color5);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
+    position: sticky;
+    top: 0;
 
-.hedder-list .hedder-list-left {
+    background-color: var(--color5);
     display: flex;
     flex-direction: row;
     align-items: start;
@@ -68,33 +64,34 @@ main .warp {
     font-weight: 700;
     font-size: 1.25rem;
     color: var(--color-text6);
+
 }
 
-.hedder-list .hedder-list-right {
+.warp .container.list {
+    flex: 1;
+}
+
+main .warp {
     display: flex;
-    flex-direction: row;
-    align-items: start;
-    justify-content: start;
-    text-align: center;
-    margin-right: 5.4rem;
+    flex-direction: column;
+}
 
-    padding: 1.5625rem 1.25rem;
-
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-text6);
+main .container {
+    margin-top: 1.5rem;
+    border-radius: .625rem;
+    overflow: hidden;
+    background-color: var(--color-light);
 }
 
 .student-list {
     max-height: 100%;
-    /* max-height: calc(100vh/1.542); */
-    overflow-y: auto
-
+    overflow-y: auto;
+    margin-bottom: 4rem;
 }
 
 .student-list::-webkit-scrollbar {
-    width: 2px;
-    border-radius: 5px;
+    width: 0rem;
+    border-radius: 0rem;
     background-color: var(--scroll);
 }
 
@@ -105,10 +102,11 @@ main .warp {
 .student-list > li {
     display: flex;
     font-size: 1.25rem;
-    align-items: center;
-    scrollbar-width: 2px;
     gap: 2rem;
     padding: 1rem 1.25rem;
+
+    overflow-y: auto;
+
 }
 
 .student-list .status {
@@ -136,17 +134,63 @@ main .warp {
 }
 
 
-.warp .warp-right {
+.footer {
+    position: sticky;
+    bottom: 0;
+    background-color: var(--color-light);
+    padding: 1rem;
+    z-index: 10;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+
+}
+
+.footer > a {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-text2);
+
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.footer-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.img-update {
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+main .place-container {
     background-color: var(--color-light);
     border-radius: .625rem;
-    overflow: hidden;
+    margin-top: 4.5rem;
+    height: 100%;
+
     display: flex;
     flex-direction: column;
 
 }
 
-.warp-right .container-title {
+.place-container .container-title {
     background-color: var(--color5);
+    border-top-right-radius: .625rem;
+    border-top-left-radius: .625rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -170,7 +214,7 @@ main .warp {
     height: 2.75rem;
 }
 
-.warp-right .container-dan {
+.place-container .container-dan {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -185,13 +229,13 @@ main .warp {
     display: flex;
     flex-direction: row;
 
-    gap: 8rem;
+    gap: 5rem;
 
 }
 
 .container-dan .container-dan-title {
-    font-weight: 700;
-    font-size: 1.125rem;
+    font-weight: 800;
+    font-size: 1.25rem;
     color: var(--color-text6);
 }
 
@@ -208,15 +252,16 @@ main .warp {
 
 }
 
-.warp-right .container-buttom {
+.place-container .container-buttom {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
+    padding: 0rem 2rem;
     gap: 1rem;
 
     margin-top: 1rem;
+    margin-bottom: 2rem;
 
 }
 
@@ -225,7 +270,7 @@ main .warp {
     background-color: var(--color-text16);
     padding: .8rem 2rem;
     border-radius: .625rem;
-    max-width: 20rem;
+
 
     font-size: 1.125rem;
     color: var(--color-text12);
