@@ -11,6 +11,7 @@ public class ModerationService
     public ModerationService()
     {
         UsersStateChanged = new Callbacker();
+        
     }
     
     public User[] Users { get; private set; }

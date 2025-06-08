@@ -82,22 +82,4 @@ public class AuthWorker
 
         return true;
     }
-
-    public async Task<bool> Validate()
-    {
-        var token = await GetAuthToken();
-        if (!token.HasValue || !token.Value.Success)
-            return false;
-
-        var res = await BHttp.Request("Auth/validate");
-        if (!res.IsOk)
-        {
-            LocalLogOut();
-            return false;
-        }
-
-        if (!res.ResultAsBool(out var bOk))
-            return false;
-        return bOk;
-    }
 }

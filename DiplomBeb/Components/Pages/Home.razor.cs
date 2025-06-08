@@ -1,14 +1,6 @@
-﻿using System.Diagnostics;
-using DiplomBeb.Database.Model;
-using DiplomBeb.Filters;
-using DiplomBeb.Services;
-using DiplomBeb.Services.Client;
-using DiplomBeb.Systems;
-using DiplomBeb.Systems.Accounts;
-using DiplomBeb.Systems.Auth;
+﻿using DiplomBeb.Services.Client;
 using DiplomBeb.Utils.Networking;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace DiplomBeb.Components.Pages;
 

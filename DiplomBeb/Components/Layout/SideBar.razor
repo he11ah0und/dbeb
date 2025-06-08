@@ -21,12 +21,12 @@
 		{
 			<li>
 				<a href=""><img src="/icons/moder-ico.svg" alt="О сервисе"/>Модерация</a>
-				<a href="/logs"><img/>Логи</a>
-				<a href="/profiles"><img/>Пользователи</a>
-				<a href="/docs"><img/>Документы</a>
+				<a href="/special/logs"><img/>Логи</a>
+				<a href="/special/profiles"><img/>Пользователи</a>
+				<a href="/special/docs"><img/>Документы</a>
 				@if (AccountService.Account.ApiRole.Name == "admin")
 				{
-					<a href="/requests"><img/>Запросы</a>
+					<a href="/special/requests"><img/>Запросы</a>
 				}
 			</li>
 		}

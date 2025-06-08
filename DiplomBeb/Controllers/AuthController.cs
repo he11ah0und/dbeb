@@ -56,11 +56,4 @@ public class AuthController : ControllerBase
         _context.SaveChangesAsync();
         return Ok();
     }
-    
-    [AuthFilter("user")]
-    [HttpGet("validate")]
-    public async Task<IActionResult> Validate()
-    {
-        return Ok(HttpContext.Items["authed"]);
-    }
 }

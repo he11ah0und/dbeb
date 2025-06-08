@@ -1,4 +1,6 @@
-@page "/profiles"
+@page "/special/profiles"
+@rendermode RenderMode.InteractiveServer
+@using DiplomBeb.Database.Model
 <main>
 			<div>
 				<div class="warp">
@@ -10,22 +12,27 @@
                             <h4>#</h4>
                             <h4>ФИО</h4>
                         </div>
-						<ul class="student-list">
-                            <li>
-                                <div class="image"></div>
-                                <div class="name">
-                                    <h4>Акакий Акакиевич Акаков</h4>
-                                    <p>Студент</p>
-                                </div>
-                            </li>
-						</ul>
+                        <ul class="student-list">
+                            @if (ModerationService.Users is User[] users)
+                            {
+                                for (long i = 0; i < users.LongLength; i++)
+                                {
+                                    if (users[i] is not User user) continue;
+                                    <li>
+                                        <div class="image"></div>
+                                        <div class="name">
+                                            <h4>@user.Surname @user.Name @user.Middlename</h4>
+                                            <p>@user.WebRole.Name</p>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        </ul>
                         <div class="footer">
                             <div class="footer-left">
-                                <a href="">
-                                    <bottom class="update">
-                                        <img class="img-update" src="/icons/update.svg" alt="">
-                                    </bottom>
-                                </a>
+                                <bottom class="update" @onclick="Update">
+                                    <img class="img-update" src="/icons/update.svg" alt="">
+                                </bottom>
                             </div>
                             <div class="footer-right">
                                 <a href="">

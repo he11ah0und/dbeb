@@ -2,11 +2,8 @@ using System.Diagnostics;
 using System.Text;
 using DiplomBeb.Database.Model;
 using DiplomBeb.Filters;
-using DiplomBeb.Systems.Accounts;
-using DiplomBeb.Systems.Auth;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.Networking;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace DiplomBeb.Services.Client;
 
@@ -31,17 +28,17 @@ public class AccountService
     public async Task Auth(
         BackendHttpClient http)
     {
-        var islogged = await http.Auth.Validate();
         
-        IsLogged = islogged;
-        if (IsLogged)
-        {
-            Account = await AccountsEngineClient.GetPersonal(
-                http);
-            UserRank = await AccountsEngineClient.GetRank(
-                (ulong)Account.Id,
-                http);
-        }
+        var res = await http.Request("Users/personal");
+        IsLogged = res.IsOk;
+        if (res.ResultAsJson<User>(out var user))
+            Account = user;
+            
+        res = await http.Request($"Users/top/{Account.Id}");
+        IsLogged = res.IsOk;
+        if (res.ResultAsJson<UserRank>(out var rank))
+            UserRank = rank;
+        
         Initialized = true;
         StateHasChanged();
     }

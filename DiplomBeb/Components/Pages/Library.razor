@@ -31,7 +31,7 @@
                     <div class="footer-right">
                         @if (CanNext)
                         {
-                            <button class="nazad">
+                            <button class="nazad" @onclick="BackPage">
                                 <img src="icons/nazad.svg" alt="">
                             </button>
                         }
@@ -42,7 +42,7 @@
                         }
                         @if (CanNext)
                         {
-                            <button href="" class="vpered">
+                            <button href="" class="vpered" @onclick="NextPage">
                                 <img src="icons/vpered.svg" alt="">
                             </button>
                         }
