@@ -162,6 +162,7 @@ main .middle {
 }
 
 .student-list .place {
+    width: 1rem;
     margin-right: 1.5rem;
     color: var(--color-dark);
 }
@@ -195,7 +196,7 @@ main .middle {
 }
 
 .footer {
-    position: relative; 
+    position: relative;
     background-color: var(--color-light);
     padding: 0.5rem 1rem;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
@@ -208,7 +209,6 @@ main .middle {
     font-weight: 700;
     font-size: 1.25rem;
     color: var(--color-text2);
-
 }
 
 .footer-left {
@@ -218,7 +218,7 @@ main .middle {
     align-items: center;
 }
 
-.footer-right > button {
+.footer-left > button {
     background-color: transparent;
     border: none;
     padding: 0;
