@@ -15,9 +15,18 @@
                                 <img class="img39" src="images/prof-foto-img.svg" alt="Фото автара" />
                             </div>
                             <div class="column-center">
-                                <div>
+                                <div class="name-column">
                                     <h3>ФИО:</h3>
-                                    <h4>@AccountService.Account.Surname @AccountService.Account.Name @AccountService.Account.Middlename</h4>
+                                    @if (InEdit)
+                                    {
+                                        <input type="text" @bind="AccountService.Account.Surname"/>
+                                        <input type="text" @bind="AccountService.Account.Name"/>
+                                        <input type="text" @bind="AccountService.Account.Middlename"/>
+                                    }
+                                    else
+                                    {
+                                        <h4>@AccountService.Account.Surname @AccountService.Account.Name @AccountService.Account.Middlename</h4>
+                                    }
                                 </div>
                                 <div>
                                     <h3>Место:</h3>
@@ -34,20 +43,34 @@
                                     <h4>@AccountService.UserRank.Position</h4>
                                 </div>
                             </div>
-                            <dfiv class="column-left">
-                                <div>
+                            <div class="column-left">
+                                <div class="email-column">
                                     <h3>Email:</h3>
-                                    <h4>@AccountService.Account?.Email</h4>
+                                    @if (InEdit)
+                                    {
+                                        <input type="text" @bind="AccountService.Account.Email"/>
+                                    }
+                                    else
+                                    {
+                                        <h4>@AccountService.Account?.Email</h4>
+                                    }
                                 </div>
-                                <div>
+                                <div class="number-column">
                                     <h3>Номер телефона:</h3>
-                                    <h4>@AccountService.Account?.Phone</h4>
+                                    @if (InEdit)
+                                    {
+                                        <input type="text" @bind="AccountService.Account.Phone"/>
+                                    }
+                                    else
+                                    {
+                                        <h4>@AccountService.Account?.Phone</h4>
+                                    }
                                 </div>
-                            </dfiv>
+                            </div>
                         </div>
                     </div>
                     <div class="place-linner-bottom">
-                        <button href="../profile2/index.html"  class="button_change">
+                        <button href="../profile2/index.html" class="button_change" @onclick="EditMode">
                             <img class="img38" src="icons/redactir-ico.svg" alt="Редактировать" />
                             <h4>ИЗМЕНИТЬ</h4>
                         </button>

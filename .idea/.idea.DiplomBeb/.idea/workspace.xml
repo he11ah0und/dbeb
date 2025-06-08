@@ -7,8 +7,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="c459eb89-ed39-4d00-8ef3-0675c81617aa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Moderating/Profiles.razor" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Moderating/Profiles.razor" afterDir="false" />
+=======
+    <list default="true" id="7446b28c-0fc1-40d4-bf08-77e1cb0c69e3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.DiplomBeb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DiplomBeb/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Auth/Profile.razor" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Auth/Profile.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Auth/Profile.razor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Auth/Profile.razor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Auth/Profile.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/Components/Pages/Auth/Profile.razor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiplomBeb/wwwroot/favicon.png" beforeDir="false" afterPath="$PROJECT_DIR$/DiplomBeb/wwwroot/favicon.png" afterDir="false" />
+>>>>>>> 120f7ca75a7b0c2379584a8ac3df8708ddccce9a
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,15 +30,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="mock://E:/work/github/DiplomBeb/Components/Layout/SideBar.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/work/github/DiplomBeb/Components/Pages/Library.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-  </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 1
-}]]></component>
-  <component name="ProjectId" id="2yDha4vfN1w23vJPHbG1oZF3jFm" />
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2yDUXXXLMio5FZ4OtDQKOz94LhU" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -41,9 +46,6 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
@@ -68,12 +70,18 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c459eb89-ed39-4d00-8ef3-0675c81617aa" name="Changes" comment="" />
-      <created>1749375114012</created>
+      <changelist id="7446b28c-0fc1-40d4-bf08-77e1cb0c69e3" name="Changes" comment="" />
+      <created>1749368679002</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
+<<<<<<< HEAD
       <updated>1749375114012</updated>
       <workItem from="1749375117498" duration="2288000" />
+=======
+      <updated>1749368679002</updated>
+      <workItem from="1749368682320" duration="12000" />
+      <workItem from="1749368708649" duration="45000" />
+>>>>>>> 120f7ca75a7b0c2379584a8ac3df8708ddccce9a
     </task>
     <servers />
   </component>

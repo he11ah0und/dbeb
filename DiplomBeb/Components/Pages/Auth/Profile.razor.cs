@@ -21,6 +21,8 @@ public partial class Profile
     [Inject]
     private NavigationManager Navigation { get; set; }
     
+    private bool InEdit { get; set; }
+    
     protected override async Task OnInitializedAsync()
     {
         AccountService.StateChanged.Subscribe("profile", AccountServiceOnStateChanged);
@@ -28,6 +30,19 @@ public partial class Profile
 
     private void AccountServiceOnStateChanged()
     {
+        StateHasChanged();
+    }
+
+    private void EditMode()
+    {
+        if (!InEdit)
+        {
+            InEdit = true;
+        }
+        else if (InEdit)
+        {
+            InEdit = false;
+        }
         StateHasChanged();
     }
 
