@@ -20,7 +20,7 @@ public class PlaceComponent
         _accountService = accountService;
         PlaceLoaded = new Callbacker();
     }
-
+    
     public async Task RequestPlace(BackendHttpClient http, long id)
     {
         // place info
