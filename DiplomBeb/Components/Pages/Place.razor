@@ -15,9 +15,9 @@
                     </div>
                 </div>
                 <div class="container-list">
-                    @if (UserService.Place.UsersInPlace is not null)
-                    {
-                        <ul class="student-list">
+                    <ul class="student-list">
+                        @if (UserService.Place.UsersInPlace is not null)
+                        {
                             @for (var i = 0; i < UserService.Place.UsersInPlace.LongLength; i++)
                             {
                                 if (UserService.Place.UsersInPlace[i] is not User user)
@@ -35,8 +35,9 @@
                                     </div>
                                 </li>
                             }
-                        </ul>
-                    }
+                        }
+                    </ul>
+                    
                     <div class="footer">
                         <div class="footer-left">
                             <button class="update" @onclick="Update">

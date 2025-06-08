@@ -11,9 +11,9 @@
                 <div>Всего пользователей: @MainService.Users.TotalUsers</div>
             </div>
             <div class="container-list">
-                @if (MainService.Users.UsersTop is not null)
-                {
-                    <ul class="student-list">
+                <ul class="student-list">
+                    @if (MainService.Users.UsersTop is not null)
+                    {
                         @for (int i = 1; i <= MainService.Users.UsersTop.Length; i++)
                         {
                             <li>
@@ -25,12 +25,12 @@
                                 </div>
                                 <div class="score">
                                     <h4>@MainService.Users.UsersTop[i - 1].Score</h4>
-                                    <img src="icons/star1-ico.svg" alt="звезды" />
+                                    <img src="icons/star1-ico.svg" alt="звезды"/>
                                 </div>
                             </li>
                         }
-                    </ul>
-                }
+                    }
+                </ul>
                 <div class="footer">
                     <div class="footer-left">
                         <button class="update" @onclick="OnUpdateClick">

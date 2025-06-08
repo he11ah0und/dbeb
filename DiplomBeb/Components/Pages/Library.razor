@@ -8,9 +8,9 @@
                 <div>Библиотека полезных ссылок</div>
             </div>
             <div class="container-list">
-                @if (MainService.Library.Libs != null)
-                {
-                    <div class="link-list">
+                <div class="link-list">
+                    @if (MainService.Library.Libs != null)
+                    {
                         @for (long i = 1; i <= MainService.Library.Libs.LongLength; i++)
                         {
                             <div>
@@ -20,8 +20,8 @@
                                 </a>
                             </div>
                         }
-                    </div>
-                }
+                    }
+                </div>
                 <div class="footer">
                     <div class="footer-left">
                         <button class="update" @onclick="Update">
