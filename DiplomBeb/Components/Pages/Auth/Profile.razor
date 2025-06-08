@@ -21,11 +21,13 @@
                                 </div>
                                 <div>
                                     <h3>Место:</h3>
-                                    <h4>@AccountService.Account?.Place?.Content</h4>
+                                    <button @onclick="OpenPlace">
+                                        <h4>@AccountService.Account?.Place?.Content</h4>
+                                    </button>
                                 </div>
                                 <div>
                                     <h3>Звёзд:</h3>
-                                    <h4>@AccountService.Account.Score</h4>
+                                    <h4>@AccountService.Account?.Score</h4>
                                 </div>
                                 <div>
                                     <h3>Место в ТОПе:</h3>
@@ -35,11 +37,11 @@
                             <dfiv class="column-left">
                                 <div>
                                     <h3>Email:</h3>
-                                    <h4>@AccountService.Account.Email</h4>
+                                    <h4>@AccountService.Account?.Email</h4>
                                 </div>
                                 <div>
                                     <h3>Номер телефона:</h3>
-                                    <h4>@AccountService.Account.Phone</h4>
+                                    <h4>@AccountService.Account?.Phone</h4>
                                 </div>
                             </dfiv>
                         </div>

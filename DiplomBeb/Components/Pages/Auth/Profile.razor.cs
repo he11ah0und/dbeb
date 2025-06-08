@@ -21,8 +21,6 @@ public partial class Profile
     [Inject]
     private NavigationManager Navigation { get; set; }
     
-    public bool IsShouldRender { get; set; }
-    
     protected override async Task OnInitializedAsync()
     {
         AccountService.StateChanged.Subscribe("profile", AccountServiceOnStateChanged);
@@ -30,13 +28,15 @@ public partial class Profile
 
     private void AccountServiceOnStateChanged()
     {
-        IsShouldRender = true;
         StateHasChanged();
     }
 
-    protected override bool ShouldRender()
+    private void OpenPlace()
     {
-        return IsShouldRender;
+        var place = AccountService?.Account.Place;
+        if (place == null || place.Id == null)
+            return;
+        Navigation.NavigateTo($"/place/{place.Id}");
     }
 
     private void OnLogOut()
