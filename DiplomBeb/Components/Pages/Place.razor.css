@@ -156,7 +156,7 @@ main .middle {
     display: flex;
     font-size: 1.25rem;
     align-items: center;
-    scrollbar-width: 2px;
+    scrollbar-width: thin;
     gap: 1rem;
     padding: 0.8rem 0rem;
 }
@@ -195,8 +195,7 @@ main .middle {
 }
 
 .footer {
-
-    position: relative; /* Убираем sticky, чтобы footer был внутри контейнера */
+    position: relative; 
     background-color: var(--color-light);
     padding: 0.5rem 1rem;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
@@ -217,6 +216,13 @@ main .middle {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+}
+
+.footer-right > button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }
 
 .img-update {

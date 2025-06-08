@@ -72,7 +72,7 @@ main {
     padding: .3rem 1rem;
     display: flex;
     flex-direction: row;
-    align-items: left;
+    align-items: start;
     text-align: left;
 }
 
@@ -84,7 +84,7 @@ input {
     margin-right: 1rem;
     display: flex;
     flex-direction: row;
-    align-items: left;
+    align-items: start;
     text-align: left;
 }
 
@@ -128,7 +128,7 @@ main .middle {
         overflow-y: auto;
         display: flex;
         flex-direction: column;
-        align-items: left;
+        align-items: start;
         text-align: left;
     }
 
@@ -159,12 +159,26 @@ main .middle {
     align-items: center;
 }
 
+.footer-left > button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
 .footer-right {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
+}
+
+.footer-right > button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }
 
 .img-update {

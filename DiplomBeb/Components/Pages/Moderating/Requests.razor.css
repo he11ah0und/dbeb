@@ -107,7 +107,7 @@ main .warp {
     display: flex;
     font-size: 1.25rem;
     align-items: center;
-    scrollbar-width: 2px;
+    scrollbar-width: thin;
     gap: 2rem;
     padding: 1rem 1.25rem;
 }

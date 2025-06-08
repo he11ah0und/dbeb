@@ -154,6 +154,7 @@ main .middle {
 }
 
 .student-list .place {
+    width: 1rem;
     margin-right: 1.5rem;
     color: var(--color-dark);
 }
@@ -202,6 +203,13 @@ main .middle {
     font-size: 1.25rem;
     color: var(--color-text2);
 
+}
+
+.footer-left > button {
+    background-color: transparent;
+    border: none;                   
+    padding: 0;                    
+    cursor: pointer;
 }
 
 .footer-left {

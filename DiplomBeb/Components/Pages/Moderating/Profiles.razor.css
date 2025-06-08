@@ -30,12 +30,12 @@ main > div > div:nth-child(2) {
     gap: 2rem;
 }
 
-.warp .hedder {
+.warp .heading {
     display: flex;
     justify-content: space-between;
 }
 
-.warp .hedder > div {
+.warp .heading > div {
     padding: .8rem 2rem;
 
     border-radius: .5rem;
@@ -47,7 +47,7 @@ main > div > div:nth-child(2) {
     color: var(--color-text1);
 }
 
-.hedder-list {
+.heading-list {
     position: sticky;
     top: 0;
 
@@ -67,26 +67,27 @@ main > div > div:nth-child(2) {
 
 }
 
-.warp .container.list {
-    flex: 1;
-}
-
 main .warp {
     display: flex;
     flex-direction: column;
 }
 
-main .container {
+main .container-list {
+    display: flex;
+    flex-direction: column; /* Делаем контейнер flex-контейнером */
+    height: 100%; /* Указываем высоту контейнера */
     margin-top: 1.5rem;
+
     border-radius: .625rem;
     overflow: hidden;
     background-color: var(--color-light);
 }
 
 .student-list {
-    max-height: 100%;
+    flex: 1; /* Занимает все доступное пространство */
     overflow-y: auto;
-    margin-bottom: 4rem;
+    margin-bottom: 0; /* Убираем отступы */
+    padding: 1rem 1rem;
 }
 
 .student-list::-webkit-scrollbar {
@@ -141,12 +142,10 @@ main .container {
     padding: 1rem;
     z-index: 10;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
-
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
-
 }
 
 .footer > a {
@@ -163,12 +162,26 @@ main .container {
     align-items: center;
 }
 
+.footer-left > button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
 .footer-right {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
+}
+
+.footer-right > button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }
 
 .img-update {
