@@ -85,7 +85,7 @@ namespace DiplomBeb.Controllers
                                             id, 
                                             score, 
                                             ROW_NUMBER() OVER (ORDER BY score DESC) AS position
-                                        FROM portfolio.users
+                                        FROM digitalpass.users
                                     ) AS ranked_users
                                     WHERE id = {0}
                             """, id)

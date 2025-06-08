@@ -35,7 +35,7 @@ namespace DiplomBeb
             
             // database with all data
             builder.Services.AddDbContext<MainDBContext>(
-                options => options.UseMySql("server=127.0.0.1;Port=3306;user=root;database=portfolio;",
+                options => options.UseMySql("server=127.0.0.1;Port=3306;user=digitalpassUser;password=4LcQ8N4Jl07jzfDy2c4H;database=digitalpass;",
                     new MySqlServerVersion(new Version(8, 0, 11) ),
                     o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
             
