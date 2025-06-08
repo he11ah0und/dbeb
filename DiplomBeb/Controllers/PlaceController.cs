@@ -20,6 +20,25 @@ public class PlaceController : ControllerBase
     [HttpGet("users/{placeId:long}")]
     public async Task<IActionResult> GetUsersInPlace(long placeId)
     {
+        var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
+        var authedUser = _context.Users
+            .Include(u => u.ApiRole)
+            .Include(u => u.Place)
+            .SingleOrDefault(u => u.Id == authedId);
+        
+        if (authedUser == null)
+            return BadRequest();
+
+        var inPlace = _context.Users
+                .Include(u => u.Place)
+                .SingleOrDefault(u => u.Place.Id == (ulong)placeId && u.Id == authedId)
+            is User;
+        
+        if (!authedUser.ApiRole.IsMoreUser() 
+            && (authedUser.Place.Id != (ulong)placeId
+                || !inPlace))
+            return NoContent();
+        
         var users = _context.Users
             .Include(u => u.Place)
             .Where(u => u.Place.Id == (ulong)placeId)
@@ -95,7 +114,7 @@ public class PlaceController : ControllerBase
     
     [AuthFilter("user")]
     [HttpGet("count/{placeId:long}")]
-    public async Task<IActionResult> GetPlaceUsers(int placeId)
+    public async Task<IActionResult> GetPlaceUsers(long placeId)
     {
         var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
         var authedUser = _context.Users
@@ -126,6 +145,18 @@ public class PlaceController : ControllerBase
     [HttpGet("count")]
     public async Task<IActionResult> GetPlaceCounts()
     {
+        var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
+        var authedUser = _context.Users
+            .Include(u => u.ApiRole)
+            .Include(u => u.Place)
+            .SingleOrDefault(u => u.Id == authedId);
+        
+        if (authedUser == null)
+            return BadRequest();
+        
+        if (!authedUser.ApiRole.IsMoreUser())
+            return NoContent();
+        
         var places = _context.Places
             .Count();
         return Ok(places);
@@ -135,6 +166,25 @@ public class PlaceController : ControllerBase
     [HttpGet("{placeId:int}")]
     public async Task<IActionResult> GetPlace(int placeId)
     {
+        var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
+        var authedUser = _context.Users
+            .Include(u => u.ApiRole)
+            .Include(u => u.Place)
+            .SingleOrDefault(u => u.Id == authedId);
+        
+        if (authedUser == null)
+            return BadRequest();
+
+        var inPlace = _context.Users
+                .Include(u => u.Place)
+                .SingleOrDefault(u => u.Place.Id == (ulong)placeId && u.Id == authedId)
+            is User;
+        
+        if (!authedUser.ApiRole.IsMoreUser() 
+            && (authedUser.Place.Id != (ulong)placeId
+                || !inPlace))
+            return NoContent();
+        
         var place = _context.Places
             .SingleOrDefault(p => p.Id == (ulong)placeId);
         return Ok(place);
