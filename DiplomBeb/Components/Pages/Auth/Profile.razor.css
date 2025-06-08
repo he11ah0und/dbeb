@@ -141,6 +141,30 @@ div > h4 {
     color: var(--color-text13);
 }
 
+.Place-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    
+}
+.Place-column > button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    height: 1.4rem;
+    width: auto;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text2);
+    
+    text-align: left;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
 .place-linner-bottom {
     margin-top: 4rem;
     display: flex;
