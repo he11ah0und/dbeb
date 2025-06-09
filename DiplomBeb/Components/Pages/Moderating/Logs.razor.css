@@ -47,127 +47,108 @@ main > div > div:nth-child(2) {
     color: var(--color-text1);
 }
 
-.heading-list {
-    position: sticky;
-    top: 0;
-
-    background-color: var(--color5);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: center;
-}
-
-.heading-list .heading-list-left {
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    justify-content: start;
-    text-align: center;
-
-    padding: 1.5625rem 1.25rem;
-    gap: 3.9375rem;
-
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-text6);
-}
-
-.heading-list .heading-list-right {
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    justify-content: start;
-    text-align: center;
-    margin-right: 5.4rem;
-
-    padding: 1.5625rem 1.25rem;
-    gap: 10rem;
-
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-text6);
-}
-
-
-main .warp {
+.container-list {
+    margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
-}
-
-main .container-list {
-    display: flex;
-    flex-direction: column; /* Делаем контейнер flex-контейнером */
-    height: 100%; /* Указываем высоту контейнера */
-    margin-top: 1.5rem;
-
-    border-radius: .625rem;
+    height: 100%;
+    border-radius: 0.625rem;
     overflow: hidden;
     background-color: var(--color-light);
 }
 
-.student-list {
-    flex: 1; /* Занимает все доступное пространство */
+.table-wrapper {
+    flex: 1;
     overflow-y: auto;
-    margin-bottom: 0; /* Убираем отступы */
-    padding: 1rem 1rem;
+    position: relative;
+
+    -ms-overflow-style: none;  
+    scrollbar-width: none;   
+}
+.table-wrapper::-webkit-scrollbar {
+    display: none;
 }
 
-.student-list::-webkit-scrollbar {
-    width: 0rem;
-    border-radius: 0rem;
-    background-color: var(--scroll);
-}
-
-.student-list::-webkit-scrollbar-thumb {
-    background: var(--color-text2);
-}
-
-.student-list > li {
-    display: flex;
-    font-size: 1.25rem;
-    gap: 2rem;
-    padding: 1rem 1.25rem;
-
-    overflow-y: auto;
-
-}
-
-.student-list .status {
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    vertical-align: top;
-    justify-content: start;
-    text-align: start;
-    margin-right: 3.4rem;
-
-
-    padding: 1.5625rem 1.25rem;
-    gap: 5rem;
-
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-text3);
+.student-table {
+    width: 100%;
+    border-collapse: collapse;
     
 }
 
-.student-list .image {
-    background-color: var(--color3);
-    border-radius: .625rem;
-    width: 2.75rem;
-    height: 2.75rem;
+.student-table thead {
+    background-color: var(--color5);
+    padding: 1.25rem 1.25rem;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+    
 }
 
-.student-list .name  {
-    flex: 1;
+.student-table tbody {
+    padding: 1.25rem 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.student-table th,
+.student-table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    vertical-align: middle;
+    
+    font-size: 1.25rem;
     color: var(--color-text3);
 }
 
-.student-list .name p {
+.student-table th {
+    background-color: var(--color5);
+    
+    font-weight: bold;
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--color-text6);
+}
+
+.student-table .image {
+    background-color: var(--color3);
+    border-radius: 0.625rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.student-table .name h4 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--color-text3);
+}
+
+.student-table .name p {
+    margin: 0.25rem 0 0 0;
     font-size: 1rem;
     color: var(--color-text4);
 }
+
+.student-table td h4 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text3);
+}
+
+.stars-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;         
+}
+
+.student-table .star h4 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--color-text4);
+}
+
 
 .footer {
     position: sticky;
@@ -177,30 +158,8 @@ main .container-list {
     z-index: 10;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-}
-
-.footer > a {
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-text2);
-
-}
-
-.footer-left {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.footer-left > button {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
 }
 
 .footer-right {
@@ -211,7 +170,14 @@ main .container-list {
     gap: 1rem;
 }
 
-.footer-right > button {
+.footer a {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-text2);
+}
+
+.footer-left button,
+.footer-right button {
     background-color: transparent;
     border: none;
     padding: 0;
@@ -221,6 +187,11 @@ main .container-list {
 .img-update {
     width: 1.3rem;
     height: 1.3rem;
+}
+
+main .warp {
+    display: flex;
+    flex-direction: column;
 }
 
 main .place-container {
@@ -350,7 +321,7 @@ main .place-container {
     font-size: 1.125rem;
     color: var(--color-text12);
     text-transform: uppercase;
-
+    
 }
 
 .container-dan .wid-status {
@@ -361,4 +332,6 @@ main .place-container {
     font-weight: 700;
     font-size: 1.125rem;
     color: var(--color-text12);
+    
 }
+    
