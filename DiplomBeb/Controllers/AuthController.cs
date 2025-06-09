@@ -26,7 +26,7 @@ public class AuthController : ControllerBase
     [HttpPost("signin")]
     public async Task<IActionResult> SignIn(SignInData user)
     {
-        (bool state, string token) = await AuthEngineServer.ServerSideSignIn(
+        (bool state, string token) = AuthEngineServer.ServerSideSignIn(
             _context,
             HttpContext,
             user);
@@ -53,7 +53,7 @@ public class AuthController : ControllerBase
     {
         var token = _context.Tokens.SingleOrDefault(t => t.Id == (ulong)HttpContext.Items["authed.token.id"]);
         _context.Tokens.Remove(token);
-        _context.SaveChangesAsync();
+        _context.SaveChanges();
         return Ok();
     }
 }

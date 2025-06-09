@@ -17,6 +17,11 @@ public partial class Profile
     
     protected override async Task OnInitializedAsync()
     {
+        
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
         AccountService.StateChanged.Subscribe("profile", AccountServiceOnStateChanged);
     }
 
@@ -33,6 +38,7 @@ public partial class Profile
         }
         else if (InEdit)
         {
+            
             InEdit = false;
         }
         StateHasChanged();
@@ -46,9 +52,9 @@ public partial class Profile
         Navigation.NavigateTo($"/place/{place.Id}");
     }
 
-    private void OnLogOut()
+    private async Task OnLogOut()
     {
-        Http.Auth.LogOut();
+        await Http.Auth.LogOut();
         Navigation.NavigateTo("/account", true);
     }
 }

@@ -21,7 +21,7 @@ public class AuthEngineServer
     {
         bool ispublic = theApiRole == "none";
         
-        (bool isLogged, ulong tokenId, string reason) = await ServerSideAuthorize(
+        (bool isLogged, ulong tokenId, string reason) = ServerSideAuthorize(
             context,
             theApiRole,
             useContext);
@@ -76,7 +76,7 @@ public class AuthEngineServer
         return true;
     }
     
-    internal static async Task<(bool, string)> ServerSideSignIn(
+    internal static (bool, string) ServerSideSignIn(
         MainDBContext context,
         HttpContext httpContext,
         SignInData user)
@@ -86,10 +86,9 @@ public class AuthEngineServer
             return (false, "");
 
         // find account by data
-        var fuser = await context.Users.Where(
-                (u) => (u.Email == user.Email)
-                       && u.Password == user.Password)
-            .SingleOrDefaultAsync();
+        var fuser = context.Users
+            .SingleOrDefault(u => (u.Email == user.Email)
+                                  && u.Password == user.Password);
 
         if (fuser == null)
             return (false, "");
@@ -98,13 +97,13 @@ public class AuthEngineServer
         var now = DateTime.Now.TimeOfDay;
         var add = TimeSpan.FromHours(12);
         var tokenUser = new User() { Id = fuser.Id };
-        Token token = new Token { Issued = now.ToString(), Expired = now.Add(add).ToString(), User = fuser};
+        var token = new Token { Issued = now.ToString(), Expired = now.Add(add).ToString(), User = fuser};
         
         // add to db new token for user
         context.Tokens.Add(token);
         
         // commit changes to db
-        await context.SaveChangesAsync();
+        context.SaveChanges();
         
         token.User = tokenUser;
 
@@ -112,19 +111,19 @@ public class AuthEngineServer
         
         return (true, jwt);
     }
-    internal static async Task<(bool, ulong, string)> ServerSideAuthorize(
+    internal static (bool, ulong, string) ServerSideAuthorize(
         HttpContext context,
         string theApiRole = "none",
         bool useContext = false)
     {
-        var result = await PrivateServerSideAuthorize(context, theApiRole, useContext);
+        var result = PrivateServerSideAuthorize(context, theApiRole, useContext);
         context.Items.TryAdd("authed", result.Item1);
         context.Items.TryAdd("authed.id", result.Item3);
         context.Items.TryAdd("authed.token.id", result.Item2);
         return result;
     }
     
-    private static async Task<(bool, ulong, string)> PrivateServerSideAuthorize(
+    private static (bool, ulong, string) PrivateServerSideAuthorize(
         HttpContext context,
         string theApiRole = "none",
         bool useContext = false)

@@ -14,21 +14,21 @@ public partial class Library
     public long? Page { get; set; }
     
     [Inject]
-    private BackendHttpClient Http { get; set; }
-    [Inject]
     private LibraryService LibraryService { get; set; }
     [Inject]
     private NavigationManager Navigation { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
-        LibraryService.LibraryListView.OnListUpdated.Subscribe("library", OnListUpdated);
-        LibraryService.LibraryListView.OnPageSwitch.Subscribe("library", OnNavigate);
+        LibraryService.ListView.OnListUpdated.Subscribe("library", OnListUpdated);
+        LibraryService.ListView.OnPageSwitch.Subscribe("library", OnNavigate);
+        
+        await LibraryService.ListView.First((ulong)Page);
     }
 
     private void OnNavigate()
     {
-        Navigation.NavigateTo($"/library/{LibraryService.LibraryListView.Page}", true);
+        Navigation.NavigateTo($"/library/{LibraryService.ListView.Page}", true);
     }
     
     private void OnListUpdated()
@@ -39,7 +39,7 @@ public partial class Library
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-
-        LibraryService.LibraryListView.First((ulong)Page);
+        
+        
     }
 }

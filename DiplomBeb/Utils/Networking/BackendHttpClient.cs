@@ -1,5 +1,4 @@
 using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace DiplomBeb.Utils.Networking;
@@ -8,13 +7,13 @@ public class BackendHttpClient
 {
     internal ProtectedLocalStorage ProtectedLocalStore { get; set; }
     public AuthWorker Auth { get; private set; }
-    private HttpClient Http;
+    private HttpClient _http;
 
     public BackendHttpClient(ProtectedLocalStorage pls)
     {
         ProtectedLocalStore = pls;
-        Http = new HttpClient();
-        Http.BaseAddress = new Uri("http://localhost:5062/api/");
+        _http = new HttpClient();
+        _http.BaseAddress = new Uri("http://localhost:5062/api/");
         Auth = new AuthWorker(this);
     }
 
@@ -24,18 +23,15 @@ public class BackendHttpClient
         HttpMethod method = null)
     {
         HttpResponseState state = new HttpResponseState(false);
-        ProtectedBrowserStorageResult<string>? token = await Auth.GetAuthToken();
-        
-        if (!token.HasValue || !token.Value.Success)
-        {
+        var token = await Auth.GetAuthToken();
+
+        if (!token.HasValue)
             return state;
-        }
-        var tokenVal = token.Value.Value;
             
-        Action<HttpRequestHeaders>? fnAuth = string.IsNullOrEmpty(tokenVal) ? null :
+        Action<HttpRequestHeaders>? fnAuth = string.IsNullOrEmpty(token.Value.Value) ? null :
             (HttpRequestHeaders h) =>
         {
-            h.Authorization = new AuthenticationHeaderValue("Bearer", tokenVal);
+            h.Authorization = new AuthenticationHeaderValue("Bearer", token.Value.Value);
         };
         state = await NativeRequest(url,
             content,
@@ -43,7 +39,7 @@ public class BackendHttpClient
             fnAuth);
         if (!state.IsOk)
         {
-            Auth.LocalLogOut();
+            await Auth.LocalLogOut();
         }
         return state;
     }
@@ -60,7 +56,7 @@ public class BackendHttpClient
             var mes = new HttpRequestMessage(method is null ? HttpMethod.Get : method, url);
             fnSetHeaders?.Invoke(mes.Headers);
             mes.Content = content;
-            var res = state.Value = await Http.SendAsync(mes);
+            var res = state.Value = await _http.SendAsync(mes);
             
             state.IsOk = res.IsSuccessStatusCode;
             state.Value = res;

@@ -1,37 +1,77 @@
 @rendermode RenderMode.InteractiveServer
 
-<!--
 <div class="heading">
-    <div>@_header</div>
-    <div>Всего пользователей: @MainService.Users.TotalUsers</div>
+    <div>@ListView.Header</div>
+    <div>Всего: @ListView.Total</div>
 </div>
 <div class="container-list">
     <ul class="student-list">
-        @if (ListView.GetData<>() is not null)
+        @if (ListView.Data.LongLength > 0)
         {
-            @for (int i = 1; i <= MainService.Users.UsersTop.Length; i++)
+            var data = ListView.Data;
+            var len = data.LongLength;
+            @for (long i = 1; i <= len; i++)
             {
+                var io = i - 1;
                 <li>
                     <div class="place">@i</div>
-                    <div class="image"></div>
-                    <div class="name">
-                        <h4>@MainService.Users.UsersTop[i - 1].Surname @MainService.Users.UsersTop[i - 1].Name @MainService.Users.UsersTop[i - 1].Middlename</h4>
-                        <p>@MainService.Users.UsersTop[i - 1].WebRole?.Name</p>
-                    </div>
-                    <div class="score">
-                        <h4>@MainService.Users.UsersTop[i - 1].Score</h4>
-                        <img src="icons/star1-ico.svg" alt="звезды"/>
-                    </div>
+                    @if (ListView.IsHave("avatar"))
+                    {
+                        <div class="image"></div>
+                    }
+                    @if (ListView.IsHave("name"))
+                    {
+                        <div class="name">
+                        
+                            @if (ListView.IsHave("surname") && ListView.IsHave("middlename"))
+                            {
+                                <h4>@data[io].Get("surname") @data[io].Get("name") @data[io].Get("middlename")</h4>
+                            }
+                            else
+                            {
+                                <h4>@data[io].Get("name")</h4>
+                            }
+                            @if (ListView.IsHave("webrole_name"))
+                            {
+                                <p>@data[io].Get("webrole_name")</p>
+                            }
+                        </div>
+                    }
+                    @if (ListView.IsHave("score"))
+                    {
+                        <div class="score">
+                            <h4>@data[io].Get("score")</h4>
+                            <img src="icons/star1-ico.svg" alt="звезды"/>
+                        </div>
+                    }
                 </li>
             }
         }
     </ul>
     <div class="footer">
         <div class="footer-left">
-            <button class="update" @onclick="OnUpdateClick">
+            <button class="update" @onclick="ListView.Update">
                 <img class="img-update" src="icons/update.svg" alt="">
             </button>
         </div>
+        <div class="footer-right">
+            @if (ListView.CanPrevious)
+            {
+                <button class="nazad" @onclick="ListView.PreviousPage">
+                    <img src="icons/nazad.svg" alt="">
+                </button>
+            }
+            @for (ulong i = 1; i <= ListView.MaxPages; i++)
+            {
+                var page = i;
+                <button @onclick="() => { ListView.SpecificPage(page); }">1</button>
+            }
+            @if (ListView.CanNext)
+            {
+                <button href="" class="vpered" @onclick="ListView.NextPage">
+                    <img src="icons/vpered.svg" alt="">
+                </button>
+            }
+        </div>
     </div>
 </div>
--->

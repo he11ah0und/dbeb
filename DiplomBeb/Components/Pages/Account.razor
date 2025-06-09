@@ -7,9 +7,11 @@
 
 @if (AccountService.IsLogged)
 {
+    <PageTitle>Профиль - Цифровое портфолио</PageTitle>
     <DiplomBeb.Components.Pages.Auth.Profile/>
 }
 else
 {
+    <PageTitle>Вход - Цифровое портфолио</PageTitle>
     <DiplomBeb.Components.Pages.Auth.Signin/>
 }

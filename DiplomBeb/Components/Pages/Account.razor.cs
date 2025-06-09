@@ -12,7 +12,11 @@ public partial class Account
     {
         AccountService.StateChanged.Subscribe("account", AccountServiceOnStateChanged);
     }
-    
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        
+    }
 
     private void AccountServiceOnStateChanged()
     {

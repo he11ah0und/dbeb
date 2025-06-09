@@ -10,16 +10,13 @@ public partial class Profiles : ComponentBase
     private ModerationService ModerationService { get; set; }
     
     [Inject]
-    private MainService MainService { get; set; }
-    [Inject]
     private BackendHttpClient Http { get; set; }
 
     private ulong Page { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
-        ModerationService.UsersStateChanged.Subscribe("users", UsersStateChanged);
-        Page = 1;
+        
     }
 
     private void UsersStateChanged()
@@ -46,6 +43,9 @@ public partial class Profiles : ComponentBase
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        Update();
+        
+        Page = 1;
+        ModerationService.UsersStateChanged.Subscribe("users", UsersStateChanged);
+        await Update();
     }
 }

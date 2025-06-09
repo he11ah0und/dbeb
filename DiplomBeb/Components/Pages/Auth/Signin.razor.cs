@@ -25,7 +25,7 @@ public partial class Signin
 
     private string Password;
     
-    private async void HandleValidSubmit()
+    private async Task HandleValidSubmit()
     {
         if (string.IsNullOrEmpty(Password))
             return;

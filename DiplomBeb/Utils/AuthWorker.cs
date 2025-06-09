@@ -67,7 +67,7 @@ public class AuthWorker
         return bOk;
     }
 
-    public async void LocalLogOut()
+    public async Task LocalLogOut()
     {
         await BHttp.ProtectedLocalStore.DeleteAsync("auth");
     }
@@ -78,7 +78,7 @@ public class AuthWorker
         if (!res.IsOk)
             return false;
 
-        LocalLogOut();
+        await LocalLogOut();
 
         return true;
     }

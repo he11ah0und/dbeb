@@ -10,11 +10,16 @@ public partial class Controller : ComponentBase
 {
     [Inject]
     private AccountService AccountService { get; set; }
-    [Inject]
-    private BackendHttpClient Http { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        await AccountService.Auth(Http);
+        
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        
+        await AccountService.Auth();
     }
 }

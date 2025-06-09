@@ -1,51 +1,12 @@
 ﻿@page "/place/{PlaceId:long}"
 @using DiplomBeb.Database.Model
+@using DiplomBeb.Components.Views
 @rendermode RenderMode.InteractiveServer
  <main>
         <div>
             <div class="middle">
-                <div class="heading">
-                    <div class="heading-1">
-                        <div>Участники</div>
-                    </div>
-                    <div class="heading-2">
-						<div class="heading-type">@UserService.Place?.CurrentPlace?.Content</div>
-                        <div>@UserService.Place?.TotalUsers</div>
-                        
-                    </div>
-                </div>
-                <div class="container-list">
-                    <ul class="student-list">
-                        @if (UserService.Place.UsersInPlace is not null)
-                        {
-                            @for (var i = 0; i < UserService.Place.UsersInPlace.LongLength; i++)
-                            {
-                                if (UserService.Place.UsersInPlace[i] is not User user)
-                                    continue;
-                                <li>
-                                    <div class="place">@(i + 1)</div>
-                                    <div class="image"></div>
-                                    <div class="name">
-                                        <h4>@user.Surname @user.Name @user.Middlename</h4>
-                                        <p>@user.WebRole.Name</p>
-                                    </div>
-                                    <div class="score">
-                                        <h4>@user.Score</h4>
-                                        <img src="icons/star1-ico.svg" alt="">
-                                    </div>
-                                </li>
-                            }
-                        }
-                    </ul>
-                    
-                    <div class="footer">
-                        <div class="footer-left">
-                            <button class="update" @onclick="Update">
-                                <img class="img-update" src="/icons/update.svg" alt="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <ViewList
+                    ListView="@UserService.Place.ListView"/>
                 @if (UserService.Place.CurrentInPlace)
                 {
                     <div class="container-current">

@@ -21,12 +21,19 @@ namespace DiplomBeb
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
             builder.Services.AddHttpContextAccessor();
+
+            // Register the ProtectedLocalStorage as a singleton
+            //builder.Services.AddSingleton<ProtectedLocalStorage>();
+            
+            // http client for client view
+            builder.Services.AddScoped<BackendHttpClient>();
             
             // adds web controllers
             builder.Services.AddControllers();
-            builder.Services.AddScoped<CallbackManager>();
-            builder.Services.AddScoped<MainService>();
+            builder.Services.AddScoped<SyncRenderService>();
+            builder.Services.AddScoped<ThemeService>();
             builder.Services.AddScoped<LibraryService>();
+            builder.Services.AddScoped<HomeService>();
             builder.Services.AddScoped<AccountService>();
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<ModerationService>();
@@ -40,9 +47,6 @@ namespace DiplomBeb
                 options => options.UseMySql("server=127.0.0.1;Port=3306;user=digitalpassUser;password=4LcQ8N4Jl07jzfDy2c4H;database=digitalpass;",
                     new MySqlServerVersion(new Version(8, 0, 11) ),
                     o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
-            
-            // http client for client view
-            builder.Services.AddScoped<BackendHttpClient>();
             
             var app = builder.Build();
 

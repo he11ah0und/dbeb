@@ -37,8 +37,8 @@
 			<div>
 				@if (AccountService.IsLogged)
 				{
-					<h3>@AccountService.Account.Name @AccountService.Account.Middlename</h3>
-					<h4>@AccountService.Account.WebRole.Name</h4>
+					<h3>@AccountService?.Account?.Name @AccountService?.Account?.Middlename</h3>
+					<h4>@AccountService?.Account?.WebRole?.Name</h4>
 				}
 				else
 				{
@@ -56,8 +56,14 @@
 				<img class="img38" id="specialButton" style="cursor:pointer;" src="/icons/slab-vid-ico.svg" alt="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ" title="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ"/>
 				<!--<img class="img38" src="/icons/slab-vid-ico.svg" alt="Кнопка для слабовидящих"/>-->
 			</button>
-			<button id="theme-switch">
-				<img class="img38" src="/icons/sun-ico.svg" alt="Кнопка смены темы" />
+			<script>
+				function tswitch(){
+					darkMode = localStorage.getItem("dark");
+					darkMode == 'active' ? disableDarkMode() : enableDarkMode();
+				}
+			</script>
+			<button @onclick="SwitchTheme">
+				<img id="theme-switch" class="img38" src="/icons/sun-ico.svg" alt="Кнопка смены темы" />
 			</button>
 		</div>
 	</div>

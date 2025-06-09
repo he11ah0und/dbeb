@@ -1,0 +1,300 @@
+main {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    background-color: var(--main-color);
+
+}
+
+main > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    width: 100%;
+
+    gap: 2rem;
+    margin: 2rem;
+}
+
+main > div > div:nth-child(1) {
+    flex: 1;
+}
+
+main > div > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+
+    width: 30%;
+
+    gap: 2rem;
+}
+
+.heading {
+    display: flex;
+    justify-content: space-between;
+}
+
+.heading > div {
+    padding: .8rem 2rem;
+
+    border-radius: .5rem;
+
+    font-weight: 700;
+    font-size: 1.1rem;
+
+    background-color: var(--color-light);
+    color: var(--color-text1);
+}
+
+.heading-list {
+    position: sticky;
+    top: 0;
+
+    background-color: var(--color5);
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: start;
+    text-align: center;
+
+    padding: 1.5625rem 1.25rem;
+    gap: 3.9375rem;
+
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-text6);
+
+}
+
+main .warp {
+    display: flex;
+    flex-direction: column;
+}
+
+main .container-list {
+    display: flex;
+    flex-direction: column; /* Делаем контейнер flex-контейнером */
+    height: 100%; /* Указываем высоту контейнера */
+    margin-top: 1.5rem;
+
+    border-radius: .625rem;
+    overflow: hidden;
+    background-color: var(--color-light);
+}
+
+.student-list {
+    flex: 1; /* Занимает все доступное пространство */
+    overflow-y: auto;
+    margin-bottom: 0; /* Убираем отступы */
+    padding: 1rem 1rem;
+}
+
+.student-list::-webkit-scrollbar {
+    width: 0rem;
+    border-radius: 0rem;
+    background-color: var(--scroll);
+}
+
+.student-list::-webkit-scrollbar-thumb {
+    background: var(--color-text2);
+}
+
+.student-list > li {
+    display: flex;
+    font-size: 1.25rem;
+    gap: 2rem;
+    padding: 1rem 1.25rem;
+
+    overflow-y: auto;
+
+}
+
+.student-list .status {
+    display: flex;
+    align-items: start;
+    font-size: 1.25rem;
+    padding: 1.5625rem 1.25rem;
+}
+
+.student-list .image {
+    background-color: var(--color3);
+    border-radius: .625rem;
+    width: 2.75rem;
+    height: 2.75rem;
+}
+
+.student-list .name  {
+    flex: 1;
+    color: var(--color-text3);
+}
+
+.student-list .name p {
+    font-size: 1rem;
+    color: var(--color-text4);
+}
+
+
+.footer {
+    position: sticky;
+    bottom: 0;
+    background-color: var(--color-light);
+    padding: 1rem;
+    z-index: 10;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer > a {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-text2);
+
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.footer-left > button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.footer-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer-right > button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.img-update {
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+main .place-container {
+    background-color: var(--color-light);
+    border-radius: .625rem;
+    margin-top: 4.5rem;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.place-container .container-title {
+    background-color: var(--color5);
+    border-top-right-radius: .625rem;
+    border-top-left-radius: .625rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    max-height: 2.2rem;
+    padding: 1.25rem 1.25rem;
+    gap: 1rem;
+
+}
+
+.container-title > h4 {
+    flex: 1;
+    font-size: 1.25rem;
+    color: var(--color-text3);
+}
+
+.container-dan > div > h3 {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-text6);
+}
+
+.container-dan > div > h4 {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--color-text3);
+
+    width: 3rem;
+}
+
+.container-dan > div > h5 {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--color-text13);
+
+}
+
+.container-title .image {
+    background-color: var(--color3);
+    border-radius: .625rem;
+    width: 2.75rem;
+    height: 2.75rem;
+}
+
+.place-container .container-dan {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    text-align: start;
+
+    padding: 1.25rem 2.25rem;
+    gap: 1.5rem;
+
+}
+
+.container-dan > div {
+    display: flex;
+    flex-direction: row;
+
+    gap: 5rem;
+
+}
+
+.container-dan .container-dan-title {
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--color-text6);
+}
+
+.place-container .container-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0rem 2rem;
+    gap: 1rem;
+
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+
+}
+
+.container-button > button {
+    text-align: center;
+    background-color: var(--color-text16);
+    padding: .8rem 2rem;
+    border-radius: .625rem;
+
+
+    font-size: 1.125rem;
+    color: var(--color-text12);
+    text-transform: uppercase;
+
+}

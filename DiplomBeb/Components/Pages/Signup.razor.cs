@@ -17,8 +17,6 @@ public partial class Signup : ComponentBase
     [Inject] 
     private AccountService AccountService { get; set; }
     [Inject]
-    private BackendHttpClient Http { get; set; }
-    [Inject]
     private NavigationManager Navigation { get; set; }
 
     private SignUpData SignUpData;
@@ -47,8 +45,7 @@ public partial class Signup : ComponentBase
                 SignUpData,
                 Password,
                 ConfirmPassword,
-                Confirmed,
-                Http))
+                Confirmed))
         {
             Navigation.NavigateTo("/account", true);
         }

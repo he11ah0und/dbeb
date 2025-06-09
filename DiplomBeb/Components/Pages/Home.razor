@@ -1,44 +1,14 @@
 ﻿@page "/"
+@using DiplomBeb.Components.Views
 @rendermode RenderMode.InteractiveServer
 
-<PageTitle>Цифровое портфолио - Главная страница</PageTitle>
+<PageTitle>Главная страница - Цифровое портфолио</PageTitle>
 
 <main>
     <div>
         <div class="middle">
-            <div class="heading">
-                <div>Общая информация</div>
-                <div>Всего пользователей: @MainService.Users.TotalUsers</div>
-            </div>
-            <div class="container-list">
-                <ul class="student-list">
-                    @if (MainService.Users.UsersTop is not null)
-                    {
-                        @for (int i = 1; i <= MainService.Users.UsersTop.Length; i++)
-                        {
-                            <li>
-                                <div class="place">@i</div>
-                                <div class="image"></div>
-                                <div class="name">
-                                    <h4>@MainService.Users.UsersTop[i - 1].Surname @MainService.Users.UsersTop[i - 1].Name @MainService.Users.UsersTop[i - 1].Middlename</h4>
-                                    <p>@MainService.Users.UsersTop[i - 1].WebRole?.Name</p>
-                                </div>
-                                <div class="score">
-                                    <h4>@MainService.Users.UsersTop[i - 1].Score</h4>
-                                    <img src="icons/star1-ico.svg" alt="звезды"/>
-                                </div>
-                            </li>
-                        }
-                    }
-                </ul>
-                <div class="footer">
-                    <div class="footer-left">
-                        <button class="update" @onclick="OnUpdateClick">
-                            <img class="img-update" src="/icons/update.svg" alt="">
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <ViewList 
+                ListView="@HomeService.TopUsersListView"/>
             @if (AccountService.IsLogged)
             {
                 <div class="container-current">
@@ -74,14 +44,14 @@
             </div>
             <div class="about-container">
                 <p class="heading">Хотите больше?</p>
-                @if (LibraryService.RandomLibs != null)
+                @if (HomeService.RandomLibs != null)
                 {
                     <ul>
-                        @for (int i = 1; i <= LibraryService.RandomLibs.Length; i++)
+                        @for (int i = 1; i <= HomeService.RandomLibs.Length; i++)
                         {
                             <li>
                                 <a target="_blank"
-                                   href="@LibraryService.RandomLibs[i - 1].Link">@LibraryService.RandomLibs[i - 1].Name</a>
+                                   href="@HomeService.RandomLibs[i - 1].Link">@HomeService.RandomLibs[i - 1].Name</a>
                             </li>
                         }
                     </ul>

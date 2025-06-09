@@ -6,41 +6,41 @@ namespace DiplomBeb.Components.Pages;
 
 public partial class Home
 {
-    [Inject]
-    private BackendHttpClient Http { get; set; }
     [Inject] 
     private AccountService AccountService { get; set; }
     
     [Inject]
-    private MainService MainService { get; set; }
+    private HomeService HomeService { get; set; }
+    
     [Inject]
-    private LibraryService LibraryService { get; set; }
+    private SyncRenderService SyncRenderService { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
-        AccountService.StateChanged.Subscribe("home", AccountServiceOnStateChanged);
-        MainService.Users.UsersTopStateChanged.Subscribe("home", MainServiceOnUsersTopStateChanged);
-        LibraryService.LibraryRandomStateChanged.Subscribe("home", MainServiceOnUsersTopStateChanged);
-        LibraryService.RequestRandomLibs(Http);
-        Update();
+        SyncRenderService.Max = 3;
+        SyncRenderService.OnComplete = OnListUpdated;
+        
+        HomeService.TopUsersListView.OnListUpdated.
+            Subscribe("home", () => SyncRenderService.Register(0));
+        HomeService.LibraryRandomStateChanged
+            .Subscribe("home", () => SyncRenderService.Register(1));
+        AccountService.StateChanged.
+            Subscribe("home", OnListUpdated);
+        
+        
+        await HomeService.RequestRandomLibs();
     }
-    private void Update()
-    {
-        MainService.Users.RequestUsersTop(Http);
-    }
-
-    private void MainServiceOnUsersTopStateChanged()
-    {
-        StateHasChanged();
-    }
-
-    private void AccountServiceOnStateChanged()
+    
+    private void OnListUpdated()
     {
         StateHasChanged();
     }
 
-    private void OnUpdateClick()
+    private bool Ok;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        Update();
+        if (!firstRender) 
+            return;
+        await HomeService.TopUsersListView.First(1);
     }
 }

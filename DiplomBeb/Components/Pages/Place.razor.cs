@@ -11,28 +11,25 @@ public partial class Place
     public long? PlaceId { get; set; }
     
     [Inject]
-    private BackendHttpClient Http { get; set; }
-    [Inject]
     private UserService UserService { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
-        UserService.Place.PlaceLoaded.Subscribe("library", OnPlaceLoaded);
+        UserService.Place.ListView.OnListUpdated.Subscribe("place", OnListUpdated);
+        
+        await UserService.Place.ListView.First(1);
+        await UserService.Place.SelectPlace((ulong)PlaceId.Value);
+    }
+    
+    private void OnListUpdated()
+    {
+        StateHasChanged();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        await Update();
-    }
-
-    private async Task Update()
-    {
-        await UserService.Place.RequestPlace(Http, PlaceId.Value);
-    }
-
-    private void OnPlaceLoaded()
-    {
-        StateHasChanged();
+        
+        
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DiplomBeb.Services.Client.Components;
+using DiplomBeb.Utils.Networking;
 
 namespace DiplomBeb.Services.Client;
 
@@ -6,8 +7,8 @@ public class UserService
 {
     public PlaceComponent Place { get; private set; }
 
-    public UserService(AccountService accountService)
+    public UserService(BackendHttpClient http, AccountService accountService)
     {
-        Place = new PlaceComponent(accountService);
+        Place = new PlaceComponent(http, accountService);
     }
 }

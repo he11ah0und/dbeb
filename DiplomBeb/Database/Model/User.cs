@@ -31,16 +31,16 @@ namespace DiplomBeb.Database.Model
             
             le.Set("phone", model.Phone);
             
-            le.Set("place_id", model.Place.Id);
-            le.Set("place_name", model.Place.Content);
+            le.Set("place_id", model?.Place?.Id);
+            le.Set("place_name", model?.Place?.Content);
             
-            le.Set("apirole_id", model.ApiRole.Id);
-            le.Set("apirole_name", model.ApiRole.Name);
+            le.Set("apirole_id", model?.ApiRole?.Id);
+            le.Set("apirole_name", model?.ApiRole?.Name);
             
-            le.Set("webrole_id", model.WebRole.Id);
-            le.Set("webrole_name", model.WebRole.Name);
+            le.Set("webrole_id", model?.WebRole?.Id);
+            le.Set("webrole_name", model?.WebRole?.Name);
             
-            le.Set("score", model.Score);
+            le.Set("score", model?.Score);
             return le;
         }
     }

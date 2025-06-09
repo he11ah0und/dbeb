@@ -1,55 +1,13 @@
 @page "/library/{Page:long}"
 @using DiplomBeb.Utils.AdaptiveListing
+@using DiplomBeb.Components.Views
 @rendermode RenderMode.InteractiveServer
-
+<PageTitle>Библиотека ссылок - Цифровое портфолио</PageTitle>
 <main>
     <div>
         <div class="middle">
-            <div class="heading">
-                <div>Библиотека полезных ссылок</div>
-            </div>
-            <div class="container-list">
-                <div class="link-list">
-                    @if (LibraryService.LibraryListView.Data is ListElement[] elements)
-                    {
-                        @for (long i = 1; i <= elements.LongLength; i++)
-                        {
-                            <div>
-                                <a target="_blank"
-                                   href="@elements[i - 1].Get("link")">
-                                    <h4>@elements[i - 1].Get("name")</h4>
-                                </a>
-                            </div>
-                        }
-                    }
-                </div>
-                <div class="footer">
-                    <div class="footer-left">
-                        <button class="update" @onclick="LibraryService.LibraryListView.UpdateThis">
-                            <img class="img-update" src="icons/update.svg" alt="">
-                        </button>
-                    </div>
-                    <div class="footer-right">
-                        @if (LibraryService.LibraryListView.CanPrevious)
-                        {
-                            <button class="nazad" @onclick="LibraryService.LibraryListView.PreviousPage">
-                                <img src="icons/nazad.svg" alt="">
-                            </button>
-                        }
-                        @for (ulong i = 1; i <= LibraryService.LibraryListView.MaxPages; i++)
-                        {
-                            var page = i;
-                            <button @onclick="() => { LibraryService.LibraryListView.SpecificPage(page); }">1</button>
-                        }
-                        @if (LibraryService.LibraryListView.CanNext)
-                        {
-                            <button href="" class="vpered" @onclick="LibraryService.LibraryListView.NextPage">
-                                <img src="icons/vpered.svg" alt="">
-                            </button>
-                        }
-                    </div>
-                </div>
-            </div>
+            <ViewList 
+                ListView="@LibraryService.ListView"/>
         </div>
         <div>
             <div class="place-container">

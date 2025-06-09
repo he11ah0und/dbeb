@@ -1,6 +1,7 @@
 ﻿using DiplomBeb.Database;
 using DiplomBeb.Database.Model;
 using DiplomBeb.Filters;
+using DiplomBeb.Utils.AdaptiveListing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,9 +18,11 @@ public class PlaceController : ControllerBase
     }
     
     [AuthFilter("user")]
-    [HttpGet("users/{placeId:long}")]
-    public async Task<IActionResult> GetUsersInPlace(long placeId)
+    [HttpGet("users/{placeId}/{skip}/{take}")]
+    public async Task<IActionResult> GetUsersInPlace(ulong placeId, ulong skip, ulong take)
     {
+        skip = Math.Clamp(skip, 0, 70);
+        take = Math.Clamp(take, 10, 100);
         var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
         var authedUser = _context.Users
             .Include(u => u.ApiRole)
@@ -31,7 +34,7 @@ public class PlaceController : ControllerBase
 
         var inPlace = _context.Users
                 .Include(u => u.Place)
-                .SingleOrDefault(u => u.Place.Id == (ulong)placeId && u.Id == authedId)
+                .SingleOrDefault(u => u.Place.Id == placeId && u.Id == authedId)
             is User;
         
         if (!authedUser.ApiRole.IsMoreUser() 
@@ -42,14 +45,17 @@ public class PlaceController : ControllerBase
         var users = _context.Users
             .Include(u => u.Place)
             .Where(u => u.Place.Id == (ulong)placeId)
-            .Select(u => new
+            .Skip((int)skip)
+            .Take((int)take)
+            .Select(u => new User
             {
-                u.Name,
-                u.Middlename,
-                u.Surname,
-                u.Score,
-                u.WebRole,
+                Name = u.Name,
+                Middlename = u.Middlename,
+                Surname = u.Surname,
+                Score = u.Score,
+                WebRole = u.WebRole,
             })
+            .Cast<ListElement>()
             .ToArray();
 
         return Ok(users);
@@ -113,17 +119,17 @@ public class PlaceController : ControllerBase
     }
     
     [AuthFilter("user")]
-    [HttpGet("count/{placeId:long}")]
-    public async Task<IActionResult> GetPlaceUsers(long placeId)
+    [HttpGet("total/{placeId}")]
+    public async Task<IActionResult> GetPlaceUsers(ulong placeId)
     {
         var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
         var authedUser = _context.Users
             .Include(u => u.ApiRole)
             .Include(u => u.Place)
             .SingleOrDefault(u => u.Id == authedId);
-        
+
         if (authedUser == null)
-            return BadRequest();
+            return NoContent();
 
         var inPlace = _context.Users
             .Include(u => u.Place)
@@ -150,9 +156,9 @@ public class PlaceController : ControllerBase
             .Include(u => u.ApiRole)
             .Include(u => u.Place)
             .SingleOrDefault(u => u.Id == authedId);
-        
+
         if (authedUser == null)
-            return BadRequest();
+            return NoContent();
         
         if (!authedUser.ApiRole.IsMoreUser())
             return NoContent();
@@ -171,9 +177,9 @@ public class PlaceController : ControllerBase
             .Include(u => u.ApiRole)
             .Include(u => u.Place)
             .SingleOrDefault(u => u.Id == authedId);
-        
+
         if (authedUser == null)
-            return BadRequest();
+            return NoContent();
 
         var inPlace = _context.Users
                 .Include(u => u.Place)

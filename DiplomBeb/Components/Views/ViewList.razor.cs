@@ -6,19 +6,16 @@ namespace DiplomBeb.Components.Views;
 
 public partial class ViewList : ComponentBase
 {
+    [Parameter]
     public ListView ListView { get; set; }
 
-    private string _header;
-
-    public string Header
+    public ViewList()
     {
-        get => _header;
-        set
-        {
-            _header = value;
-            StateHasChanged();
-        }
+        ListView = new ListView(null, 0, false);
     }
-    
-    
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        
+    }
 }

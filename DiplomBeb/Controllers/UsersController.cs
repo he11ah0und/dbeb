@@ -3,6 +3,7 @@ using DiplomBeb.Database;
 using DiplomBeb.Filters;
 using DiplomBeb.Database.Model;
 using DiplomBeb.Systems.Auth;
+using DiplomBeb.Utils.AdaptiveListing;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,24 +29,28 @@ namespace DiplomBeb.Controllers
             return Ok(_context.Users.Count());
         }
         [AuthFilter]
-        [HttpGet("top")] // топ 100 пользователей
-        public async Task<IActionResult> GetTop()
+        [HttpGet("top/{skip}/{take}")] // топ 100 пользователей
+        public async Task<IActionResult> GetTop(ulong skip, ulong take)
         {
-            var devs = await _context.Users
+            skip = Math.Clamp(skip, 0, 70);
+            take = Math.Clamp(take, 10, 100);
+            var devs = _context.Users
                 .Include(x => x.WebRole)
                 .Select(
                     x => 
-                        new
+                        new User
                         {
-                            x.Name,
-                            x.Middlename,
-                            x.Surname,
-                            x.Score,
-                            x.WebRole
+                            Name = x.Name,
+                            Middlename = x.Middlename,
+                            Surname = x.Surname,
+                            Score = x.Score,
+                            WebRole = x.WebRole
                         })
                 .OrderByDescending(u => u.Score)
-                .Take(100)
-                .ToListAsync();
+                .Skip((int)skip)
+                .Take((int)take)
+                .Cast<ListElement>()
+                .ToArray();
             return Ok(devs);
         }
         
@@ -67,18 +72,27 @@ namespace DiplomBeb.Controllers
                     x.Place
                 })
                 .OrderByDescending(u => u.Score)
-                .Take(100)
-                .Single(a => a.Id == id);
+                .Where(a => a.Id == id)
+                .Cast<ListElement>()
+                .Single();
             return Ok(user);
         }
         
         [AuthFilter("user")]
-        [HttpGet("top/{id}")]
+        [HttpGet("toppos/{id}")]
         public async Task<IActionResult> GetTopPos(ulong id)
         {
+            var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
+            if (_context.Users
+                    .Include(u => u.ApiRole)
+                    .SingleOrDefault(u => u.Id == authedId) is not User authedUser)
+                return NoContent();
+            
+            if (authedId != id && !authedUser.ApiRole.IsMoreUser())
+                id = authedId;
+            
             var userWithRank = _context.Set<UserRank>()
                 .FromSqlRaw("""
-                            
                                     SELECT id, score, position
                                     FROM (
                                         SELECT 
@@ -105,7 +119,7 @@ namespace DiplomBeb.Controllers
         public async Task<IActionResult> GetPersonal()
         {
             var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
-            var dev = await _context.Users
+            var dev = _context.Users
                 .Include(u => u.ApiRole)
                 .Include(u => u.WebRole)
                 .Include(u => u.Documents)
@@ -124,69 +138,38 @@ namespace DiplomBeb.Controllers
                     u.WebRole,
                     u.ApiRole
                 })
-                .FirstOrDefaultAsync(
-                a => 
-                    a.Id == authedId);
+                .FirstOrDefault(a => a.Id == authedId);
             return Ok(dev);
         }
         
         // admin api
         [AuthFilter("admin")]
-        [HttpGet("get30")]
-        public async Task<IActionResult> Get30(int page)
+        [HttpGet("get/{skip:long}/{take:long}")]
+        public async Task<IActionResult> Get(long skip, long take)
         {
-            var totake = 30;
-            var toskip = totake * (page - 1);
-
-            var devs = await _context.Users
+            var devs = _context.Users
                 .Include(x => x.WebRole)
                 .Include(x => x.Place)
                 .Select(
                     x => 
-                        new
+                        new User
                         {   
-                            x.Id,
-                            x.Name,
-                            x.Middlename,
-                            x.Surname,
-                            x.Score,
-                            x.WebRole,
-                            x.Phone,
-                            x.Email,
-                            x.Place,
+                            Id = x.Id,
+                            Name = x.Name,
+                            Middlename = x.Middlename,
+                            Surname = x.Surname,
+                            Score = x.Score,
+                            WebRole = x.WebRole,
+                            Phone = x.Phone,
+                            Email = x.Email,
+                            Place = x.Place,
                         })
                 .OrderByDescending(u => u.Id)
-                .Skip(toskip)
-                .Take(totake)
-                .ToListAsync();
+                .Skip((int)skip)
+                .Take((int)take)
+                .Cast<ListElement>()
+                .ToArray();
             return Ok(devs);
-        }
-        
-        [AuthFilter("admin")]
-        [HttpGet("pages")]
-        public async Task<IActionResult> GetPages()
-        {
-            var users = _context.Users
-                .Include(x => x.WebRole)
-                .Include(x => x.Place)
-                .Select(x =>
-                    new
-                    {
-                        x.Id,
-                        x.Name,
-                        x.Middlename,
-                        x.Surname,
-                        x.Score,
-                        x.WebRole,
-                        x.Phone,
-                        x.Email,
-                        x.Place,
-                    })
-                .OrderByDescending(u => u.Id)
-                .Count();
-            var totake = 30;
-            var pages = users / totake;
-            return Ok(pages);
         }
     }
 }

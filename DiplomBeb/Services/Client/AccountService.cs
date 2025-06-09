@@ -16,8 +16,10 @@ public class AccountService
     
     public Callbacker StateChanged { get; private set; }
 
-    public AccountService()
+    private BackendHttpClient _http;
+    public AccountService(BackendHttpClient http)
     {
+        _http = http;
         Initialized = false;
         StateChanged = new Callbacker();
         Account = new User();
@@ -25,30 +27,36 @@ public class AccountService
         IsLogged = false;
     }
 
-    public async Task Auth(
-        BackendHttpClient http)
+    public async Task Auth()
     {
-        
-        var res = await http.Request("Users/personal");
+        var res = await _http.Request("Users/personal");
         IsLogged = res.IsOk;
-        if (res.ResultAsJson<User>(out var user))
+        if (IsLogged = res.ResultAsJson<User>(out var user))
             Account = user;
-            
-        res = await http.Request($"Users/top/{Account.Id}");
-        IsLogged = res.IsOk;
-        if (res.ResultAsJson<UserRank>(out var rank))
-            UserRank = rank;
-        
+
+        if (IsLogged)
+        {
+            res = await _http.Request($"Users/toppos/{Account?.Id}");
+            IsLogged = res.IsOk;
+            if (IsLogged = res.ResultAsJson<UserRank>(out var rank))
+                UserRank = rank;
+        }
+
         Initialized = true;
         StateHasChanged();
+    }
+
+    public async Task<bool> Update(User user)
+    {
+        var res = await _http.Request("Users", JsonContent.Create(user), HttpMethod.Patch);
+        return res.IsOk;
     }
 
     public async Task<bool> SignUp(
         SignUpData SignUpData,
         string Password,
         string ConfirmPassword,
-        bool Confirmed,
-        BackendHttpClient http)
+        bool Confirmed)
     {
         if (string.IsNullOrEmpty(Password)
             || string.IsNullOrEmpty(ConfirmPassword)
@@ -57,7 +65,7 @@ public class AccountService
             return false;
 
         SignUpData.Password = Encoding.Default.GetBytes(Password);
-        if (!await http.Auth.TrySignUp(
+        if (!await _http.Auth.TrySignUp(
                 SignUpData))
         {
             Debug.WriteLine("failed login");

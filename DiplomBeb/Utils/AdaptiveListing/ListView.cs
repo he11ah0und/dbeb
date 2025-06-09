@@ -7,7 +7,7 @@ public class ListView
 {
     public ulong Page { get; protected set; }
     public ulong MaxPages { get; private set; }
-    public ulong ElementsOnPage { get; private set; }
+    public ulong ElementsOnPage { get; set; }
     public ulong Total { get; private set; }
     
     public bool CanNext => Page + 1 <= MaxPages;
@@ -21,9 +21,11 @@ public class ListView
     public Func<BackendHttpClient, ulong, ulong, Task<HttpResponseState>> OnGet { get; set; }
     public Func<BackendHttpClient, Task<HttpResponseState>> OnTotal { get; set; }
     
+    public List<string> Props { get; private set; }
     private BackendHttpClient _http { get; set; }
     
     public ListElement[] Data { get; private set; }
+    public Func<string>? GetHeader { get; set; }
     
     public ListView(BackendHttpClient http, ulong page = 1, bool pageSwitchMode = false)
     {
@@ -31,24 +33,30 @@ public class ListView
         Page = page;
         PageSwitchMode = pageSwitchMode;
         ElementsOnPage = 30;
-        OnListUpdated = new Callbacker();
+        OnListUpdated = new Callbacker(false);
         OnPageSwitch = new Callbacker(false);
         Data = [];
+        Props = [];
     }
-    public void NextPage()
+    
+    public string Header => GetHeader is null ? "<HEADER>" : GetHeader();
+
+    public bool IsHave(string key)
+        => Props.Contains(key);
+    public async Task NextPage()
     {
         if (!CanNext) return; 
         Page++;
 
-        _pageSwitch();
+        await _pageSwitch();
     }
 
-    public void PreviousPage()
+    public async Task PreviousPage()
     {
         if (!CanPrevious) return;
         Page--;
 
-        _pageSwitch();
+        await _pageSwitch();
     }
 
     private bool SetPage(ulong page)
@@ -58,14 +66,14 @@ public class ListView
         return true;
     }
 
-    public void SpecificPage(ulong page)
+    public async Task SpecificPage(ulong page)
     {
         if (!SetPage(page)) return;
 
-        _pageSwitch();
+        await _pageSwitch();
     }
 
-    private void _pageSwitch()
+    private async Task _pageSwitch()
     {
         if (PageSwitchMode)
         {
@@ -73,7 +81,7 @@ public class ListView
         }
         else
         {
-            LoadData();
+            await LoadData();
             OnListUpdated.InvokeAll();
         }
     }
@@ -100,16 +108,11 @@ public class ListView
     {
         return await LoadTotal() & await LoadData();
     }
-    
-    public void UpdateThis()
-    {
-        Update();
-    }
 
     public async Task<bool> LoadData()
     {
         var skip = ElementsOnPage * (Page - 1);
-        var res = await OnGet?.Invoke(_http, skip, ElementsOnPage);
+        var res = await OnGet?.Invoke(_http, skip, ElementsOnPage)!;
         if (!res.IsOk || !res.ResultAsJson<ListElement[]>(out var data))
             return false;
 
