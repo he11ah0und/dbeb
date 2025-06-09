@@ -120,7 +120,7 @@ div > h4 {
     flex-direction: column;
     height: 1.4rem;
     width: auto;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.125rem;
     color: var(--color-text13);
 }
@@ -128,7 +128,7 @@ div > h4 {
 .email-column > input {
     height: 1.4rem;
     width: auto;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.125rem;
     color: var(--color-text13);
 }
@@ -136,7 +136,7 @@ div > h4 {
 .number-column > input {
     height: 1.4rem;
     width: auto;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.125rem;
     color: var(--color-text13);
 }
