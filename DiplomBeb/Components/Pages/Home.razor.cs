@@ -13,13 +13,15 @@ public partial class Home
     
     [Inject]
     private MainService MainService { get; set; }
+    [Inject]
+    private LibraryService LibraryService { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
         AccountService.StateChanged.Subscribe("home", AccountServiceOnStateChanged);
         MainService.Users.UsersTopStateChanged.Subscribe("home", MainServiceOnUsersTopStateChanged);
-        MainService.Library.Library4StateChanged.Subscribe("home", MainServiceOnUsersTopStateChanged);
-        MainService.Library.RequestRandom4Libs(Http);
+        LibraryService.LibraryRandomStateChanged.Subscribe("home", MainServiceOnUsersTopStateChanged);
+        LibraryService.RequestRandomLibs(Http);
         Update();
     }
     private void Update()

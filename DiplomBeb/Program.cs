@@ -3,6 +3,7 @@ using DiplomBeb.Components;
 using DiplomBeb.Filters;
 using DiplomBeb.Services;
 using DiplomBeb.Services.Client;
+using DiplomBeb.Services.Client.Components;
 using DiplomBeb.Systems;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.Networking;
@@ -25,6 +26,7 @@ namespace DiplomBeb
             builder.Services.AddControllers();
             builder.Services.AddScoped<CallbackManager>();
             builder.Services.AddScoped<MainService>();
+            builder.Services.AddScoped<LibraryService>();
             builder.Services.AddScoped<AccountService>();
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<ModerationService>();

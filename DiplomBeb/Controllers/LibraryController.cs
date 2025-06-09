@@ -18,22 +18,10 @@ public class LibraryController : ControllerBase
     }
     
     [AuthFilter]
-    [HttpGet("get30")]
-    public async Task<IActionResult> Get30(int page)
+    [HttpGet("{skip:long}/{take:long}")]
+    public async Task<IActionResult> Get(long skip, long take)
     {
-        var totake = 30;
-        var toskip = totake * (page - 1);
-        return Ok(_context.Library.Skip(toskip).Take(totake).ToArray());
-    }
-    
-    [AuthFilter]
-    [HttpGet("pages")]
-    public async Task<IActionResult> GetPages()
-    {
-        var totake = 30;
-        var count = _context.Library.Count();
-        var pages = Math.Round((double)count / (double)totake, MidpointRounding.ToPositiveInfinity);
-        return Ok(pages);
+        return Ok(_context.Library.Skip((int)skip).Take((int)take).ToArray());
     }
     
     [AuthFilter]
@@ -44,9 +32,9 @@ public class LibraryController : ControllerBase
     }
     
     [AuthFilter]
-    [HttpGet("get4")]
-    public async Task<IActionResult> Get4()
+    [HttpGet("random/{count:long}")]
+    public async Task<IActionResult> Random(long count)
     {
-        return Ok(_context.Library.OrderBy(o => EF.Functions.Random()).Take(4));
+        return Ok(_context.Library.OrderBy(o => EF.Functions.Random()).Take((int)count));
     }
 }

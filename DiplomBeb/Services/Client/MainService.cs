@@ -7,11 +7,9 @@ namespace DiplomBeb.Services.Client;
 public class MainService
 {
     public UsersComponent Users { get; private set; }
-    public LibraryComponent Library { get; private set; }
     
     public MainService()
     {
         Users = new UsersComponent();
-        Library = new LibraryComponent();
     }
 }

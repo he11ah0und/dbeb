@@ -16,49 +16,30 @@ public partial class Library
     [Inject]
     private BackendHttpClient Http { get; set; }
     [Inject]
-    private MainService MainService { get; set; }
+    private LibraryService LibraryService { get; set; }
     [Inject]
     private NavigationManager Navigation { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
-        MainService.Library.LibraryStateChanged.Subscribe("library", MainServiceOnLibraryStateChanged);
-        Update();
+        LibraryService.LibraryListView.OnListUpdated.Subscribe("library", OnListUpdated);
+        LibraryService.LibraryListView.OnPageSwitch.Subscribe("library", OnNavigate);
     }
 
-    private void OpenPage(ulong page)
+    private void OnNavigate()
     {
-        Navigation.NavigateTo($"/library/{page}", true);
-    }
-
-    public bool CanNext => (ulong)Page + 1 <= MainService.Library.TotalPages;
-    public bool CanBack => (ulong)Page - 1 >= 1;
-
-    private void BackPage()
-    {
-        var newpage = (ulong)Page - 1;
-        if (newpage < 1)
-            return;
-        Navigation.NavigateTo($"/library/{newpage}", true);
-    }
-
-    private void NextPage()
-    {
-        var newpage = (ulong)Page + 1;
-        if (newpage > MainService.Library.TotalPages)
-            return;
-        Navigation.NavigateTo($"/library/{newpage}", true);
+        Navigation.NavigateTo($"/library/{LibraryService.LibraryListView.Page}", true);
     }
     
-    private void Update()
-    {
-        MainService.Library.RequestLibsTotal(Http);
-        MainService.Library.RequestLibsTotalPages(Http);
-        MainService.Library.RequestLibs(Http, (ulong)Page);
-    }
-    
-    private void MainServiceOnLibraryStateChanged()
+    private void OnListUpdated()
     {
         StateHasChanged();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        LibraryService.LibraryListView.First((ulong)Page);
     }
 }

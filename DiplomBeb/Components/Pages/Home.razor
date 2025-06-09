@@ -38,7 +38,6 @@
                         </button>
                     </div>
                 </div>
-
             </div>
             @if (AccountService.IsLogged)
             {
@@ -75,14 +74,14 @@
             </div>
             <div class="about-container">
                 <p class="heading">Хотите больше?</p>
-                @if (MainService.Library.Random4Libs != null)
+                @if (LibraryService.RandomLibs != null)
                 {
                     <ul>
-                        @for (int i = 1; i <= MainService.Library.Random4Libs.Length; i++)
+                        @for (int i = 1; i <= LibraryService.RandomLibs.Length; i++)
                         {
                             <li>
                                 <a target="_blank"
-                                   href="@MainService.Library.Random4Libs[i - 1].Link">@MainService.Library.Random4Libs[i - 1].Name</a>
+                                   href="@LibraryService.RandomLibs[i - 1].Link">@LibraryService.RandomLibs[i - 1].Name</a>
                             </li>
                         }
                     </ul>
