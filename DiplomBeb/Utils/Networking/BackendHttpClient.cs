@@ -37,7 +37,7 @@ public class BackendHttpClient
         {
             h.Authorization = new AuthenticationHeaderValue("Bearer", tokenVal);
         };
-        state = NativeRequest(url,
+        state = await NativeRequest(url,
             content,
             method,
             fnAuth);
@@ -48,7 +48,7 @@ public class BackendHttpClient
         return state;
     }
     
-    public HttpResponseState NativeRequest(
+    public async Task<HttpResponseState> NativeRequest(
         string url,
         HttpContent content = null,
         HttpMethod method = null,
@@ -60,7 +60,7 @@ public class BackendHttpClient
             var mes = new HttpRequestMessage(method is null ? HttpMethod.Get : method, url);
             fnSetHeaders?.Invoke(mes.Headers);
             mes.Content = content;
-            var res = state.Value = Http.Send(mes);
+            var res = state.Value = await Http.SendAsync(mes);
             
             state.IsOk = res.IsSuccessStatusCode;
             state.Value = res;

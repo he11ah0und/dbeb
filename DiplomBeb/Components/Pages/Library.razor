@@ -1,4 +1,5 @@
 @page "/library/{Page:long}"
+@using DiplomBeb.Utils.AdaptiveListing
 @rendermode RenderMode.InteractiveServer
 
 <main>
@@ -9,14 +10,14 @@
             </div>
             <div class="container-list">
                 <div class="link-list">
-                    @if (LibraryService.LibraryListView.Data is Database.Model.Library[] libs)
+                    @if (LibraryService.LibraryListView.Data is ListElement[] elements)
                     {
-                        @for (long i = 1; i <= libs.LongLength; i++)
+                        @for (long i = 1; i <= elements.LongLength; i++)
                         {
                             <div>
                                 <a target="_blank"
-                                   href="@libs[i - 1].Link">
-                                    <h4>@libs[i - 1].Name</h4>
+                                   href="@elements[i - 1].Get("link")">
+                                    <h4>@elements[i - 1].Get("name")</h4>
                                 </a>
                             </div>
                         }

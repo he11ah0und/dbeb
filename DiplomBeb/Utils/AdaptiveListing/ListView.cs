@@ -1,28 +1,30 @@
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.Networking;
 
-namespace DiplomBeb.Services.Client;
+namespace DiplomBeb.Utils.AdaptiveListing;
 
-public class ListView<TObject>
+public class ListView
 {
-    public ulong Page { get; private set; }
+    public ulong Page { get; protected set; }
     public ulong MaxPages { get; private set; }
     public ulong ElementsOnPage { get; private set; }
     public ulong Total { get; private set; }
-    public Callbacker OnListUpdated { get; private set; }
-    public TObject[] Data { get; private set; }
-    
-    public Callbacker OnPageSwitch { get; private set; }
-    
-    public Func<BackendHttpClient, ulong, ulong,  HttpResponseState> OnGet { get; set; }
-    public Func<BackendHttpClient, HttpResponseState> OnTotal { get; set; }
     
     public bool CanNext => Page + 1 <= MaxPages;
     public bool CanPrevious => Page - 1 >= 1;
     
     public bool PageSwitchMode { get; set; }
-
+    
+    public Callbacker OnListUpdated { get; private set; }
+    public Callbacker OnPageSwitch { get; private set; }
+    
+    public Func<BackendHttpClient, ulong, ulong, Task<HttpResponseState>> OnGet { get; set; }
+    public Func<BackendHttpClient, Task<HttpResponseState>> OnTotal { get; set; }
+    
     private BackendHttpClient _http { get; set; }
+    
+    public ListElement[] Data { get; private set; }
+    
     public ListView(BackendHttpClient http, ulong page = 1, bool pageSwitchMode = false)
     {
         _http = http;
@@ -33,7 +35,6 @@ public class ListView<TObject>
         OnPageSwitch = new Callbacker(false);
         Data = [];
     }
-    
     public void NextPage()
     {
         if (!CanNext) return; 
@@ -76,10 +77,10 @@ public class ListView<TObject>
             OnListUpdated.InvokeAll();
         }
     }
-
-    public bool LoadTotal()
+    
+    public async Task<bool> LoadTotal()
     {
-        var res = OnTotal?.Invoke(_http);
+        var res = await OnTotal?.Invoke(_http)!;
         if (!res.IsOk || !res.ResultAsULong(out var total))
             return false;
         
@@ -88,16 +89,16 @@ public class ListView<TObject>
         
         return true;
     }
-
-    public bool First(ulong page)
+    
+    public Task<bool> First(ulong page)
     {
         Page = page;
-        return LoadTotal() & LoadData();
+        return Update();
     }
 
-    public bool Update()
+    public async Task<bool> Update()
     {
-        return LoadTotal() & LoadData();
+        return await LoadTotal() & await LoadData();
     }
     
     public void UpdateThis()
@@ -105,15 +106,14 @@ public class ListView<TObject>
         Update();
     }
 
-    public bool LoadData()
+    public async Task<bool> LoadData()
     {
         var skip = ElementsOnPage * (Page - 1);
-        var res = OnGet?.Invoke(_http, skip, ElementsOnPage);
-        if (!res.IsOk || !res.ResultAsJson<TObject[]>(out var data))
+        var res = await OnGet?.Invoke(_http, skip, ElementsOnPage);
+        if (!res.IsOk || !res.ResultAsJson<ListElement[]>(out var data))
             return false;
-        
+
         Data = data;
-        
         OnListUpdated?.InvokeAll();
 
         return true;

@@ -1,6 +1,7 @@
 using DiplomBeb.Database;
 using DiplomBeb.Database.Model;
 using DiplomBeb.Filters;
+using DiplomBeb.Utils.AdaptiveListing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,12 @@ public class LibraryController : ControllerBase
     [HttpGet("{skip:long}/{take:long}")]
     public async Task<IActionResult> Get(long skip, long take)
     {
-        return Ok(_context.Library.Skip((int)skip).Take((int)take).ToArray());
+        var elements = _context.Library
+            .Skip((int)skip)
+            .Take((int)take)
+            .Cast<ListElement>()
+            .ToArray();
+        return Ok(elements);
     }
     
     [AuthFilter]

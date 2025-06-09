@@ -2,12 +2,12 @@
 
 <!--
 <div class="heading">
-    <div>Общая информация</div>
+    <div>@_header</div>
     <div>Всего пользователей: @MainService.Users.TotalUsers</div>
 </div>
 <div class="container-list">
     <ul class="student-list">
-        @if (MainService.Users.UsersTop is not null)
+        @if (ListView.GetData<>() is not null)
         {
             @for (int i = 1; i <= MainService.Users.UsersTop.Length; i++)
             {
@@ -29,7 +29,7 @@
     <div class="footer">
         <div class="footer-left">
             <button class="update" @onclick="OnUpdateClick">
-                <img class="img-update" src="/icons/update.svg" alt="">
+                <img class="img-update" src="icons/update.svg" alt="">
             </button>
         </div>
     </div>

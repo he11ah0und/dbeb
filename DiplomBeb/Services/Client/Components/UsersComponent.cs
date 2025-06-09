@@ -18,9 +18,9 @@ public class UsersComponent
         UsersTop = [];
     }
     
-    public void RequestUsersTop(BackendHttpClient http)
+    public async Task RequestUsersTop(BackendHttpClient http)
     {
-        var res = http.NativeRequest("Users/top");
+        var res = await http.NativeRequest("Users/top");
         if (!res.IsOk)
         {
             return;
@@ -28,7 +28,7 @@ public class UsersComponent
         if (res.ResultAsJson<User[]>(out var result))
             UsersTop = result;
 
-        res = http.NativeRequest("Users/total");
+        res = await http.NativeRequest("Users/total");
         if (!res.IsOk)
         {
             return;

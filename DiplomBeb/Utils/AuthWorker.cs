@@ -34,7 +34,7 @@ public class AuthWorker
             signInData.Password = await mySha256.ComputeHashAsync(passStream);
         }
 
-        var res = BHttp.NativeRequest("http://localhost:5062/api/Auth/signin",
+        var res = await BHttp.NativeRequest("http://localhost:5062/api/Auth/signin",
             JsonContent.Create(signInData),
             HttpMethod.Post
             );
@@ -58,7 +58,7 @@ public class AuthWorker
             signUpData.Password = await mySHA256.ComputeHashAsync(passstream);
         }
 
-        var res = BHttp.NativeRequest("Auth/signup",
+        var res = await BHttp.NativeRequest("Auth/signup",
             JsonContent.Create(signUpData),
             HttpMethod.Post);
         if (!res.IsOk || !res.ResultAsBool(out bool bOk))

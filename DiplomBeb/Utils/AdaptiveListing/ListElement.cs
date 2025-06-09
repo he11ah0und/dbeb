@@ -1,0 +1,30 @@
+using System.Text.Json.Serialization;
+
+namespace DiplomBeb.Utils.AdaptiveListing;
+
+public class ListElement
+{
+    [JsonPropertyName("elements")]
+    public Dictionary<string, string> Elements { get; set; }
+
+    public ListElement()
+    {
+        Elements = [];
+    }
+
+    public string Get(string key)
+        => Elements.GetValueOrDefault(key, "<VALUE>");
+
+    public void Set(string key, object? value)
+    {
+        if (value is null)
+            return;
+        Set(key, value.ToString());
+    }
+    public void Set(string key, string? value)
+    {
+        if (string.IsNullOrEmpty(value) || Elements.TryAdd(key, value))
+            return;
+        Elements[key] = value;
+    }
+}
