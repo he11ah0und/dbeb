@@ -23,8 +23,8 @@ public class HomeService
             OnGet = RequestUsers,
             GetHeader = () => "Общая информация"
         };
-        TopUsersListView.Props.AddRange(
-            ["avatar", "name", "middlename", "surname", "score", "webrole_name"]);
+        TopUsersListView.DataResolver.Props.AddRange(
+            ["id", "avatar", "name", "middlename", "surname", "score", "webrole_name"]);
         LibraryRandomStateChanged = new Callbacker();
         RandomLibs = [];
     }

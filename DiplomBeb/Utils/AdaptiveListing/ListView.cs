@@ -21,7 +21,8 @@ public class ListView
     public Func<BackendHttpClient, ulong, ulong, Task<HttpResponseState>> OnGet { get; set; }
     public Func<BackendHttpClient, Task<HttpResponseState>> OnTotal { get; set; }
     
-    public List<string> Props { get; private set; }
+    public DataResolver DataResolver { get; private set; }
+    
     private BackendHttpClient _http { get; set; }
     
     public ListElement[] Data { get; private set; }
@@ -36,13 +37,45 @@ public class ListView
         OnListUpdated = new Callbacker(false);
         OnPageSwitch = new Callbacker(false);
         Data = [];
-        Props = [];
+        DataResolver = new DataResolver();
+        
+        DataResolver.ListProps.Add("id", new ListProp(
+            (p) => "№",
+            (d, li, id, i) => $"<h4>{i}</h4>"));
+        DataResolver.ListProps.Add("avatar", new ListProp(
+            (p) => "Аватар",
+            (d, li, id, i) => $"<div class=\"image\"></div>"));
+        DataResolver.ListProps.Add("name", new ListProp(
+            (p) => p.Contains("surname") && p.Contains("middlename") ? "ФИО" : "Имя",
+            (d, li, id, i) =>
+            {
+                var hasLink = d.IsHave("link");
+                var textTag = hasLink ? "a" : "h4";
+                var str = 
+                        $"<div class=\"name\">\n" +
+                        $"   <{textTag} {(hasLink ? $"target=\"_blank\" href=\"{li.Get("link")}\"" : "")}>{(d.IsHave("surname", "middlename") ? $"{li.Get("surname")} {li.Get(id)} {li.Get("middlename")}" : li.Get(id))}</{textTag}>\n" +
+                        $"   {(d.IsHave("webrole_name") ? $"<p>{li.Get("webrole_name")}</p>" : "")}\n" +
+                        $"</div>";
+
+                return str;
+            }));
+        DataResolver.ListProps.Add("action", new ListProp(
+            (p) => "Действие",
+            (d, li, id, i) => $"<h4>{li.Get(id)}</h4>"));
+        DataResolver.ListProps.Add("time", new ListProp(
+            (p) => "Время",
+            (d, li, id, i) => $"<h4>{li.Get(id)}</h4>"));
+        DataResolver.ListProps.Add("score", new ListProp(
+            (p) => "Звёзды",
+            (d, li, id, i) => 
+                                $"<div class=\"stars-container star\">\n" +
+                                $"  <h4>{li.Get(id)}</h4>\n" +
+                                $"  <img src=\"/icons/star1-ico.svg\" alt=\"\">\n" +
+                                $"</div>"));
     }
     
     public string Header => GetHeader is null ? "<HEADER>" : GetHeader();
-
-    public bool IsHave(string key)
-        => Props.Contains(key);
+    
     public async Task NextPage()
     {
         if (!CanNext) return; 

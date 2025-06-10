@@ -16,8 +16,8 @@ public class LibraryService
             OnTotal = RequestLibsTotal,
             GetHeader = () => "Библиотека полезных ссылок"
         };
-        ListView.Props.AddRange(
-            ["name"]);
+        ListView.DataResolver.Props.AddRange(
+            ["id", "name", "link"]);
     }
     
     private Task<HttpResponseState> RequestLibs(BackendHttpClient http, ulong skip, ulong take)

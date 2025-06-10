@@ -17,7 +17,6 @@ public partial class Place
     {
         UserService.Place.ListView.OnListUpdated.Subscribe("place", OnListUpdated);
         
-        await UserService.Place.ListView.First(1);
         await UserService.Place.SelectPlace((ulong)PlaceId.Value);
     }
     
@@ -30,6 +29,7 @@ public partial class Place
     {
         if (!firstRender) return;
         
+        await UserService.Place.ListView.First(1);
         
     }
 }

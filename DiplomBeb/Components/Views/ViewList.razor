@@ -7,57 +7,69 @@
 <div class="container-list">
     <div class="table-wrapper">
         <table class="student-table">
+            @{
+                var resolved = ListView.DataResolver.Props
+                    .Select(prop => ListView.DataResolver.ResolvePropName(prop))
+                    .Where(resolved => !string.IsNullOrEmpty(resolved));
+            }
             <thead>
-                <tr class="heading-list">
-                    <th>№</th>
-                    <th>Аватар</th>
-                    <th>ФИО</th>
-                    <th>Действие</th>
-                    <th>Время</th>
-                    <th>Звезды</th>
-                </tr>
+            <tr class="heading-list">
+                @foreach (var r in resolved)
+                {
+                    <th>@r</th>
+                }
+            </tr>
             </thead>
             <tbody class="student-list">
+            @for (long i = 1; i <= ListView.Data.LongLength; i++)
+            {
+                var io = i - 1;
+                var listElement = ListView.Data[io];
+                var hasId = ListView.DataResolver.Props.Contains("id");
+                var idInLe = string.IsNullOrEmpty(listElement.Get("id"));
+                if (hasId && !idInLe)
+                {
+                    listElement.Set("id", i);
+                }
                 <tr>
-                    <td>
-                        <h4>1</h4>
-                    </td>
-                    <td>
-                        <div class="image"></div>
-                    </td>
-                    <td class="name">
-                        <h4>Акакий Акакиевич Акаков</h4>
-                        <p>Студент</p>
-                    </td>
-                    <td>
-                        <h4>Вышел из системы</h4>
-                    </td>
-                    <td>
-                        <h4>22:00</h4>
-                    </td>
-                    <td class="star">
-                        <div class="stars-container">
-                            <h4>1000</h4>
-                            <img src="/icons/star1-ico.svg" alt="">
-                        </div>
-                    </td>
+                    @{
+                        var listProps = ListView.DataResolver.GetListProps(ListView.DataResolver.Props, listElement.Elements);
+                        var renderedProps = listProps
+                            .Select(pair => ListView.DataResolver.RenderProp(pair.Key, listElement, (ulong)i))
+                            .Where(rendered => !string.IsNullOrEmpty(rendered));
+                    }
+                        
+                    @foreach (var rendered in renderedProps)
+                    {
+                        <td>
+                            @ListView.DataResolver.Render(rendered)
+                        </td>
+                    }
                 </tr>
+            }
             </tbody>
         </table>
     </div>
 
     <div class="footer">
         <div class="footer-left">
-            <button class="update">
+            <button class="update" @onclick="ListView.Update">
                 <img class="img-update" src="/icons/update.svg" alt="">
             </button>
         </div>
         <div class="footer-right">
-            <a href="#"><button class="nazad"><img src="/icons/nazad.svg" alt=""></button></a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#"><button class="vpered"><img src="/icons/vpered.svg" alt=""></button></a>
+            @if (ListView.CanPrevious)
+            {
+                <button class="nazad" @onclick="ListView.PreviousPage"><img src="/icons/nazad.svg" alt=""></button>
+            }
+            @for (ulong i = 1; i <= ListView.MaxPages; i++)
+            {
+                <button @onclick="() => ListView.SpecificPage(i)">@(i)</button>
+            }
+            @if (ListView.CanNext)
+            {
+                <button class="vpered" @onclick="ListView.NextPage"><img src="/icons/vpered.svg" alt=""></button>
+            }
         </div>
     </div>
 </div>

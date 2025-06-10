@@ -12,21 +12,14 @@ public partial class Home
     [Inject]
     private HomeService HomeService { get; set; }
     
-    [Inject]
-    private SyncRenderService SyncRenderService { get; set; }
-    
     protected override async Task OnInitializedAsync()
     {
-        SyncRenderService.Max = 3;
-        SyncRenderService.OnComplete = OnListUpdated;
-        
         HomeService.TopUsersListView.OnListUpdated.
-            Subscribe("home", () => SyncRenderService.Register(0));
+            Subscribe("home", OnListUpdated);
         HomeService.LibraryRandomStateChanged
-            .Subscribe("home", () => SyncRenderService.Register(1));
+            .Subscribe("home", OnListUpdated);
         AccountService.StateChanged.
             Subscribe("home", OnListUpdated);
-        
         
         await HomeService.RequestRandomLibs();
     }
@@ -35,8 +28,7 @@ public partial class Home
     {
         StateHasChanged();
     }
-
-    private bool Ok;
+    
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) 

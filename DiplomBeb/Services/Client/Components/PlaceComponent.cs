@@ -26,8 +26,8 @@ public class PlaceComponent
             OnTotal = RequestUsersTotal,
             GetHeader = () => $"Участники {CurrentPlace?.Content}"
         };
-        ListView.Props.AddRange(
-            ["avatar", "name", "middlename", "surname", "score", "webrole_name"]);
+        ListView.DataResolver.Props.AddRange(
+            ["id", "avatar", "name", "middlename", "surname", "score", "webrole_name"]);
     }
     
     private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)
