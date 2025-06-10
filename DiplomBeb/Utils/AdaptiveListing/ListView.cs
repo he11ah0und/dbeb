@@ -51,10 +51,17 @@ public class ListView
             {
                 var hasLink = d.IsHave("link");
                 var textTag = hasLink ? "a" : "h4";
+                var link = (hasLink ? $"target=\"_blank\" href=\"{li.Get("link")}\"" : "");
+                var mainTextContent = (d.IsHave("surname", "middlename")
+                    ? $"{li.Get("surname")} {li.Get(id)} {li.Get("middlename")}"
+                    : li.Get(id));
+                var webRole = (d.IsHave("webrole_name")
+                    ? $"<p>{li.Get("webrole_name")}</p>"
+                    : "");
                 var str = 
                         $"<div class=\"name\">\n" +
-                        $"   <{textTag} {(hasLink ? $"target=\"_blank\" href=\"{li.Get("link")}\"" : "")}>{(d.IsHave("surname", "middlename") ? $"{li.Get("surname")} {li.Get(id)} {li.Get("middlename")}" : li.Get(id))}</{textTag}>\n" +
-                        $"   {(d.IsHave("webrole_name") ? $"<p>{li.Get("webrole_name")}</p>" : "")}\n" +
+                        $"   <{textTag} {link}>{mainTextContent}</{textTag}>\n" +
+                        $"   {webRole}\n" +
                         $"</div>";
 
                 return str;
