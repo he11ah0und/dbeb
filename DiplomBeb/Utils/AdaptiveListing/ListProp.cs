@@ -1,22 +1,33 @@
+using Microsoft.AspNetCore.Components.Rendering;
+
 namespace DiplomBeb.Utils.AdaptiveListing;
 
-public delegate string RenderFunc(
-    DataResolver resolver, 
-    ListElement listElement,
-    string id,
-    ulong index);
 public delegate string NameResolveFunc(
     List<string> props);
 public class ListProp
 {
-    public NameResolveFunc NameResolver { get; set; }
-    public RenderFunc Render { get; set; }
-
+    public NameResolveFunc? NameResolver { get; set; }
+    public Type? RenderType { get; set; }
+    public bool IsNullable => NameResolver is null || RenderType is null;
+    
+    public RenderMeta GenerateRenderMeta(
+        DataResolver resolver,
+        string propName,
+        ListElement listElement,
+        ulong index)
+    {
+        return new RenderMeta(
+            this,
+            resolver,
+            propName,
+            listElement,
+            index);
+    }
     public ListProp(
-        NameResolveFunc nameResolver,
-        RenderFunc render)
+        NameResolveFunc? nameResolver,
+        Type? renderType)
     {
         NameResolver = nameResolver;
-        Render = render;
+        RenderType = renderType;
     }
 }

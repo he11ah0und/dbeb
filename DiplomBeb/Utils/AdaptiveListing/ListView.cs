@@ -1,3 +1,4 @@
+using DiplomBeb.Components.Views.Samples;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.Networking;
 
@@ -39,46 +40,25 @@ public class ListView
         Data = [];
         DataResolver = new DataResolver();
         
-        DataResolver.ListProps.Add("id", new ListProp(
-            (p) => "№",
-            (d, li, id, i) => $"<h4>{i}</h4>"));
-        DataResolver.ListProps.Add("avatar", new ListProp(
-            (p) => "Аватар",
-            (d, li, id, i) => $"<div class=\"image\"></div>"));
         DataResolver.ListProps.Add("name", new ListProp(
             (p) => p.Contains("surname") && p.Contains("middlename") ? "ФИО" : "Имя",
-            (d, li, id, i) =>
-            {
-                var hasLink = d.IsHave("link");
-                var textTag = hasLink ? "a" : "h4";
-                var link = (hasLink ? $"target=\"_blank\" href=\"{li.Get("link")}\"" : "");
-                var mainTextContent = (d.IsHave("surname", "middlename")
-                    ? $"{li.Get("surname")} {li.Get(id)} {li.Get("middlename")}"
-                    : li.Get(id));
-                var webRole = (d.IsHave("webrole_name")
-                    ? $"<p>{li.Get("webrole_name")}</p>"
-                    : "");
-                var str = 
-                        $"<div class=\"name\">\n" +
-                        $"   <{textTag} {link}>{mainTextContent}</{textTag}>\n" +
-                        $"   {webRole}\n" +
-                        $"</div>";
-
-                return str;
-            }));
+            typeof(NameSample)));
+        DataResolver.ListProps.Add("avatar", new ListProp(
+            (p) => "Аватар",
+            typeof(AvatarSample)));
+        DataResolver.ListProps.Add("id", new ListProp(
+            (p) => "№",
+            typeof(SimpleSample)));
         DataResolver.ListProps.Add("action", new ListProp(
             (p) => "Действие",
-            (d, li, id, i) => $"<h4>{li.Get(id)}</h4>"));
+            typeof(SimpleSample)));
         DataResolver.ListProps.Add("time", new ListProp(
             (p) => "Время",
-            (d, li, id, i) => $"<h4>{li.Get(id)}</h4>"));
-        DataResolver.ListProps.Add("score", new ListProp(
-            (p) => "Звёзды",
-            (d, li, id, i) => 
-                                $"<div class=\"stars-container star\">\n" +
-                                $"  <h4>{li.Get(id)}</h4>\n" +
-                                $"  <img src=\"/icons/star1-ico.svg\" alt=\"\">\n" +
-                                $"</div>"));
+            typeof(SimpleSample)));
+        DataResolver.ListProps.Add("score", 
+            new ListProp(
+                (p) => "Звёзды",
+            typeof(ScoreSample)));
     }
     
     public string Header => GetHeader is null ? "<HEADER>" : GetHeader();

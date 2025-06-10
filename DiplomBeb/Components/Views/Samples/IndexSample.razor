@@ -1,0 +1,14 @@
+@using DiplomBeb.Utils.AdaptiveListing
+
+<h4>@Index</h4>
+
+@code {
+    [Parameter]
+    public DataResolver DataResolver { get; set; }
+    [Parameter]
+    public ulong Index { get; set; }
+    [Parameter]
+    public string Id { get; set; }
+    [Parameter]
+    public ListElement ListElement { get; set; }
+}

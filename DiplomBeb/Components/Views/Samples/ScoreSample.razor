@@ -1,0 +1,17 @@
+@using DiplomBeb.Utils.AdaptiveListing
+
+<div class="stars-container star">
+    <h4>@ListElement.Get(Id)</h4>
+    <img src="/icons/star1-ico.svg" alt="">
+</div>
+
+@code {
+    [Parameter]
+    public DataResolver DataResolver { get; set; }
+    [Parameter]
+    public ulong Index { get; set; }
+    [Parameter]
+    public string Id { get; set; }
+    [Parameter]
+    public ListElement ListElement { get; set; }
+}

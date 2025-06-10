@@ -1,28 +1,32 @@
 using DiplomBeb.Database.Model;
 using DiplomBeb.Utils;
+using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
 
 namespace DiplomBeb.Services.Client;
 
 public class ModerationService
 {
-    public Callbacker UsersStateChanged;
+    public ListView ListView { get; private set; }
 
-    public ModerationService()
+    public ModerationService(BackendHttpClient http)
     {
-        UsersStateChanged = new Callbacker();
-        
+        ListView = new ListView(http)
+        {
+            OnTotal = RequestUsersTotal,
+            OnGet = RequestUsers,
+            GetHeader = () => "Пользователи"
+        };
+        ListView.DataResolver.Props.AddRange(
+            ["id", "avatar", "name", "middlename", "surname", "score", "webrole_name"]);
     }
-    
-    public User[] Users { get; private set; }
-    public async Task RequestUsers(BackendHttpClient http, ulong page)
+    private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)
     {
-        var res = await http.Request($"Users/get30?page={page}");
-        if (!res.IsOk)
-            return;
+        return http.Request($"Users/get/{skip}/{take}");
+    }
 
-        if (res.ResultAsJson<User[]>(out var result))
-            Users = result;
-        UsersStateChanged.InvokeAll();
+    private Task<HttpResponseState> RequestUsersTotal(BackendHttpClient http)
+    {
+        return http.NativeRequest("Users/total");
     }
 }

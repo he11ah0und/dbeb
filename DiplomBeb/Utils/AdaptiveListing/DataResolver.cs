@@ -29,18 +29,15 @@ public class DataResolver
                 null)
             ?.NameResolver.Invoke(Props);
 
-    public string RenderProp(string propName, ListElement listElement, ulong index)
+    public RenderMeta? GetProp(string propName, ListElement listElement, ulong index)
     {
-        return ListProps.GetValueOrDefault(propName, null)
-            ?.Render?.Invoke(this, listElement, propName, index);
-    }
-
-    public RenderFragment Render(string rendered)
-    {
-        return (b) =>
-        {
-            b.AddMarkupContent(0, rendered);
-        };
+        var lp = ListProps.GetValueOrDefault(
+            propName,
+            new ListProp(null, null));
+        if (lp.IsNullable)
+            return new RenderMeta();
+        
+        return lp.GenerateRenderMeta(this, propName, listElement, index);
     }
 
     public bool IsHave(params string[] keys)
