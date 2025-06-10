@@ -77,15 +77,6 @@
     color: var(--color-text6);
 }
 
-.student-table .image {
-    background-color: var(--color3);
-    border-radius: 0.625rem;
-    width: 4.5rem;
-    height: 4.5rem;
-    display: inline-block;
-    vertical-align: middle;
-}
-
 .student-table .name h4 {
     margin: 0;
     font-size: 1.25rem;
