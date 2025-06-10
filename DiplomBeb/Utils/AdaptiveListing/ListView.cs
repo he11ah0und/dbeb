@@ -6,28 +6,29 @@ namespace DiplomBeb.Utils.AdaptiveListing;
 
 public class ListView
 {
-    public ulong Page { get; protected set; }
-    public ulong MaxPages { get; private set; }
-    public ulong ElementsOnPage { get; set; }
-    public ulong Total { get; private set; }
-    
+    // private
     public bool CanNext => Page + 1 <= MaxPages;
     public bool CanPrevious => Page - 1 >= 1;
-    
-    public bool PageSwitchMode { get; set; }
-    
+    public ulong Page { get; protected set; }
+    public ulong MaxPages { get; private set; }
+    public ulong Total { get; private set; }
     public Callbacker OnListUpdated { get; private set; }
     public Callbacker OnPageSwitch { get; private set; }
-    
-    public Func<BackendHttpClient, ulong, ulong, Task<HttpResponseState>> OnGet { get; set; }
-    public Func<BackendHttpClient, Task<HttpResponseState>> OnTotal { get; set; }
-    
     public DataResolver DataResolver { get; private set; }
-    
+    public ListElement[] Data { get; private set; }
     private BackendHttpClient _http { get; set; }
     
-    public ListElement[] Data { get; private set; }
+    // custom
+    public Func<BackendHttpClient, ulong, ulong, Task<HttpResponseState>>? OnGet { get; set; }
+    public Func<BackendHttpClient, Task<HttpResponseState>>? OnTotal { get; set; }
     public Func<string>? GetHeader { get; set; }
+    public bool PageSwitchMode { get; set; }
+    public ulong ElementsOnPage { get; set; }
+    public bool HideHeading { get; set; }
+    public bool HideTableHeader { get; set; }
+    public bool HideFooter { get; set; }
+    public bool HideRightFooterButtons { get; set; }
+    public bool HideLeftFooterButtons { get; set; }
     
     public ListView(BackendHttpClient http, ulong page = 1, bool pageSwitchMode = false)
     {
@@ -108,7 +109,8 @@ public class ListView
     
     public async Task<bool> LoadTotal()
     {
-        var res = await OnTotal?.Invoke(_http)!;
+        if (OnTotal is null) return true;
+        var res = await OnTotal?.Invoke(_http);
         if (!res.IsOk || !res.ResultAsULong(out var total))
             return false;
         

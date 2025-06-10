@@ -1,9 +1,12 @@
 @rendermode RenderMode.InteractiveServer
 
-<div class="heading">
-    <div>@ListView.Header</div>
-    <div>Всего: @ListView.Total</div>
-</div>
+@if (!ListView.HideHeading)
+{
+    <div class="heading">
+        <div>@ListView.Header</div>
+        <div>Всего: @ListView.Total</div>
+    </div>
+}
 <div class="container-list">
     <div class="table-wrapper">
         <table class="student-table">
@@ -12,14 +15,17 @@
                     .Select(prop => ListView.DataResolver.ResolvePropName(prop))
                     .Where(resolved => !string.IsNullOrEmpty(resolved));
             }
-            <thead>
-            <tr class="heading-list">
-                @foreach (var r in resolved)
-                {
-                    <th>@r</th>
-                }
-            </tr>
-            </thead>
+            @if (!ListView.HideTableHeader)
+            {
+                <thead>
+                <tr class="heading-list">
+                    @foreach (var r in resolved)
+                    {
+                        <th>@r</th>
+                    }
+                </tr>
+                </thead>
+            }
             <tbody class="student-list">
             @for (long i = 1; i <= ListView.Data.LongLength; i++)
             {
@@ -50,26 +56,34 @@
             </tbody>
         </table>
     </div>
-
-    <div class="footer">
-        <div class="footer-left">
-            <button class="update" @onclick="ListView.Update">
-                <img class="img-update" src="/icons/update.svg" alt="">
-            </button>
+    @if (!ListView.HideFooter)
+    {
+        <div class="footer">
+            @if (!ListView.HideLeftFooterButtons)
+            {
+                <div class="footer-left">
+                    <button class="update" @onclick="ListView.Update">
+                        <img class="img-update" src="/icons/update.svg" alt="">
+                    </button>
+                </div>
+            }
+            @if (!ListView.HideRightFooterButtons)
+            {
+                <div class="footer-right">
+                    @if (ListView.CanPrevious)
+                    {
+                        <button class="nazad" @onclick="ListView.PreviousPage"><img src="/icons/nazad.svg" alt=""></button>
+                    }
+                    @for (ulong i = 1; i <= ListView.MaxPages; i++)
+                    {
+                        <button @onclick="() => ListView.SpecificPage(i)">@(i)</button>
+                    }
+                    @if (ListView.CanNext)
+                    {
+                        <button class="vpered" @onclick="ListView.NextPage"><img src="/icons/vpered.svg" alt=""></button>
+                    }
+                </div>
+            }
         </div>
-        <div class="footer-right">
-            @if (ListView.CanPrevious)
-            {
-                <button class="nazad" @onclick="ListView.PreviousPage"><img src="/icons/nazad.svg" alt=""></button>
-            }
-            @for (ulong i = 1; i <= ListView.MaxPages; i++)
-            {
-                <button @onclick="() => ListView.SpecificPage(i)">@(i)</button>
-            }
-            @if (ListView.CanNext)
-            {
-                <button class="vpered" @onclick="ListView.NextPage"><img src="/icons/vpered.svg" alt=""></button>
-            }
-        </div>
-    </div>
+    }
 </div>

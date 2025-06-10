@@ -45,6 +45,7 @@ public class PlaceController : ControllerBase
         var users = _context.Users
             .Include(u => u.Place)
             .Where(u => u.Place.Id == (ulong)placeId)
+            .OrderByDescending(u => u.Score)
             .Skip((int)skip)
             .Take((int)take)
             .Select(u => new User

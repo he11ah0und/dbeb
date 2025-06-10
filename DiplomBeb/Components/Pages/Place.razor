@@ -1,6 +1,6 @@
 ﻿@page "/place/{PlaceId:long}"
-@using DiplomBeb.Database.Model
 @using DiplomBeb.Components.Views
+@using DiplomBeb.Utils.AdaptiveListing
 @rendermode RenderMode.InteractiveServer
  <main>
         <div>
@@ -11,17 +11,17 @@
                 {
                     <div class="container-current">
                         <ul class="student-list">
-                            @if (UserService.Place._accountService.Account is User a)
+                            @if (UserService.Place._accountService.Account is ListElement a)
                             {
                                 <li>
                                     <div class="place">@UserService.Place.CurrentPlaceId</div>
                                     <div class="image"></div>
                                     <div class="name">
-                                        <h4>@a.Surname @a.Name @a.Middlename</h4>
-                                        <p>@a.WebRole.Name</p>
+                                        <h4>@a.Get("surname") @a.Get("name") @a.Get("middlename")</h4>
+                                        <p>@a.Get("webrole_name")</p>
                                     </div>
                                     <div class="score">
-                                        <h4>@a.Score</h4>
+                                        <h4>@a.Get("score")</h4>
                                         <img src="/icons/star1-ico.svg" alt="">
                                     </div>
                                 </li>

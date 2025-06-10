@@ -46,10 +46,11 @@ public partial class Profile
 
     private void OpenPlace()
     {
-        var place = AccountService?.Account.Place;
-        if (place == null || place.Id == null)
+        var place = AccountService?.Account.Get("place_id");
+        
+        if (string.IsNullOrEmpty(place))
             return;
-        Navigation.NavigateTo($"/place/{place.Id}");
+        Navigation.NavigateTo($"/place/{place}");
     }
 
     private async Task OnLogOut()

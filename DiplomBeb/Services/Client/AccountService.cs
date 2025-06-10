@@ -3,6 +3,7 @@ using System.Text;
 using DiplomBeb.Database.Model;
 using DiplomBeb.Filters;
 using DiplomBeb.Utils;
+using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
 
 namespace DiplomBeb.Services.Client;
@@ -10,9 +11,11 @@ namespace DiplomBeb.Services.Client;
 public class AccountService
 {
     public bool Initialized { get; private set; }
-    public User Account { get; private set; }
+    public ListElement? Account => MyListView.Data.FirstOrDefault();
     public UserRank UserRank { get; private set; }
     public bool IsLogged { get; private set; }
+    
+    public ListView MyListView { get; private set; }
     
     public Callbacker StateChanged { get; private set; }
 
@@ -22,21 +25,33 @@ public class AccountService
         _http = http;
         Initialized = false;
         StateChanged = new Callbacker();
-        Account = new User();
         UserRank = new UserRank();
         IsLogged = false;
+        MyListView = new ListView(http, 1, false)
+        {
+            ElementsOnPage = 3,
+            HideFooter = true,
+            HideRightFooterButtons = true,
+            HideLeftFooterButtons = true,
+            HideHeading = true,
+            HideTableHeader = true,
+            OnGet = RequestUsers,
+        };
+        MyListView.DataResolver.Props.AddRange(
+            ["id", "avatar", "name", "middlename", "surname", "score", "webrole_name"]);
+    }
+    
+    private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)
+    {
+        return http.Request($"Users/personal");
     }
 
     public async Task Auth()
     {
-        var res = await _http.Request("Users/personal");
-        IsLogged = res.IsOk;
-        if (IsLogged = res.ResultAsJson<User>(out var user))
-            Account = user;
-
-        if (IsLogged)
+        await MyListView.First(1);
+        if (IsLogged = MyListView.Data.LongLength > 0)
         {
-            res = await _http.Request($"Users/toppos/{Account?.Id}");
+            var res = await _http.Request($"Users/toppos/{Account.Get("id")}");
             IsLogged = res.IsOk;
             if (IsLogged = res.ResultAsJson<UserRank>(out var rank))
                 UserRank = rank;

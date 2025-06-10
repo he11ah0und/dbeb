@@ -11,7 +11,6 @@ public class HomeService
     public Library[] RandomLibs { get; private set; }
     
     public ListView TopUsersListView { get; private set; }
-
     private BackendHttpClient _http { get; set; }
     public HomeService(BackendHttpClient http)
     {

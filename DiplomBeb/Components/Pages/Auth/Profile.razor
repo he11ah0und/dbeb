@@ -17,24 +17,24 @@
                                     <h3>ФИО:</h3>
                                     @if (InEdit)
                                     {
-                                        <input type="text" @bind="AccountService.Account.Surname"/>
-                                        <input type="text" @bind="AccountService.Account.Name"/>
-                                        <input type="text" @bind="AccountService.Account.Middlename"/>
+                                        <input type="text" />
+                                        <input type="text" />
+                                        <input type="text" />
                                     }
                                     else
                                     {
-                                        <h4>@AccountService.Account.Surname @AccountService.Account.Name @AccountService.Account.Middlename</h4>
+                                        <h4>@AccountService.Account.Get("surname") @AccountService.Account.Get("name") @AccountService.Account.Get("middlename")</h4>
                                     }
                                 </div>
                                 <div class="Place-column"> 
                                     <h3>Место:</h3>
                                     <button @onclick="OpenPlace">
-                                        <h4>@AccountService.Account?.Place?.Content</h4>
+                                        <h4>@AccountService.Account?.Get("place_name")</h4>
                                     </button>
                                 </div>
                                 <div>
                                     <h3>Звёзд:</h3>
-                                    <h4>@AccountService.Account?.Score</h4>
+                                    <h4>@AccountService.Account?.Get("score")</h4>
                                 </div>
                                 <div>
                                     <h3>Место в ТОПе:</h3>
@@ -46,22 +46,22 @@
                                     <h3>Email:</h3>
                                     @if (InEdit)
                                     {
-                                        <input type="text" @bind="AccountService.Account.Email"/>
+                                        <input type="text"/>
                                     }
                                     else
                                     {
-                                        <h4>@AccountService.Account?.Email</h4>
+                                        <h4>@AccountService.Account?.Get("email")</h4>
                                     }
                                 </div>
                                 <div class="number-column">
                                     <h3>Номер телефона:</h3>
                                     @if (InEdit)
                                     {
-                                        <input type="text" @bind="AccountService.Account.Phone"/>
+                                        <input type="text"/>
                                     }
                                     else
                                     {
-                                        <h4>@AccountService.Account?.Phone</h4>
+                                        <h4>@AccountService.Account?.Get("phone")</h4>
                                     }
                                 </div>
                             </div>

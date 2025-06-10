@@ -17,14 +17,14 @@
 		<li>
 			<a href="/about"><img src="icons/info-ico.svg" alt="О сервисе" />О сервисе</a>
 		</li>
-		@if (AccountService?.Account?.ApiRole?.IsMoreUser() == true)
+		@if (AccountService?.Account?.Get("apirole_name") != "user")
 		{
 			<li>
 				<a href=""><img src="/icons/moder-ico.svg" alt="О сервисе"/>Модерация</a>
 				<a href="/special/logs"><img/>Логи</a>
 				<a href="/special/profiles"><img/>Пользователи</a>
 				<a href="/special/docs"><img/>Документы</a>
-				@if (AccountService.Account.ApiRole.Name == "admin")
+				@if (AccountService?.Account?.Get("apirole_name") == "admin")
 				{
 					<a href="/special/requests"><img/>Запросы</a>
 				}
@@ -37,8 +37,8 @@
 			<div>
 				@if (AccountService.IsLogged)
 				{
-					<h3>@AccountService?.Account?.Name @AccountService?.Account?.Middlename</h3>
-					<h4>@AccountService?.Account?.WebRole?.Name</h4>
+					<h3>@AccountService?.Account?.Get("name") @AccountService?.Account?.Get("middlename")</h3>
+					<h4>@AccountService?.Account?.Get("webrole_name")</h4>
 				}
 				else
 				{

@@ -25,11 +25,11 @@ namespace DiplomBeb.Database.Model
             var le = new ListElement();
             le.Set("id", model.Id);
             
-            le.Set("surname", model.Surname);
-            le.Set("name", model.Name);
-            le.Set("middlename", model.Middlename);
+            le.Set("surname", model?.Surname);
+            le.Set("name", model?.Name);
+            le.Set("middlename", model?.Middlename);
             
-            le.Set("phone", model.Phone);
+            le.Set("phone", model?.Phone);
             
             le.Set("place_id", model?.Place?.Id);
             le.Set("place_name", model?.Place?.Content);

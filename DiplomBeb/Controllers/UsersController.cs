@@ -119,27 +119,29 @@ namespace DiplomBeb.Controllers
         public async Task<IActionResult> GetPersonal()
         {
             var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
-            var dev = _context.Users
+            var devs = _context.Users
                 .Include(u => u.ApiRole)
                 .Include(u => u.WebRole)
                 .Include(u => u.Documents)
                 .Include(u => u.Place)
-                .Select(u => new
+                .Select(u => new User
                 {
-                    u.Id,
-                    u.Score,
-                    u.Surname,
-                    u.Name,
-                    u.Middlename,
-                    u.Email,
-                    u.Phone,
-                    u.Place,
-                    u.Documents,
-                    u.WebRole,
-                    u.ApiRole
+                    Id = u.Id,
+                    Score = u.Score,
+                    Surname = u.Surname,
+                    Name = u.Name,
+                    Middlename = u.Middlename,
+                    Email = u.Email,
+                    Phone = u.Phone,
+                    Place = u.Place,
+                    Documents = u.Documents,
+                    WebRole = u.WebRole,
+                    ApiRole = u.ApiRole
                 })
-                .FirstOrDefault(a => a.Id == authedId);
-            return Ok(dev);
+                .Where(a => a.Id == authedId)
+                .Cast<ListElement>()
+                .ToArray();
+            return Ok(devs);
         }
         
         // admin api

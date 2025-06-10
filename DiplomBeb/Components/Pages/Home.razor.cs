@@ -1,4 +1,5 @@
 ﻿using DiplomBeb.Services.Client;
+using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
 using Microsoft.AspNetCore.Components;
 
@@ -18,8 +19,11 @@ public partial class Home
             Subscribe("home", OnListUpdated);
         HomeService.LibraryRandomStateChanged
             .Subscribe("home", OnListUpdated);
+        
         AccountService.StateChanged.
             Subscribe("home", OnListUpdated);
+        AccountService.MyListView.OnListUpdated
+            .Subscribe("home", OnListUpdated);
         
         await HomeService.RequestRandomLibs();
     }

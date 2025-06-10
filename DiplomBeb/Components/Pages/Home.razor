@@ -11,7 +11,9 @@
                 ListView="@HomeService.TopUsersListView"/>
             @if (AccountService.IsLogged)
             {
-                <div class="container-current">
+                <ViewList 
+                    ListView="@AccountService.MyListView"/>
+                <!--<div class="container-current">
                     <ul class="student-list">
                         <li>
                             <div class="place">@AccountService.UserRank.Position</div>
@@ -26,7 +28,7 @@
                             </div>
                         </li>
                     </ul>
-                </div>
+                </div>-->
             }
         </div>
         <div>
