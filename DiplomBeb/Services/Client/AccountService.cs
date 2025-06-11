@@ -62,6 +62,11 @@ public class AccountService
         StateHasChanged();
     }
 
+    public async Task GetDocs()
+    {
+        
+    }
+
     public async Task<bool> Update(ListElement li)
     {
         var res = await _http.Request(

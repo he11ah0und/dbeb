@@ -45,7 +45,7 @@ namespace DiplomBeb.Controllers
         }
 
         [AuthFilter("user")]
-        [HttpGet("down/{docId")]
+        [HttpGet("down/{docId}")]
         public async Task<IActionResult> Download(ulong docId)
         {
             return Ok();
