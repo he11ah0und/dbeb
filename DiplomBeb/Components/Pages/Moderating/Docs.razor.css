@@ -16,7 +16,7 @@ main {
 }
 
 
-main .hedder {
+main .heading {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -24,7 +24,7 @@ main .hedder {
     margin: 2rem;
 }
 
-main .hedder > div {
+main .heading > div {
     padding: .8rem 2rem;
 
     border-radius: .5rem;
@@ -36,7 +36,7 @@ main .hedder > div {
     color: var(--color-text1);
 }
 
-main .warp {
+main .middle {
     margin-left: 2rem;
     margin-right: 2rem;
     display: flex;
@@ -47,7 +47,7 @@ main .warp {
 
 }
 
-.warp .warp-left {
+.middle .middle-left {
     display: flex;
     flex-direction: column;
     border-radius: .625rem;
@@ -55,7 +55,7 @@ main .warp {
     background-color: var(--color-light);
 }
 
-.warp-left .warp-left-title {
+.middle-left .middle-left-title {
     display: flex;
     flex-direction: row;
     align-items:start;
@@ -67,24 +67,24 @@ main .warp {
 
 }
 
-.warp-left-title > h4 {
+.middle-left-title > h4 {
     flex: 1;
     font-size: 1.25rem;
     color: var(--color-text3);
 }
 
-.warp-left .warp-left-img {
+.middle-left .middle-left-img {
     display: flex;
     flex-direction: column;
     align-items:center;
     justify-content: center;
 
     max-height: 55.125rem;
-    padding: 0rem 1.25rem;
+    padding: 0 1.25rem;
 
 }
 
-.warp-left-img .image {
+.middle-left-img .image {
     background-color: var(--color3);
     border-radius: .625rem;
     width: 32.125rem;
@@ -92,7 +92,7 @@ main .warp {
 
 }
 
-.warp-left .warp-left-buttom {
+.middle-left .middle-left-button {
     display: flex;
     flex-direction: row;
     align-items:center;
@@ -104,7 +104,7 @@ main .warp {
 
 }
 
-.warp-left-buttom > button {
+.middle-left-button > button {
     background-color: var(--color-light);
     display: flex;
     flex-direction: row;
@@ -127,7 +127,7 @@ main .warp {
 }
 
 
-.warp .warp-right {
+.middle .middle-right {
     flex: 1;
     background-color: var(--color-light);
     border-radius: .625rem;
@@ -137,7 +137,7 @@ main .warp {
 
 }
 
-.warp-right .container-title {
+.middle-right .container-title {
     background-color: var(--color5);
     display: flex;
     flex-direction: row;
@@ -162,7 +162,7 @@ main .warp {
     height: 2.75rem;
 }
 
-.warp-right .container-dan {
+.middle-right .container-dan {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -192,7 +192,7 @@ main .warp {
 
 }
 
-.warp-right .container-dan-title {
+.middle-right .container-dan-title {
     display: flex;
     flex-direction: column;
     align-items:start;
