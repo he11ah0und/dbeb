@@ -29,6 +29,8 @@ namespace DiplomBeb.Database.Model
             le.Set("name", model?.Name);
             le.Set("middlename", model?.Middlename);
             
+            le.Set("email", model.Email);
+            
             le.Set("phone", model?.Phone);
             
             le.Set("place_id", model?.Place?.Id);

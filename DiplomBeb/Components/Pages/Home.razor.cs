@@ -15,17 +15,7 @@ public partial class Home
     
     protected override async Task OnInitializedAsync()
     {
-        HomeService.TopUsersListView.OnListUpdated.
-            Subscribe("home", OnListUpdated);
-        HomeService.LibraryRandomStateChanged
-            .Subscribe("home", OnListUpdated);
         
-        AccountService.StateChanged.
-            Subscribe("home", OnListUpdated);
-        AccountService.MyListView.OnListUpdated
-            .Subscribe("home", OnListUpdated);
-        
-        await HomeService.RequestRandomLibs();
     }
     
     private void OnListUpdated()
@@ -37,6 +27,19 @@ public partial class Home
     {
         if (!firstRender) 
             return;
+        
+        HomeService.TopUsersListView.OnListUpdated.
+            Subscribe("home", OnListUpdated);
+        HomeService.LibraryRandomStateChanged
+            .Subscribe("home", OnListUpdated);
+        
+        AccountService.StateChanged.
+            Subscribe("home", OnListUpdated);
+        AccountService.MyListView.OnListUpdated
+            .Subscribe("home", OnListUpdated);
+        
         await HomeService.TopUsersListView.First(1);
+        
+        await HomeService.RequestRandomLibs();
     }
 }

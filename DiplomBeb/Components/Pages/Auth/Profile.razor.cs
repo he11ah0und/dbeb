@@ -15,6 +15,12 @@ public partial class Profile
     
     private bool InEdit { get; set; }
     
+    public string Surname { get; set; }
+    public string Name { get; set; }
+    public string MiddleName { get; set; }
+    public string PhoneName { get; set; }
+    public string EmailName { get; set; }
+    
     protected override async Task OnInitializedAsync()
     {
         
@@ -22,6 +28,7 @@ public partial class Profile
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (!firstRender) return;
         AccountService.StateChanged.Subscribe("profile", AccountServiceOnStateChanged);
     }
 

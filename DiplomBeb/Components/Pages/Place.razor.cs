@@ -15,9 +15,7 @@ public partial class Place
     
     protected override async Task OnInitializedAsync()
     {
-        UserService.Place.ListView.OnListUpdated.Subscribe("place", OnListUpdated);
         
-        await UserService.Place.SelectPlace((ulong)PlaceId.Value);
     }
     
     private void OnListUpdated()
@@ -28,6 +26,9 @@ public partial class Place
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
+        
+        await UserService.Place.SelectPlace((ulong)PlaceId.Value);
+        UserService.Place.ListView.OnListUpdated.Subscribe("place", OnListUpdated);
         
         await UserService.Place.ListView.First(1);
         

@@ -20,10 +20,7 @@ public partial class Library
     
     protected override async Task OnInitializedAsync()
     {
-        LibraryService.ListView.OnListUpdated.Subscribe("library", OnListUpdated);
-        LibraryService.ListView.OnPageSwitch.Subscribe("library", OnNavigate);
         
-        await LibraryService.ListView.First((ulong)Page);
     }
 
     private void OnNavigate()
@@ -40,6 +37,9 @@ public partial class Library
     {
         if (!firstRender) return;
         
+        LibraryService.ListView.OnListUpdated.Subscribe("library", OnListUpdated);
+        LibraryService.ListView.OnPageSwitch.Subscribe("library", OnNavigate);
         
+        await LibraryService.ListView.First((ulong)Page);
     }
 }

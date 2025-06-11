@@ -14,6 +14,8 @@ public class ListElement
 
     public string Get(string key)
         => Elements.GetValueOrDefault(key, "<VALUE>");
+    public string Get(string key, string defaultValue)
+        => Elements.GetValueOrDefault(key, defaultValue);
 
     public void Set(string key, object? value)
     {
