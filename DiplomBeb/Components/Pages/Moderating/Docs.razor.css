@@ -130,7 +130,8 @@ main .middle {
 .middle .middle-right {
     flex: 1;
     background-color: var(--color-light);
-    border-radius: .625rem;
+    border-radius: .625rem; 
+    margin-bottom: 2rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;

@@ -17,9 +17,9 @@
                                     <h3>ФИО:</h3>
                                     @if (InEdit)
                                     {
-                                        <input type="text" @bind="Surname"/>
-                                        <input type="text" @bind="Name"/>
-                                        <input type="text" @bind="Middlename"/>
+                                        <input type="text" @bind="Surname" placeholder="Фамилия"/>
+                                        <input type="text" @bind="Name" placeholder="Имя"/>
+                                        <input type="text" @bind="Middlename" placeholder="Отчество (при наличии)"/>
                                     }
                                     else
                                     {
@@ -46,7 +46,7 @@
                                     <h3>Email:</h3>
                                     @if (InEdit)
                                     {
-                                        <input type="text" @bind="Email"/>
+                                        <input type="email" @bind="Email" placeholder="example@email.com"/>
                                     }
                                     else
                                     {
@@ -57,7 +57,7 @@
                                     <h3>Номер телефона:</h3>
                                     @if (InEdit)
                                     {
-                                        <input type="text" @bind="Phone"/>
+                                        <input type="number" @bind="Phone" placeholder="+7-XXX-XXX-XX-XX"/>
                                     }
                                     else
                                     {
@@ -84,8 +84,8 @@
                     <div>Грамоты</div>
                 </div>
                 <div class="container-list">
-                    <div class="place-inner-top">
-                        <duv class="awards">
+                    <div class="place-linner-top">
+                        <div class="awards">
                             
                             <img class="img36" src="images/gram1-img.svg" alt="Редактировать"/>
                             <img class="img36" src="images/gram2-img.svg" alt="Редактировать"/>
@@ -93,7 +93,7 @@
                             <img class="img36" src="images/gram4-img.svg" alt="Редактировать"/>
                             <img class="img36" src="images/gram5-img.svg" alt="Редактировать"/>
                             <img class="img36" src="images/gram6-img.svg" alt="Редактировать"/>
-                        </duv>
+                        </div>
                     </div>
                     <div class="place-linner-bottom">
                         <button class="button_change">
