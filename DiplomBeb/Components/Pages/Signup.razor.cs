@@ -28,6 +28,11 @@ public partial class Signup : ComponentBase
     {
         Confirmed = false;
         SignUpData = new SignUpData();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
         
         AccountService.StateChanged.Subscribe("signup", AccountServiceOnStateChanged);
     }

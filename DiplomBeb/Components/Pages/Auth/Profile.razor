@@ -17,9 +17,9 @@
                                     <h3>ФИО:</h3>
                                     @if (InEdit)
                                     {
-                                        <input type="text" />
-                                        <input type="text" />
-                                        <input type="text" />
+                                        <input type="text" @bind="Surname"/>
+                                        <input type="text" @bind="Name"/>
+                                        <input type="text" @bind="Middlename"/>
                                     }
                                     else
                                     {
@@ -46,7 +46,7 @@
                                     <h3>Email:</h3>
                                     @if (InEdit)
                                     {
-                                        <input type="text"/>
+                                        <input type="text" @bind="Email"/>
                                     }
                                     else
                                     {
@@ -57,7 +57,7 @@
                                     <h3>Номер телефона:</h3>
                                     @if (InEdit)
                                     {
-                                        <input type="text"/>
+                                        <input type="text" @bind="Phone"/>
                                     }
                                     else
                                     {

@@ -37,7 +37,6 @@ public partial class Library
     {
         if (!firstRender) return;
         
-        LibraryService.ListView.OnListUpdated.Subscribe("library", OnListUpdated);
         LibraryService.ListView.OnPageSwitch.Subscribe("library", OnNavigate);
         
         await LibraryService.ListView.First((ulong)Page);

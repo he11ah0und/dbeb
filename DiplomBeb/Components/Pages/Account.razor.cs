@@ -10,12 +10,14 @@ public partial class Account
 
     protected override async Task OnInitializedAsync()
     {
-        AccountService.StateChanged.Subscribe("account", AccountServiceOnStateChanged);
+        
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (!firstRender) return;
         
+        AccountService.StateChanged.Subscribe("account", AccountServiceOnStateChanged);
     }
 
     private void AccountServiceOnStateChanged()
