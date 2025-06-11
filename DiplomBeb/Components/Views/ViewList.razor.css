@@ -111,6 +111,10 @@
     border: none;
     padding: 0;
     cursor: pointer;
+
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-text2);
 }
 
 .img-update {

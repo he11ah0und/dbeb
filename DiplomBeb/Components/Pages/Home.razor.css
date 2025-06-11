@@ -1,12 +1,9 @@
 ﻿main {
     display: flex;
     flex: 1;
-    height: 100%;
     background-color: var(--main-color);
     height: 100vh;
-    /*++++*/
     min-height: fit-content;
-    /*++++*/
 }
 
 main > div {
@@ -31,21 +28,12 @@ main > div > div:nth-child(2) {
     gap: 2rem;
 }
 
-main .heading {
-    display: flex;
-    justify-content: space-between;
-}
-
-main .heading > div {
-    padding: .8rem 2rem;
-
-    border-radius: .5rem;
-
-    font-weight: 700;
-    font-size: 1.1rem;
-
-    background-color: var(--color-light);
-    color: var(--color-text1);
+main .middle {
+    height: 100%;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
 }
 
 main .place-container .place-image {
@@ -123,107 +111,3 @@ main .about-container li > a {
     background-color: var(--color-light);
 }
 
-/*++++*/
-main .middle {
-    height: 100%;
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
-}
-
-.student-list {
-    flex: 1; 
-    overflow-y: auto;
-    margin-bottom: 0; 
-    padding: 1rem 1rem;
-}
-
-.student-list::-webkit-scrollbar {
-    width: 2px;
-    border-radius: 5px;
-    background-color: var(--scroll);
-}
-
-.student-list::-webkit-scrollbar-thumb {
-    background: var(--color-text2);
-}
-
-.student-list > li {
-    display: flex;
-    font-size: 1.25rem;
-    align-items: center;
-    scrollbar-width: none;
-    gap: 1rem;
-    padding: 0.8rem 0;
-}
-
-.student-list .place {
-    width: 1rem;
-    margin-right: 1.5rem;
-    color: var(--color-dark);
-}
-
-.student-list .image {
-    background-color: var(--color3);
-    border-radius: .625rem;
-    width: 4.5rem;
-    height: 4.5rem;
-}
-
-.student-list .name  {
-    flex: 1;
-    color: var(--color-text3);
-}
-
-.student-list .name p {
-    font-size: 1rem;
-    color: var(--color-text4);
-}
-
-.student-list .score {
-    display: flex;
-    align-items: center;
-    gap: .3rem;
-    color: var(--color-text4);
-}
-
-.student-list .score img {
-    width: 2.1875rem;
-}
-
-.footer {
-    position: relative; 
-    background-color: var(--color-light);
-    padding: 0.5rem 1rem;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer > a {
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-text2);
-
-}
-
-.footer-left > button {
-    background-color: transparent;
-    border: none;                   
-    padding: 0;                    
-    cursor: pointer;
-}
-
-.footer-left {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.img-update {
-    width: 1.3rem;
-    height: 1.3rem;
-}

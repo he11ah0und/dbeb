@@ -1,18 +1,16 @@
 main {
     display: flex;
     flex: 1;
-    height: 100%;
     background-color: var(--main-color);
-    
+    height: 100vh;
+    min-height: fit-content;
 }
 
 main > div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
     width: 100%;
-
     gap: 2rem;
     margin: 2rem;
 }
@@ -24,210 +22,40 @@ main > div > div:nth-child(1) {
 main > div > div:nth-child(2) {
     display: flex;
     flex-direction: column;
-
     width: 30%;
-
     gap: 2rem;
 }
 
-main .heading {
-    display: flex;
-    justify-content: space-between;
+main .middle {
+    height: 100%;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
 }
 
-.warp .heading > div {
-    padding: .8rem 2rem;
-
-    border-radius: .5rem;
-
-    font-weight: 700;
-    font-size: 1.1rem;
-
-    background-color: var(--color-light);
-    color: var(--color-text1);
-}
-
-.heading-list {
-    position: sticky;
-    top: 0;
-
-    background-color: var(--color5);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: center;
-}
-
-.heading-list .heading-list-left {
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    justify-content: start;
-    text-align: center;
-
-    padding: 1.5625rem 1.25rem;
-    gap: 3.9375rem;
-
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-text6);
-}
-
-.heading-list .heading-list-right {
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    justify-content: start;
-    text-align: center;
-    margin-right: 5.4rem;
-
-    padding: 1.5625rem 1.25rem;
-    gap: 10rem;
-
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-text6);
-}
-
-main .warp {
-    display: flex;
-    flex-direction: column;
-
-}
-
-main .container-list {
-    display: flex;
-    flex-direction: column; /* Делаем контейнер flex-контейнером */
-    height: 100%; /* Указываем высоту контейнера */
+.container-list {
+    flex: 1;
     margin-top: 1.5rem;
-
     border-radius: .625rem;
     overflow: hidden;
-    background-color: var(--color-light);
-}
-
-.student-list {
-    flex: 1; /* Занимает все доступное пространство */
-    overflow-y: auto;
-    margin-bottom: 0; /* Убираем отступы */
-    padding: 1rem 1rem;
-}
-
-.student-list::-webkit-scrollbar {
-    width: 0rem;
-    border-radius: 0rem;
-    background-color: var(--scroll);
-}
-
-.student-list::-webkit-scrollbar-thumb {
-    background: var(--color-text2);
-}
-
-.student-list > li {
     display: flex;
-    font-size: 1.25rem;
-    gap: 2rem;
-    padding: 1rem 1.25rem;
-
-    overflow-y: auto;
-
-}
-
-.student-list .status {
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    vertical-align: top;
-    justify-content: start;
-    text-align: start;
-    margin-right: 3.4rem;
-
-
-    padding: 1.5625rem 1.25rem;
-    gap: 5rem;
-
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-text3);
-
-}
-
-.student-list .image {
-    background-color: var(--color3);
-    border-radius: .625rem;
-    width: 2.75rem;
-    height: 2.75rem;
-}
-
-.student-list .name  {
-    flex: 1;
-    color: var(--color-text3);
-}
-
-.student-list .name p {
-    font-size: 1rem;
-    color: var(--color-text4);
-}
-
-.footer {
-    position: sticky;
-    bottom: 0;
-    background-color: var(--color-light);
-    padding: 1rem;
-    z-index: 10;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-}
+    background-color: var(--color-light);
+    overflow-y: auto;
+    &::-webkit-scrollbar
 
-.footer > a {
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-text2);
+    {
+        display: none;
+    }
 
-}
-
-.footer-left {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.footer-left > button {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-}
-
-.footer-right {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 1rem;
-}
-
-.footer-right > button {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-}
-
-.img-update {
-    width: 1.3rem;
-    height: 1.3rem;
 }
 
 main .place-container {
     background-color: var(--color-light);
     border-radius: .625rem;
     margin-top: 4.5rem;
-    height: 100%;
 
     display: flex;
     flex-direction: column;
@@ -314,7 +142,7 @@ main .place-container {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0rem 2rem;
+    padding: 0 2rem;
     gap: 1rem;
 
     margin-top: 1rem;

@@ -1,18 +1,16 @@
 main {
     display: flex;
     flex: 1;
-    height: 100%;
     background-color: var(--main-color);
-    
+    height: 100vh;
+    min-height: fit-content;
 }
 
 main > div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
     width: 100%;
-
     gap: 2rem;
     margin: 2rem;
 }
@@ -24,181 +22,40 @@ main > div > div:nth-child(1) {
 main > div > div:nth-child(2) {
     display: flex;
     flex-direction: column;
-
     width: 30%;
-
     gap: 2rem;
 }
 
-.warp .heading {
-    display: flex;
-    justify-content: space-between;
-}
-
-.warp .heading > div {
-    padding: .8rem 2rem;
-
-    border-radius: .5rem;
-
-    font-weight: 700;
-    font-size: 1.1rem;
-
-    background-color: var(--color-light);
-    color: var(--color-text1);
-}
-
 .container-list {
-    margin-top: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    border-radius: 0.625rem;
-    overflow: hidden;
-    background-color: var(--color-light);
-}
-
-.table-wrapper {
     flex: 1;
-    overflow-y: auto;
-    position: relative;
-
-    -ms-overflow-style: none;  
-    scrollbar-width: none;   
-}
-.table-wrapper::-webkit-scrollbar {
-    display: none;
-}
-
-.student-table {
-    width: 100%;
-    border-collapse: collapse;
-    
-}
-
-.student-table thead {
-    background-color: var(--color5);
-    padding: 1.25rem 1.25rem;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
-    
-}
-
-.student-table tbody {
-    padding: 1.25rem 1.25rem;
-    margin-bottom: 1rem;
-}
-
-.student-table th,
-.student-table td {
-    padding: 1rem 1.25rem;
-    text-align: left;
-    vertical-align: middle;
-    
-    font-size: 1.25rem;
-    color: var(--color-text3);
-}
-
-.student-table th {
-    background-color: var(--color5);
-    
-    font-weight: bold;
-    margin: 0;
-    font-size: 1.25rem;
-    color: var(--color-text6);
-}
-
-.student-table .image {
-    background-color: var(--color3);
-    border-radius: 0.625rem;
-    width: 4.5rem;
-    height: 4.5rem;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.student-table .name h4 {
-    margin: 0;
-    font-size: 1.25rem;
-    color: var(--color-text3);
-}
-
-.student-table .name p {
-    margin: 0.25rem 0 0 0;
-    font-size: 1rem;
-    color: var(--color-text4);
-}
-
-.student-table td h4 {
-    margin: 0;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-text3);
-}
-
-.stars-container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;         
-}
-
-.student-table .star h4 {
-    margin: 0;
-    font-size: 1.25rem;
-    color: var(--color-text4);
-}
-
-
-.footer {
-    position: sticky;
-    bottom: 0;
-    background-color: var(--color-light);
-    padding: 1rem;
-    z-index: 10;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer-right {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 1rem;
-}
-
-.footer a {
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-text2);
-}
-
-.footer-left button,
-.footer-right button {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-}
-
-.img-update {
-    width: 1.3rem;
-    height: 1.3rem;
-}
-
-main .warp {
+    margin-top: 1.5rem;
+    border-radius: .625rem;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--color-light);
+    overflow-y: auto;
+    &::-webkit-scrollbar
+
+    {
+        display: none;
+    }
+
+}
+
+main .middle {
+    height: 100%;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
 }
 
 main .place-container {
     background-color: var(--color-light);
     border-radius: .625rem;
     margin-top: 4.5rem;
-    height: 100%;
 
     display: flex;
     flex-direction: column;
@@ -240,7 +97,6 @@ main .place-container {
 .container-dan > div {
     display: flex;
     flex-direction: row;
-
     gap: 5rem;
 
 }
