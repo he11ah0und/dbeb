@@ -1,8 +1,9 @@
 namespace DiplomBeb.Utils;
 
-public class Callbacker
+public class Callbacker<TDelegate>
+    where TDelegate : Delegate
 {
-    private Dictionary<string, Action> Callbacks;
+    private Dictionary<string, TDelegate> Callbacks;
     public bool InvokeOnSubscribe { get; private set; }
     public Callbacker(bool invokeOnSubscribe = true)
     {
@@ -10,10 +11,10 @@ public class Callbacker
         Callbacks = [];
     }
 
-    public void Subscribe(string name, Action fn)
+    public void Subscribe(string name, TDelegate fn)
     {
         if (InvokeOnSubscribe)
-            fn?.Invoke();
+            fn?.DynamicInvoke();
         if (!Callbacks.TryAdd(name, fn))
             return;
         
@@ -24,11 +25,11 @@ public class Callbacker
         Callbacks.Remove(name);
     }
 
-    public void InvokeAll()
+    public void InvokeAll(params object[] args)
     {
         var co = Callbacks.Count;
         var cbs = Callbacks.Values.ToList();
         for (var i = 0; i < co; i++)
-            cbs[i]?.Invoke();
+            cbs[i]?.DynamicInvoke(args);
     }
 }

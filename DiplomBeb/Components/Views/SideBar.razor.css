@@ -1,0 +1,65 @@
+/*Боковая панель меню*/
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 19.375rem;
+    height: 100vh; /* Высота равна высоте окна */
+    background: var(--color-light);
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    color: var(--color-text2);
+    font-size: 1.88rem;
+    font-weight: 600;
+}
+
+.heading img {
+    width: 3.875rem;
+}
+
+.navigation {
+    height: 100%;
+    padding-top: 2rem;
+}
+
+.navigation img, .img38 {
+    width: 2.375rem;
+}
+
+.navigation > li > a {
+    display: flex;
+    align-items: center;
+    color: var(--color-text6);
+    gap: .625rem;
+    padding: 0.6rem 1.88rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.bottom {
+    padding: 1.88rem;
+}
+
+.profile {
+    display: flex;
+    gap: 1rem;
+}
+
+.profile h3 {
+    color: var(--color-text3);
+}
+
+.profile h4 {
+    color: var(--color-text18);
+}
+
+.spec-side button {
+    border: none;
+    outline: none;
+    background: none;
+}

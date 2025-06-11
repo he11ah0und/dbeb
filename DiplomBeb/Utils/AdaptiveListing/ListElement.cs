@@ -2,6 +2,11 @@ using System.Text.Json.Serialization;
 
 namespace DiplomBeb.Utils.AdaptiveListing;
 
+public delegate void CallbackPropInElement(
+    string propName,
+    ulong index,
+    ListElement listElement,
+    ObjectContainer args);
 public class ListElement
 {
     [JsonPropertyName("elements")]

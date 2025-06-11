@@ -3,46 +3,46 @@
 @using DiplomBeb.Components.Views
 @rendermode RenderMode.InteractiveServer
 <PageTitle>Библиотека ссылок - Цифровое портфолио</PageTitle>
-<main>
+<div class="main-div">
+    <div class="middle">
+        <ViewList 
+            ListView="@LibraryService.LibraryListView"/>
+    </div>
     <div>
-        <div class="middle">
-            <ViewList 
-                ListView="@LibraryService.ListView"/>
-        </div>
-        <div>
-            <div class="place-container">
-                <div class="heading">
-                    <h4>Фильтры</h4>
-                </div>
-                <div class="filters-list">
-                    <div class="colum">
-                        <div>
-                            <input type="checkbox" name="">
-                            <h4>Для студентов</h4>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="r">
-                            <h4>Для школьников</h4>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="">
-                            <h4>Для работающих</h4>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="">
-                            <h4>Курсы</h4>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="">
-                            <h4>Конкурсы</h4>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="">
-                            <h4>Олимпиады</h4>
-                        </div>
+        <ViewList 
+                ListView="@LibraryService.FiltersListView"/>
+        <!--<div class="place-container">
+            <div class="heading">
+                <h4>Фильтры</h4>
+            </div>
+            <div class="filters-list">
+                <div class="colum">
+                    <div>
+                        <input type="checkbox">
+                        <h4>Для студентов</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox">
+                        <h4>Для школьников</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox">
+                        <h4>Для работающих</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox">
+                        <h4>Курсы</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox">
+                        <h4>Конкурсы</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox">
+                        <h4>Олимпиады</h4>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
-</main>
+</div>

@@ -29,7 +29,7 @@ public class DataResolver
                 null)
             ?.NameResolver.Invoke(Props);
 
-    public RenderMeta? GetProp(string propName, ListElement listElement, ulong index)
+    public RenderMeta? GetProp(string propName, ListElement listElement, ulong index, ListView lv)
     {
         var lp = ListProps.GetValueOrDefault(
             propName,
@@ -37,7 +37,9 @@ public class DataResolver
         if (lp.IsNullable)
             return new RenderMeta();
         
-        return lp.GenerateRenderMeta(this, propName, listElement, index);
+        return lp.GenerateRenderMeta(this, propName, listElement, index,
+            (cce) =>
+                lv.OnElementCallback.InvokeAll(propName, index, listElement, cce));
     }
 
     public bool IsHave(params string[] keys)

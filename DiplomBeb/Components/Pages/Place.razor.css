@@ -1,12 +1,4 @@
-﻿main {
-    display: flex;
-    flex: 1;
-    background-color: var(--main-color);
-    height: 100vh;
-    min-height: fit-content;
-}
-
-main > div {
+﻿.main-div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -15,11 +7,11 @@ main > div {
     margin: 2rem;
 }
 
-main > div > div:nth-child(1) {
+.main-div > div:nth-child(1) {
     flex: 1;
 }
 
-main > div > div:nth-child(2) {
+.main-div > div:nth-child(2) {
     display: flex;
     flex-direction: column;
     width: 30%;
@@ -44,7 +36,7 @@ main > div > div:nth-child(2) {
 
 }
 
-main .middle {
+.middle {
     height: 100%;
     display: grid;
     gap: 1.5rem;

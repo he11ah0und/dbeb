@@ -1,9 +1,7 @@
 using System.Diagnostics;
-using System.Net;
-using DiplomBeb.Database.Model;
-using DiplomBeb.Services;
 using DiplomBeb.Services.Client;
-using DiplomBeb.Utils.Networking;
+using DiplomBeb.Utils;
+using DiplomBeb.Utils.AdaptiveListing;
 using Microsoft.AspNetCore.Components;
 
 namespace DiplomBeb.Components.Pages;
@@ -25,20 +23,25 @@ public partial class Library
 
     private void OnNavigate()
     {
-        Navigation.NavigateTo($"/library/{LibraryService.ListView.Page}", true);
+        Navigation.NavigateTo($"/library/{LibraryService.LibraryListView.Page}", true);
     }
-    
-    private void OnListUpdated()
+
+    private void OnFiltersCallback(string propName,
+        ulong index,
+        ListElement listElement,
+        ObjectContainer args)
     {
-        StateHasChanged();
+        Debug.WriteLine("OnFiltersCallback");
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
         
-        LibraryService.ListView.OnPageSwitch.Subscribe("library", OnNavigate);
+        LibraryService.LibraryListView.OnPageSwitch.Subscribe("library", OnNavigate);
+        LibraryService.FiltersListView.OnElementCallback.Subscribe("library", OnFiltersCallback);
         
-        await LibraryService.ListView.First((ulong)Page);
+        await LibraryService.LibraryListView.First((ulong)Page);
+        await LibraryService.FiltersListView.First(1);
     }
 }

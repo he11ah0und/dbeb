@@ -1,26 +1,17 @@
-﻿main {
-    display: flex;
-    flex: 1;
-    background-color: var(--main-color);
-    height: 100vh;
-    min-height: fit-content;
-}
-
-main > div {
+﻿.main-div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    
     gap: 2rem;
     margin: 2rem;
 }
 
-main > div > div:nth-child(1) {
+.main-div > div:nth-child(1) {
     flex: 1;
 }
 
-main > div > div:nth-child(2) {
+.main-div > div:nth-child(2) {
     display: flex;
     flex-direction: column;
 
@@ -28,7 +19,7 @@ main > div > div:nth-child(2) {
     gap: 2rem;
 }
 
-main .middle {
+.middle {
     height: 100%;
     display: grid;
     gap: 1.5rem;
@@ -36,7 +27,7 @@ main .middle {
     grid-template-rows: auto 1fr auto;
 }
 
-main .place-container .place-image {
+.place-container .place-image {
     background: url('images/top.gif') center center no-repeat;
     background-size: 100% 180%;
     max-width: 20rem;
@@ -46,7 +37,7 @@ main .place-container .place-image {
     height: 20vh;
 }
 
-main .place-container {
+.place-container {
     background-color: var(--color-light);
     border-radius: .625rem;
     padding: 2rem;
@@ -62,33 +53,33 @@ main .place-container {
     color: var(--color-text6);
 }
 
-.place-number {
-    color: var(--color-text7);
-    font-size: 2.2rem;
-}
-
-main .about-container {
+.about-container {
     padding: 1.5rem;
     background-color: var(--color-light);
     border-radius: .625rem;
 }
 
-main .about-container .heading {
+.about-container .heading {
     padding: 0.4rem .5rem;
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-text8);
 }
 
-main .about-container .gray {
+.about-container .gray {
     color: var(--color-text8);
 }
 
-main .about-container li > a {
+.about-container li > a {
     padding: 0.2rem 0;
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--color-text9);
+}
+
+.place-number {
+    color: var(--color-text7);
+    font-size: 2.2rem;
 }
 
 .container-list {

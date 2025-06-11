@@ -14,14 +14,16 @@ public class ListProp
         DataResolver resolver,
         string propName,
         ListElement listElement,
-        ulong index)
+        ulong index,
+        Action<ObjectContainer> cce)
     {
         return new RenderMeta(
             this,
             resolver,
             propName,
             listElement,
-            index);
+            index,
+            cce);
     }
     public ListProp(
         NameResolveFunc? nameResolver,

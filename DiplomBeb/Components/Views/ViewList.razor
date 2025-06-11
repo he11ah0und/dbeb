@@ -24,7 +24,7 @@
                 <tr class="heading-list">
                     @foreach (var r in resolved)
                     {
-                        <th>@r</th>
+                        <th class="normal">@r</th>
                     }
                 </tr>
                 </thead>
@@ -44,13 +44,14 @@
                     @{
                         var listProps = ListView.DataResolver.GetListProps(ListView.DataResolver.Props, listElement.Elements);
                         var renderedProps = listProps
-                            .Select(pair => ListView.DataResolver.GetProp(pair.Key, listElement, (ulong)i))
+                            .Select(pair => ListView.DataResolver.GetProp(pair.Key, listElement, (ulong)i, _listView))
                             .Where(rendered => rendered.Ok);
                     }
                         
                     @foreach (var rendered in renderedProps)
                     {
-                        <td>
+                        var td_style = ListView.SlimTableData ? "slim" : "normal";
+                        <td class="@td_style">
                             <DynamicComponent Type="@rendered.ListProp.RenderType" Parameters="rendered.Parameters" />
                         </td>
                     }

@@ -3,62 +3,62 @@
 @rendermode RenderMode.InteractiveServer
 
 <PageTitle>Главная страница - Цифровое портфолио</PageTitle>
-
-<main>
+<div class="main-div">
+    <div class="middle">
+        <ViewList
+            ListView="@HomeService.TopUsersListView"/>
+        @if (AccountService.IsLogged)
+        {
+            <ViewList
+                ListView="@AccountService.MyListView"/>
+            <!--<div class="container-current">
+            <ul class="student-list">
+                <li>
+                    <div class="place">@AccountService.UserRank.Position</div>
+                    <div class="image"></div>
+                    <div class="name">
+                        <h4>@AccountService.Account.Surname @AccountService.Account.Name @AccountService.Account.Middlename</h4>
+                        <p>@AccountService.Account.WebRole?.Name</p>
+                    </div>
+                    <div class="score">
+                        <h4>@AccountService.Account.Score</h4>
+                        <img src="icons/star1-ico.svg" alt="звезды" />
+                    </div>
+                </li>
+            </ul>
+        </div>-->
+        }
+    </div>
     <div>
-        <div class="middle">
-            <ViewList 
-                ListView="@HomeService.TopUsersListView"/>
-            @if (AccountService.IsLogged)
+        <div class="place-container">
+            <div class="place-image"></div>
+            <p>Ваше место в топе:</p>
+            @if (!AccountService.IsLogged)
             {
-                <ViewList 
-                    ListView="@AccountService.MyListView"/>
-                <!--<div class="container-current">
-                    <ul class="student-list">
-                        <li>
-                            <div class="place">@AccountService.UserRank.Position</div>
-                            <div class="image"></div>
-                            <div class="name">
-                                <h4>@AccountService.Account.Surname @AccountService.Account.Name @AccountService.Account.Middlename</h4>
-                                <p>@AccountService.Account.WebRole?.Name</p>
-                            </div>
-                            <div class="score">
-                                <h4>@AccountService.Account.Score</h4>
-                                <img src="icons/star1-ico.svg" alt="звезды" />
-                            </div>
-                        </li>
-                    </ul>
-                </div>-->
+                <p class="place-number">Не определено, авторизуйтесь.</p>
+            }
+            else
+            {
+                <p class="place-number">#@AccountService.UserRank.Position</p>
             }
         </div>
-        <div>
-            <div class="place-container">
-                <div class="place-image"></div>
-                <p>Ваше место в топе:</p>
-                @if (!AccountService.IsLogged)
-                {
-                    <p class="place-number">Не определено, авторизуйтесь.</p>
-                }
-                else
-                {
-                    <p class="place-number">#@AccountService.UserRank.Position</p>
-                }
-            </div>
-            <div class="about-container">
-                <p class="heading">Хотите больше?</p>
-                @if (HomeService.RandomLibs != null)
-                {
-                    <ul>
-                        @for (int i = 1; i <= HomeService.RandomLibs.Length; i++)
-                        {
-                            <li>
-                                <a target="_blank"
-                                   href="@HomeService.RandomLibs[i - 1].Link">@HomeService.RandomLibs[i - 1].Name</a>
-                            </li>
-                        }
-                    </ul>
-                }
-            </div>
+        <div class="about-container">
+            <p class="heading">Хотите больше?</p>
+            @if (HomeService.RandomLibs != null)
+            {
+                var libs = HomeService.RandomLibs;
+                var co = libs.LongLength;
+                <ul>
+                    @for (long i = 0; i < co; i++)
+                    {
+                        <li>
+                            <a target="_blank"
+                               href="@libs[i].Link">@libs[i].Name</a>
+                        </li>
+                    }
+                </ul>
+            }
         </div>
     </div>
-</main>
+</div>
+

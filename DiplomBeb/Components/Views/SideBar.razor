@@ -1,0 +1,70 @@
+﻿@rendermode RenderMode.InteractiveServer
+
+<div class="sidebar">
+	<h1 class="heading">
+		<img src="icons/logo-ico.svg" alt="Логотип портфолио" />Цифровое портфолио
+	</h1>
+	<ul class="navigation">
+		<li>
+			<a href="/"><img src="icons/star-ico.svg" alt="Общий рейтинг" />Общий рейтинг</a>
+		</li>
+		<li>
+			<a href="/library/1">
+				<img src="icons/biblio-ico.svg" alt="Библиотека ссылок" />Библиотека
+				ссылок
+			</a>
+		</li>
+		<li>
+			<a href="/about"><img src="icons/info-ico.svg" alt="О сервисе" />О сервисе</a>
+		</li>
+		@if (AccountService?.Account?.Get("apirole_name") != "user")
+		{
+			<li>
+				<a href=""><img src="/icons/moder-ico.svg" alt="О сервисе"/>Модерация</a>
+				<a href="/special/logs"><img/>Логи</a>
+				<a href="/special/profiles"><img/>Пользователи</a>
+				<a href="/special/docs"><img/>Документы</a>
+				@if (AccountService?.Account?.Get("apirole_name") == "admin")
+				{
+					<a href="/special/requests"><img/>Запросы</a>
+				}
+			</li>
+		}
+	</ul>
+	<div class="bottom">
+		<a class="profile" href="/account">
+			<img class="img38" src="/icons/profil-ico.svg" alt="Аватар" />
+			<div>
+				@if (AccountService.IsLogged)
+				{
+					<h3>@AccountService?.Account?.Get("name") @AccountService?.Account?.Get("middlename")</h3>
+					<h4>@AccountService?.Account?.Get("webrole_name")</h4>
+				}
+				else
+				{
+					<h4>Авторизоваться</h4>
+				}
+			</div>
+		</a>
+		<div class="spec-side">
+			<button class="spec-side">
+				<!-- ДЛЯ СЛЕПЫХ -->
+				<script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+				<script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+				<!-- ДЛЯ СЛЕПЫХ -->
+				<!--<img id="specialButton" style="cursor:pointer;" src="https://lidrekon.ru/images/special.png" alt="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ" title="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ"/>-->
+				<img class="img38" id="specialButton" style="cursor:pointer;" src="/icons/slab-vid-ico.svg" alt="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ" title="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ"/>
+				<!--<img class="img38" src="/icons/slab-vid-ico.svg" alt="Кнопка для слабовидящих"/>-->
+			</button>
+			<script>
+				function tswitch(){
+					darkMode = localStorage.getItem("dark");
+					darkMode == 'active' ? disableDarkMode() : enableDarkMode();
+				}
+			</script>
+			<button @onclick="SwitchTheme">
+				<img id="theme-switch" class="img38" src="/icons/sun-ico.svg" alt="Кнопка смены темы" />
+			</button>
+		</div>
+	</div>
+</div>

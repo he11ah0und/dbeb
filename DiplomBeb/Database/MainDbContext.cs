@@ -28,6 +28,9 @@ namespace DiplomBeb.Database
         public DbSet<Place> Places { get; set; }
         public DbSet<ApiRole> ApiRoles { get; set; }
         public DbSet<WebRole> WebRoles { get; set; }
+        
         public DbSet<Library> Library { get; set; }
+        public DbSet<LibraryFilter> LibraryFilters { get; set; }
+        public DbSet<LinkLibraryFilter> LinkLibraryFilters { get; set; }
     }
 }

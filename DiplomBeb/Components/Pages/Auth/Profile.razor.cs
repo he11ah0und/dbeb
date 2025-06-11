@@ -31,6 +31,7 @@ public partial class Profile
     {
         if (!firstRender) return;
         AccountService.StateChanged.Subscribe("profile", AccountServiceOnStateChanged);
+        AccountService.DocumentsService.OnDocumentsUpdated.Subscribe("profile", DocumentsUpdated);
     }
 
     private void Load()
@@ -45,6 +46,11 @@ public partial class Profile
     private void AccountServiceOnStateChanged()
     {
         Load();
+        StateHasChanged();
+    }
+
+    private void DocumentsUpdated()
+    {
         StateHasChanged();
     }
 

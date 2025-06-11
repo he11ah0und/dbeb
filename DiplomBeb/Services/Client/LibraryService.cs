@@ -7,17 +7,31 @@ namespace DiplomBeb.Services.Client;
 
 public class LibraryService
 {
-    public ListView ListView { get; private set; }
+    public ListView LibraryListView { get; private set; }
+    public ListView FiltersListView { get; private set; }
     public LibraryService(BackendHttpClient http)
     {
-        ListView = new ListView(http)
+        LibraryListView = new ListView(http)
         {
             OnGet = RequestLibs,
             OnTotal = RequestLibsTotal,
-            GetHeader = () => "Библиотека полезных ссылок"
+            GetHeader = () => "Библиотека полезных ссылок",
+            PageSwitchMode = true,
         };
-        ListView.DataResolver.Props.AddRange(
+        LibraryListView.DataResolver.Props.AddRange(
             ["id", "name", "link"]);
+
+        FiltersListView = new ListView(http)
+        {
+            OnGet = RequestFilters,
+            OnTotal = RequestFiltersTotal,
+            HideFooter = true,
+            HideHeading = true,
+            HideTableHeader = true,
+            SlimTableData = true,
+        };
+        FiltersListView.DataResolver.Props.AddRange(
+            ["check"]);
     }
     
     private Task<HttpResponseState> RequestLibs(BackendHttpClient http, ulong skip, ulong take)
@@ -28,5 +42,15 @@ public class LibraryService
     private Task<HttpResponseState> RequestLibsTotal(BackendHttpClient http)
     {
         return http.NativeRequest("Library/total");
+    }
+    
+    private Task<HttpResponseState> RequestFilters(BackendHttpClient http, ulong skip, ulong take)
+    {
+        return http.NativeRequest($"Library/filters/{skip}/{take}");
+    }
+    
+    private Task<HttpResponseState> RequestFiltersTotal(BackendHttpClient http)
+    {
+        return http.NativeRequest("Library/total_filters");
     }
 }

@@ -12,8 +12,9 @@ public class ListView
     public ulong Page { get; protected set; }
     public ulong MaxPages { get; private set; }
     public ulong Total { get; private set; }
-    public Callbacker OnListUpdated { get; private set; }
-    public Callbacker OnPageSwitch { get; private set; }
+    public Callbacker<Action> OnListUpdated { get; private set; }
+    public Callbacker<Action> OnPageSwitch { get; private set; }
+    public Callbacker<CallbackPropInElement> OnElementCallback { get; private set; }
     public DataResolver DataResolver { get; private set; }
     public ListElement[] Data { get; private set; }
     private BackendHttpClient _http { get; set; }
@@ -30,6 +31,7 @@ public class ListView
     public bool HideRightFooterButtons { get; set; }
     public bool HideLeftFooterButtons { get; set; }
     public bool FitContent { get; set; }
+    public bool SlimTableData { get; set; }
     
     public ListView(BackendHttpClient http, ulong page = 1, bool pageSwitchMode = false)
     {
@@ -37,8 +39,9 @@ public class ListView
         Page = page;
         PageSwitchMode = pageSwitchMode;
         ElementsOnPage = 30;
-        OnListUpdated = new Callbacker(false);
-        OnPageSwitch = new Callbacker(false);
+        OnListUpdated = new Callbacker<Action>(false);
+        OnPageSwitch = new Callbacker<Action>(false);
+        OnElementCallback = new Callbacker<CallbackPropInElement>(false);
         Data = [];
         DataResolver = new DataResolver();
         
@@ -57,10 +60,12 @@ public class ListView
         DataResolver.ListProps.Add("time", new ListProp(
             (p) => "Время",
             typeof(SimpleSample)));
-        DataResolver.ListProps.Add("score", 
-            new ListProp(
-                (p) => "Звёзды",
+        DataResolver.ListProps.Add("score", new ListProp(
+            (p) => "Звёзды",
             typeof(ScoreSample)));
+        DataResolver.ListProps.Add("check", new ListProp(
+            (p) => "_",
+            typeof(CheckboxSample)));
     }
     
     public string Header => GetHeader is null ? "<HEADER>" : GetHeader();

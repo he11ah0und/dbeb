@@ -1,8 +1,11 @@
-﻿@inherits LayoutComponentBase
+﻿@using DiplomBeb.Components.Views
+@inherits LayoutComponentBase
 
-<SideBar />
-@Body
-<Controller />
+<SideBar/>
+<main>
+    @Body
+</main>
+<Controller/> <!-- no any ui, just ending code -->
 
 <div id="blazor-error-ui" data-nosnippet>
     An unhandled error has occurred.

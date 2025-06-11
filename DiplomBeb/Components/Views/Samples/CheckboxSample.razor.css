@@ -1,0 +1,18 @@
+div {
+    background: var(--color5);
+    border-radius: .625rem;
+    margin: 1rem 1rem;
+    padding: .3rem 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    text-align: left;
+}
+
+input {
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    text-align: left;
+}

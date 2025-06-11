@@ -1,12 +1,4 @@
-main {
-    display: flex;
-    flex: 1;
-    background-color: var(--main-color);
-    height: 100vh;
-    min-height: fit-content;
-}
-
-main > div {
+.main-div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -15,18 +7,18 @@ main > div {
     margin: 2rem;
 }
 
-main > div > div:nth-child(1) {
+.main-div > div:nth-child(1) {
     flex: 1;
 }
 
-main > div > div:nth-child(2) {
+.main-div > div:nth-child(2) {
     display: flex;
     flex-direction: column;
     width: 30%;
     gap: 2rem;
 }
 
-main .middle {
+.main-div .middle {
     height: 100%;
     display: grid;
     gap: 1.5rem;
@@ -52,7 +44,7 @@ main .middle {
 
 }
 
-main .place-container {
+.place-container {
     background-color: var(--color-light);
     border-radius: .625rem;
     padding: 1rem;
@@ -66,7 +58,7 @@ main .place-container {
     color: var(--color-text2);
 }
 
-main .place-container .heading {
+.place-container .heading {
     background-color: var(--color-light);
     border-radius: .625rem;
     display: flex;
@@ -78,6 +70,10 @@ main .place-container .heading {
     color: var(--color-text3);
 }
 
+.filters-list {
+    width: 100%;
+}
+
 .colum > div {
     background: var(--color5);
     border-radius: .625rem;
@@ -87,10 +83,6 @@ main .place-container .heading {
     flex-direction: row;
     align-items: start;
     text-align: left;
-}
-
-.filters-list {
-    width: 100%;
 }
 
 input {

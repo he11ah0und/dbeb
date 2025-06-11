@@ -1,7 +1,7 @@
 using DiplomBeb.Services.Client;
 using Microsoft.AspNetCore.Components;
 
-namespace DiplomBeb.Components.Layout;
+namespace DiplomBeb.Components.Views;
 
 public partial class SideBar
 {

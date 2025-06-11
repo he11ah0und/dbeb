@@ -17,14 +17,18 @@ public class RenderMeta
         DataResolver resolver,
         string propName,
         ListElement listElement,
-        ulong index )
+        ulong index,
+        Action<ObjectContainer> cce)
     {
         Parameters = [];
         ListProp = listProp;
+        
         SetDataResolver(resolver);
         SetListElement(listElement);
         SetId(propName);
         SetIndex(index);
+        SetCCE(cce);
+        
         Ok = true;
     }
 
@@ -46,4 +50,7 @@ public class RenderMeta
     
     public void SetIndex(ulong value) 
         => Set("Index", value);
+    
+    public void SetCCE(Action<ObjectContainer> value) 
+        => Set("OnCallback", value);
 }

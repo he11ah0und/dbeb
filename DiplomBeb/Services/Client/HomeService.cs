@@ -7,7 +7,7 @@ namespace DiplomBeb.Services.Client;
 
 public class HomeService
 {
-    public Callbacker LibraryRandomStateChanged { get; private set; }
+    public Callbacker<Action> LibraryRandomStateChanged { get; private set; }
     public Library[] RandomLibs { get; private set; }
     
     public ListView TopUsersListView { get; private set; }
@@ -24,7 +24,7 @@ public class HomeService
         };
         TopUsersListView.DataResolver.Props.AddRange(
             ["id", "avatar", "name", "middlename", "surname", "score", "webrole_name"]);
-        LibraryRandomStateChanged = new Callbacker();
+        LibraryRandomStateChanged = new Callbacker<Action>();
         RandomLibs = [];
     }
     

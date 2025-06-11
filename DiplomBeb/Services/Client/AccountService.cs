@@ -17,7 +17,7 @@ public class AccountService
     public bool IsLogged { get; private set; }
     
     public ListView MyListView { get; private set; }
-    public Callbacker StateChanged { get; private set; }
+    public Callbacker<Action> StateChanged { get; private set; }
 
     private BackendHttpClient _http;
     public DocumentsService DocumentsService { get; private set; }
@@ -25,7 +25,7 @@ public class AccountService
     {
         _http = http;
         Initialized = false;
-        StateChanged = new Callbacker();
+        StateChanged = new Callbacker<Action>();
         UserRank = new UserRank();
         IsLogged = false;
         MyListView = new ListView(http, 1, false)

@@ -1,3 +1,4 @@
+@using DiplomBeb.Utils
 @using DiplomBeb.Utils.AdaptiveListing
 @{
     var hasLink = DataResolver.IsHave("link");
@@ -29,4 +30,6 @@
     public string Id { get; set; }
     [Parameter]
     public ListElement ListElement { get; set; }
+    [Parameter]
+    public Action<ObjectContainer> OnCallback { get; set; }
 }

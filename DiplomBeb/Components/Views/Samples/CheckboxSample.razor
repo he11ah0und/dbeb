@@ -1,0 +1,31 @@
+@using DiplomBeb.Utils
+@using DiplomBeb.Utils.AdaptiveListing
+<div>
+    <input type="checkbox" @bind="Value" @onclick="OnClick">
+    <h4>@ListElement.Get(Id)</h4>
+</div>
+
+@code{
+
+    private bool Value { get; set; }
+
+    private void OnClick()
+    {
+        var args = new ObjectContainer();
+        args.Set("value", Value);
+        OnCallback?.Invoke(args);
+    }
+}
+
+@code {
+    [Parameter]
+    public DataResolver DataResolver { get; set; }
+    [Parameter]
+    public ulong Index { get; set; }
+    [Parameter]
+    public string Id { get; set; }
+    [Parameter]
+    public ListElement ListElement { get; set; }
+    [Parameter]
+    public Action<ObjectContainer> OnCallback { get; set; }
+}

@@ -7,16 +7,15 @@ namespace DiplomBeb.Services.Client.Components;
 
 public class DocumentsService
 {
-    
     public ListElement[] Documents { get; private set; }
-    public Callbacker OnDocumentsUpdated { get; private set; }
+    public Callbacker<Action> OnDocumentsUpdated { get; private set; }
     
     private BackendHttpClient _http;
     public DocumentsService(BackendHttpClient http)
     {
         _http = http;
         Documents = [];
-        OnDocumentsUpdated = new Callbacker();
+        OnDocumentsUpdated = new Callbacker<Action>();
     }
     
     public async Task GetDocs()
