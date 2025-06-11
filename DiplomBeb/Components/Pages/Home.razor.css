@@ -26,7 +26,6 @@ main > div > div:nth-child(2) {
     flex-direction: column;
 
     width: 30%;
-
     gap: 2rem;
 }
 
@@ -96,7 +95,7 @@ main .about-container .gray {
 }
 
 main .about-container li > a {
-    padding: 0.2rem 0rem;
+    padding: 0.2rem 0;
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--color-text9);
@@ -104,8 +103,8 @@ main .about-container li > a {
 
 .container-list {
     display: flex;
-    flex-direction: column; /* Делаем контейнер flex-контейнером */
-    height: 100%; /* Указываем высоту контейнера */
+    flex-direction: column; 
+    height: 100%; 
     margin-top: 1.5rem;
 
     border-radius: .625rem;
@@ -115,7 +114,7 @@ main .about-container li > a {
 
 .container-current {
     display: flex;
-    flex-direction: column; /* Делаем контейнер flex-контейнером */
+    flex-direction: column; 
     margin-top: 1.5rem;
 
     border-radius: .625rem;
@@ -128,9 +127,9 @@ main .middle {
 }
 
 .student-list {
-    flex: 1; /* Занимает все доступное пространство */
+    flex: 1; 
     overflow-y: auto;
-    margin-bottom: 0; /* Убираем отступы */
+    margin-bottom: 0; 
     padding: 1rem 1rem;
 }
 
@@ -148,9 +147,9 @@ main .middle {
     display: flex;
     font-size: 1.25rem;
     align-items: center;
-    scrollbar-width: 2px;
+    scrollbar-width: none;
     gap: 1rem;
-    padding: 0.8rem 0rem;
+    padding: 0.8rem 0;
 }
 
 .student-list .place {

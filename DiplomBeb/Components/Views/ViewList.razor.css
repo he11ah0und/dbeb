@@ -5,7 +5,6 @@
 
 .heading > div {
     padding: .8rem 2rem;
-
     border-radius: .5rem;
 
     font-weight: 700;
@@ -21,7 +20,6 @@
     flex-direction: column;
     
     border-radius: 0.625rem;
-    overflow: hidden;
     background-color: var(--color-light);
 }
 
@@ -34,7 +32,10 @@
 }
 
 .table-wrapper {
+    border-top-left-radius: 0.625rem;
+    border-top-right-radius: 0.625rem;
     flex: 1;
+    overflow: hidden;
     flex-basis: auto;
     overflow-y: auto;
     position: relative;
@@ -84,6 +85,8 @@
 }
 
 .footer {
+    border-bottom-right-radius: 0.625rem;
+    border-bottom-left-radius: 0.625rem;
     position: sticky;
     bottom: 0;
     background-color: var(--color-light);
