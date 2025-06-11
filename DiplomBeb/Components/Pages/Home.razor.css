@@ -3,16 +3,18 @@
     flex: 1;
     height: 100%;
     background-color: var(--main-color);
-
+    height: 100vh;
+    /*++++*/
+    min-height: fit-content;
+    /*++++*/
 }
 
 main > div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
     width: 100%;
-
+    
     gap: 2rem;
     margin: 2rem;
 }
@@ -121,9 +123,13 @@ main .about-container li > a {
     background-color: var(--color-light);
 }
 
+/*++++*/
 main .middle {
-    display: flex;
-    flex-direction: column;
+    height: 100%;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
 }
 
 .student-list {

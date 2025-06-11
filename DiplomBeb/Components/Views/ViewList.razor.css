@@ -15,10 +15,9 @@
 }
 
 .container-list {
-    margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
-    
+    overflow-y: auto; /*++++*/
     border-radius: 0.625rem;
     background-color: var(--color-light);
 }
