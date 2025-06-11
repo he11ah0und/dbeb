@@ -17,9 +17,9 @@ public partial class Profile
     
     public string Surname { get; set; }
     public string Name { get; set; }
-    public string MiddleName { get; set; }
-    public string PhoneName { get; set; }
-    public string EmailName { get; set; }
+    public string Middlename { get; set; }
+    public string Phone { get; set; }
+    public string Email { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
@@ -32,8 +32,18 @@ public partial class Profile
         AccountService.StateChanged.Subscribe("profile", AccountServiceOnStateChanged);
     }
 
+    private void Load()
+    {
+        Surname = AccountService.Account.Get("surname");
+        Name = AccountService.Account.Get("name");
+        Middlename = AccountService.Account.Get("middlename");
+        Phone = AccountService.Account.Get("phone", "");
+        Email = AccountService.Account.Get("email");
+    }
+
     private void AccountServiceOnStateChanged()
     {
+        Load();
         StateHasChanged();
     }
 

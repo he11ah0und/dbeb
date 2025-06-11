@@ -15,8 +15,6 @@ public partial class Profiles : ComponentBase
     
     protected override async Task OnInitializedAsync()
     {
-        ModerationService.ListView.OnListUpdated.
-            Subscribe("profile", OnListUpdated);
         
     }
 
@@ -24,12 +22,10 @@ public partial class Profiles : ComponentBase
     {
         StateHasChanged();
     }
-    
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        
         await ModerationService.ListView.First(1);
     }
 }

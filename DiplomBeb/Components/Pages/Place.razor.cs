@@ -31,6 +31,5 @@ public partial class Place
         UserService.Place.ListView.OnListUpdated.Subscribe("place", OnListUpdated);
         
         await UserService.Place.ListView.First(1);
-        
     }
 }
