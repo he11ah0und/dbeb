@@ -3,3 +3,9 @@
     align-items: center;
     gap: 0.5rem;
 }
+
+.stars-container h4 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--color-text4);
+}

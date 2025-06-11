@@ -35,6 +35,7 @@ public class AccountService
             HideLeftFooterButtons = true,
             HideHeading = true,
             HideTableHeader = true,
+            FitContent = true,
             OnGet = RequestUsers,
         };
         MyListView.DataResolver.Props.AddRange(

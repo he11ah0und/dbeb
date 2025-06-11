@@ -29,6 +29,7 @@ public class ListView
     public bool HideFooter { get; set; }
     public bool HideRightFooterButtons { get; set; }
     public bool HideLeftFooterButtons { get; set; }
+    public bool FitContent { get; set; }
     
     public ListView(BackendHttpClient http, ulong page = 1, bool pageSwitchMode = false)
     {
