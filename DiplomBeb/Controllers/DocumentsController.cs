@@ -32,7 +32,8 @@ namespace DiplomBeb.Controllers
             var docs = _context.Documents
                 .Include(d => d.User)
                 .Where(d => d.User.Id == authedUser.Id)
-                .Cast<ListElement>();
+                .Cast<ListElement>()
+                .ToArray();
 
             return Ok(docs);
         }

@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text;
 using DiplomBeb.Database.Model;
 using DiplomBeb.Filters;
+using DiplomBeb.Services.Client.Components;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
@@ -16,10 +17,10 @@ public class AccountService
     public bool IsLogged { get; private set; }
     
     public ListView MyListView { get; private set; }
-    
     public Callbacker StateChanged { get; private set; }
 
     private BackendHttpClient _http;
+    public DocumentsService DocumentsService { get; private set; }
     public AccountService(BackendHttpClient http)
     {
         _http = http;
@@ -40,6 +41,7 @@ public class AccountService
         };
         MyListView.DataResolver.Props.AddRange(
             ["id", "avatar", "name", "middlename", "surname", "score", "webrole_name"]);
+        DocumentsService = new DocumentsService(http);
     }
     
     private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)
@@ -62,10 +64,7 @@ public class AccountService
         StateHasChanged();
     }
 
-    public async Task GetDocs()
-    {
-        
-    }
+    
 
     public async Task<bool> Update(ListElement li)
     {

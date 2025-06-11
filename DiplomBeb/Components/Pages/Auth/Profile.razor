@@ -86,8 +86,14 @@
                 <div class="container-list">
                     <div class="place-linner-top">
                         <div class="awards">
-                            
-                            <img class="img36" src="images/gram1-img.svg" alt="Редактировать"/>
+                            @if (AccountService.DocumentsService.Documents.LongLength > 0)
+                            {
+                                foreach (var doc in AccountService.DocumentsService.Documents)
+                                {
+                                    
+                                }
+                                <img class="img36" src="images/gram1-img.svg" alt="Редактировать"/>
+                            }
                             <img class="img36" src="images/gram2-img.svg" alt="Редактировать"/>
                             <img class="img36" src="images/gram3-img.svg" alt="Редактировать"/>
                             <img class="img36" src="images/gram4-img.svg" alt="Редактировать"/>

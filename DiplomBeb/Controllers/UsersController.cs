@@ -152,7 +152,10 @@ namespace DiplomBeb.Controllers
                 .SingleOrDefault(a => a.Id == authedId);
 
             authedUser.Email = li.Get("email", authedUser.Email);
-            authedUser.Phone = ulong.Parse(li.Get("phone", authedUser.Phone.ToString()));
+            if (ulong.TryParse(li.Get("phone", authedUser.Phone.ToString()), out var phone))
+            {
+                authedUser.Phone = phone;
+            }
             
             authedUser.Name = li.Get("name", authedUser.Name);
             authedUser.Surname = li.Get("surname", authedUser.Surname);
