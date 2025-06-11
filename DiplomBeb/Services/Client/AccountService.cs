@@ -62,9 +62,12 @@ public class AccountService
         StateHasChanged();
     }
 
-    public async Task<bool> Update(User user)
+    public async Task<bool> Update(ListElement li)
     {
-        var res = await _http.Request("Users", JsonContent.Create(user), HttpMethod.Patch);
+        var res = await _http.Request(
+            "Users/personal",
+            JsonContent.Create(li),
+            HttpMethod.Patch);
         return res.IsOk;
     }
 

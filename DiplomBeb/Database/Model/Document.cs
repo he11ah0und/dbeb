@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using DiplomBeb.Utils.AdaptiveListing;
 
 namespace DiplomBeb.Database.Model
 {
@@ -12,5 +13,16 @@ namespace DiplomBeb.Database.Model
         public string Location { get; set; }
         public DateTime Publish_date { get; set; }
         public string Path { get; set; }
+        
+        public static implicit operator ListElement(Document model)
+        {
+            var le = new ListElement();
+            le.Set("id", model.Id);
+            le.Set("name", model.Name);
+            le.Set("desc", model.Desc);
+            le.Set("location", model.Location);
+            le.Set("publish_date", model.Publish_date.Ticks);
+            return le;
+        }
     }
 }

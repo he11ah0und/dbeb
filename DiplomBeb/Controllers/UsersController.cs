@@ -144,33 +144,23 @@ namespace DiplomBeb.Controllers
             return Ok(devs);
         }
         [AuthFilter("user")]
-        [HttpPatch("personal")] // get personal account
-        public async Task<IActionResult> PatchPersonal()
+        [HttpPatch("personal")] // update profile
+        public async Task<IActionResult> PatchPersonal(ListElement li)
         {
             var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
-            var devs = _context.Users
-                .Include(u => u.ApiRole)
-                .Include(u => u.WebRole)
-                .Include(u => u.Documents)
-                .Include(u => u.Place)
-                .Select(u => new User
-                {
-                    Id = u.Id,
-                    Score = u.Score,
-                    Surname = u.Surname,
-                    Name = u.Name,
-                    Middlename = u.Middlename,
-                    Email = u.Email,
-                    Phone = u.Phone,
-                    Place = u.Place,
-                    Documents = u.Documents,
-                    WebRole = u.WebRole,
-                    ApiRole = u.ApiRole
-                })
-                .Where(a => a.Id == authedId)
-                .Cast<ListElement>()
-                .ToArray();
-            return Ok(devs);
+            var authedUser = _context.Users
+                .SingleOrDefault(a => a.Id == authedId);
+
+            authedUser.Email = li.Get("email", authedUser.Email);
+            authedUser.Phone = ulong.Parse(li.Get("phone", authedUser.Phone.ToString()));
+            
+            authedUser.Name = li.Get("name", authedUser.Name);
+            authedUser.Surname = li.Get("surname", authedUser.Surname);
+            authedUser.Middlename = li.Get("middlename", authedUser.Middlename);
+
+            _context.SaveChanges();
+            
+            return Ok();
         }
         
         // admin api

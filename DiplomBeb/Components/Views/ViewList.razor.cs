@@ -1,4 +1,3 @@
-using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
 using Microsoft.AspNetCore.Components;
 
@@ -6,7 +5,6 @@ namespace DiplomBeb.Components.Views;
 
 public partial class ViewList : ComponentBase
 {
-
     private ListView? _listView;
 
     [Parameter]

@@ -1,4 +1,5 @@
 using DiplomBeb.Services.Client;
+using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
 using Microsoft.AspNetCore.Components;
 
@@ -47,7 +48,7 @@ public partial class Profile
         StateHasChanged();
     }
 
-    private void EditMode()
+    private async Task EditMode()
     {
         if (!InEdit)
         {
@@ -55,7 +56,13 @@ public partial class Profile
         }
         else if (InEdit)
         {
-            
+            var newLe = new ListElement();
+            newLe.Set("phone", Phone);
+            newLe.Set("email", Email);
+            newLe.Set("name", Name);
+            newLe.Set("surname", Surname);
+            newLe.Set("middlename", Middlename);
+            await AccountService.Update(newLe);
             InEdit = false;
         }
         StateHasChanged();
