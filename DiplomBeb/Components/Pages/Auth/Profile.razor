@@ -6,7 +6,7 @@
             <div>Профиль</div>
         </div>
         <div class="container-list">
-            <div class="place-inner-left">
+            <div class="place-inner-top">
                 <div class="column-img">
                     <img class="img39" src="images/prof-foto-img.svg" alt="Фото автара"/>
                 </div>
@@ -14,12 +14,14 @@
                     <tbody>
                     <tr>
                         <th>ФИО:</th>
-                        <td>
+                        <td class="fio-cell">
                             @if (InEdit)
                             {
-                                <input type="text" @bind="Surname" placeholder="Фамилия"/>
-                                <input type="text" @bind="Name" placeholder="Имя"/>
-                                <input type="text" @bind="Middlename" placeholder="Отчество (при наличии)"/>
+                                <div class="edit-fields">
+                                    <input type="text" @bind="Surname" placeholder="Фамилия"/>
+                                    <input type="text" @bind="Name" placeholder="Имя"/>
+                                    <input type="text" @bind="Middlename" placeholder="Отчество (при наличии)"/>
+                                </div>
                             }
                             else
                             {
@@ -35,14 +37,7 @@
                             </button>
                         </td>
                     </tr>
-                    <tr>
-                        <th>Звёзд:</th>
-                        <td>@AccountService.Account?.Get("score")</td>
-                    </tr>
                     
-                    </tbody>
-
-                    <tbody>
                     <tr>
                         <th>Email:</th>
                         <td>
@@ -72,6 +67,11 @@
                     </tr>
                     
                     <tr>
+                        <th>Звёзд:</th>
+                        <td>@AccountService.Account?.Get("score")</td>
+                    </tr>
+                    
+                    <tr>
                         <th>Место в ТОПе:</th>
                         <td>@AccountService.UserRank.Position</td>
                     </tr>
@@ -79,8 +79,8 @@
                 </table>
             </div>
             
-            <div class="place-linner-right">
-                <div class="place-linner-bottom">
+            <div class="place-linner-bottom">
+                <div class="place-linner-button">
                     <button class="button_change" @onclick="EditMode">
                         <img class="img38" src="icons/redactir-ico.svg" alt="Редактировать"/>
                         <h4>ИЗМЕНИТЬ</h4>
@@ -109,7 +109,7 @@
                         }
                     }
                 </div>
-                <div class="place-linner-bottom">
+                <div class="place-linner-button">
                     <button class="button_change">
                         <img class="img38" src="icons/redactir-ico.svg" alt="Редактировать"/>
                         <h4>ИЗМЕНИТЬ</h4>

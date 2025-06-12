@@ -5,57 +5,56 @@
     background: var(--main-color);
 }
 
-    main > div {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        gap: 2rem;
-    }
+main > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+}
 
-    main > div {
-        width: 100%;
-        height: 100%;
-    }
+main > div {
+    width: 100%;
+    height: 100%;
+}
 
-    main .place-container {
-        width: 46.875rem;
-        height: 44.75;
-        background-attachment: fixed;
-        background-size: 80%;
-        background-color: var(--color-light);
-        border-radius: .625rem;
-        display: flex;
-        flex-direction: column;
-    }
+main .place-container {
+    width: 46.875rem;
+    height: 44.75rem;
+    background-attachment: fixed;
+    background-size: 80%;
+    background-color: var(--color-light);
+    border-radius: .625rem;
+    display: flex;
+    flex-direction: column;
+}
 
-    main .place-column > div > div {
-        display: flex;
-        flex-direction: column;
-    }
+main .place-column > div > div {
+    display: flex;
+    flex-direction: column;
+}
 
-    main .place-column {
-        display: flex;
-    }
+main .place-column {
+    display: flex;
+}
 
-        main .place-column > div {
-            border-radius: .5rem;
-        }
+main .place-column > div {
+    border-radius: .5rem;
+}
 
-
-    main .place-linner-left {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        background: url('../icons/diz-reg.svg') no-repeat;
-        background-size: cover; /* Масштабирует изображение, чтобы оно покрывало весь контейнер */
-        background-position: center;
-        width: 11.125rem;
-        height: 44.75rem;
-        overflow: hidden; /* Обрезает всё, что выходит за пределы контейнера */
-    }
+main .place-linner-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: url('icons/diz-reg.svg') no-repeat;
+    background-size: cover; 
+    background-position: center;
+    width: 11.125rem;
+    height: 44.75rem;
+    overflow: hidden; 
+}
 
 .place-linner-left .img1 {
     width: 8.1875rem;
@@ -82,20 +81,20 @@ main .heading {
     align-items: center;
 }
 
-    main .heading > div {
-        padding: 2rem 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+main .heading > div {
+    padding: 2rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        main .heading > div > h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--color-text1);
-            margin: 0;
-            text-align: center;
-        }
+main .heading > div > h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text1);
+    margin: 0;
+    text-align: center;
+}
 
 main .warp {
     width: 35.75rem;
@@ -123,9 +122,9 @@ main .place-linner-1 {
     align-items: center;
 }
 
-    main .place-linner-1 .linner-text-1 {
-        position: relative;
-    }
+main .place-linner-1 .linner-text-1 {
+    position: relative;
+}
 
 .linner-text-1 .input-1 {
     width: 20.8947368rem;
@@ -159,7 +158,7 @@ main .place-linner-1 {
     color: transparent;
 }
 
-.linner-text-1 .input-1:placeholder {
+.linner-text-1 .input-1::placeholder {
     color: transparent;
 }
 
@@ -169,11 +168,11 @@ main .place-linner-1 {
     padding-bottom: .625rem;
 }
 
-    .linner-text-1 .input-1:focus ~ .label-1,
-    .linner-text-1 .input-1:not(:placeholder-shown) ~ .label-1 {
-        opacity: 1;
-        transform: scale(.85) translateY(0rem) translateX(.15rem);
-    }
+.linner-text-1 .input-1:focus ~ .label-1,
+.linner-text-1 .input-1:not(:placeholder-shown) ~ .label-1 {
+    opacity: 1;
+    transform: scale(.85) translateY(0rem) translateX(.15rem);
+}
 
 
 main .place-linner-2 {
@@ -194,11 +193,10 @@ main .place-linner-2 {
     font-weight: 600;
     font-size: 1.125rem;
     text-decoration: underline;
-    text-decoration-color: var(--color-text8); /* Цвет подчеркивания */
-    text-decoration-thickness: 1px; /* Толщина подчеркивания */
-    text-underline-offset: 3px; /* Отступ между текстом и подчеркиванием */
+    text-decoration-color: var(--color-text8);
+    text-decoration-thickness: 1px; 
+    text-underline-offset: 3px; 
 }
-
 
 main .place-linner-3 {
     display: flex;
@@ -221,23 +219,19 @@ main .place-linner-3 {
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
-    .place-linner-3 .button_registration:hover {
-        transform: scale(1.02); /* Небольшое увеличение */
-    }
-
-    .place-linner-3 .button_registration > h4 {
-        color: var(--color-light);
-        font-weight: 700;
-        font-size: 0.9375rem;
-        margin: 0;
-        line-height: 1.2;
-    }
+.place-linner-3 .button_registration > h4 {
+    color: var(--color-light);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    margin: 0;
+    line-height: 1.2;
+}
 
 .place-linner-3 .horizontal-line {
     width: 17.0625rem;
     height: 1px;
     background-color: var(--color-text8);
-    margin: 0rem auto 0 auto;
+    margin: 0 auto 0 auto;
 }
 
 main .place-linner-4 {
@@ -258,7 +252,7 @@ main .place-linner-4 {
     font-weight: 600;
     font-size: 1.125rem;
     text-decoration: underline;
-    text-decoration-color: var(--color-text17); /* Цвет подчеркивания */
-    text-decoration-thickness: 1px; /* Толщина подчеркивания */
-    text-underline-offset: 3px; /* Отступ между текстом и подчеркиванием */
+    text-decoration-color: var(--color-text17); 
+    text-decoration-thickness: 1px; 
+    text-underline-offset: 3px; 
 }
