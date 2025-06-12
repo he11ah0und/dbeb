@@ -8,9 +8,13 @@
         <ViewList 
             ListView="@LibraryService.LibraryListView"/>
     </div>
-    <div>
-        <ViewList 
+    <div class="place-container">
+        <div class="heading">Фильтры</div>
+        <div class="filters-list">
+            <ViewList
                 ListView="@LibraryService.FiltersListView"/>
+        </div>
+        
         <!--<div class="place-container">
             <div class="heading">
                 <h4>Фильтры</h4>
