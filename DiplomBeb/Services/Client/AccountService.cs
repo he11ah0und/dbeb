@@ -16,7 +16,7 @@ public class AccountService
     public UserRank UserRank { get; private set; }
     public bool IsLogged { get; private set; }
     
-    public ListView MyListView { get; private set; }
+    internal ListView MyListView { get; private set; }
     public Callbacker<Action> StateChanged { get; private set; }
 
     private BackendHttpClient _http;

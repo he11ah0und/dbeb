@@ -7,18 +7,28 @@ namespace DiplomBeb.Services.Client;
 
 public class ModerationService
 {
-    public ListView ListView { get; private set; }
+    public ListView UsersListView { get; private set; }
+    public ListView LogsListView { get; private set; }
 
     public ModerationService(BackendHttpClient http)
     {
-        ListView = new ListView(http)
+        UsersListView = new ListView(http)
         {
             OnTotal = RequestUsersTotal,
             OnGet = RequestUsers,
             GetHeader = () => "Пользователи"
         };
-        ListView.DataResolver.Props.AddRange(
+        UsersListView.DataResolver.Props.AddRange(
             ["id", "avatar", "name", "middlename", "surname", "score", "webrole_name"]);
+        
+        LogsListView = new ListView(http)
+        {
+            OnTotal = RequestLogsTotal,
+            OnGet = RequestLogs,
+            GetHeader = () => "Логи",
+        };
+        LogsListView.DataResolver.Props.AddRange(
+            ["id", "name", "middlename", "surname", "action", "datetime", "score", "webrole_name"]);
     }
     private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)
     {
@@ -28,5 +38,15 @@ public class ModerationService
     private Task<HttpResponseState> RequestUsersTotal(BackendHttpClient http)
     {
         return http.NativeRequest("Users/total");
+    }
+    
+    private Task<HttpResponseState> RequestLogs(BackendHttpClient http, ulong skip, ulong take)
+    {
+        return http.Request($"Logs/{skip}/{take}");
+    }
+
+    private Task<HttpResponseState> RequestLogsTotal(BackendHttpClient http)
+    {
+        return http.Request("Logs/total");
     }
 }

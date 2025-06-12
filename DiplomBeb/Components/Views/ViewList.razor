@@ -1,24 +1,24 @@
 @rendermode RenderMode.InteractiveServer
 
-@if (!ListView.HideHeading)
+@if (!_listView.HideHeading)
 {
     <div class="heading">
-        <div>@ListView.Header</div>
-        <div>Всего: @ListView.Total</div>
+        <div>@_listView.Header</div>
+        <div>Всего: @_listView.Total</div>
     </div>
 }
 @{
-    var height = ListView.FitContent ? "minHeight" : "maxHeight";
+    var height = _listView.FitContent ? "minHeight" : "maxHeight";
 }
 <div class="container-list @height">
     <div class="table-wrapper">
         <table class="student-table">
             @{
-                var resolved = ListView.DataResolver.Props
-                    .Select(prop => ListView.DataResolver.ResolvePropName(prop))
+                var resolved = _listView.DataResolver.Props
+                    .Select(prop => _listView.DataResolver.ResolvePropName(prop))
                     .Where(resolved => !string.IsNullOrEmpty(resolved));
             }
-            @if (!ListView.HideTableHeader)
+            @if (!_listView.HideTableHeader)
             {
                 <thead>
                 <tr class="heading-list">
@@ -30,11 +30,11 @@
                 </thead>
             }
             <tbody class="student-list">
-            @for (long i = 1; i <= ListView.Data.LongLength; i++)
+            @for (long i = 1; i <= _listView.Data.LongLength; i++)
             {
                 var io = i - 1;
-                var listElement = ListView.Data[io];
-                var hasId = ListView.DataResolver.Props.Contains("id");
+                var listElement = _listView.Data[io];
+                var hasId = _listView.DataResolver.Props.Contains("id");
                 var idInLe = string.IsNullOrEmpty(listElement.Get("id"));
                 if (hasId && !idInLe)
                 {
@@ -42,15 +42,15 @@
                 }
                 <tr>
                     @{
-                        var listProps = ListView.DataResolver.GetListProps(ListView.DataResolver.Props, listElement.Elements);
+                        var listProps = _listView.DataResolver.GetListProps(_listView.DataResolver.Props, listElement.Elements);
                         var renderedProps = listProps
-                            .Select(pair => ListView.DataResolver.GetProp(pair.Key, listElement, (ulong)i, _listView))
+                            .Select(pair => _listView.DataResolver.GetProp(pair.Key, listElement, (ulong)i, _listView))
                             .Where(rendered => rendered.Ok);
                     }
                         
                     @foreach (var rendered in renderedProps)
                     {
-                        var td_style = ListView.SlimTableData ? "slim" : "normal";
+                        var td_style = _listView.SlimTableData ? "slim" : "normal";
                         <td class="@td_style">
                             <DynamicComponent Type="@rendered.ListProp.RenderType" Parameters="rendered.Parameters" />
                         </td>
@@ -60,31 +60,31 @@
             </tbody>
         </table>
     </div>
-    @if (!ListView.HideFooter)
+    @if (!_listView.HideFooter)
     {
         <div class="footer">
-            @if (!ListView.HideLeftFooterButtons)
+            @if (!_listView.HideLeftFooterButtons)
             {
                 <div class="footer-left">
-                    <button class="update" @onclick="ListView.Update">
+                    <button class="update" @onclick="_listView.Update">
                         <img class="img-update" src="/icons/update.svg" alt="">
                     </button>
                 </div>
             }
-            @if (!ListView.HideRightFooterButtons)
+            @if (!_listView.HideRightFooterButtons)
             {
                 <div class="footer-right">
-                    @if (ListView.CanPrevious)
+                    @if (_listView.CanPrevious)
                     {
-                        <button class="nazad" @onclick="ListView.PreviousPage"><img src="/icons/nazad.svg" alt=""></button>
+                        <button class="nazad" @onclick="_listView.PreviousPage"><img src="/icons/nazad.svg" alt=""></button>
                     }
-                    @for (ulong i = 1; i <= ListView.MaxPages; i++)
+                    @for (ulong i = 1; i <= _listView.MaxPages; i++)
                     {
-                        <button @onclick="() => ListView.SpecificPage(i)">@(i)</button>
+                        <button @onclick="() => _listView.SpecificPage(i)">@(i)</button>
                     }
-                    @if (ListView.CanNext)
+                    @if (_listView.CanNext)
                     {
-                        <button class="vpered" @onclick="ListView.NextPage"><img src="/icons/vpered.svg" alt=""></button>
+                        <button class="vpered" @onclick="_listView.NextPage"><img src="/icons/vpered.svg" alt=""></button>
                     }
                 </div>
             }

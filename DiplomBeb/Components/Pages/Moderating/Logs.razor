@@ -1,9 +1,11 @@
 @page "/special/logs"
+@rendermode RenderMode.InteractiveServer
+@using DiplomBeb.Components.Views
 <main>
     <div>
         <div class="middle">
             <ViewList
-                ListView=""/>
+                ListView="@ModerationService.LogsListView"/>
         </div>
 
         <div>

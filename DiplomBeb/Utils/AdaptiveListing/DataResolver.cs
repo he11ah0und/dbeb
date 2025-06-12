@@ -22,12 +22,15 @@ public class DataResolver
             .Where(x => x.Value != null)
             .ToDictionary(x => x.Id, x => x.Value);
     }
-    
-    public string? ResolvePropName(string propName) 
-        => ListProps.GetValueOrDefault(
+
+    public string? ResolvePropName(string propName)
+    {
+        var val = ListProps.GetValueOrDefault(
                 propName,
                 null)
-            ?.NameResolver.Invoke(Props);
+            ?.NameResolver?.Invoke(Props);
+        return val ?? "";
+    }
 
     public RenderMeta? GetProp(string propName, ListElement listElement, ulong index, ListView lv)
     {
@@ -44,7 +47,7 @@ public class DataResolver
 
     public bool IsHave(params string[] keys)
     {
-        bool isHave = true;
+        var isHave = true;
         foreach (var key in keys)
         {
             if (!Props.Contains(key))

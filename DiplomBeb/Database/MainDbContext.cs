@@ -32,5 +32,6 @@ namespace DiplomBeb.Database
         public DbSet<Library> Library { get; set; }
         public DbSet<LibraryFilter> LibraryFilters { get; set; }
         public DbSet<LinkLibraryFilter> LinkLibraryFilters { get; set; }
+        public DbSet<Log> Logs { get; set; }
     }
 }

@@ -10,7 +10,6 @@ public partial class ViewList : ComponentBase
     [Parameter]
     public ListView? ListView
     {
-        get => _listView;
         set
         {
             _listView?.OnListUpdated.Unsubscribe("listView");
