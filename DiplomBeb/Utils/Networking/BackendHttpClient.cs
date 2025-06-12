@@ -9,11 +9,11 @@ public class BackendHttpClient
     public AuthWorker Auth { get; private set; }
     private HttpClient _http;
 
-    public BackendHttpClient(ProtectedLocalStorage pls)
+    public BackendHttpClient(ApiService ao, ProtectedLocalStorage pls)
     {
         ProtectedLocalStore = pls;
         _http = new HttpClient();
-        _http.BaseAddress = new Uri("http://localhost:5062/api/");
+        _http.BaseAddress = new Uri(ao.Options.Url);
         Auth = new AuthWorker(this);
     }
 
