@@ -26,7 +26,7 @@ public class ListView
     public bool PageSwitchMode { get; set; }
     public ulong ElementsOnPage { get; set; }
     public bool HideHeading { get; set; }
-    public bool HideTableHeader { get; set; }
+    
     public bool HideFooter { get; set; }
     public bool HideRightFooterButtons { get; set; }
     public bool HideLeftFooterButtons { get; set; }
@@ -37,6 +37,7 @@ public class ListView
     
     // for TableContent
     public bool SlimTableData { get; set; }
+    public bool HideTableHeader { get; set; }
     
     public ListView(BackendHttpClient http, Type contentType, ulong page = 1, bool pageSwitchMode = false)
     {

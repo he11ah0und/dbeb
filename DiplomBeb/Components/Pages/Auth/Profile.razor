@@ -1,4 +1,5 @@
-﻿@rendermode RenderMode.InteractiveServer
+﻿@using DiplomBeb.Components.Views
+@rendermode RenderMode.InteractiveServer
 
 <div class="main-div">
     <div class="middle">
@@ -95,6 +96,9 @@
     </div>
     
     <div class="middle">
+        <ViewList
+            ListView="AccountService.DocumentsService.ListView"/>
+        <!--
         <div class="heading">
             <div>Документы</div>
         </div>
@@ -102,23 +106,22 @@
             <div class="wards">
                 <div class="awards-scroll-container">
                     <div class="awards-grid">
-                        <!-- Каждая ячейка — отдельный элемент -->
-                        @foreach (var doc in AccountService.DocumentsService.Documents)
-                        {
-                            <div class="awards-cell">
-                                <div class="img">
-                                    <input type="checkbox"/>
-                                </div>
-                                <div class="rating-award">
-                                    <h4>@doc.Get("name")</h4>
-                                    <div class="linner-rating-award">
-                                        <h3>+@doc.Get("cost")</h3>
-                                        <img src="/icons/star1-ico.svg"/>
-                                    </div>
-                                </div>
-                            </div>
-                        }
+        @foreach (var doc in AccountService.DocumentsService.Documents)
+        {
+            <div class="awards-cell">
+                <div class="img">
+                    <input type="checkbox"/>
+                </div>
+                <div class="rating-award">
+                    <h4>@doc.Get("name")</h4>
+                    <div class="linner-rating-award">
+                        <h3>+@doc.Get("cost")</h3>
+                        <img src="/icons/star1-ico.svg"/>
                     </div>
+                </div>
+            </div>
+        }
+    </div>
                 </div>
                 <div class="place-linner-button">
                     <button class="button_change">
@@ -127,6 +130,6 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 </div>

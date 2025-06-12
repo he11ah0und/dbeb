@@ -62,7 +62,7 @@ namespace DiplomBeb.Controllers
         
         // user api
         [AuthFilter("user")]
-        [HttpGet("docs/{skip}/{take}")]
+        [HttpGet("{skip}/{take}")]
         public async Task<IActionResult> Docs(ulong skip, ulong take)
         {
             var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
@@ -84,6 +84,24 @@ namespace DiplomBeb.Controllers
                 listElement.Set("link", Path.Combine(
                     _apiService.Options.Url,
                     $"Documents/down/{listElement.Get("id")}"));
+
+            return Ok(docs);
+        }
+        
+        [AuthFilter("user")]
+        [HttpGet("total")]
+        public async Task<IActionResult> Total()
+        {
+            var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
+            var authedUser = _context.Users
+                .SingleOrDefault(a => a.Id == authedId);
+            
+            if (authedUser == null)
+                return NoContent();
+
+            var docs = _context.Documents
+                .Include(d => d.User)
+                .Count(d => d.User.Id == authedUser.Id);
 
             return Ok(docs);
         }
@@ -139,15 +157,6 @@ namespace DiplomBeb.Controllers
             var result = new FileStreamResult(documentStream, "image/png");
             
             return Ok(result);
-        }
-        
-        [AuthFilter("user")]
-        [HttpPatch("docs")]
-        public async Task<IActionResult> Count(long count)
-        {
-            return Ok(_context.Library
-                .OrderBy(o => EF.Functions.Random())
-                .Take((int)count));
         }
         
         // admin api

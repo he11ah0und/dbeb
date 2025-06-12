@@ -1,4 +1,5 @@
 using DiplomBeb.Components.Pages;
+using DiplomBeb.Components.Views;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
@@ -7,24 +8,28 @@ namespace DiplomBeb.Services.Client.Components;
 
 public class DocumentsService
 {
-    public ListElement[] Documents { get; private set; }
-    public Callbacker<Action> OnDocumentsUpdated { get; private set; }
+    public ListView ListView { get; private set; }
     
     private BackendHttpClient _http;
     public DocumentsService(BackendHttpClient http)
     {
         _http = http;
-        Documents = [];
-        OnDocumentsUpdated = new Callbacker<Action>();
+        ListView = new ListView(http, typeof(DivContent))
+        {
+            ElementsOnPage = 6,
+            OnGet = RequestDocuments,
+            OnTotal = RequestDocumentsTotal,
+            GetHeader = () => "Документы",
+        };
     }
     
-    public async Task GetDocs()
+    private Task<HttpResponseState> RequestDocuments(BackendHttpClient http, ulong skip, ulong take)
     {
-        var res = await _http.Request($"Documents/docs/0/6");
-        if (!res.IsOk || !res.ResultAsJson<ListElement[]>(out var les))
-            return;
+        return http.Request($"Documents/{skip}/{take}");
+    }
 
-        Documents = les;
-        OnDocumentsUpdated.InvokeAll();
+    private Task<HttpResponseState> RequestDocumentsTotal(BackendHttpClient http)
+    {
+        return http.Request($"Documents/total/");
     }
 }

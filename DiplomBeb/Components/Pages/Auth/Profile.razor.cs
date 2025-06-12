@@ -31,8 +31,8 @@ public partial class Profile
     {
         if (!firstRender) return;
         AccountService.StateChanged.Subscribe("profile", AccountServiceOnStateChanged);
-        AccountService.DocumentsService.OnDocumentsUpdated.Subscribe("profile", DocumentsUpdated);
-        await AccountService.DocumentsService.GetDocs();
+        AccountService.DocumentsService.ListView.OnListUpdated.Subscribe("profile", DocumentsUpdated);
+        await AccountService.DocumentsService.ListView.First(1);
     }
 
     private void Load()
