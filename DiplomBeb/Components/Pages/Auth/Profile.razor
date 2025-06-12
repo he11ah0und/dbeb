@@ -103,122 +103,21 @@
                 <div class="awards-scroll-container">
                     <div class="awards-grid">
                         <!-- Каждая ячейка — отдельный элемент -->
-                        <div class="awards-cell">
-                            <div class="img">
-                                <input type="checkbox"/>
-                            </div>
-                            <div class="rating-award">
-                                <h4>Сертификат</h4>
-                                <div class="linner-rating-award">
-                                    <h3>+1</h3>
-                                    <img src="/icons/star1-ico.svg"/>
+                        @foreach (var doc in AccountService.DocumentsService.Documents)
+                        {
+                            <div class="awards-cell">
+                                <div class="img">
+                                    <input type="checkbox"/>
+                                </div>
+                                <div class="rating-award">
+                                    <h4>@doc.Get("name")</h4>
+                                    <div class="linner-rating-award">
+                                        <h3>@doc.Get("cost")</h3>
+                                        <img src="/icons/star1-ico.svg"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="awards-cell">
-                            <div class="img">
-                                <input type="checkbox"/>
-                            </div>
-                            <div class="rating-award">
-                                <h4>Сертификат</h4>
-                                <div class="linner-rating-award">
-                                    <h3>+1</h3>
-                                    <img src="/icons/star1-ico.svg"/>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="awards-cell">
-                            <div class="img">
-                                <input type="checkbox"/>
-                            </div>
-                            <div class="rating-award">
-                                <h4>Сертификат</h4>
-                                <div class="linner-rating-award">
-                                    <h3>+1</h3>
-                                    <img src="/icons/star1-ico.svg"/>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="awards-cell">
-                            <div class="img">
-                                <input type="checkbox"/>
-                            </div>
-                            <div class="rating-award">
-                                <h4>Сертификат</h4>
-                                <div class="linner-rating-award">
-                                    <h3>+1</h3>
-                                    <img src="/icons/star1-ico.svg"/>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="awards-cell">
-                            <div class="img">
-                                <input type="checkbox"/>
-                            </div>
-                            <div class="rating-award">
-                                <h4>Сертификат</h4>
-                                <div class="linner-rating-award">
-                                    <h3>+1</h3>
-                                    <img src="/icons/star1-ico.svg"/>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="awards-cell">
-                            <div class="img">
-                                <input type="checkbox"/>
-                            </div>
-                            <div class="rating-award">
-                                <h4>Сертификат</h4>
-                                <div class="linner-rating-award">
-                                    <h3>+1</h3>
-                                    <img src="/icons/star1-ico.svg"/>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="awards-cell">
-                            <div class="img">
-                                <input type="checkbox"/>
-                            </div>
-                            <div class="rating-award">
-                                <h4>Сертификат</h4>
-                                <div class="linner-rating-award">
-                                    <h3>+1</h3>
-                                    <img src="/icons/star1-ico.svg"/>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="awards-cell">
-                            <div class="img">
-                                <input type="checkbox"/>
-                            </div>
-                            <div class="rating-award">
-                                <h4>Сертификат</h4>
-                                <div class="linner-rating-award">
-                                    <h3>+1</h3>
-                                    <img src="/icons/star1-ico.svg"/>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="awards-cell">
-                            <div class="img">
-                                <input type="checkbox"/>
-                            </div>
-                            <div class="rating-award">
-                                <h4>Сертификат</h4>
-                                <div class="linner-rating-award">
-                                    <h3>+1</h3>
-                                    <img src="/icons/star1-ico.svg"/>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
                 <div class="place-linner-button">
