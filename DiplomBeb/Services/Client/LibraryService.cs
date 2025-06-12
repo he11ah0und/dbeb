@@ -9,14 +9,16 @@ public class LibraryService
 {
     public ListView LibraryListView { get; private set; }
     public ListView FiltersListView { get; private set; }
+    public List<string> Filters { get; private set; }
     public LibraryService(BackendHttpClient http)
     {
+        Filters = [];
         LibraryListView = new ListView(http)
         {
             OnGet = RequestLibs,
             OnTotal = RequestLibsTotal,
             GetHeader = () => "Библиотека полезных ссылок",
-            PageSwitchMode = true,
+            PageSwitchMode = false,
         };
         LibraryListView.DataResolver.Props.AddRange(
             ["id", "name", "link"]);
@@ -33,15 +35,25 @@ public class LibraryService
         FiltersListView.DataResolver.Props.AddRange(
             ["check"]);
     }
+
+    public void SetFilter(string filter)
+    {
+        if (Filters.Contains(filter)) return;
+        Filters.Add(filter);
+    }
+    public void DelFilter(string filter) 
+        => Filters.Remove(filter);
+    public void ClearFilters()
+        => Filters.Clear();
     
     private Task<HttpResponseState> RequestLibs(BackendHttpClient http, ulong skip, ulong take)
     {
-        return http.NativeRequest($"Library/{skip}/{take}");
+        return http.NativeRequest($"Library/{skip}/{take}", JsonContent.Create(Filters.ToArray()), HttpMethod.Post);
     }
 
     private Task<HttpResponseState> RequestLibsTotal(BackendHttpClient http)
     {
-        return http.NativeRequest("Library/total");
+        return http.NativeRequest("Library/total", JsonContent.Create(Filters.ToArray()), HttpMethod.Post);
     }
     
     private Task<HttpResponseState> RequestFilters(BackendHttpClient http, ulong skip, ulong take)

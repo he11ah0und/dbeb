@@ -19,15 +19,51 @@ public class LibraryController : ControllerBase
     }
     
     [AuthFilter]
-    [HttpGet("{skip}/{take}")]
-    public async Task<IActionResult> Get(ulong skip, ulong take)
+    [HttpPost("{skip}/{take}")]
+    public async Task<IActionResult> Get(ulong skip, ulong take, [FromBody] string[] filters)
     {
-        var elements = _context.Library
-            .Skip((int)skip)
-            .Take((int)take)
-            .Cast<ListElement>()
-            .ToArray();
+        ListElement[] elements;
+        if (filters.LongLength == 0)
+        {
+            elements = _context.Library
+                .Skip((int)skip)
+                .Take((int)take)
+                .Cast<ListElement>()
+                .ToArray();
+        }
+        else
+        {
+            elements = _context.LinkLibraryFilters
+                .Include(llf => llf.LibraryFilter)
+                .Include(llf => llf.Library)
+                .Where(llf => filters.Contains(llf.LibraryFilter.Name))
+                .Select(llf => llf.Library)
+                .Skip((int)skip)
+                .Take((int)take)
+                .Cast<ListElement>()
+                .ToArray();
+        }
+
         return Ok(elements);
+    }
+    
+    [AuthFilter]
+    [HttpPost("total")]
+    public async Task<IActionResult> GetTotal([FromBody] string[] filters)
+    {
+        int count;
+        if (filters.LongLength == 0)
+        {
+            count = _context.Library.Count();
+        }
+        else
+        {
+            count = _context.LinkLibraryFilters
+                .Include(llf => llf.LibraryFilter)
+                .Include(llf => llf.Library)
+                .Count(llf => filters.Contains(llf.LibraryFilter.Name));
+        }
+        return Ok(count);
     }
     
     [AuthFilter]
@@ -47,13 +83,6 @@ public class LibraryController : ControllerBase
             .Cast<ListElement>()
             .ToArray();
         return Ok(elements);
-    }
-    
-    [AuthFilter]
-    [HttpGet("total")]
-    public async Task<IActionResult> GetTotal()
-    {
-        return Ok(_context.Library.Count());
     }
     
     [AuthFilter]

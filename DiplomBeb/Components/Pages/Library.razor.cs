@@ -3,6 +3,7 @@ using DiplomBeb.Services.Client;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DiplomBeb.Components.Pages;
 
@@ -10,6 +11,9 @@ public partial class Library
 {
     [Parameter]
     public long? Page { get; set; }
+    
+    [Parameter]
+    public string[]? Filters { get; set; }
     
     [Inject]
     private LibraryService LibraryService { get; set; }
@@ -31,7 +35,13 @@ public partial class Library
         ListElement listElement,
         ObjectContainer args)
     {
-        Debug.WriteLine("OnFiltersCallback");
+        var state = (bool)args.Get("value");
+        if (state)
+            LibraryService.SetFilter(listElement.Get("name"));
+        else
+            LibraryService.DelFilter(listElement.Get("name"));
+
+        LibraryService.LibraryListView.Update();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
