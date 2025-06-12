@@ -18,7 +18,7 @@ public class LibraryController : ControllerBase
         _context = context;
     }
     
-    [AuthFilter]
+    //[AuthFilter]
     [HttpPost("{skip}/{take}")]
     public async Task<IActionResult> Get(ulong skip, ulong take, [FromBody] string[] filters)
     {
@@ -47,7 +47,7 @@ public class LibraryController : ControllerBase
         return Ok(elements);
     }
     
-    [AuthFilter]
+    //[AuthFilter]
     [HttpPost("total")]
     public async Task<IActionResult> GetTotal([FromBody] string[] filters)
     {
@@ -66,14 +66,14 @@ public class LibraryController : ControllerBase
         return Ok(count);
     }
     
-    [AuthFilter]
+    //[AuthFilter]
     [HttpGet("total_filters")]
     public async Task<IActionResult> TotalFilters()
     {
         return Ok(_context.LibraryFilters.Count());
     }
 
-    [AuthFilter]
+    //[AuthFilter]
     [HttpGet("filters/{skip}/{take}")]
     public async Task<IActionResult> GetFilters(ulong skip, ulong take)
     {
@@ -85,7 +85,7 @@ public class LibraryController : ControllerBase
         return Ok(elements);
     }
     
-    [AuthFilter]
+    //[AuthFilter]
     [HttpGet("random/{count:long}")]
     public async Task<IActionResult> Random(long count)
     {

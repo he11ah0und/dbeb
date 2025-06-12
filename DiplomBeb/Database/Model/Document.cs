@@ -12,7 +12,8 @@ namespace DiplomBeb.Database.Model
         public string Desc { get; set; }
         public string Location { get; set; }
         public DateTime Publish_date { get; set; }
-        public string Path { get; set; }
+        [Column("score_value")]
+        public ulong ScoreValue { get; set; }
         
         public static implicit operator ListElement(Document model)
         {

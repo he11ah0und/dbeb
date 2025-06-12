@@ -22,13 +22,13 @@ namespace DiplomBeb.Controllers
         }
         
         // PUBLIC APIs
-        [AuthFilter]
+        //[AuthFilter]
         [HttpGet("total")] // количество пользователей
         public async Task<IActionResult> GetTotal()
         {
             return Ok(_context.Users.Count());
         }
-        [AuthFilter]
+        //[AuthFilter]
         [HttpGet("top/{skip}/{take}")] // топ 100 пользователей
         public async Task<IActionResult> GetTop(ulong skip, ulong take)
         {
