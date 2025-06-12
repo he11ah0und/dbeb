@@ -28,7 +28,7 @@ public class ModerationService
             GetHeader = () => "Логи",
         };
         LogsListView.DataResolver.Props.AddRange(
-            ["id", "name", "middlename", "surname", "action", "datetime", "score", "webrole_name"]);
+            ["id", "name", "middlename", "surname", "action", "datetime", "webrole_name"]);
     }
     private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)
     {

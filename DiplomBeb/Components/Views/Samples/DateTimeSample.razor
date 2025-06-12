@@ -1,0 +1,22 @@
+@using DiplomBeb.Utils
+@using DiplomBeb.Utils.AdaptiveListing
+@{
+    var ok = long.TryParse(ListElement.Get(Id), out var ticks);
+    var dt = new System.DateTime(ticks);
+    var date = ok ? dt.ToShortDateString() : "<Date>";
+    var time = ok ? dt.ToShortTimeString() : "<Time>";
+}
+<h4>@time<br>@date</h4>
+
+@code {
+    [Parameter]
+    public DataResolver DataResolver { get; set; }
+    [Parameter]
+    public ulong Index { get; set; }
+    [Parameter]
+    public string Id { get; set; }
+    [Parameter]
+    public ListElement ListElement { get; set; }
+    [Parameter]
+    public Action<ObjectContainer> OnCallback { get; set; }
+}

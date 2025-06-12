@@ -66,6 +66,9 @@ public class ListView
         DataResolver.ListProps.Add("check", new ListProp(
             (p) => "_",
             typeof(CheckboxSample)));
+        DataResolver.ListProps.Add("datetime", new ListProp(
+            (p) => "Дата",
+            typeof(DateTimeSample)));
     }
     
     public string Header => GetHeader is null ? "<HEADER>" : GetHeader();
