@@ -31,11 +31,17 @@ public class ListView
     public bool HideRightFooterButtons { get; set; }
     public bool HideLeftFooterButtons { get; set; }
     public bool FitContent { get; set; }
+    public Type? ContentType { get; set; }
+    
+    // for DivContent
+    
+    // for TableContent
     public bool SlimTableData { get; set; }
     
-    public ListView(BackendHttpClient http, ulong page = 1, bool pageSwitchMode = false)
+    public ListView(BackendHttpClient http, Type contentType, ulong page = 1, bool pageSwitchMode = false)
     {
         _http = http;
+        ContentType = contentType;
         Page = page;
         PageSwitchMode = pageSwitchMode;
         ElementsOnPage = 30;
@@ -69,6 +75,13 @@ public class ListView
         DataResolver.ListProps.Add("datetime", new ListProp(
             (p) => "Дата",
             typeof(DateTimeSample)));
+    }
+
+    public ObjectContainer GetParamsForContent()
+    {
+        var oc = new ObjectContainer();
+        oc.Set("ListView", this);
+        return oc;
     }
     
     public string Header => GetHeader is null ? "<HEADER>" : GetHeader();

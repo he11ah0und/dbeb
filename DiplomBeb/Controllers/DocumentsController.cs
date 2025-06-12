@@ -1,7 +1,6 @@
 ﻿using DiplomBeb.Database;
 using DiplomBeb.Database.Model;
 using DiplomBeb.Filters;
-using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
 using Microsoft.AspNetCore.Mvc;
@@ -63,8 +62,8 @@ namespace DiplomBeb.Controllers
         
         // user api
         [AuthFilter("user")]
-        [HttpGet("docs")]
-        public async Task<IActionResult> Docs()
+        [HttpGet("docs/{skip}/{take}")]
+        public async Task<IActionResult> Docs(ulong skip, ulong take)
         {
             var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
             var authedUser = _context.Users
@@ -76,6 +75,8 @@ namespace DiplomBeb.Controllers
             var docs = _context.Documents
                 .Include(d => d.User)
                 .Where(d => d.User.Id == authedUser.Id)
+                .Skip((int)skip)
+                .Take((int)take)
                 .Cast<ListElement>()
                 .ToArray();
             

@@ -1,4 +1,5 @@
-﻿using DiplomBeb.Database.Model;
+﻿using DiplomBeb.Components.Views;
+using DiplomBeb.Database.Model;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
@@ -13,7 +14,7 @@ public class LibraryService
     public LibraryService(BackendHttpClient http)
     {
         Filters = [];
-        LibraryListView = new ListView(http)
+        LibraryListView = new ListView(http, typeof(TableContent))
         {
             OnGet = RequestLibs,
             OnTotal = RequestLibsTotal,
@@ -23,7 +24,7 @@ public class LibraryService
         LibraryListView.DataResolver.Props.AddRange(
             ["id", "name", "link"]);
 
-        FiltersListView = new ListView(http)
+        FiltersListView = new ListView(http, typeof(TableContent))
         {
             OnGet = RequestFilters,
             OnTotal = RequestFiltersTotal,

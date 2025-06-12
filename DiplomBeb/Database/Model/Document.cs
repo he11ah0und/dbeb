@@ -23,6 +23,7 @@ namespace DiplomBeb.Database.Model
             le.Set("desc", model.Desc);
             le.Set("location", model.Location);
             le.Set("publish_date", model.Publish_date.Ticks);
+            le.Set("cost", model.Cost);
             return le;
         }
     }

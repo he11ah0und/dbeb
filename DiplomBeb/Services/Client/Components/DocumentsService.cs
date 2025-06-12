@@ -20,7 +20,7 @@ public class DocumentsService
     
     public async Task GetDocs()
     {
-        var res = await _http.Request($"Users/docs");
+        var res = await _http.Request($"Documents/docs/0/6");
         if (!res.IsOk || !res.ResultAsJson<ListElement[]>(out var les))
             return;
 

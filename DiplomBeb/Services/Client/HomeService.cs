@@ -1,3 +1,4 @@
+using DiplomBeb.Components.Views;
 using DiplomBeb.Database.Model;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
@@ -15,7 +16,7 @@ public class HomeService
     public HomeService(BackendHttpClient http)
     {
         _http = http;
-        TopUsersListView = new ListView(http, 1, false)
+        TopUsersListView = new ListView(http, typeof(TableContent),1, false)
         {
             ElementsOnPage = 100,
             OnTotal = RequestUsersTotal,

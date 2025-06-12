@@ -1,4 +1,5 @@
-﻿using DiplomBeb.Database.Model;
+﻿using DiplomBeb.Components.Views;
+using DiplomBeb.Database.Model;
 using DiplomBeb.Utils;
 using DiplomBeb.Database.Model;
 using DiplomBeb.Utils.AdaptiveListing;
@@ -20,7 +21,7 @@ public class PlaceComponent
     {
         _http = http;
         _accountService = accountService;
-        ListView = new ListView(_http, 1, false)
+        ListView = new ListView(_http, typeof(TableContent), 1, false)
         {
             OnGet = RequestUsers,
             OnTotal = RequestUsersTotal,

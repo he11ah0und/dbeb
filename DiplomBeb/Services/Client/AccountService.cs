@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Text;
+using DiplomBeb.Components.Views;
 using DiplomBeb.Database.Model;
 using DiplomBeb.Filters;
 using DiplomBeb.Services.Client.Components;
@@ -28,7 +29,7 @@ public class AccountService
         StateChanged = new Callbacker<Action>();
         UserRank = new UserRank();
         IsLogged = false;
-        MyListView = new ListView(http, 1, false)
+        MyListView = new ListView(http, typeof(TableContent),1, false)
         {
             ElementsOnPage = 3,
             HideFooter = true,

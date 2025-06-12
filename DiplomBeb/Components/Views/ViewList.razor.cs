@@ -20,6 +20,6 @@ public partial class ViewList : ComponentBase
 
     public ViewList()
     {
-        ListView = new ListView(null, 0, false);
+        ListView = new ListView(null, typeof(TableContent), 0, false);
     }
 }

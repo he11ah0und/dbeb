@@ -1,3 +1,4 @@
+using DiplomBeb.Components.Views;
 using DiplomBeb.Database.Model;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
@@ -12,7 +13,7 @@ public class ModerationService
 
     public ModerationService(BackendHttpClient http)
     {
-        UsersListView = new ListView(http)
+        UsersListView = new ListView(http, typeof(TableContent))
         {
             OnTotal = RequestUsersTotal,
             OnGet = RequestUsers,
@@ -21,7 +22,7 @@ public class ModerationService
         UsersListView.DataResolver.Props.AddRange(
             ["id", "avatar", "name", "middlename", "surname", "score", "webrole_name"]);
         
-        LogsListView = new ListView(http)
+        LogsListView = new ListView(http, typeof(TableContent))
         {
             OnTotal = RequestLogsTotal,
             OnGet = RequestLogs,
