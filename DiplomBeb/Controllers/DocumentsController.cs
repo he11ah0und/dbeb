@@ -82,7 +82,7 @@ namespace DiplomBeb.Controllers
             foreach (var listElement in docs)
                 listElement.Set("link", Path.Combine(
                     _apiService.Options.Url,
-                    $"{listElement.Get("id")}.png"));
+                    $"Documents/down/{listElement.Get("id")}"));
 
             return Ok(docs);
         }
@@ -107,7 +107,6 @@ namespace DiplomBeb.Controllers
             _context.Documents.Add(new Document()
             {
                 User = authedUser,
-                
             });
 
             await _context.SaveChangesAsync();
