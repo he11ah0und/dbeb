@@ -1,0 +1,42 @@
+<div class="container-list-2">
+    <div class="wards">
+        <div class="awards-scroll-container">
+            <div class="awards-grid">
+            @for (long i = 1; i <= ListView.Data.LongLength; i++)
+            {
+                var io = i - 1;
+                var listElement = ListView.Data[io];
+                var hasId = ListView.DataResolver.Props.Contains("id");
+                var idInLe = string.IsNullOrEmpty(listElement.Get("id"));
+                if (hasId && !idInLe)
+                {
+                    listElement.Set("id", i);
+                }
+                
+                <div>
+                @{
+                    var listProps = ListView.DataResolver.GetListProps(ListView.DataResolver.Props, listElement.Elements);
+                    var renderedProps = listProps
+                        .Select(pair => ListView.DataResolver.GetProp(pair.Key, listElement, (ulong)i, ListView))
+                        .Where(rendered => rendered.Ok);
+                }
+
+                @foreach (var rendered in renderedProps)
+                {
+                    <div>
+                        <DynamicComponent Type="@rendered.ListProp.RenderType" Parameters="rendered.Parameters"/>
+                    </div>
+                }
+                </div>
+            }
+            </div>
+        </div>
+        <!--
+        <div class="place-linner-button">
+            <button class="button_change">
+                <img class="img38" src="icons/redactir-ico.svg" alt="Редактировать"/>
+                <h4>ИЗМЕНИТЬ</h4>
+            </button>
+        </div>-->
+    </div>
+</div>

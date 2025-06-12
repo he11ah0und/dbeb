@@ -1,0 +1,28 @@
+@using DiplomBeb.Utils
+@using DiplomBeb.Utils.AdaptiveListing
+
+<div class="awards-cell">
+    <div class="img">
+        <input type="checkbox"/>
+    </div>
+    <div class="rating-award">
+        <h4>@ListElement.Get(Id)</h4>
+        <div class="linner-rating-award">
+            <h3>+@ListElement.Get("cost")</h3>
+            <img src="/icons/star1-ico.svg"/>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public DataResolver DataResolver { get; set; }
+    [Parameter]
+    public ulong Index { get; set; }
+    [Parameter]
+    public string Id { get; set; }
+    [Parameter]
+    public ListElement ListElement { get; set; }
+    [Parameter]
+    public Action<ObjectContainer> OnCallback { get; set; }
+}

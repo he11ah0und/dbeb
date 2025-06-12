@@ -76,6 +76,9 @@ public class ListView
         DataResolver.ListProps.Add("datetime", new ListProp(
             (p) => "Дата",
             typeof(DateTimeSample)));
+        DataResolver.ListProps.Add("document", new ListProp(
+            (p) => "Документ",
+            typeof(DocumentSample)));
     }
 
     public ObjectContainer GetParamsForContent()

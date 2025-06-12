@@ -1,0 +1,23 @@
+.container-list-2 {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    border-radius: 0.625rem;
+    background-color: var(--color-light);
+}
+
+.awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    padding: 1rem;
+    gap: 2rem;
+}
+
+.awards-scroll-container {
+    overflow-y: auto;
+}
+
+.awards-scroll-container::-webkit-scrollbar {
+    display: none;
+    width: 0;
+}

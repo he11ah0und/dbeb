@@ -19,7 +19,7 @@ namespace DiplomBeb.Database.Model
         {
             var le = new ListElement();
             le.Set("id", model.Id);
-            le.Set("name", model.Name);
+            le.Set("document", model.Name);
             le.Set("desc", model.Desc);
             le.Set("location", model.Location);
             le.Set("publish_date", model.Publish_date.Ticks);

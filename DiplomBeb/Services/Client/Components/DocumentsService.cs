@@ -21,6 +21,8 @@ public class DocumentsService
             OnTotal = RequestDocumentsTotal,
             GetHeader = () => "Документы",
         };
+        ListView.DataResolver.Props.AddRange(
+            ["document"]);
     }
     
     private Task<HttpResponseState> RequestDocuments(BackendHttpClient http, ulong skip, ulong take)
