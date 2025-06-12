@@ -1,124 +1,96 @@
-﻿body {
+﻿.main-div {
+    display: flex;
     flex-direction: row;
-}
-
-main {
-    flex: 1;
-    min-height: 100vh; 
-    background-color: var(--main-color);
-    padding: 5rem 10rem;
-    display: flex;
-    flex-direction: column; 
-    overflow-y: auto; 
-    align-items: center;
-}
-
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
-
-main .content-wrapper {
-    display: flex;
+    gap: 2rem;
+    
     width: 100%;
+    margin: 2rem;
 }
 
-main .img39 {
-    width: 14rem;
-}
-
-main .img36 {
-    width: 14rem
-}
-
-
-main > div {
+.main-div > div:nth-child(1) {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    max-width: 128rem;
-    gap: 2rem;
-
+    width: 30%;
 }
 
-main .heading {
+.main-div > div:nth-child(2) {
+    flex: 1;
+}
+
+.heading {
     display: flex;
     justify-content: space-between;
 }
 
-main .heading > div {
+.heading > div {
     padding: .8rem 2rem;
     border-radius: .5rem;
+
     font-weight: 700;
     font-size: 1.1rem;
+
     background-color: var(--color-light);
     color: var(--color-text1);
 }
 
-main .middle {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.middle {
+    height: 100%;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
 }
 
-main .container-list {
+.container-list {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    padding: 2.187rem;
+    padding: 2rem 2rem;
     border-radius: .625rem;
-    overflow: hidden;
+    
     background-color: var(--color-light);
-    color: var(--color-text3);
 }
 
-.place-inner-top {
+.place-inner-left {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-}
-
-.place-column {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    align-items: center;
     gap: 4rem;
 }
 
-.column-right {
+.column-img {
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
-.column-left {
+.profile-table {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    
+
+    border-collapse: collapse;
+}
+
+.profile-table tr {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
-.column-center {
+.profile-table th {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.column-center .column-left > div {
-    font-weight: 800;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+    
+    font-weight: 600;
     font-size: 1.125rem;
+    color: var(--color-text3);
 }
 
-div > h4 {
-    font-weight: 500;
-    font-size: 1.125rem;
-    color: var(--color-text13);
-}
-
-.name-column > input {
-    display: flex;
-    flex-direction: column;
+.profile-table td {
     height: 1.4rem;
     width: auto;
     font-weight: 500;
@@ -126,35 +98,25 @@ div > h4 {
     color: var(--color-text13);
 }
 
-.email-column > input {
+.profile-table td > input {
+    display: flex;
+    flex-direction: column;
+    
+
     height: 1.4rem;
-    width: auto;
+    width: ;
     font-weight: 500;
     font-size: 1.125rem;
     color: var(--color-text13);
 }
 
-.number-column > input {
-    height: 1.4rem;
-    width: auto;
-    font-weight: 500;
-    font-size: 1.125rem;
-    color: var(--color-text13);
-}
-
-.name-column > input::placeholder, .email-column > input::placeholder, .number-column > input::placeholder {
+td> input::placeholder {
     font-weight: 500;
     font-size: 1.125rem;
     color: var(--color-text18);
 }
 
-.Place-column{
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    
-}
-.Place-column > button {
+.profile-table td > button{
     background-color: transparent;
     border: none;
     padding: 0;
@@ -165,15 +127,23 @@ div > h4 {
     font-size: 1.125rem;
     font-weight: 600;
     color: var(--color-text2);
-    
+
     text-align: left;
     display: inline-flex;
     align-items: center;
     white-space: nowrap;
 }
 
+.place-inner-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 2rem 0 0 0;
+    gap: 4rem;
+}
+
 .place-linner-bottom {
-    margin-top: 4rem;
+    padding: 2rem 0 1rem 0;
     display: flex;
     flex-direction: row;
     gap: 2rem;
@@ -209,4 +179,8 @@ div > h4 {
     font-weight: 400;
     color: var(--color-text10);
     font-size: .8125rem;
+}
+
+.img39, .img36 {
+    width: 14rem;
 }
