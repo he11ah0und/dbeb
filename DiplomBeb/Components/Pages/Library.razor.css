@@ -15,7 +15,6 @@
     display: flex;
     flex-direction: column;
     width: 30%;
-    gap: 2rem;
 }
 
 .main-div .middle {
@@ -51,6 +50,7 @@
     margin-top: 4.5rem;
     display: flex;
     flex-direction: column;
+    max-height: min-content;
 }
 
 .heading {
