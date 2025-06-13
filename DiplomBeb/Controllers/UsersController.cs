@@ -1,10 +1,7 @@
-﻿using System.Diagnostics;
-using DiplomBeb.Database;
+﻿using DiplomBeb.Database;
 using DiplomBeb.Filters;
 using DiplomBeb.Database.Model;
-using DiplomBeb.Systems.Auth;
 using DiplomBeb.Utils.AdaptiveListing;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -161,10 +158,12 @@ namespace DiplomBeb.Controllers
             authedUser.Surname = li.Get("surname", authedUser.Surname);
             authedUser.Middlename = li.Get("middlename", authedUser.Middlename);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             
             return Ok();
         }
+        
+        
         
         // admin api
         [AuthFilter("admin")]
@@ -194,6 +193,33 @@ namespace DiplomBeb.Controllers
                 .Cast<ListElement>()
                 .ToArray();
             return Ok(devs);
+        }
+        
+        [AuthFilter("admin")]
+        [HttpPatch("personal/{id}")] // update profile
+        public async Task<IActionResult> PatchPersonal(
+            ulong id,
+            ListElement li)
+        {
+            var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
+            var authedUser = _context.Users
+                .Include(u => u.ApiRole)
+                .SingleOrDefault(a => a.Id == authedId);
+
+            if (authedId != id && authedUser?.ApiRole?.Name == "admin")
+                return Ok(false);
+
+            authedUser.Email = li.Get("email", authedUser.Email);
+            if (ulong.TryParse(li.Get("phone", authedUser.Phone.ToString()), out var phone))
+                authedUser.Phone = phone;
+            
+            authedUser.Name = li.Get("name", authedUser.Name);
+            authedUser.Surname = li.Get("surname", authedUser.Surname);
+            authedUser.Middlename = li.Get("middlename", authedUser.Middlename);
+
+            await _context.SaveChangesAsync();
+            
+            return Ok(true);
         }
     }
 }
