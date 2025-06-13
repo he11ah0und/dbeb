@@ -13,9 +13,22 @@ public partial class Place
     [Inject]
     private UserService UserService { get; set; }
     
+    [Inject]
+    private AccountService AccountService { get; set; }
+    [Inject]
+    private NavigationManager Navigation { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
+        AccountService.StateChanged.Subscribe("404", OnLoaded);
         
+    }
+    private void OnLoaded()
+    {
+        if (ulong.TryParse(AccountService.Account?.Get("apirole_id"), out var val)
+            && val >= 1)
+            return;
+        Navigation.NavigateTo($"/error/403");
     }
     
     private void OnListUpdated()

@@ -26,7 +26,7 @@ public class AccountService
     {
         _http = http;
         Initialized = false;
-        StateChanged = new Callbacker<Action>();
+        StateChanged = new Callbacker<Action>(false);
         UserRank = new UserRank();
         IsLogged = false;
         MyListView = new ListView(http, typeof(TableContent),1, false)

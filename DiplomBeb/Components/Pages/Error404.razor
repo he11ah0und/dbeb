@@ -1,9 +1,11 @@
-﻿@page "/Error404"
+﻿@page "/error/{ecode}"
+@rendermode RenderMode.InteractiveServer
 
+<PageTitle>404 - Цифровое портфолио</PageTitle>
 <div>
     <div class="text">
-        <h4>Ошибка 404</h4>
-        <p>Страница не найдена</p>
-        <button>Вернуться на главную</button>
+        <h4>Ошибка @ECode</h4>
+        <!--<p>Страница не найдена</p>-->
+        <button @onclick="ToMain">Вернуться на главную</button>
     </div>
 </div>
