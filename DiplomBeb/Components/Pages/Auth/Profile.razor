@@ -80,22 +80,23 @@
                 </table>
             </div>
             
-            <div class="place-linner-button">
-                <button class="button_change" @onclick="EditMode">
-                    <img class="img38" src="icons/redactir-ico.svg" alt="Редактировать"/>
-                    <h4>ИЗМЕНИТЬ</h4>
-                </button>
+            <div class="place-linner-bottom">
+                <div class="place-linner-button">
+                    <button class="button_change" @onclick="EditMode">
+                        <img class="img38" src="icons/redactir-ico.svg" alt="Редактировать"/>
+                        <h4>ИЗМЕНИТЬ</h4>
+                    </button>
 
-                <button class="button_exit" @onclick="OnLogOut">
-                    <h4>ВЫЙТИ</h4>
-                </button>
+                    <button class="button_exit" @onclick="OnLogOut">
+                        <h4>ВЫЙТИ</h4>
+                    </button>
                     
-                <button class="button_change">
-                    <img class="img38" src="icons/redactir-ico.svg" alt="Редактировать"/>
-                    <h4>ИЗМЕНИТЬ ДОКУМЕНТЫ</h4>
-                </button>
+                    <button class="button_change" @onclick="GoToDocuments">
+                        <img class="img38" src="icons/redactir-ico.svg" alt="Редактировать"/>
+                        <h4>ИЗМЕНИТЬ ДОКУМЕНТЫ</h4>
+                    </button>
+                </div>
             </div>
-            
         </div>
     </div>
     
