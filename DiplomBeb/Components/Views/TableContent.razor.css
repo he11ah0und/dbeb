@@ -42,11 +42,11 @@ tr {
     cursor: pointer;
 }
 
-tr:hover {
+.hoverable:hover {
     box-shadow: 0 0 10px rgba(51, 90, 175, 0.73);
 }
 
-tr.selected {
+.selected {
     background-color: rgba(51, 90, 175, 0.2);
     box-shadow: 0 0 10px rgba(51, 90, 175, 0.73);
 }

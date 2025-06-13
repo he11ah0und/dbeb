@@ -1,42 +1,47 @@
 @page "/special/logs"
 @rendermode RenderMode.InteractiveServer
 @using DiplomBeb.Components.Views
+@using DiplomBeb.Utils.AdaptiveListing
 <main>
     <div>
         <div class="middle">
             <ViewList
                 ListView="@ModerationService.LogsListView"/>
         </div>
-        <div>
-            <div class="place-container">
-                <div class="container-title">
-                    <div class="image"></div>
-                    <h4>Акакий Акакиевич Акаков</h4>
-                </div>
-                <div class="container-dan">
-                    <div>
-                        <h4>Email:</h4>
-                        <h5>akakiy@sberbank.ru</h5>
+        @if (ModerationService.SelectedLog is ListElement li)
+        {
+            <div>
+                <div class="place-container">
+                    <div class="container-title">
+                        <div class="image"></div>
+                        <h4>@li.Get("surname") @li.Get("name") @li.Get("middlename")</h4>
                     </div>
-                    <div>
-                        <h4>Телефон:</h4>
-                        <h5>8 800 555 35-35</h5>
-                    </div>
-                    <div>
-                        <h4>Статус:</h4>
-                        <div class="wid-status">Неактивный</div>
-                    </div>
-                    <div class="container-dan-title">
-                        <h3>Активность</h3>
-                    </div>
-                    <div class="container-dan-act">
+                    <div class="container-dan">
                         <div>
-                            <h4>Вышел из системы</h4>
-                            <h5>15 минут назад</h5>
+                            <h4>Email:</h4>
+                            <h5>@li.Get("email")</h5>
+                        </div>
+                        <div>
+                            <h4>Телефон:</h4>
+                            <h5>@li.Get("phone", "")</h5>
+                        </div>
+                        <div>
+                            <h4>Статус:</h4>
+                            <div class="wid-status">Неактивный</div>
+                        </div>
+                        <div class="container-dan-title">
+                            <h3>Активность</h3>
+                        </div>
+                        <div class="container-dan-act">
+                            <div>
+                                <h4>@li.Get("action")</h4>
+                                <h5>@(new DateTime(long.Parse(li.Get("datetime"))).ToString())</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-        </div>
+        }
     </div>
 </main>

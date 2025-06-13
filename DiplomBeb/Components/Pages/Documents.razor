@@ -1,4 +1,5 @@
 ﻿@page "/documents"
+@using DiplomBeb.Components.Views
 
 <div class="main-div">
     <div class="middle">
@@ -11,11 +12,12 @@
                 <button class="delete">Удалить</button>
             </div>
         </div>
-        <div class="container-list">
+        <ViewList
+            ListView="AccountService.DocumentsService.ListView"/>
+        <!--<div class="container-list">
             <div class="wards">
                 <div class="awards-scroll-container">
                     <div class="awards-grid">
-                        <!-- Каждая ячейка — отдельный элемент -->
                         <div class="awards-cell">
                             <div class="img">
                                 <input type="checkbox"/>
@@ -135,7 +137,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
     
     <div class="place-container">

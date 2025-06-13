@@ -11,6 +11,12 @@ public partial class Logs : ComponentBase
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
+        ModerationService.OnSelectedLog.Subscribe("logs", OnSelected);
         await ModerationService.LogsListView.First(1);
+    }
+
+    private void OnSelected()
+    {
+        StateHasChanged();
     }
 }

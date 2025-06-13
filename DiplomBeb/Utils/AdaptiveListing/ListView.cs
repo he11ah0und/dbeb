@@ -4,6 +4,7 @@ using DiplomBeb.Utils.Networking;
 
 namespace DiplomBeb.Utils.AdaptiveListing;
 
+public delegate void RowCallback(ulong rowIndex, ListElement listElement);
 public class ListView
 {
     // private
@@ -15,6 +16,7 @@ public class ListView
     public Callbacker<Action> OnListUpdated { get; private set; }
     public Callbacker<Action> OnPageSwitch { get; private set; }
     public Callbacker<CallbackPropInElement> OnElementCallback { get; private set; }
+    public Callbacker<RowCallback> OnRowCallback { get; private set; }
     public DataResolver DataResolver { get; private set; }
     public ListElement[] Data { get; private set; }
     private BackendHttpClient _http { get; set; }
@@ -25,6 +27,8 @@ public class ListView
     public Func<string>? GetHeader { get; set; }
     public bool PageSwitchMode { get; set; }
     public ulong ElementsOnPage { get; set; }
+    public bool Selectable { get; set; }
+    
     public bool HideHeading { get; set; }
     
     public bool HideFooter { get; set; }
@@ -49,6 +53,7 @@ public class ListView
         OnListUpdated = new Callbacker<Action>(false);
         OnPageSwitch = new Callbacker<Action>(false);
         OnElementCallback = new Callbacker<CallbackPropInElement>(false);
+        OnRowCallback = new Callbacker<RowCallback>(false);
         Data = [];
         DataResolver = new DataResolver();
         
@@ -79,6 +84,22 @@ public class ListView
         DataResolver.ListProps.Add("document", new ListProp(
             (p) => "Документ",
             typeof(DocumentSample)));
+    }
+
+    internal void Select(long dId)
+    {
+        var dco = Data.LongLength;
+        for (var i = 0; i < dco; i++)
+        {
+            var element = Data[i];
+            if (i == dId)
+            {
+                element.Set("selected", true);
+                OnRowCallback.InvokeAll((ulong)i, element);
+            }
+            else
+                element.Set("selected", false);
+        }
     }
 
     public ObjectContainer GetParamsForContent()

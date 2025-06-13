@@ -27,7 +27,15 @@
             listElement.Set("id", i);
         }
 
-        <tr>
+        var hoverable = ListView.Selectable ? "hoverable" : "";
+        var clicked = bool.TryParse(
+            listElement.Get("selected"),
+            out var result)
+            ? result
+                ? "selected"
+                : ""
+            : "";
+        <tr class="@hoverable @clicked" @onclick="@(() => ListView.Select(io))">
             @{
                 var listProps = ListView.DataResolver.GetListProps(ListView.DataResolver.Props, listElement.Elements);
                 var renderedProps = listProps

@@ -1,47 +1,46 @@
 @page "/special/profiles"
 @rendermode RenderMode.InteractiveServer
 @using DiplomBeb.Components.Views
+@using DiplomBeb.Utils.AdaptiveListing
 <main>
     <div>
         <div class="middle">
             <ViewList
                 ListView="@ModerationService.UsersListView"/>
         </div>
-        
-		<div>
-            <div class="place-container">
-                <div class="container-title">
-                    <div class="image"></div>
-                    <h4>Акакий Акакиевич Акаков</h4>
-                </div>
+        @if (ModerationService.SelectedUser is ListElement li)
+        {
+            <div>
+                <div class="place-container">
+                    <div class="container-title">
+                        <div class="image"></div>
+                        <h4>@li.Get("surname") @li.Get("name") @li.Get("middlename")</h4>
+                    </div>
                 
-                <div class="container-dan">
-                     <div class="container-dan-title">
-                        <h3>Данные</h3>
-                     </div>
-                     <div>
-                        <h4>ФИО:</h4>
-                        <h5>Акакий Акакиевич Акаков</h5>
-                     </div>
-                     <div>
-                        <h4>Email:</h4>
-                        <h5>akakiy@sberbank.ru</h5>
-                     </div>
-                     <div>
-                        <h4>Номер:</h4>
-                        <h5>8 800 555 35-35</h5>
-                     </div>
-                     <div>
-                        <h4>Место:</h4>
-                        <h5>КГА ПОУ “ДВТК”</h5>
-                     </div>
-                </div>
+                    <div class="container-dan">
+                        <div class="container-dan-title">
+                            <h3>Данные</h3>
+                        </div>
+                        <div>
+                            <h4>Email:</h4>
+                            <h5>@li.Get("email")</h5>
+                        </div>
+                        <div>
+                            <h4>Номер:</h4>
+                            <h5>@li.Get("phone", "")</h5>
+                        </div>
+                        <div>
+                            <h4>Место:</h4>
+                            <h5>@li.Get("place_name", "")</h5>
+                        </div>
+                    </div>
     
-                <div class="container-button">
-                    <button>Редактировать</button>
-                    <button>Отправить<br>запрос администратору</button>
-                </div> 
+                    <div class="container-button">
+                        <button>Редактировать</button>
+                        <button>Отправить<br>запрос администратору</button>
+                    </div> 
+                </div>
             </div>
-		</div>
+        }
 	</div>
 </main>
