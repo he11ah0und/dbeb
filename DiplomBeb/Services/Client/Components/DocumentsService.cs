@@ -8,20 +8,31 @@ namespace DiplomBeb.Services.Client.Components;
 
 public class DocumentsService
 {
-    public ListView ListView { get; private set; }
+    public ListView ProfileListView { get; private set; }
+    public ListView DocumentsListView { get; private set; }
     
     private BackendHttpClient _http;
     public DocumentsService(BackendHttpClient http)
     {
         _http = http;
-        ListView = new ListView(http, typeof(DivContent))
+        ProfileListView = new ListView(http, typeof(DivContent))
         {
             ElementsOnPage = 6,
             OnGet = RequestDocuments,
             OnTotal = RequestDocumentsTotal,
             GetHeader = () => "Документы",
         };
-        ListView.DataResolver.Props.AddRange(
+        ProfileListView.DataResolver.Props.AddRange(
+            ["document"]);
+        DocumentsListView = new ListView(http, typeof(DivContent))
+        {
+            ElementsOnPage = 6,
+            OnGet = RequestDocuments,
+            OnTotal = RequestDocumentsTotal,
+            GetHeader = () => "Документы",
+            HideHeading = true,
+        };
+        DocumentsListView.DataResolver.Props.AddRange(
             ["document"]);
     }
     
