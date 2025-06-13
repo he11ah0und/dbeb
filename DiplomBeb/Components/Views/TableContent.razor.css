@@ -33,3 +33,21 @@ th {
     font-size: 1.25rem;
     color: var(--color-text6);
 }
+
+tr {
+    transition: all 0.3s ease;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 0 0 transparent;
+    cursor: pointer;
+}
+
+tr:hover {
+    box-shadow: 0 0 10px rgba(51, 90, 175, 0.73);
+}
+
+tr.selected {
+    background-color: rgba(51, 90, 175, 0.2);
+    box-shadow: 0 0 10px rgba(51, 90, 175, 0.73);
+}
+
