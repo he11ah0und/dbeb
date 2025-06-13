@@ -74,23 +74,10 @@
     display: table-row;
 }
 
-.fio-cell .edit-fields {
+.edit-fields {
     display: flex;
     flex-direction: column;
     gap: 8px;
-}
-
-.edit-fields input, td input {
-    position: relative;
-    
-    transition: opacity 0.3s ease;
-    opacity: 1;
-
-    width: 100%;
-    height: 1.4rem;
-    font-weight: 500;
-    font-size: 1.125rem;
-    color: var(--color-text13);
 }
 
 input::placeholder {
@@ -99,20 +86,25 @@ input::placeholder {
     color: var(--color-text18);
 }
 
-.edit-fields input,
+td > *:first-child {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
 td input {
-    position: relative;
-    width: 100%;
+    border-radius: .625rem;
+    padding: 0.5rem;
+    opacity: 1;
     height: 1.4rem;
     font-weight: 500;
     font-size: 1.125rem;
     color: var(--color-text13);
-    padding-bottom: 6px; /* Опционально: отступ под тень */
     transition: box-shadow 0.3s ease;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15); /* Тень напрямую */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
 }
 
 .profile-table th {
+    height: 2rem;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -124,8 +116,9 @@ td input {
 }
 
 .profile-table td {
+    
     position: relative;
-    height: 1.4rem;
+    height: 2rem;
     width: auto;
     font-weight: 500;
     font-size: 1.125rem;

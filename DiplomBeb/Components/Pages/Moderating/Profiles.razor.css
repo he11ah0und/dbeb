@@ -67,15 +67,20 @@ main .middle {
     display: flex;
     flex-direction: row;
     align-items: center;
-    max-height: 2.2rem;
     padding: 1.25rem 1.25rem;
     gap: 1rem;
+    
+    min-height: auto;
+    max-height: none;
+    overflow: visible;
 }
 
 .container-title h4 {
-    flex: 1;
+    flex: 1 1 auto;
     font-size: 1.25rem;
     color: var(--color-text3);
+    white-space: normal; 
+    word-wrap: break-word; 
 }
 
 .image {
@@ -111,6 +116,15 @@ main .middle {
     width: max-content;
 }
 
+.linner {
+    position: relative;
+    display: flex;
+    align-items: start;
+    width: 100%;
+    height: 2rem;
+    box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+}
+
 .container-dan div {
     display: flex;
     align-items: center;
@@ -124,6 +138,18 @@ main .middle {
     white-space: nowrap;
 }
 
+.edit-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%; 
+}
+
+.edit-fields input {
+    width: 100%;
+    box-sizing: border-box; 
+}
+
 .container-dan input,
 .container-dan select {
     flex-grow: 1;
@@ -131,24 +157,22 @@ main .middle {
     box-sizing: border-box; 
 }
 
-input::placeholder {
-    font-weight: 500;
-    font-size: 1.125rem;
-    color: var(--color-text18);
-}
-
+.edit-fields input, 
 .container-dan input {
+    border-radius: .625rem;
+    padding: 1rem;
     opacity: 1;
     height: 1.4rem;
     font-weight: 500;
     font-size: 1.125rem;
     color: var(--color-text13);
-    padding-bottom: 6px; 
     transition: box-shadow 0.3s ease;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15); 
 }
 
 .container-dan select {
+    border-radius: .625rem;
+    padding: 1rem;
     opacity: 1;
     height: 2rem;
     font-weight: 500;
