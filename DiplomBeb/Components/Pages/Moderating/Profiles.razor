@@ -18,25 +18,43 @@
                     </div>
                 
                     <div class="container-dan">
-                        <div class="container-dan-title">
-                            <h3>Данные</h3>
-                        </div>
                         <div>
                             <h4>Email:</h4>
-                            <h5>@li.Get("email")</h5>
+                            @if (InEdit)
+                            {
+                                <input type="email" @bind="Email"/>
+                            }
+                            else
+                            {
+                                <h5>@li.Get("email")</h5>
+                            }
                         </div>
                         <div>
                             <h4>Номер:</h4>
-                            <h5>@li.Get("phone", "")</h5>
+                            @if (InEdit)
+                            {
+                                <input type="number" @bind="Phone"/>
+                            }
+                            else
+                            {
+                                <h5>@li.Get("phone", "")</h5>
+                            }
                         </div>
                         <div>
                             <h4>Место:</h4>
-                            <h5>@li.Get("place_name", "")</h5>
+                            @if (InEdit)
+                            {
+                                <input type="text"/>
+                            }
+                            else
+                            {
+                                <h5>@li.Get("place_name", "")</h5>
+                            }
                         </div>
                     </div>
     
                     <div class="container-button">
-                        <button>Редактировать</button>
+                        <button @onclick="EditMode">Редактировать</button>
                         <button>Отправить<br>запрос администратору</button>
                     </div> 
                 </div>
