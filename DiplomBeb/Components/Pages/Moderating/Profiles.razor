@@ -12,9 +12,22 @@
         {
             <div>
                 <div class="place-container">
-                    <div class="container-title">
+                        <div class="container-title">
                         <div class="image"></div>
-                        <h4>@li.Get("surname") @li.Get("name") @li.Get("middlename")</h4>
+                        @if (InEdit)
+                        {
+                            <div class="edit-fields">
+                                <input type="text" @bind="Surname"/>
+                                <input type="text" @bind="Name"/>
+                                <input type="text" @bind="Middlename"/>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="linner">
+                                <h4>@li.Get("surname") @li.Get("name") @li.Get("middlename")</h4>
+                            </div>
+                        }
                     </div>
                 
                     <div class="container-dan">
@@ -26,7 +39,9 @@
                             }
                             else
                             {
-                                <h5>@li.Get("email")</h5>
+                                <div class="linner">
+                                    <h5>@li.Get("email")</h5>
+                                </div>
                             }
                         </div>
                         <div>
@@ -37,7 +52,9 @@
                             }
                             else
                             {
-                                <h5>@li.Get("phone", "")</h5>
+                                <div class="linner">
+                                    <h5>@li.Get("phone", "")</h5>
+                                </div>
                             }
                         </div>
                         <div>
@@ -53,7 +70,9 @@
                             }
                             else
                             {
-                                <h5>@li.Get("place_name", "")</h5>
+                                <div class="linner">
+                                    <h5>@li.Get("place_name", "")</h5>
+                                </div>
                             }
                         </div>
                     </div>
