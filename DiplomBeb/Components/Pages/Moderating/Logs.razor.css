@@ -180,14 +180,4 @@ main .place-container {
     
 }
 
-.container-dan .wid-status {
-    background-color: var(--color8);
-    border-radius: .625rem;
-    padding: .5rem 1rem;
-
-    font-weight: 700;
-    font-size: 1.125rem;
-    color: var(--color-text12);
-    
-}
     
