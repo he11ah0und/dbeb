@@ -4,6 +4,12 @@
     color: var(--color-text3);
 }
 
+.name a {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--color-text3);
+}
+
 .name p {
     margin: 0.25rem 0 0 0;
     font-size: 1rem;
