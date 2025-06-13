@@ -162,9 +162,7 @@ td input {
 }
 
 .place-linner-button {
-    position: sticky;
-    bottom: 0;
-    z-index: 10;
+    
     padding: 1rem 4rem;
     display: flex;
     justify-content: start;
