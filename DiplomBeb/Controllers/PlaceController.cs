@@ -149,27 +149,6 @@ public class PlaceController : ControllerBase
     }
     
     [AuthFilter("user")]
-    [HttpGet("count")]
-    public async Task<IActionResult> GetPlaceCounts()
-    {
-        var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
-        var authedUser = _context.Users
-            .Include(u => u.ApiRole)
-            .Include(u => u.Place)
-            .SingleOrDefault(u => u.Id == authedId);
-
-        if (authedUser == null)
-            return NoContent();
-        
-        if (!authedUser.ApiRole.IsMoreUser())
-            return NoContent();
-        
-        var places = _context.Places
-            .Count();
-        return Ok(places);
-    }
-    
-    [AuthFilter("user")]
     [HttpGet("{placeId:int}")]
     public async Task<IActionResult> GetPlace(int placeId)
     {
@@ -195,5 +174,26 @@ public class PlaceController : ControllerBase
         var place = _context.Places
             .SingleOrDefault(p => p.Id == (ulong)placeId);
         return Ok(place);
+    }
+    
+    [AuthFilter("admin")]
+    [HttpGet("total")]
+    public async Task<IActionResult> GetPlaceCounts()
+    {
+        var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
+        var authedUser = _context.Users
+            .Include(u => u.ApiRole)
+            .Include(u => u.Place)
+            .SingleOrDefault(u => u.Id == authedId);
+
+        if (authedUser == null)
+            return NoContent();
+        
+        if (!authedUser.ApiRole.IsMoreUser())
+            return NoContent();
+        
+        var places = _context.Places
+            .Count();
+        return Ok(places);
     }
 }

@@ -17,7 +17,7 @@
 		<li>
 			<a href="/about"><img src="icons/info-ico.svg" alt="О сервисе" />О сервисе</a>
 		</li>
-		@if (AccountService?.Account?.Get("apirole_name") != "user")
+		@if (ulong.TryParse(AccountService?.Account?.Get("apirole_id"), out var val) && val > 1)
 		{
 			<li>
 				<a href=""><img src="/icons/moder-ico.svg" alt="О сервисе"/>Модерация</a>

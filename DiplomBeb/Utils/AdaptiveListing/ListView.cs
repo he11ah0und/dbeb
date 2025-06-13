@@ -88,6 +88,8 @@ public class ListView
 
     internal void Select(long dId)
     {
+        if (!Selectable) return;
+        
         var dco = Data.LongLength;
         for (var i = 0; i < dco; i++)
         {
