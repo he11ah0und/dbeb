@@ -27,6 +27,11 @@ public partial class Profile
         
     }
 
+    private void GoToDocuments()
+    {
+        Navigation.NavigateTo($"/documents");
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
