@@ -23,18 +23,27 @@
 
         </div>
     </div>
+</div>
 
-    @if (InUpload)
-    {
-        <div class="loading-window-cont" @onclick="HideUploader"></div>
+<div>
+    
+</div>
+@if (InUpload)
+{
+    <div class="loading-window-cont">
+        <div class="loading-window-back" @onclick="HideUploader"></div>
+
         <div class="loading-window">
             <img src="images/img-doc.svg" alt="Документ"/>
             <div class="loading-window-button">
                 <button class="download">Загрузить</button>
                 <button class="delete">Удалить</button>
             </div>
-            <h3>Добавьте изображения формата png, jpg</h3>
+            <h3>Добавьте изображение</h3>
         </div>
-    }
-</div>
+    </div>
+
+}
+
+
 
