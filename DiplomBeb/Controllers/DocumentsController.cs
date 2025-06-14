@@ -168,12 +168,12 @@ namespace DiplomBeb.Controllers
             var ms = new MemoryStream();
             await file.CopyToAsync(ms);
 
-            _context.Documents.Add(new Document()
+            /*_context.Documents.Add(new Document()
             {
                 User = authedUser,
             });
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();*/
             
             return Ok(true);
         }

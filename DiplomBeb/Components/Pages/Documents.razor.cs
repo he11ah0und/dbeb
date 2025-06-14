@@ -1,4 +1,5 @@
 ﻿using DiplomBeb.Services.Client;
+using DiplomBeb.Utils.Networking;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
@@ -9,7 +10,8 @@ public partial class Documents : ComponentBase
 {
     [Inject] 
     private AccountService AccountService { get; set; }
-    
+    [Inject]
+    private BackendHttpClient _http { get; set; }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
@@ -52,6 +54,21 @@ public partial class Documents : ComponentBase
     private async Task UploadSelectedDocument()
     {
         var stream = SelectedFile.OpenReadStream(MaxFileSize);
+        
+        using var fileStreamContent = new StreamContent(stream);
+
+        using var client = new HttpClient();
+        using var formData = new MultipartFormDataContent();
+        
+        formData.Add(fileStreamContent, "File", SelectedFile.Name);
+        
+        var res = await _http.Request(
+            "Documents/up",
+            formData,
+            HttpMethod.Post);
+        if (!res.IsOk)
+            return;
+        
         
     }
     
