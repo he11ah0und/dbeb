@@ -77,7 +77,7 @@
 .download, 
 .unload, 
 .delete, 
-.review::file-selector-button,
+.review,
 .send-mod {
     padding: 0.5rem 2rem; 
     height: 3rem;
