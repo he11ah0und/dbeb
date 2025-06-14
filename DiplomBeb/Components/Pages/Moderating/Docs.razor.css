@@ -133,22 +133,20 @@
 
     font-weight: 400;
     font-size: .8125rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 .accept {
     border: 0.14rem solid var(--color-text19);
     color: var(--color-text9);
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    
 }
 
 .reject {
     border: 0.14rem solid var(--color-text16);
     color: var(--color-text16);
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 .image-title {
@@ -169,4 +167,7 @@
     color: var(--color-text12);
     text-transform: uppercase;
     margin-bottom: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
