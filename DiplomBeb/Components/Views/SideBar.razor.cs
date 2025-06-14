@@ -11,6 +11,8 @@ public partial class SideBar
     [Inject]
     private ThemeService ThemeService { get; set; }
     
+    public bool OpenedModeration { get; set; }
+    
     protected override async Task OnInitializedAsync()
     {
         
@@ -20,6 +22,11 @@ public partial class SideBar
     {
         if (!firstRender) return;
         AccountService.StateChanged.Subscribe("sidebar", AccountServiceOnStateChanged);
+    }
+
+    public void SwitchModeration()
+    {
+        OpenedModeration = !OpenedModeration;
     }
 
     private void SwitchTheme()

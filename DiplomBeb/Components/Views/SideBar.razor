@@ -19,14 +19,18 @@
 		</li>
 		@if (ulong.TryParse(AccountService?.Account?.Get("apirole_id"), out var val) && val > 1)
 		{
+			
 			<li>
-				<a href=""><img src="/icons/moder-ico.svg" alt="О сервисе"/>Модерация</a>
-				<a href="/special/logs"><img/>Логи</a>
-				<a href="/special/profiles"><img/>Пользователи</a>
-				<a href="/special/docs"><img/>Документы</a>
-				@if (AccountService?.Account?.Get("apirole_name") == "admin")
+				<a @onclick="SwitchModeration"><img src="/icons/moder-ico.svg"/>Модерация</a>
+				@if (OpenedModeration)
 				{
-					<a href="/special/requests"><img/>Запросы</a>
+					<a href="/special/logs"><img/>Логи</a>
+					<a href="/special/profiles"><img/>Пользователи</a>
+					<a href="/special/docs"><img/>Документы</a>
+					@if (AccountService?.Account?.Get("apirole_name") == "admin")
+					{
+						<a href="/special/requests"><img/>Запросы</a>
+					}
 				}
 			</li>
 		}
