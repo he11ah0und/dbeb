@@ -23,6 +23,7 @@ public class LibraryService
         };
         LibraryListView.DataResolver.Props.AddRange(
             ["id", "name", "link"]);
+        
 
         FiltersListView = new ListView(http, typeof(TableContent))
         {
@@ -35,6 +36,21 @@ public class LibraryService
         };
         FiltersListView.DataResolver.Props.AddRange(
             ["check"]);
+        FiltersListView.OnElementCallback.Subscribe("libraryService", OnFiltersCallback);
+    }
+    
+    private void OnFiltersCallback(string propName,
+        ulong index,
+        ListElement listElement,
+        ObjectContainer args)
+    {
+        var state = (bool)args.Get("value");
+        if (state)
+            SetFilter(listElement.Get("name"));
+        else
+            DelFilter(listElement.Get("name"));
+
+        LibraryListView.Update();
     }
 
     public void SetFilter(string filter)

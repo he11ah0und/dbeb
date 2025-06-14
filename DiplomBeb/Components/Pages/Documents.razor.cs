@@ -1,4 +1,6 @@
 ﻿using DiplomBeb.Services.Client;
+using DiplomBeb.Utils;
+using DiplomBeb.Utils.AdaptiveListing;
 using Microsoft.AspNetCore.Components;
 
 namespace DiplomBeb.Components.Pages;
@@ -11,7 +13,6 @@ public partial class Documents : ComponentBase
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        AccountService.DocumentsService.DocumentsListView.OnListUpdated.Subscribe("documents", DocumentsUpdated);
         await AccountService.DocumentsService.DocumentsListView.First(1);
     }
     
@@ -19,8 +20,8 @@ public partial class Documents : ComponentBase
     {
         StateHasChanged();
     }
-    
-    public bool InUpload { get; set; }
+
+    private bool InUpload { get; set; }
     private void HideUploader()
     {
         InUpload = false;
@@ -33,6 +34,8 @@ public partial class Documents : ComponentBase
         StateHasChanged();
     }
     
+    
+    // ERROR HANDLING
     [Inject]
     private NavigationManager Navigation { get; set; }
 

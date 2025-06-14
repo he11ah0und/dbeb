@@ -3,24 +3,24 @@
 @using DiplomBeb.Utils.Networking
 @rendermode RenderMode.InteractiveServer
 
-
 <div class="awards-cell">
 
     <div class="img">
-
-        <img src="data:image;base64, @System.Convert.ToBase64String(Data)" alt="Фото">
-        <input type="checkbox" class="checkbox">
+        @if (Data.LongLength > 0)
+        {
+            <img src="data:image;base64, @Convert.ToBase64String(Data)" alt="документ">
+        }
+        <input type="checkbox" class="checkbox" @onchange="OnClick">
     </div>
 
     <div class="rating-award">
         <h4>@ListElement.Get(Id)</h4>
         <div class="linner-rating-award">
             <h3>+@ListElement.Get("cost")</h3>
-            <img src="/icons/star1-ico.svg"/>
+            <img src="/icons/star1-ico.svg" alt="звёзды"/>
         </div>
     </div>
 </div>
-
 
 @code {
 
@@ -44,6 +44,12 @@
         Data = ms.ToArray();
     }
 
+    private void OnClick(ChangeEventArgs cargs)
+    {
+        var args = new ObjectContainer();
+        args.Set("value", cargs.Value);
+        OnCallback?.Invoke(args);
+    }
 }
 
 @code {

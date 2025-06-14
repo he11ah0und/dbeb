@@ -30,26 +30,14 @@ public partial class Library
         Navigation.NavigateTo($"/library/{LibraryService.LibraryListView.Page}", true);
     }
 
-    private void OnFiltersCallback(string propName,
-        ulong index,
-        ListElement listElement,
-        ObjectContainer args)
-    {
-        var state = (bool)args.Get("value");
-        if (state)
-            LibraryService.SetFilter(listElement.Get("name"));
-        else
-            LibraryService.DelFilter(listElement.Get("name"));
-
-        LibraryService.LibraryListView.Update();
-    }
+    
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
         
         LibraryService.LibraryListView.OnPageSwitch.Subscribe("library", OnNavigate);
-        LibraryService.FiltersListView.OnElementCallback.Subscribe("library", OnFiltersCallback);
+        
         
         await LibraryService.LibraryListView.First((ulong)Page);
         await LibraryService.FiltersListView.First(1);
