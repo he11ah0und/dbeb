@@ -35,9 +35,13 @@
                         <button class="nazad" @onclick="_listView.PreviousPage"><img src="/icons/nazad.svg" alt="">
                         </button>
                     }
-                    @for (ulong i = 1; i <= _listView.MaxPages; i++)
+                    @if (_listView.MaxPages > 1)
                     {
-                        <button @onclick="() => _listView.SpecificPage(i)">@(i)</button>
+                        for (ulong i = 1; i <= _listView.MaxPages; i++)
+                        {
+                            var i1 = i;
+                            <button @onclick="() => _listView.SpecificPage(i1)">@i1</button>
+                        }
                     }
                     @if (_listView.CanNext)
                     {

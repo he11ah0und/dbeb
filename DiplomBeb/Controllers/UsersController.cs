@@ -29,7 +29,7 @@ namespace DiplomBeb.Controllers
         [HttpGet("top/{skip}/{take}")] // топ 100 пользователей
         public async Task<IActionResult> GetTop(ulong skip, ulong take)
         {
-            skip = Math.Clamp(skip, 0, 70);
+            skip = 0;
             take = Math.Clamp(take, 10, 100);
             var devs = _context.Users
                 .Include(x => x.WebRole)

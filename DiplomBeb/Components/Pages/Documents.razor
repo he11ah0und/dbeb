@@ -12,7 +12,7 @@
                 <button class="download" @onclick="DownloadSelectedDocuments">Скачать</button>
                 <div></div>
                 <button class="unload" @onclick="ShowUploader">Отправить</button>
-                <button class="delete">Удалить</button>
+                <button class="delete" @onclick="RemoveSelectedDocuments">Удалить</button>
             </div>
         </div>
         <ViewList
@@ -23,8 +23,6 @@
         <div class="place-heading">Фильтры</div>
         <ViewList
             ListView="AccountService.DocumentsService.FiltersDocumentsListView"/>
-        <!--<div class="filters-list">
-        </div>-->
     </div>
 </div>
 
@@ -36,13 +34,12 @@
         <div class="loading-window">
             <img src="images/img-doc.svg" alt="Документ"/>
             <div class="loading-window-button">
-                <button class="download">Загрузить</button>
-                <button class="delete">Удалить</button>
+                <button class="download">Обзор</button>
+                <button class="delete">Отправить</button>
             </div>
             <h3>Добавьте изображение</h3>
         </div>
     </div>
-
 }
 
 

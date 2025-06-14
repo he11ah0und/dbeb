@@ -21,7 +21,8 @@ public class HomeService
             ElementsOnPage = 100,
             OnTotal = RequestUsersTotal,
             OnGet = RequestUsers,
-            GetHeader = () => "Общая информация"
+            GetHeader = () => "Общая информация",
+            HideRightFooterButtons = true,
         };
         TopUsersListView.DataResolver.Props.AddRange(
             ["id", "avatar", "name", "middlename", "surname", "score", "webrole_name"]);

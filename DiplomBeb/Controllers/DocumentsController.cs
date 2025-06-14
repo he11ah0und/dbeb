@@ -97,12 +97,29 @@ namespace DiplomBeb.Controllers
                     .ToArray();
             }
 
-            foreach (var listElement in docs)
-                listElement.Set("link", Path.Combine(
-                    _apiService.Options.Url,
-                    $"Documents/down/{listElement.Get("id")}"));
-
             return Ok(docs);
+        }
+        
+        [AuthFilter("user")]
+        [HttpPost("remove")]
+        public async Task<IActionResult> Remove([FromBody] ulong[] documentIds)
+        {
+            var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
+            var authedUser = _context.Users
+                .SingleOrDefault(a => a.Id == authedId);
+            
+            if (authedUser == null)
+                return Ok(false);
+
+            var docs = _context.Documents
+                .Include(d => d.User)
+                .Where(d => d.User.Id == authedUser.Id && documentIds.Contains(d.Id));
+            
+            _context.RemoveRange(docs);
+
+            await _context.SaveChangesAsync();
+            
+            return Ok(true);
         }
         
         [AuthFilter("user")]

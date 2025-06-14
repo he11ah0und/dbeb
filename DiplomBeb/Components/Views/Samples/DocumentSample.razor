@@ -36,7 +36,7 @@
 
     private async Task Get()
     {
-        var res = await _http.Request(@ListElement.Get("link"));
+        var res = await _http.Request($"Documents/down/{ListElement.Get("id")}");
         if (!res.IsOk) return;
         var s = await res.Value.Content.ReadAsStreamAsync();
         var ms = new MemoryStream();

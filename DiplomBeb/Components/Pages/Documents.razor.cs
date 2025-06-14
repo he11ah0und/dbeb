@@ -32,7 +32,10 @@ public partial class Documents : ComponentBase
     {
         return AccountService.DocumentsService.DownloadSelected();
     }
-    
+    private Task RemoveSelectedDocuments()
+    {
+        return AccountService.DocumentsService.RemoveSelected();
+    }
     
     // ERROR HANDLING
     [Inject]

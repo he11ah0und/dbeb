@@ -89,7 +89,7 @@ public class DocumentsService
             .ToArray();
         foreach (var d in docs)
         {
-            var res = await _http.Request(d.Get("link"));
+            var res = await _http.Request($"Documents/down/{d.Get("id")}");
             if (!res.IsOk) continue;
             var s = await res.Value.Content.ReadAsStreamAsync();
             var ms = new MemoryStream();
@@ -97,5 +97,15 @@ public class DocumentsService
             var data = ms.ToArray();
             await _jsRuntime.InvokeVoidAsync("saveImageWithDialog", $"{d.Get("document")}.png", data);
         }
+    }
+    
+    public async Task RemoveSelected()
+    {
+        var res = await _http.Request("Documents/remove/",
+            JsonContent.Create(DocumentsSelector.Values.ToArray()),
+            HttpMethod.Post);
+        if (!res.IsOk) return;
+
+        await DocumentsListView.Update();
     }
 }

@@ -183,7 +183,8 @@ public class ListView
     public async Task<bool> LoadData()
     {
         var skip = ElementsOnPage * (Page - 1);
-        var res = await OnGet?.Invoke(_http, skip, ElementsOnPage)!;
+        var take = Math.Clamp(Total - (ElementsOnPage * (Page - 1)), 1, ElementsOnPage);
+        var res = await OnGet?.Invoke(_http, skip, take)!;
         if (!res.IsOk || !res.ResultAsJson<ListElement[]>(out var data))
             return false;
 
