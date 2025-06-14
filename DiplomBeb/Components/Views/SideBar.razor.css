@@ -45,6 +45,13 @@
     padding: 1.88rem;
 }
 
+.profile div {
+    display: flex;
+    align-items: start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
 .profile {
     display: flex;
     gap: 1rem;
