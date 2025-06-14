@@ -10,6 +10,8 @@ public partial class SideBar
     
     [Inject]
     private ThemeService ThemeService { get; set; }
+    [Inject]
+    private NavigationManager Navigation { get; set; }
     
     public bool OpenedModeration { get; set; }
     
@@ -38,4 +40,15 @@ public partial class SideBar
     {
         StateHasChanged();
     }
+
+    private void GoToAccount() => Navigation.NavigateTo("/account");
+    
+    private void GoToMain() => Navigation.NavigateTo("/");
+    private void GoToAbout() => Navigation.NavigateTo("/about");
+    private void GoToLibrary() => Navigation.NavigateTo("/library/1");
+    
+    private void GoToModLogs() => Navigation.NavigateTo("/special/logs");
+    private void GoToModProfiles() => Navigation.NavigateTo("/special/profiles");
+    private void GoToModDocs() => Navigation.NavigateTo("/special/docs");
+    private void GoToModRequests() => Navigation.NavigateTo("/special/requests");
 }

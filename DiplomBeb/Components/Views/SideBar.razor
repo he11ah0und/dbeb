@@ -6,37 +6,36 @@
 	</h1>
 	<ul class="navigation">
 		<li>
-			<button href="/"><img src="icons/star-ico.svg" alt="Общий рейтинг" />Общий рейтинг</button>
+			<button @onclick="GoToMain"><img src="icons/star-ico.svg" alt="Общий рейтинг" />Общий рейтинг</button>
 		</li>
 		<li>
-			<button href="/library/1">
+			<button @onclick="GoToLibrary" href="/library/1">
 				<img src="icons/biblio-ico.svg" alt="Библиотека ссылок" />Библиотека
 				ссылок
 			</button>
 		</li>
 		<li>
-			<button href="/about"><img src="icons/info-ico.svg" alt="О сервисе" />О сервисе</button>
+			<button @onclick="GoToAbout"><img src="icons/info-ico.svg" alt="О сервисе" />О сервисе</button>
 		</li>
 		@if (ulong.TryParse(AccountService?.Account?.Get("apirole_id"), out var val) && val > 1)
 		{
-			
 			<li>
 				<button @onclick="SwitchModeration"><img src="/icons/moder-ico.svg"/>Модерация</button>
 				@if (OpenedModeration)
 				{
-					<button href="/special/logs"><img/>Логи</button>
-					<button href="/special/profiles"><img/>Пользователи</button>
-					<button href="/special/docs"><img/>Документы</button>
+					<button @onclick="GoToModLogs"><img/>Логи</button>
+					<button @onclick="GoToModProfiles"><img/>Пользователи</button>
+					<button @onclick="GoToModDocs"><img/>Документы</button>
 					@if (AccountService?.Account?.Get("apirole_name") == "admin")
 					{
-						<button href="/special/requests"><img/>Запросы</button>
+						<button @onclick="GoToModRequests"><img/>Запросы</button>
 					}
 				}
 			</li>
 		}
 	</ul>
 	<div class="bottom">
-		<button class="profile" href="/account">
+		<button class="profile"  @onclick="GoToAccount">
 			<img class="img38" src="/icons/profil-ico.svg" alt="Аватар" />
 			<div>
 				@if (AccountService.IsLogged)
