@@ -114,7 +114,7 @@
     bottom: 0;
     background-color: var(--color-light);
     padding: 1rem;
-    z-index: 10;
+    z-index: 2;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: row;
@@ -170,4 +170,218 @@
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+/*Запрос администратору */
+
+.request-window-cont {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+
+.request-window-back {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 5;
+}
+
+.request-window {
+    background-color: var(--color-light);
+    padding: 2rem 4rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    height: max-content;
+    min-width: min-content;
+    max-width: max-content;
+    width: auto;
+    z-index: 6;
+    overflow: hidden;
+}
+
+.request-window h3 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--color-text1);
+    padding: 0 1rem;
+}
+
+.request-window-linner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    height: max-content;
+    width: 100%;
+}
+
+.request-window-linner div input {
+    display: flex;
+    align-items: start;
+    justify-content: flex-start;
+    padding: 1rem 1rem 0.5rem 1rem;
+    height: 9.25rem;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0.5625rem;
+    border: 0.125rem solid var(--color-text8);
+    background-color: var(--color-light);
+    transition: all 0.3s ease;
+
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text3);
+}
+
+.request-window-linner div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.request-window-linner div label {
+    position: absolute;
+    top: -.5rem;
+    left: 1.2rem;
+    padding: 0 0.4rem;
+    background-color: white;
+    pointer-events: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text8);
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+.request-window-linner div input:focus + label,
+.request-window-linner div input:not(:placeholder-shown) + label {
+    transform: scale(0.8);
+}
+
+/*Панель отклонения документа */
+
+.rejection-doc-window-cont {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+
+.rejection-doc-window-back {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 5;
+}
+
+.rejection-doc-window {
+    background-color: var(--color-light);
+    padding: 2rem 4rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    height: max-content;
+    min-width: min-content;
+    max-width: max-content;
+    width: auto;
+    z-index: 6;
+    overflow: hidden;
+
+    overflow-y: auto;
+    scrollbar-width: none; 
+}
+
+.rejection-doc-window-linner div textarea::-webkit-scrollbar {
+    display: none;
+}
+
+.rejection-doc-window h3 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--color-text1);
+    padding: 0 1rem;
+}
+
+.rejection-doc-window-linner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    height: max-content;
+    width: 100%;
+}
+
+.rejection-doc-window-linner div textarea {
+    resize: none; /* запрет изменения размера */
+    padding: 1rem 1rem 0.5rem 1rem;
+    height: 9.25rem;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0.5625rem;
+    border: 0.125rem solid var(--color-text8);
+    background-color: var(--color-light);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text3);
+    transition: all 0.3s ease;
+    overflow-y: auto; /* добавляем скролл при переполнении */
+}
+
+.rejection-doc-window-linner div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.rejection-doc-window-linner div label {
+    position: absolute;
+    top: -.5rem;
+    left: 1.2rem;
+    padding: 0 0.4rem;
+    background-color: white;
+    pointer-events: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text8);
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+/* Уменьшаем label при фокусе или наличии текста */
+.rejection-doc-window-linner div textarea:focus + label,
+.rejection-doc-window-linner div textarea:not(:placeholder-shown) + label {
+    transform: scale(0.8);
 }

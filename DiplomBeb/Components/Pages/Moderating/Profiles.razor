@@ -87,17 +87,25 @@
 </div>
 
 <div class="request-window-cont">
-    <div class="request-window-back" ></div>
+    <div class="request-window-back"></div>
 
     <div class="request-window">
         <h3>Запрос администратору</h3>
         <div class="request-window-linner">
-            <div class="request-window-linner-input">
-                <label>Пользователь</label>
-                <input type="text" placeholder=""/>
+            <div>
+                <input type="text" id="user" placeholder=" "/>
+                <label for="user">Пользователь</label>
+            </div>
+            <div>
+                <input type="text" id="data" placeholder=" "/>
+                <label for="data">Данные</label>
+            </div>
+            <div>
+                <input type="text" id="action" placeholder=" "/>
+                <label for="action">Действие</label>
             </div>
         </div>
-        <button class="send">Загрузить</button>
+        <button class="send">Отправить</button>
     </div>
 </div>
 

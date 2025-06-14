@@ -192,7 +192,7 @@ main > div > div:nth-child(2) {
 
 }
 
-.container-button button {
+.container-button button, .send {
     text-align: center;
     background-color: var(--color-text16);
     padding: .8rem 2rem;
@@ -255,32 +255,57 @@ main > div > div:nth-child(2) {
     padding: 0 1rem;
 }
 
-.send {
-    padding: 0.5rem 2rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-    font-weight: 700;
-    font-size: 1.1rem;
-    background-color: var(--color-text1);
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-    color: var(--color-light);
-}
-
 .request-window-linner {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     height: max-content;
-    min-width: min-content;
-    max-width: max-content;
+    width: 100%;
 }
 
-.request-window-linner-input {
+.request-window-linner div input {
+    display: flex;
+    align-items: start;
+    justify-content: flex-start;
+    padding: 1rem 1rem 0.5rem 1rem;
+    height: 3rem;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0.5625rem;
+    border: 0.125rem solid var(--color-text8);
+    background-color: var(--color-light);
+    transition: all 0.3s ease;
     
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text3);
+}
+
+.request-window-linner div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.request-window-linner div label {
+    position: absolute;
+    top: -.5rem;
+    left: 1.2rem;
+    padding: 0 0.4rem;
+    background-color: white;
+    pointer-events: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text8);
+    transition: transform 0.3s ease; 
+    z-index: 1;
+}
+
+.request-window-linner div input:focus + label,
+.request-window-linner div input:not(:placeholder-shown) + label {
+    transform: scale(0.8); 
 }
