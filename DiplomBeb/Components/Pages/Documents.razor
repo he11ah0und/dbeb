@@ -32,10 +32,11 @@
         <div class="loading-window-back" @onclick="HideUploader"></div>
 
         <div class="loading-window">
-            <InputFile OnChange="Callback"/>
+            
             <img src="images/img-doc.svg" alt="Документ"/>
             <div class="loading-window-button">
-                <button class="review">Обзор</button>
+                <input class="review" type="file" @onchange="Callback"/>
+                <!--<button class="review">Обзор</button>-->
                 <button class="send-mod" @onclick="UploadSelectedDocuments">Отправить</button>
             </div>
             <h3>Добавьте изображение</h3>

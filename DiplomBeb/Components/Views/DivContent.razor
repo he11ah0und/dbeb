@@ -24,7 +24,7 @@
                 @foreach (var rendered in renderedProps)
                 {
                     <div>
-                        <DynamicComponent Type="@rendered.ListProp.RenderType" Parameters="rendered.Parameters"/>
+                        <DynamicComponent Type="rendered.ListProp.RenderType" Parameters="rendered.Parameters"/>
                     </div>
                 }
                 </div>

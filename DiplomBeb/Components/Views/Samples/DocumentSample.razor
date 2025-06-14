@@ -24,11 +24,13 @@
 
 @code {
 
-    [Inject] public BackendHttpClient _http { get; set; }
+    [Inject]
+    public BackendHttpClient _http { get; set; }
+
 
     private byte[] Data { get; set; } = [];
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         await Get();
         StateHasChanged();
