@@ -37,12 +37,16 @@ public partial class Documents : ComponentBase
     {
         return AccountService.DocumentsService.RemoveSelected();
     }
+    private IBrowserFile SelectedFile { get; set; }
     private void Callback(InputFileChangeEventArgs obj)
     {
-        obj.GetMultipleFiles()
+        if (obj.FileCount == 0
+            || obj.File.Size > 52428800 // limit on client side (also on server) to 50mb
+            || obj.File.ContentType != "image/png") // limit only to png
+            return;
+        SelectedFile = obj.File;
     }
-    private IReadOnlyList<IBrowserFile> SelectedFiles { get; set; }
-    private Task UploadSelectedDocuments()
+    private async Task UploadSelectedDocuments()
     {
         
     }
