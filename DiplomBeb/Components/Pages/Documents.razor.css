@@ -327,7 +327,6 @@
     font-weight: 700;
     font-size: clamp(1rem, 4vw, 1.25rem); 
     color: var(--color-text1);
-    margin-bottom: 1.5rem;
     padding: 0 1rem;
 }
 
@@ -335,3 +334,20 @@
     color: var(--color-text9);
 }
 
+. {
+    display: flex;
+    align-items: start;
+    justify-content: flex-start;
+    padding: 1rem 1rem 0.5rem 1rem;
+    height: 3rem;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0.5625rem;
+    border: 0.125rem solid var(--color-text8);
+    background-color: var(--color-light);
+    transition: all 0.3s ease;
+
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text3);
+}
