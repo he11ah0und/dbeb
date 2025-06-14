@@ -11,24 +11,27 @@ div {
     background: var(--color5);
 }
 
+/* Основной стиль чекбокса */
 input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
     width: 2rem;
     height: 2rem;
-    background: var(--color-light);
-    border: 2px solid var(--color-light);
+    background-color: var(--color-light);
+    border: 2px solid #ccc; /* Можно использовать var(--color-border) */
     border-radius: 0.375rem;
     cursor: pointer;
     position: relative;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
-.img input[type="checkbox"]:checked {
-    background: var(--main-color);
+/* Активное состояние — при выборе */
+input[type="checkbox"]:checked {
+    background-color: var(--main-color); /* Цвет фона при нажатии (например, синий) */
     border-color: var(--main-color);
 }
 
+/* Галочка */
 input[type="checkbox"]:checked::before {
     content: '';
     position: absolute;
@@ -37,7 +40,7 @@ input[type="checkbox"]:checked::before {
     transform: translate(-50%, -50%) rotate(-45deg);
     width: 0.8rem;
     height: 0.4rem;
-    border: 2px solid white;
-    border-top: none;
-    border-right: none;
+    border-bottom: 2px solid white; /* Горизонтальная линия */
+    border-left: 2px solid white;    /* Вертикальная линия */
+    box-sizing: border-box;
 }
