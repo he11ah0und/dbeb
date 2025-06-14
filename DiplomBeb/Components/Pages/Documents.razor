@@ -7,67 +7,36 @@
         <div class="heading">
             <div class="heading-title">Управление наградами</div>
             <div class="heading-buttons">
-                <button class="download">Загрузить</button>
+                <button class="download">Скачать</button>
                 <div></div>
-                <button class="unload">Выгрузить</button>
+                <button class="unload" @onclick="ShowUploader">Отправить</button>
                 <button class="delete">Удалить</button>
             </div>
         </div>
         <ViewList
             ListView="AccountService.DocumentsService.DocumentsListView"/>
     </div>
-    
+
     <div class="place-container">
         <div class="place-heading">Фильтры</div>
         <div class="filters-list">
-           
+
         </div>
-        
-        <!--<div class="place-container">
-            <div class="heading">
-                <h4>Фильтры</h4>
-            </div>
-            <div class="filters-list">
-                <div class="colum">
-                    <div>
-                        <input type="checkbox">
-                        <h4>Для студентов</h4>
-                    </div>
-                    <div>
-                        <input type="checkbox">
-                        <h4>Для школьников</h4>
-                    </div>
-                    <div>
-                        <input type="checkbox">
-                        <h4>Для работающих</h4>
-                    </div>
-                    <div>
-                        <input type="checkbox">
-                        <h4>Курсы</h4>
-                    </div>
-                    <div>
-                        <input type="checkbox">
-                        <h4>Конкурсы</h4>
-                    </div>
-                    <div>
-                        <input type="checkbox">
-                        <h4>Олимпиады</h4>
-                    </div>
-                </div>
-            </div>
-        </div>-->
     </div>
-    
-<!-- <div class="loading-window-cont">
-        <div class="loading-window">
-            <img src="images/img-doc.svg" alt="Документ"/>
-            <div class="loading-window-button">
-                <button class="download">Загрузить</button>
-                <button class="delete">Удалить</button>
+
+    @if (InUpload)
+    {
+        <div class="loading-window-cont" @onclick="HideUploader">
+            <div class="loading-window">
+                <img src="images/img-doc.svg" alt="Документ"/>
+                <div class="loading-window-button">
+                    <button class="download">Загрузить</button>
+                    <button class="delete">Удалить</button>
+                </div>
+                <h3>Добавьте изображения формата png, jpg</h3>
             </div>
-            <h3>Добавьте изображения формата png, jpg</h3>
         </div>
-    </div>-->
+    }
 
     <!--<div class="request-admin-prof-cont">
         <div class="request-admin-prof">
