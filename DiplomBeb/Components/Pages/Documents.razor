@@ -1,13 +1,15 @@
 ﻿@page "/documents"
 @using DiplomBeb.Components.Views
 @rendermode RenderMode.InteractiveServer
+<PageTitle>Документы - Цифровое портфолио</PageTitle>
+<script src="scripts/interop.js"></script>
 
 <div class="main-div">
     <div class="middle">
         <div class="heading">
-            <div class="heading-title">Управление наградами</div>
+            <div class="heading-title">Управление документами</div>
             <div class="heading-buttons">
-                <button class="download">Скачать</button>
+                <button class="download" @onclick="DownloadSelectedDocuments">Скачать</button>
                 <div></div>
                 <button class="unload" @onclick="ShowUploader">Отправить</button>
                 <button class="delete">Удалить</button>

@@ -64,8 +64,8 @@ namespace DiplomBeb.Controllers
         
         // user api
         [AuthFilter("user")]
-        [HttpGet("{skip}/{take}")]
-        public async Task<IActionResult> Docs(ulong skip, ulong take)
+        [HttpPost("{skip}/{take}")]
+        public async Task<IActionResult> Docs(ulong skip, ulong take, [FromBody] string[] filters)
         {
             var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
             var authedUser = _context.Users
@@ -74,14 +74,29 @@ namespace DiplomBeb.Controllers
             if (authedUser == null)
                 return NoContent();
 
-            var docs = _context.Documents
-                .Include(d => d.User)
-                .Where(d => d.User.Id == authedUser.Id)
-                .Skip((int)skip)
-                .Take((int)take)
-                .Cast<ListElement>()
-                .ToArray();
-            
+            ListElement[] docs;
+            if (filters.LongLength == 0)
+            {
+                docs = _context.Documents
+                    .Include(d => d.User)
+                    .Where(d => d.User.Id == authedUser.Id)
+                    .Skip((int)skip)
+                    .Take((int)take)
+                    .Cast<ListElement>()
+                    .ToArray();
+            }
+            else
+            {
+                docs = _context.Documents
+                    .Include(d => d.DocumentType)
+                    .Include(d => d.User)
+                    .Where(d => d.User.Id == authedUser.Id && filters.Contains(d.DocumentType.Name))
+                    .Skip((int)skip)
+                    .Take((int)take)
+                    .Cast<ListElement>()
+                    .ToArray();
+            }
+
             foreach (var listElement in docs)
                 listElement.Set("link", Path.Combine(
                     _apiService.Options.Url,
@@ -91,8 +106,8 @@ namespace DiplomBeb.Controllers
         }
         
         [AuthFilter("user")]
-        [HttpGet("total")]
-        public async Task<IActionResult> Total()
+        [HttpPost("total")]
+        public async Task<IActionResult> Total([FromBody] string[] filters)
         {
             var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
             var authedUser = _context.Users
@@ -101,11 +116,22 @@ namespace DiplomBeb.Controllers
             if (authedUser == null)
                 return NoContent();
 
-            var docs = _context.Documents
-                .Include(d => d.User)
-                .Count(d => d.User.Id == authedUser.Id);
+            int count;
 
-            return Ok(docs);
+            if (filters.LongLength == 0)
+            {
+                count = _context.Documents
+                    .Include(d => d.User)
+                    .Count(d => d.User.Id == authedId);
+            }
+            else
+            {
+                count = _context.Documents
+                    .Include(d => d.DocumentType)
+                    .Include(d => d.User)
+                    .Count(d => d.User.Id == authedId && filters.Contains(d.DocumentType.Name));
+            }
+            return Ok(count);
         }
         
         [AuthFilter("user")]
@@ -158,6 +184,25 @@ namespace DiplomBeb.Controllers
                 return NoContent();
             
             return File(documentStream, "image/png");
+        }
+        
+        [AuthFilter("user")]
+        [HttpGet("total_types")]
+        public async Task<IActionResult> TotalFilters()
+        {
+            return Ok(_context.DocumentTypes.Count());
+        }
+        
+        [AuthFilter("user")]
+        [HttpGet("types/{skip}/{take}")]
+        public async Task<IActionResult> GetTypes(ulong skip, ulong take)
+        {
+            var elements = _context.DocumentTypes
+                .Skip((int)skip)
+                .Take((int)take)
+                .Cast<ListElement>()
+                .ToArray();
+            return Ok(elements);
         }
         
         // admin api

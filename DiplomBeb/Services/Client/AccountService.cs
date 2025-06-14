@@ -7,6 +7,7 @@ using DiplomBeb.Services.Client.Components;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
+using Microsoft.JSInterop;
 
 namespace DiplomBeb.Services.Client;
 
@@ -20,9 +21,10 @@ public class AccountService
     internal ListView MyListView { get; private set; }
     public Callbacker<Action> StateChanged { get; private set; }
 
-    private BackendHttpClient _http;
     public DocumentsService DocumentsService { get; private set; }
-    public AccountService(BackendHttpClient http)
+    private BackendHttpClient _http;
+    private IJSRuntime _jsRuntime;
+    public AccountService(BackendHttpClient http, IJSRuntime jsRuntime)
     {
         _http = http;
         Initialized = false;
@@ -42,7 +44,7 @@ public class AccountService
         };
         MyListView.DataResolver.Props.AddRange(
             ["id", "avatar", "name", "middlename", "surname", "score", "webrole_name"]);
-        DocumentsService = new DocumentsService(http);
+        DocumentsService = new DocumentsService(http, jsRuntime);
     }
     
     private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)
@@ -64,8 +66,6 @@ public class AccountService
         Initialized = true;
         StateHasChanged();
     }
-
-    
 
     public async Task<bool> Update(ListElement li)
     {

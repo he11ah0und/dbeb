@@ -1,6 +1,4 @@
 ﻿using DiplomBeb.Services.Client;
-using DiplomBeb.Utils;
-using DiplomBeb.Utils.AdaptiveListing;
 using Microsoft.AspNetCore.Components;
 
 namespace DiplomBeb.Components.Pages;
@@ -14,11 +12,7 @@ public partial class Documents : ComponentBase
     {
         if (!firstRender) return;
         await AccountService.DocumentsService.DocumentsListView.First(1);
-    }
-    
-    private void DocumentsUpdated()
-    {
-        StateHasChanged();
+        await AccountService.DocumentsService.FiltersDocumentsListView.First(1);
     }
 
     private bool InUpload { get; set; }
@@ -33,6 +27,11 @@ public partial class Documents : ComponentBase
         InUpload = true;
         StateHasChanged();
     }
+
+    private Task DownloadSelectedDocuments()
+    {
+        return AccountService.DocumentsService.DownloadSelected();
+    }
     
     
     // ERROR HANDLING
@@ -42,7 +41,6 @@ public partial class Documents : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         AccountService.StateChanged.Subscribe("404", OnLoaded);
-        
     }
     private void OnLoaded()
     {

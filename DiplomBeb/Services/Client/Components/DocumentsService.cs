@@ -3,6 +3,7 @@ using DiplomBeb.Components.Views;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
+using Microsoft.JSInterop;
 
 namespace DiplomBeb.Services.Client.Components;
 
@@ -12,15 +13,17 @@ public class DocumentsService
     public ListView DocumentsListView { get; private set; }
     public ListView FiltersDocumentsListView { get; private set; }
     public List<string> Filters { get; private set; }
-    public List<string> SelectedDocuments { get; private set; }
+    public Selector DocumentsSelector { get; private set; }
+    public Selector DocumentTypesSelector { get; private set; }
     
     
     private BackendHttpClient _http;
-    public DocumentsService(BackendHttpClient http)
+    private IJSRuntime _jsRuntime;
+    public DocumentsService(BackendHttpClient http, IJSRuntime jsRuntime)
     {
         _http = http;
+        _jsRuntime = jsRuntime;
         Filters = [];
-        SelectedDocuments = [];
         
         ProfileListView = new ListView(http, typeof(DivContent))
         {
@@ -42,7 +45,6 @@ public class DocumentsService
         };
         DocumentsListView.DataResolver.Props.AddRange(
             ["document"]);
-        DocumentsListView.OnElementCallback.Subscribe("libraryService", OnDocumentCallback);
         
         FiltersDocumentsListView = new ListView(http, typeof(TableContent))
         {
@@ -55,73 +57,46 @@ public class DocumentsService
         };
         FiltersDocumentsListView.DataResolver.Props.AddRange(
             ["check"]);
-        FiltersDocumentsListView.OnElementCallback.Subscribe("libraryService", OnFiltersCallback);
-    }
-    
-    public void SetFilter(string filter)
-    {
-        if (Filters.Contains(filter)) return;
-        Filters.Add(filter);
-    }
-    public void DelFilter(string filter) 
-        => Filters.Remove(filter);
-    public void ClearFilters()
-        => Filters.Clear();
-    
-    private void OnFiltersCallback(string propName,
-        ulong index,
-        ListElement listElement,
-        ObjectContainer args)
-    {
-        var state = (bool)args.Get("value");
-        if (state)
-            SetFilter(listElement.Get("name"));
-        else
-            DelFilter(listElement.Get("name"));
-
-        DocumentsListView.Update();
-    }
-    
-    
-    public void SetDocument(string filter)
-    {
-        if (Filters.Contains(filter)) return;
-        Filters.Add(filter);
-    }
-    public void DelDocument(string filter) 
-        => Filters.Remove(filter);
-    public void ClearDocuments()
-        => Filters.Clear();
-    private void OnDocumentCallback(string propName,
-        ulong index,
-        ListElement listElement,
-        ObjectContainer args)
-    {
-        var state = (bool)args.Get("value");
-        if (state)
-            SetDocument(listElement.Get("id"));
-        else
-            DelDocument(listElement.Get("id"));
+        
+        DocumentsSelector = new Selector(DocumentsListView, DocumentsListView, "id");
+        DocumentTypesSelector = new Selector(FiltersDocumentsListView, DocumentsListView, "name");
     }
     
     private Task<HttpResponseState> RequestDocuments(BackendHttpClient http, ulong skip, ulong take)
     {
-        return http.Request($"Documents/{skip}/{take}");
+        return http.Request($"Documents/{skip}/{take}", JsonContent.Create(DocumentTypesSelector.Values.ToArray()), HttpMethod.Post);
     }
 
     private Task<HttpResponseState> RequestDocumentsTotal(BackendHttpClient http)
     {
-        return http.Request($"Documents/total/");
+        return http.Request($"Documents/total/", JsonContent.Create(DocumentTypesSelector.Values.ToArray()), HttpMethod.Post);
     }
     
     // filters
     private Task<HttpResponseState> RequestFilters(BackendHttpClient http, ulong skip, ulong take)
     {
-        return http.Request($"Library/filters/{skip}/{take}");
+        return http.Request($"Documents/types/{skip}/{take}");
     }
     
     private Task<HttpResponseState> RequestFiltersTotal(BackendHttpClient http)
     {
-        return http.Request("Library/total_filters");
+        return http.Request("Documents/total_types");
+    }
+
+    public async Task DownloadSelected()
+    {
+        var docs = DocumentsListView.Data
+            .Where(d => DocumentsSelector.Values.Contains(d.Get("id")))
+            .ToArray();
+        foreach (var d in docs)
+        {
+            var res = await _http.Request(d.Get("link"));
+            if (!res.IsOk) continue;
+            var s = await res.Value.Content.ReadAsStreamAsync();
+            var ms = new MemoryStream();
+            await s.CopyToAsync(ms);
+            var data = ms.ToArray();
+            await _jsRuntime.InvokeVoidAsync("saveImageWithDialog", $"{d.Get("document")}.png", data);
+        }
     }
 }
