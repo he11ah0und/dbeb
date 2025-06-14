@@ -205,3 +205,125 @@ main > div > div:nth-child(2) {
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
+
+/*Запрос администратору*/
+
+.request-admin-prof-cont {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.request-admin-prof {
+    background-color: var(--color-light);
+    padding: 2rem 4rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 90vw;
+    width: auto;
+    z-index: 10000;
+}
+
+.request-admin-prof h3 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--color-text1);
+    padding: 0 1rem;
+}
+
+.send {
+    padding: 0.5rem 2rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    background-color: var(--color-text1);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    color: var(--color-light);
+}
+
+.linner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.linner .linner-text {
+    position: relative;
+    width: 100%;
+    max-width: 30rem;
+}
+
+.linner-text input {
+    width: 100%;
+    height: 3rem;
+    padding: 1rem 1rem 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text3);
+    border: 0.125rem solid var(--color-text8);
+    border-radius: 0.5625rem;
+    background-color: var(--color-light);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.linner-text label {
+    position: absolute;
+    top: -.5rem;
+    left: 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    background-color: white;
+    padding: 0 0.4rem;
+    pointer-events: none; /
+}
+
+:root .linner-text label {
+    background-color: var(--color-light);
+}
+
+.dark .linner-text label {
+    background-color: transparent;
+}
+
+.linner-text input:-moz-placeholder {
+    color: transparent;
+}
+
+.linner-text input::placeholder {
+    color: transparent;
+}
+
+.linner-text input:focus,
+.linner-text input:not(:placeholder-shown) {
+    padding-top: 1.625rem;
+    padding-bottom: .625rem;
+}
+
+.linner-text input:focus ~ label,
+.linner input:not(:placeholder-shown) ~ label {
+    opacity: 1;
+    transform: scale(.85) translateY(0rem) translateX(.15rem);
+}

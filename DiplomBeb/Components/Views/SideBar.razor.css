@@ -31,7 +31,7 @@
     width: 2.375rem;
 }
 
-.navigation > li > a {
+.navigation > li > button {
     display: flex;
     align-items: center;
     color: var(--color-text6);

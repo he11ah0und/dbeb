@@ -86,6 +86,9 @@ body {
 }
 
 /*Общие настройки всех страниц*/
+button {
+    background-color: transparent;
+}
 
 button:hover {
     cursor: pointer;

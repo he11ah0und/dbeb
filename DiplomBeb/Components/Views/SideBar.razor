@@ -6,37 +6,37 @@
 	</h1>
 	<ul class="navigation">
 		<li>
-			<a href="/"><img src="icons/star-ico.svg" alt="Общий рейтинг" />Общий рейтинг</a>
+			<button href="/"><img src="icons/star-ico.svg" alt="Общий рейтинг" />Общий рейтинг</button>
 		</li>
 		<li>
-			<a href="/library/1">
+			<button href="/library/1">
 				<img src="icons/biblio-ico.svg" alt="Библиотека ссылок" />Библиотека
 				ссылок
-			</a>
+			</button>
 		</li>
 		<li>
-			<a href="/about"><img src="icons/info-ico.svg" alt="О сервисе" />О сервисе</a>
+			<button href="/about"><img src="icons/info-ico.svg" alt="О сервисе" />О сервисе</button>
 		</li>
 		@if (ulong.TryParse(AccountService?.Account?.Get("apirole_id"), out var val) && val > 1)
 		{
 			
 			<li>
-				<a @onclick="SwitchModeration"><img src="/icons/moder-ico.svg"/>Модерация</a>
+				<button @onclick="SwitchModeration"><img src="/icons/moder-ico.svg"/>Модерация</button>
 				@if (OpenedModeration)
 				{
-					<a href="/special/logs"><img/>Логи</a>
-					<a href="/special/profiles"><img/>Пользователи</a>
-					<a href="/special/docs"><img/>Документы</a>
+					<button href="/special/logs"><img/>Логи</button>
+					<button href="/special/profiles"><img/>Пользователи</button>
+					<button href="/special/docs"><img/>Документы</button>
 					@if (AccountService?.Account?.Get("apirole_name") == "admin")
 					{
-						<a href="/special/requests"><img/>Запросы</a>
+						<button href="/special/requests"><img/>Запросы</button>
 					}
 				}
 			</li>
 		}
 	</ul>
 	<div class="bottom">
-		<a class="profile" href="/account">
+		<button class="profile" href="/account">
 			<img class="img38" src="/icons/profil-ico.svg" alt="Аватар" />
 			<div>
 				@if (AccountService.IsLogged)
@@ -49,7 +49,7 @@
 					<h4>Авторизоваться</h4>
 				}
 			</div>
-		</a>
+		</button>
 		<div class="spec-side">
 			<button class="spec-side">
 				<!-- ДЛЯ СЛЕПЫХ -->

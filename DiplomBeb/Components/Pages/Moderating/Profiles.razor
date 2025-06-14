@@ -5,84 +5,103 @@
 
 <div class="main-div">
     <div class="middle">
-            <ViewList
-                ListView="@ModerationService.UsersListView"/>
+        <ViewList
+            ListView="@ModerationService.UsersListView"/>
     </div>
-        @if (ModerationService.SelectedUser is ListElement li)
-        {
-            <div>
-                <div class="place-container">
-                    <div class="container-title">
-                        <div class="image"></div>
+    @if (ModerationService.SelectedUser is ListElement li)
+    {
+        <div>
+            <div class="place-container">
+                <div class="container-title">
+                    <div class="image"></div>
+                    @if (InEdit)
+                    {
+                        <div class="edit-fields">
+                            <input type="text" @bind="Surname"/>
+                            <input type="text" @bind="Name"/>
+                            <input type="text" @bind="Middlename"/>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="linner">
+                            <h4>@li.Get("surname") @li.Get("name") @li.Get("middlename")</h4>
+                        </div>
+                    }
+                </div>
+                
+                <div class="container-dan">
+                    <div>
+                        <h4>Email:</h4>
                         @if (InEdit)
                         {
-                            <div class="edit-fields">
-                                <input type="text" @bind="Surname"/>
-                                <input type="text" @bind="Name"/>
-                                <input type="text" @bind="Middlename"/>
-                            </div>
+                            <input type="email" @bind="Email"/>
                         }
                         else
                         {
                             <div class="linner">
-                                <h4>@li.Get("surname") @li.Get("name") @li.Get("middlename")</h4>
+                                <h5>@li.Get("email")</h5>
                             </div>
                         }
                     </div>
-                
-                    <div class="container-dan">
-                        <div>
-                            <h4>Email:</h4>
-                            @if (InEdit)
-                            {
-                                <input type="email" @bind="Email"/>
-                            }
-                            else
-                            {
-                                <div class="linner">
-                                    <h5>@li.Get("email")</h5>
-                                </div>
-                            }
-                        </div>
-                        <div>
-                            <h4>Номер:</h4>
-                            @if (InEdit)
-                            {
-                                <input type="number" @bind="Phone"/>
-                            }
-                            else
-                            {
-                                <div class="linner">
-                                    <h5>@li.Get("phone", "")</h5>
-                                </div>
-                            }
-                        </div>
-                        <div>
-                            <h4>Место:</h4>
-                            @if (InEdit)
-                            {
-                                <select >
-                                    <option >КГА ПОУ "ДВТК" 1041</option>
-                                    <option>КГА ПОУ "ДВТК" 1041</option>
-                                    <option >КГА ПОУ "ДВТК" 1041</option>
-                                    <option >КГА ПОУ "ДВТК" 1041</option>
-                                </select>
-                            }
-                            else
-                            {
-                                <div class="linner">
-                                    <h5>@li.Get("place_name", "")</h5>
-                                </div>
-                            }
-                        </div>
+                    <div>
+                        <h4>Номер:</h4>
+                        @if (InEdit)
+                        {
+                            <input type="number" @bind="Phone"/>
+                        }
+                        else
+                        {
+                            <div class="linner">
+                                <h5>@li.Get("phone", "")</h5>
+                            </div>
+                        }
                     </div>
-    
-                    <div class="container-button">
-                        <button @onclick="EditMode">Редактировать</button>
-                        <button>Отправить<br>запрос администратору</button>
-                    </div> 
+                    <div>
+                        <h4>Место:</h4>
+                        @if (InEdit)
+                        {
+                            <select >
+                                <option >КГА ПОУ "ДВТК" 1041</option>
+                                <option>КГА ПОУ "ДВТК" 1041</option>
+                                <option >КГА ПОУ "ДВТК" 1041</option>
+                                <option >КГА ПОУ "ДВТК" 1041</option>
+                            </select>
+                        }
+                        else
+                        {
+                            <div class="linner">
+                                <h5>@li.Get("place_name", "")</h5>
+                            </div>
+                        }
+                    </div>
                 </div>
+    
+                <div class="container-button">
+                    <button @onclick="EditMode">Редактировать</button>
+                    <button>Отправить<br>запрос администратору</button>
+                </div> 
             </div>
-        }
+        </div>
+    }
+</div>
+<div class="request-admin-prof-cont"></div>
+<div class="request-admin-prof">
+    <h3>Запрос администратору</h3>
+    <div class="linner">
+        <div class="linner-text">
+            <input type="text" placeholder="">
+            <label for="">Пользователь</label>
+        </div>
+        <div class="linner-text">
+            <input type="text" placeholder="">
+            <label for="">Данные</label>
+        </div>
+        <div class="linner-text">
+            <input type="text" placeholder="">
+            <label for="">Действие</label>
+        </div>
+    </div>
+    <button class="send">Загрузить</button>
 </div>
 
