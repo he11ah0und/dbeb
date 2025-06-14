@@ -42,7 +42,12 @@
 }
 
 .bottom {
+    display: flex;
+    align-items: start;
+    justify-content: flex-start;
+    flex-direction: column;
     padding: 1.88rem;
+    gap: 1rem;
 }
 
 .profile div {
@@ -63,6 +68,14 @@
 
 .profile h4 {
     color: var(--color-text18);
+}
+
+.spec-side {
+    display: flex;
+    align-items: start;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 1rem;
 }
 
 .spec-side button {
