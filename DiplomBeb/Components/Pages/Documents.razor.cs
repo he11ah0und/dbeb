@@ -15,6 +15,7 @@ public partial class Documents : ComponentBase
         if (!firstRender) return;
         await AccountService.DocumentsService.DocumentsListView.First(1);
         await AccountService.DocumentsService.FiltersDocumentsListView.First(1);
+        
     }
 
     private bool InUpload { get; set; }
@@ -45,6 +46,13 @@ public partial class Documents : ComponentBase
         SelectedFile = bytes;
         StateHasChanged();
     }
+    private DotNetObjectReference<Documents> dotNetHelper;
+    [Inject]
+    private IJSRuntime _jsRuntime { get; set; }
+    private async Task ReadFile()
+    {
+        await _jsRuntime.InvokeVoidAsync("readFileAsBytes", dotNetHelper);
+    }
     private async Task UploadSelectedDocuments()
     {
         
@@ -57,6 +65,7 @@ public partial class Documents : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         AccountService.StateChanged.Subscribe("404", OnLoaded);
+        dotNetHelper = DotNetObjectReference.Create(this);
     }
     private void OnLoaded()
     {

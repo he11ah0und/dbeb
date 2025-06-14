@@ -1,6 +1,6 @@
 // for selecting file
 function readFileAsBytes(dotNetHelper) {
-    const input = document.getElementById("fileInput");
+    const input = document.getElementById("upFile");
 
     input.onchange = async () => {
         const file = input.files[0];
@@ -12,7 +12,7 @@ function readFileAsBytes(dotNetHelper) {
             const arrayBuffer = reader.result;
             const uint8Array = new Uint8Array(arrayBuffer);
             
-            dotNetHelper.invokeMethodAsync('ReceiveFileBytes', Array.from(uint8Array));
+            dotNetHelper.invokeMethod('ReceiveFileBytes', Array.from(uint8Array));
         };
 
         reader.onerror = () => {
