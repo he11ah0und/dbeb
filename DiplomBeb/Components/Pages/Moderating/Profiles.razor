@@ -2,12 +2,12 @@
 @rendermode RenderMode.InteractiveServer
 @using DiplomBeb.Components.Views
 @using DiplomBeb.Utils.AdaptiveListing
-<main>
-    <div>
-        <div class="middle">
+
+<div class="main-div">
+    <div class="middle">
             <ViewList
                 ListView="@ModerationService.UsersListView"/>
-        </div>
+    </div>
         @if (ModerationService.SelectedUser is ListElement li)
         {
             <div>
@@ -84,5 +84,5 @@
                 </div>
             </div>
         }
-    </div>
-</main>
+</div>
+

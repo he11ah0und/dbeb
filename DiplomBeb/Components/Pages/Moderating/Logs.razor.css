@@ -1,20 +1,11 @@
-main {
-    display: flex;
-    flex: 1;
-    background-color: var(--main-color);
-    height: 100vh;
-    min-height: fit-content;
-}
-
-main > div {
+.main-div {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
     gap: 2rem;
+
+    width: 100%;
     margin: 2rem;
 }
-
 main > div > div:nth-child(1) {
     flex: 1;
 }
@@ -44,7 +35,7 @@ main > div > div:nth-child(2) {
 
 }
 
-main .middle {
+.middle {
     height: 100%;
     display: grid;
     gap: 1.5rem;
@@ -52,7 +43,7 @@ main .middle {
     grid-template-rows: auto 1fr auto;
 }
 
-main .place-container {
+.place-container {
     background-color: var(--color-light);
     border-radius: .625rem;
     margin-top: 4.5rem;
