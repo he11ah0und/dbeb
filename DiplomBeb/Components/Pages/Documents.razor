@@ -1,5 +1,6 @@
 ﻿@page "/documents"
 @using DiplomBeb.Components.Views
+
 @rendermode RenderMode.InteractiveServer
 <PageTitle>Документы - Цифровое портфолио</PageTitle>
 <script src="scripts/interop.js"></script>
@@ -37,9 +38,9 @@
             <h3>Добавьте название документу</h3>
             <input type="text" class=""/>
             <div class="loading-window-button">
-                <input id="upFile" type="file" accept="image/png" style="display: none;" />
-                <button class="review" @onclick="ReadFile">Обзор</button>
-                <button class="send-mod" @onclick="UploadSelectedDocuments">Отправить</button>
+                <InputFile id="upFile" accept="image/png" hidden OnChange="Callback"/>
+                <button class="review" onclick="getFile()">Обзор</button>
+                <button class="send-mod" @onclick="UploadSelectedDocument">Отправить</button>
             </div>
             
         </div>

@@ -39,22 +39,19 @@ public partial class Documents : ComponentBase
     {
         return AccountService.DocumentsService.RemoveSelected();
     }
-    private byte[] SelectedFile { get; set; }
-    [JSInvokable]
-    public void ReceiveFileBytes(byte[] bytes)
+    private IBrowserFile SelectedFile { get; set; }
+    private long MaxFileSize { get; set; } = 10 * 1024 * 1024;
+    private void Callback(InputFileChangeEventArgs obj)
     {
-        SelectedFile = bytes;
-        StateHasChanged();
+        var file = obj.File;
+        if (file.ContentType != "image/png"
+            || file.Size > MaxFileSize)
+            return;
+        SelectedFile = file;
     }
-    private DotNetObjectReference<Documents> dotNetHelper;
-    [Inject]
-    private IJSRuntime _jsRuntime { get; set; }
-    private async Task ReadFile()
+    private async Task UploadSelectedDocument()
     {
-        await _jsRuntime.InvokeVoidAsync("readFileAsBytes", dotNetHelper);
-    }
-    private async Task UploadSelectedDocuments()
-    {
+        var stream = SelectedFile.OpenReadStream(MaxFileSize);
         
     }
     
@@ -64,8 +61,7 @@ public partial class Documents : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        AccountService.StateChanged.Subscribe("404", OnLoaded);
-        dotNetHelper = DotNetObjectReference.Create(this);
+        AccountService.StateChanged.Subscribe("docs", OnLoaded);
     }
     private void OnLoaded()
     {
