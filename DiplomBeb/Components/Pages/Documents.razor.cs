@@ -1,6 +1,7 @@
 ﻿using DiplomBeb.Services.Client;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 
 namespace DiplomBeb.Components.Pages;
 
@@ -37,15 +38,12 @@ public partial class Documents : ComponentBase
     {
         return AccountService.DocumentsService.RemoveSelected();
     }
-    private IBrowserFile SelectedFile { get; set; }
-    private void Callback(ChangeEventArgs obj)
+    private byte[] SelectedFile { get; set; }
+    [JSInvokable]
+    public void ReceiveFileBytes(byte[] bytes)
     {
-        /*
-        if (obj.FileCount == 0
-            || obj.File.Size > 52428800 // limit on client side (also on server) to 50mb
-            || obj.File.ContentType != "image/png") // limit only to png
-            return;
-        SelectedFile = obj.File;*/
+        SelectedFile = bytes;
+        StateHasChanged();
     }
     private async Task UploadSelectedDocuments()
     {

@@ -1,5 +1,29 @@
 // for selecting file
+function readFileAsBytes(dotNetHelper) {
+    const input = document.getElementById("fileInput");
 
+    input.onchange = async () => {
+        const file = input.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            const arrayBuffer = reader.result;
+            const uint8Array = new Uint8Array(arrayBuffer);
+            
+            dotNetHelper.invokeMethodAsync('ReceiveFileBytes', Array.from(uint8Array));
+        };
+
+        reader.onerror = () => {
+            alert("Error reading file.");
+        };
+
+        reader.readAsArrayBuffer(file);
+    };
+
+    input.click(); 
+}
 
 // for saving
 function saveImageWithDialog(filename, bytes) {
