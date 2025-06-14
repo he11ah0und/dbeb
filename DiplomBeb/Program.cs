@@ -22,6 +22,8 @@ namespace DiplomBeb
                 .AddInteractiveServerComponents();
             builder.Services.AddHttpContextAccessor();
             
+            builder.Services.AddDistributedMemoryCache();
+            
             builder.Services.Configure<ApiOptions>(builder.Configuration.GetSection("api"));
             builder.Services.AddScoped<ApiService>();
             

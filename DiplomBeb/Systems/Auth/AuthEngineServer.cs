@@ -146,6 +146,7 @@ public class AuthEngineServer
         var vals = context.Request.Headers.Authorization.ToString();
         if (!vals.StartsWith("Bearer "))
         {
+            
             // bearer token not found
             return (false, 0, "bearer token not found");
         }

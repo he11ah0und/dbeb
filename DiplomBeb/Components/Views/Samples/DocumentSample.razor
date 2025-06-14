@@ -1,11 +1,17 @@
 @using DiplomBeb.Utils
 @using DiplomBeb.Utils.AdaptiveListing
+@using DiplomBeb.Utils.Networking
+@rendermode RenderMode.InteractiveServer
+
 
 <div class="awards-cell">
+
     <div class="img">
-        <img alt="Фото">
+
+        <img src="data:image;base64, @System.Convert.ToBase64String(Data)" alt="Фото">
         <input type="checkbox" class="checkbox">
     </div>
+
     <div class="rating-award">
         <h4>@ListElement.Get(Id)</h4>
         <div class="linner-rating-award">
@@ -15,15 +21,35 @@
     </div>
 </div>
 
+
 @code {
-    [Parameter]
-    public DataResolver DataResolver { get; set; }
-    [Parameter]
-    public ulong Index { get; set; }
-    [Parameter]
-    public string Id { get; set; }
-    [Parameter]
-    public ListElement ListElement { get; set; }
-    [Parameter]
-    public Action<ObjectContainer> OnCallback { get; set; }
+
+    [Inject] public BackendHttpClient _http { get; set; }
+
+    private byte[] Data { get; set; } = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Get();
+        StateHasChanged();
+    }
+
+    private async Task Get()
+    {
+        var res = await _http.Request(@ListElement.Get("link"));
+        if (!res.IsOk) return;
+        var s = await res.Value.Content.ReadAsStreamAsync();
+        var ms = new MemoryStream();
+        await s.CopyToAsync(ms);
+        Data = ms.ToArray();
+    }
+
+}
+
+@code {
+    [Parameter] public DataResolver DataResolver { get; set; }
+    [Parameter] public ulong Index { get; set; }
+    [Parameter] public string Id { get; set; }
+    [Parameter] public ListElement ListElement { get; set; }
+    [Parameter] public Action<ObjectContainer> OnCallback { get; set; }
 }

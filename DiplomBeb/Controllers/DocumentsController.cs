@@ -55,8 +55,10 @@ namespace DiplomBeb.Controllers
             }
             finally
             {
+                memoryStream.Position = 0;
                 fs?.Close();
             }
+            
             return memoryStream;
         }
         
@@ -151,12 +153,11 @@ namespace DiplomBeb.Controllers
             
             var documentStream = GetDocument(doc.Id);
             
+            
             if (documentStream.Length == 0)
                 return NoContent();
             
-            var result = new FileStreamResult(documentStream, "image/png");
-            
-            return Ok(result);
+            return File(documentStream, "image/png");
         }
         
         // admin api
