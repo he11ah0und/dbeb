@@ -1,5 +1,6 @@
 ﻿using DiplomBeb.Services.Client;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace DiplomBeb.Components.Pages;
 
@@ -35,6 +36,15 @@ public partial class Documents : ComponentBase
     private Task RemoveSelectedDocuments()
     {
         return AccountService.DocumentsService.RemoveSelected();
+    }
+    private void Callback(InputFileChangeEventArgs obj)
+    {
+        obj.GetMultipleFiles()
+    }
+    private IReadOnlyList<IBrowserFile> SelectedFiles { get; set; }
+    private Task UploadSelectedDocuments()
+    {
+        
     }
     
     // ERROR HANDLING

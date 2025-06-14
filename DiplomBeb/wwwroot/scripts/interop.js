@@ -1,3 +1,6 @@
+// for selecting file
+
+// for saving
 function saveImageWithDialog(filename, bytes) {
     const blob = new Blob([bytes], { type: "image/png" });
 
@@ -8,7 +11,6 @@ function saveImageWithDialog(filename, bytes) {
         
     }*/
 }
-
 async function saveWithNativeDialog(blob, filename) {
     try {
         const handle = await window.showSaveFilePicker({
@@ -30,7 +32,6 @@ async function saveWithNativeDialog(blob, filename) {
         }
     }
 }
-
 function saveWithDownload(blob, filename) {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
