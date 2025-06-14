@@ -7,6 +7,7 @@ namespace DiplomBeb.Database.Model
     public class Document
     {
         public ulong Id { get; set; }
+        public DocumentType DocumentType { get; set; }
         public User User { get; set; } // constrained
         public string Name { get; set; }
         public string Desc { get; set; }
