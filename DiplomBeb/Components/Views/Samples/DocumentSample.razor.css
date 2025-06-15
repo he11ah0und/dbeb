@@ -80,6 +80,7 @@
 
 .img-border {
     box-shadow: inset 0 0 0 0.275rem var(--main-color); /* внутренняя "граница" */
+    z-index: 2;
 }
 
 .img {
