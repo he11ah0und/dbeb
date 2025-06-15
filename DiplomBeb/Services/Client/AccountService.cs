@@ -1,12 +1,11 @@
 using System.Diagnostics;
 using System.Text;
 using DiplomBeb.Components.Views;
-using DiplomBeb.Database.Model;
-using DiplomBeb.Filters;
 using DiplomBeb.Services.Client.Components;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
+using dshared.Utils;
 using Microsoft.JSInterop;
 
 namespace DiplomBeb.Services.Client;
@@ -15,7 +14,7 @@ public class AccountService
 {
     public bool Initialized { get; private set; }
     public ListElement? Account => MyListView.Data.FirstOrDefault();
-    public UserRank UserRank { get; private set; }
+    public ListElement UserRank { get; private set; }
     public bool IsLogged { get; private set; }
     
     internal ListView MyListView { get; private set; }
@@ -29,7 +28,7 @@ public class AccountService
         _http = http;
         Initialized = false;
         StateChanged = new Callbacker<Action>(false);
-        UserRank = new UserRank();
+        UserRank = new ListElement();
         IsLogged = false;
         MyListView = new ListView(http, typeof(TableContent),1, false)
         {
@@ -59,7 +58,7 @@ public class AccountService
         {
             var res = await _http.Request($"Users/toppos/{Account.Get("id")}");
             IsLogged = res.IsOk;
-            if (IsLogged = res.ResultAsJson<UserRank>(out var rank))
+            if (IsLogged = res.ResultAsJson<ListElement>(out var rank))
                 UserRank = rank;
         }
 
@@ -77,20 +76,22 @@ public class AccountService
     }
 
     public async Task<bool> SignUp(
-        SignUpData SignUpData,
-        string Password,
-        string ConfirmPassword,
-        bool Confirmed)
+        ListElement signUpData)
     {
-        if (string.IsNullOrEmpty(Password)
-            || string.IsNullOrEmpty(ConfirmPassword)
-            || Password != ConfirmPassword
-            || !Confirmed)
+        var password = signUpData.Get("password");
+        var confirmPassword = signUpData.Get("confirmPassword");
+        var confirmed = bool.Parse(signUpData.Get("confirmed"));
+        if (string.IsNullOrEmpty(password)
+            || string.IsNullOrEmpty(confirmPassword)
+            || password != confirmPassword
+            || !confirmed)
             return false;
-
-        SignUpData.Password = Encoding.Default.GetBytes(Password);
+        
+        // remove confirmpassword from packet
+        signUpData.Del("confirmPassword");
+        
         if (!await _http.Auth.TrySignUp(
-                SignUpData))
+                signUpData))
         {
             Debug.WriteLine("failed login");
             return false;

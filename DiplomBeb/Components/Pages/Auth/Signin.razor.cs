@@ -1,11 +1,7 @@
 using System.Diagnostics;
-using System.Text;
-using DiplomBeb.Database.Model;
-using DiplomBeb.Filters;
-using DiplomBeb.Systems.Auth;
 using DiplomBeb.Utils.Networking;
+using dshared.Utils;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace DiplomBeb.Components.Pages.Auth;
 
@@ -16,22 +12,24 @@ public partial class Signin
     [Inject]
     private NavigationManager Navigation { get; set; }
     
-    private SignInData SignInData;
+    
     protected override async Task OnInitializedAsync()
     {
         Password = "";
-        SignInData = new SignInData();
     }
 
     private string Password;
+    private string Email;
     
     private async Task HandleValidSubmit()
     {
         if (string.IsNullOrEmpty(Password))
             return;
+        var li = new ListElement();
+        li.Set("email", Email);
+        li.Set("password",Password);
         
-        SignInData.Password = Encoding.Default.GetBytes(Password);
-        if (!await Http.Auth.TrySignIn(SignInData))
+        if (!await Http.Auth.TrySignIn(li))
         {
             Debug.WriteLine("failed login");
             return;

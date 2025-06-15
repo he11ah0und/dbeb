@@ -1,16 +1,14 @@
 ﻿using DiplomBeb.Components.Views;
-using DiplomBeb.Database.Model;
-using DiplomBeb.Utils;
-using DiplomBeb.Database.Model;
 using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
+using dshared.Utils;
 
 namespace DiplomBeb.Services.Client.Components;
 
 public class PlaceComponent
 {
     public ListView ListView { get; private set; }
-    public Place CurrentPlace { get; private set; }
+    public ListElement CurrentPlace { get; private set; }
     public bool CurrentInPlace { get; private set; }
     public ulong CurrentPlaceId { get; private set; }
 
@@ -25,7 +23,7 @@ public class PlaceComponent
         {
             OnGet = RequestUsers,
             OnTotal = RequestUsersTotal,
-            GetHeader = () => $"Участники {CurrentPlace?.Content}"
+            GetHeader = () => $"Участники {CurrentPlace?.Get("name")}"
         };
         ListView.DataResolver.Props.AddRange(
             ["id", "avatar", "name", "middlename", "surname", "score", "webrole_name"]);
@@ -49,7 +47,7 @@ public class PlaceComponent
         if (!res.IsOk)
             return;
         
-        if (res.ResultAsJson<Place>(out var result))
+        if (res.ResultAsJson<ListElement>(out var result))
             CurrentPlace = result;
     }
 }

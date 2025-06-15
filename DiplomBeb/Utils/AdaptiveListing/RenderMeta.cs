@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+using dshared.Utils;
 
 namespace DiplomBeb.Utils.AdaptiveListing;
 

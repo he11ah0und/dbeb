@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
-using DiplomBeb.Filters;
+using System.Text;
 using DiplomBeb.Utils.Networking;
+using dshared.Utils;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace DiplomBeb.Utils;
@@ -25,16 +26,17 @@ public class AuthWorker
         BHttp = client;
     }
     public async Task<bool> TrySignIn(
-        SignInData signInData)
+        ListElement signInData)
     {
         // hashing password
         using (var mySha256 = SHA256.Create())
         {
-            var passStream = new MemoryStream(signInData.Password);
-            signInData.Password = await mySha256.ComputeHashAsync(passStream);
+            var passStream = new MemoryStream(
+                Encoding.Default.GetBytes(signInData.Get("password")));
+            signInData.Set("password", Convert.ToBase64String(await mySha256.ComputeHashAsync(passStream)));
         }
 
-        var res = await BHttp.NativeRequest("http://localhost:5062/api/Auth/signin",
+        var res = await BHttp.NativeRequest("Auth/signin",
             JsonContent.Create(signInData),
             HttpMethod.Post
             );
@@ -49,13 +51,14 @@ public class AuthWorker
     }
     
     public async Task<bool> TrySignUp(
-        SignUpData signUpData)
+        ListElement signUpData)
     {
         // hashing password
-        using (SHA256 mySHA256 = SHA256.Create())
+        using (var mySHA256 = SHA256.Create())
         {
-            var passstream = new MemoryStream(signUpData.Password);
-            signUpData.Password = await mySHA256.ComputeHashAsync(passstream);
+            var passStream = new MemoryStream(
+                Encoding.Default.GetBytes(signUpData.Get("password")));
+            signUpData.Set("password", Convert.ToBase64String(await mySHA256.ComputeHashAsync(passStream)));
         }
 
         var res = await BHttp.NativeRequest("Auth/signup",

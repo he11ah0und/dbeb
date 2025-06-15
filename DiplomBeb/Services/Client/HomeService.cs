@@ -1,15 +1,15 @@
 using DiplomBeb.Components.Views;
-using DiplomBeb.Database.Model;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
+using dshared.Utils;
 
 namespace DiplomBeb.Services.Client;
 
 public class HomeService
 {
     public Callbacker<Action> LibraryRandomStateChanged { get; private set; }
-    public Library[] RandomLibs { get; private set; }
+    public ListElement[] RandomLibs { get; private set; }
     
     public ListView TopUsersListView { get; private set; }
     private BackendHttpClient _http { get; set; }
@@ -45,7 +45,7 @@ public class HomeService
         var res = await _http.NativeRequest("Library/random/4");
         if (!res.IsOk)
             return;
-        if (res.ResultAsJson<Library[]>(out var result))
+        if (res.ResultAsJson<ListElement[]>(out var result))
             RandomLibs = result;
         LibraryRandomStateChanged.InvokeAll();
     }

@@ -1,13 +1,6 @@
-using DiplomBeb.Database;
 using DiplomBeb.Components;
-using DiplomBeb.Filters;
-using DiplomBeb.Services;
 using DiplomBeb.Services.Client;
-using DiplomBeb.Services.Client.Components;
-using DiplomBeb.Systems;
-using DiplomBeb.Utils;
 using DiplomBeb.Utils.Networking;
-using Microsoft.EntityFrameworkCore;
 
 namespace DiplomBeb
 {
@@ -31,7 +24,6 @@ namespace DiplomBeb
             builder.Services.AddScoped<BackendHttpClient>();
             
             // adds web controllers
-            builder.Services.AddControllers();
             builder.Services.AddScoped<SyncRenderService>();
             builder.Services.AddScoped<ThemeService>();
             builder.Services.AddScoped<LibraryService>();
@@ -43,13 +35,6 @@ namespace DiplomBeb
             // swagger for debuggin web apis
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            
-            // database with all data
-            builder.Services.AddDbContext<MainDBContext>(
-                options => options.UseMySql(
-                    builder.Configuration["database"],
-                    new MySqlServerVersion(new Version(8, 0, 11) ),
-                    o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
             
             var app = builder.Build();
 
@@ -65,8 +50,7 @@ namespace DiplomBeb
             }
 
             app.UseAntiforgery();
-
-            app.MapControllers();
+            
             app.UseStaticFiles();
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();

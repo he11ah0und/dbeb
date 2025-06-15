@@ -5,6 +5,10 @@ VisualStudioVersion = 17.12.35527.113 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomBeb", "DiplomBeb\DiplomBeb.csproj", "{C91CF3A4-5853-4C94-B7DC-96B709286952}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dserver", "dserver\dserver.csproj", "{8FA8540D-9CD1-4BAF-A591-26AC25FC3C29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dshared", "dshared\dshared.csproj", "{A2FB8519-3112-46F6-963B-572D17BB836D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{C91CF3A4-5853-4C94-B7DC-96B709286952}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C91CF3A4-5853-4C94-B7DC-96B709286952}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C91CF3A4-5853-4C94-B7DC-96B709286952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FA8540D-9CD1-4BAF-A591-26AC25FC3C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FA8540D-9CD1-4BAF-A591-26AC25FC3C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FA8540D-9CD1-4BAF-A591-26AC25FC3C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FA8540D-9CD1-4BAF-A591-26AC25FC3C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2FB8519-3112-46F6-963B-572D17BB836D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2FB8519-3112-46F6-963B-572D17BB836D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2FB8519-3112-46F6-963B-572D17BB836D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2FB8519-3112-46F6-963B-572D17BB836D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

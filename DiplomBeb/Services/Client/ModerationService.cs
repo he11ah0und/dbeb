@@ -1,8 +1,8 @@
 using DiplomBeb.Components.Views;
-using DiplomBeb.Database.Model;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
+using dshared.Utils;
 
 namespace DiplomBeb.Services.Client;
 

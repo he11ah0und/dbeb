@@ -39,7 +39,7 @@
             }
             else
             {
-                <p class="place-number">#@AccountService.UserRank.Position</p>
+                <p class="place-number">#@AccountService.UserRank.Get("pos")</p>
             }
         </div>
         <div class="about-container">
@@ -53,7 +53,7 @@
                     {
                         <li>
                             <a target="_blank"
-                               href="@libs[i].Link">@libs[i].Name</a>
+                               href="@libs[i].Get("link")">@libs[i].Get("name")</a>
                         </li>
                     }
                 </ul>

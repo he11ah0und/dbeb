@@ -1,11 +1,10 @@
 using System.Diagnostics;
 using System.Net;
 using System.Text;
-using DiplomBeb.Filters;
 using DiplomBeb.Services;
 using DiplomBeb.Services.Client;
-using DiplomBeb.Systems.Auth;
 using DiplomBeb.Utils.Networking;
+using dshared.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -19,7 +18,10 @@ public partial class Signup : ComponentBase
     [Inject]
     private NavigationManager Navigation { get; set; }
 
-    private SignUpData SignUpData;
+    private string Surname;
+    private string Name;
+    private string Middlename;
+    private string Email;
     private string Password;
     private string ConfirmPassword;
     private bool Confirmed;
@@ -27,7 +29,6 @@ public partial class Signup : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         Confirmed = false;
-        SignUpData = new SignUpData();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -46,11 +47,14 @@ public partial class Signup : ComponentBase
 
     private async void OnRegistrate()
     {
-        if (await AccountService.SignUp(
-                SignUpData,
-                Password,
-                ConfirmPassword,
-                Confirmed))
+        var li = new ListElement();
+        li.Set("surname", Surname);
+        li.Set("name", Name);
+        li.Set("middlename", Middlename);
+        li.Set("password", Password);
+        li.Set("confirmPassword", ConfirmPassword);
+        li.Set("confirmed", Confirmed);
+        if (await AccountService.SignUp(li))
         {
             Navigation.NavigateTo("/account", true);
         }
