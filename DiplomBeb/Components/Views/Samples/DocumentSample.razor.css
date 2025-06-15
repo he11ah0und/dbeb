@@ -39,17 +39,16 @@
 
 .linner-rating-award {
     display: flex;
-    horiz-align: center;
     align-items: center;
     gap: 0.5rem;
-    white-space: nowrap;
     min-width: max-content;
     flex-shrink: 0;
 }
 
-.linner-rating-award h3,
 .linner-rating-award img {
     flex-shrink: 0;
+    max-width: 2rem;
+    max-height: 2rem;
 }
 
 .rating-award {
@@ -57,19 +56,29 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
+    gap: 0.5rem;
+    margin-top: 1rem;
     min-width: 120px;
     flex: 1 1 calc(25% - 0.75rem);
 }
 
 .rating-award h4 {
+    max-width: 20rem;
+    white-space: normal; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
     font-weight: 600;
     font-size: 1.1rem;
-
+    text-align: center;
     color: var(--color-text3);
 }
 
 .rating-award h3 {
+    max-width: 20rem;
+    white-space: normal; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+    text-align: center;
     font-weight: 600;
     font-size: 1.1rem;
 
