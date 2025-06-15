@@ -351,9 +351,3 @@
     font-weight: 600;
     color: var(--color-text3);
 }
-
-.loading-window h3 span {
-    display: block;
-    margin-top: 0.5rem;
-    text-align: center;
-}
