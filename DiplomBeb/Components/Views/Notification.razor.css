@@ -1,0 +1,42 @@
+﻿.window {
+    position: fixed;
+    left: 50%;
+    top: 2rem;
+    transform: translateX(-50%);
+
+    background-color: var(--color-light);
+    padding: 1rem 4rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+    border: 0.25rem solid var(--notification-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    /* Ширина для контроля переноса текста */
+    max-width: 20vw; /* лучше использовать vw для адаптивности */
+    width: auto;
+    min-width: 300px; /* минимальная ширина, чтобы не было слишком узким */
+    overflow: hidden;
+    z-index: 2;
+    pointer-events: auto;
+}
+
+.window h3 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--color-text4);
+    padding: 0 1rem;
+
+    /* Разрешаем перенос текста */
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+
+    /* ЯВНО ограничиваем ширину текста */
+    max-width: 100%; /* или конкретное значение, например: 300px */
+    width: 100%;
+}
