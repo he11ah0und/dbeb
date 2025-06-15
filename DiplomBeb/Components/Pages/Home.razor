@@ -43,7 +43,7 @@
             }
         </div>
         <div class="about-container">
-            <p class="heading">Хотите больше?</p>
+            <p class="heading">Хотите больше звёзд?</p>
             @if (HomeService.RandomLibs != null)
             {
                 var libs = HomeService.RandomLibs;
@@ -52,8 +52,7 @@
                     @for (long i = 0; i < co; i++)
                     {
                         <li>
-                            <a target="_blank"
-                               href="@libs[i].Get("link")">@libs[i].Get("name")</a>
+                            <a target="_blank" href="@libs[i].Get("link")" title="@libs[i].Get("name")">@libs[i].Get("name")</a>
                         </li>
                     }
                 </ul>

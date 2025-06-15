@@ -45,6 +45,7 @@ body {
     --color8: #B2A978;
     --color9: #1C4A90;
     --main-color: #5785CB;
+    --notification-color: #bed6ff;
     --scroll: #B4B4B4;
     --input: #F7F7FD;
 }
@@ -81,6 +82,7 @@ body {
     --color7: #4467A2;
     --color8: #B2A978;
     --main-color: #353D4B;
+    --notification-color: #a7c9ff;
     --scroll: #B4B4B4;
     --input: #F7F7FD;
 }

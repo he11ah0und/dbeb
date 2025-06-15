@@ -71,10 +71,19 @@
 }
 
 .about-container li > a {
-    padding: 0.2rem 0;
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--color-text9);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.about-container li {
+    padding: 0.5rem 0;
 }
 
 .place-number {
