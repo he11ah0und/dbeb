@@ -57,7 +57,10 @@ public class DocumentsService
         FiltersDocumentsListView.DataResolver.Props.AddRange(
             ["check"]);
         
-        DocumentsSelector = new Selector(DocumentsListView, DocumentsListView, "id");
+        DocumentsSelector = new Selector(DocumentsListView, DocumentsListView, "id")
+        {
+            UpdateDestination = false
+        };
         DocumentTypesSelector = new Selector(FiltersDocumentsListView, DocumentsListView, "name");
     }
     

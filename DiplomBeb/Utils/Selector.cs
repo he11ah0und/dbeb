@@ -6,6 +6,7 @@ public class Selector
 {
     public string SaveProp { get; set; }
     public List<string> Values { get; private set; }
+    public bool UpdateDestination { get; set; }
     
     private ListView? _sourceListView;
     public ListView? SourceListView
@@ -58,7 +59,10 @@ public class Selector
         else
             DelValue(listElement.Get(SaveProp));
 
-        DestListView?.Update();
+        if (UpdateDestination)
+        {
+            DestListView?.Update();
+        }
     }
     
     public void SetValue(string filter)

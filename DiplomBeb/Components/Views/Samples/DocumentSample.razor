@@ -4,11 +4,14 @@
 @rendermode RenderMode.InteractiveServer
 
 <div class="awards-cell">
-
-    <div class="img">
+    @{
+        var bordered = Value ? "img-border" : "";
+    }
+    <div class="img @bordered">
         @if (Data.LongLength > 0)
         {
-            <img src="data:image;base64, @Convert.ToBase64String(Data)" alt="документ">
+            
+            <img  src="data:image;base64, @Convert.ToBase64String(Data)" alt="документ">
         }
         <input type="checkbox" class="checkbox" @onchange="OnClick">
     </div>
@@ -46,10 +49,13 @@
         Data = ms.ToArray();
     }
 
+    private bool Value;
     private void OnClick(ChangeEventArgs cargs)
     {
+        Value = (bool)cargs.Value;
+        StateHasChanged();
         var args = new ObjectContainer();
-        args.Set("value", cargs.Value);
+        args.Set("value", Value);
         OnCallback?.Invoke(args);
     }
 }

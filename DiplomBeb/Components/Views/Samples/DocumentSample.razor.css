@@ -78,6 +78,10 @@
 
 /* img */
 
+.img-border {
+    border: 0.275rem solid var(--main-color);
+}
+
 .img {
     position: relative;
     width: 12rem;
@@ -88,7 +92,6 @@
     align-items: center;
     justify-content: center;
     background-color: var(--color4);
-    border: 0.275rem solid var(--main-color);
 }
 
 .img img {
