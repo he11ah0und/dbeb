@@ -5,10 +5,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // database with all data
 builder.Services.AddDbContext<MainDBContext>(
-    options => options.UseMySql(
-        builder.Configuration["database"],
-        new MySqlServerVersion(new Version(8, 0, 11) ),
-        o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
+    options =>
+    {
+        options.UseMySql(
+            builder.Configuration["database"],
+            new MySqlServerVersion(new Version(8, 0, 11)),
+            o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
+        options.LogTo(Console.WriteLine, LogLevel.Information);
+    });
 
 // adds web (rest) api controllers
 builder.Services.AddControllers();
@@ -31,8 +35,3 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

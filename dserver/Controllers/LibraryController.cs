@@ -1,4 +1,5 @@
 using dserver.Database;
+using dserver.Database.Model;
 using dshared.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -35,9 +36,10 @@ public class LibraryController : ControllerBase
                 .Include(llf => llf.LibraryFilter)
                 .Include(llf => llf.Library)
                 .Where(llf => filters.Contains(llf.LibraryFilter.Name))
-                .Select(llf => llf.Library)
+                .OrderBy(l => l.Id)
                 .Skip((int)skip)
                 .Take((int)take)
+                .Select(llf => llf.Library)
                 .Cast<ListElement>()
                 .ToArray();
         }
