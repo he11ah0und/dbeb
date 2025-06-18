@@ -35,7 +35,6 @@ main .heading {
 }
 
 .place-container {
-    background: url('./images/dvtk1-logo-img.svg') no-repeat center center;
     background-attachment: fixed;
     background-size: 80%;
     background-color: var(--color-light);
@@ -47,6 +46,7 @@ main .heading {
     display: flex;
     flex-direction: column;
     align-items: center; 
+    gap: 1rem;
 }
 
 .img38 {
