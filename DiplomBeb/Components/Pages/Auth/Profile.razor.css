@@ -63,12 +63,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     width: 17.5rem;
     height: 17.5rem;
     overflow: hidden;
     border-radius: 0.625rem;
-    background: url('./images/prof-foto-img.svg') no-repeat center center;
 }
 
 .img39 {

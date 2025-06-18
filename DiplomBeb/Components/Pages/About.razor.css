@@ -83,8 +83,7 @@ main .heading {
 }
 
 .place-container h1 {
-    margin-left: 1rem; /* Отступ слева от изображения */
-    text-align: left; /* Выравнивание текста по левому краю */
+    text-align: left;
 }
 
 .text1 {
