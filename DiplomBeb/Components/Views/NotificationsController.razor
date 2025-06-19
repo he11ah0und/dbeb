@@ -1,0 +1,10 @@
+@rendermode RenderMode.InteractiveServer
+<div>
+    @foreach (var not in ActiveNotifications)
+    {
+        <Notification 
+            MaxVisibleTime="MaxVisibleTime"
+            Text="@not.Item2"
+            OnEnd="() => { OnEnd(not.Item1); }"/>
+    }
+</div>

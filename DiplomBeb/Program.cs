@@ -23,6 +23,9 @@ namespace DiplomBeb
             // http client for client view
             builder.Services.AddScoped<BackendHttpClient>();
             
+            // notifications
+            builder.Services.AddScoped<NotificationService>();
+            
             // adds web controllers
             builder.Services.AddScoped<SyncRenderService>();
             builder.Services.AddScoped<ThemeService>();

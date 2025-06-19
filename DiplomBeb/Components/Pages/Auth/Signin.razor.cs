@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using DiplomBeb.Services.Client;
 using DiplomBeb.Utils.Networking;
 using dshared.Utils;
 using Microsoft.AspNetCore.Components;
@@ -11,7 +12,8 @@ public partial class Signin
     private BackendHttpClient Http { get; set; }
     [Inject]
     private NavigationManager Navigation { get; set; }
-    
+    [Inject]
+    private NotificationService NotificationService { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
@@ -24,14 +26,17 @@ public partial class Signin
     private async Task HandleValidSubmit()
     {
         if (string.IsNullOrEmpty(Password))
+        {
+            NotificationService.AddNotification("Данные для входа пусты!");
             return;
+        }
         var li = new ListElement();
         li.Set("email", Email);
         li.Set("password",Password);
         
         if (!await Http.Auth.TrySignIn(li))
         {
-            Debug.WriteLine("failed login");
+            NotificationService.AddNotification("Неудачная попытка входа.");
             return;
         }
 

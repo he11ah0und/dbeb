@@ -1,3 +1,21 @@
-﻿<div class="window">
-    <h3>Ошибка при загрузке данных пользователя, проверьте соединение и повторите попытку</h3>
+﻿@rendermode RenderMode.InteractiveServer
+<div class="window">
+    <h3>@Text</h3>
 </div>
+
+@code{
+
+    [Parameter]
+    public string Text { get; set; }
+    [Parameter]
+    public Action OnEnd { get; set; }
+    [Parameter]
+    public ulong MaxVisibleTime { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(MaxVisibleTime));
+        OnEnd?.Invoke();
+    }
+
+}

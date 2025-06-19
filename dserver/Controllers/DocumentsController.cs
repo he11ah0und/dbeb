@@ -173,7 +173,7 @@ namespace dserver.Controllers
             }
             return Ok(count);
         }
-        
+        private long MaxFileSize { get; set; } = 10 * 1024 * 1024;
         [AuthFilter("user")]
         [HttpPost("up")]
         public async Task<IActionResult> Upload([FromForm]string name, IFormFile file)
@@ -186,7 +186,8 @@ namespace dserver.Controllers
             
             if (file.Length == 0
                 || !file.FileName.EndsWith(".png")
-                || !file.ContentType.Contains("image/png"))
+                || !file.ContentType.Contains("image/png")
+                || file.Length >= MaxFileSize)
                 return Ok(false);
             
             var ms = new MemoryStream();
