@@ -170,8 +170,6 @@ namespace dserver.Controllers
             return Ok();
         }
         
-        
-        
         // admin api
         [AuthFilter("admin")]
         [HttpGet("get/{skip:long}/{take:long}")]

@@ -47,6 +47,7 @@ public class Selector
         DestListView = destListView;
         Values = [];
         SourceListView = sourcelistView;
+        UpdateDestination = true;
     }
     
     private void OnElementCallback(string propName,

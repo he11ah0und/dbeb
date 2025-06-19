@@ -1,4 +1,5 @@
 ﻿using dserver.Database;
+using dserver.Database.Model;
 using dserver.Filters;
 using dshared.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -28,9 +29,30 @@ namespace dserver.Controllers
             var path = Path.Combine(ServerDocsPath, $"{documentId}.png");
             if (System.IO.File.Exists(path))
                 return false;
+            try
+            {
+                System.IO.File.WriteAllBytes(path, ms.ToArray());
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
 
-            System.IO.File.WriteAllBytes(path, ms.ToArray());
-            
+        private bool RemoveDocument(ulong documentId)
+        {
+            var path = Path.Combine(ServerDocsPath, $"{documentId}.png");
+            if (!System.IO.File.Exists(path))
+                return false;
+            try
+            {
+                System.IO.File.Delete(path);
+            }
+            catch
+            {
+                return false;
+            }
             return true;
         }
         private MemoryStream GetDocument(ulong documentId)
@@ -109,11 +131,16 @@ namespace dserver.Controllers
 
             var docs = _context.Documents
                 .Include(d => d.User)
-                .Where(d => d.User.Id == authedUser.Id && documentIds.Contains(d.Id));
+                .Where(d => d.User.Id == authedUser.Id && documentIds.Contains(d.Id))
+                .ToArray();
             
             _context.RemoveRange(docs);
 
             await _context.SaveChangesAsync();
+
+            var dco = docs.LongLength;
+            for (var i = 0; i < dco; i++)
+                RemoveDocument(docs[i].Id);
             
             return Ok(true);
         }
@@ -149,7 +176,7 @@ namespace dserver.Controllers
         
         [AuthFilter("user")]
         [HttpPost("up")]
-        public async Task<IActionResult> Upload(IFormFile file)
+        public async Task<IActionResult> Upload([FromForm]string name, IFormFile file)
         {
             var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
             var authedUser = _context.Users
@@ -160,16 +187,24 @@ namespace dserver.Controllers
             if (file.Length == 0
                 || !file.FileName.EndsWith(".png")
                 || !file.ContentType.Contains("image/png"))
-                return NoContent();
+                return Ok(false);
+            
             var ms = new MemoryStream();
             await file.CopyToAsync(ms);
 
-            /*_context.Documents.Add(new Document()
+            var doc = new Document()
             {
                 User = authedUser,
-            });
+                Name = name,
+                Publish_date = DateTime.UtcNow,
+                Moderated = false,
+            };
+            _context.Documents.Add(doc);
 
-            await _context.SaveChangesAsync();*/
+            await _context.SaveChangesAsync();
+
+            if (!SaveDocument(doc.Id, ms))
+                return Ok(false);
             
             return Ok(true);
         }
@@ -191,7 +226,6 @@ namespace dserver.Controllers
                 return NoContent();
             
             var documentStream = GetDocument(doc.Id);
-            
             
             if (documentStream.Length == 0)
                 return NoContent();
