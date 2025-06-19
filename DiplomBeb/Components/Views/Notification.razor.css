@@ -1,10 +1,7 @@
 ﻿.window {
     position: fixed;
     left: 50%;
-    top: -10rem; /* начинаем за верхней границей экрана */
     transform: translateX(-50%);
-    animation: slideDown 0.6s ease-out forwards;
-
     background-color: var(--color-light);
     padding: 1rem 4rem;
     border-radius: 0.625rem;
@@ -19,17 +16,28 @@
     overflow: hidden;
     z-index: 2;
     pointer-events: auto;
+    animation: slideDown 0.6s ease-out forwards, fadeOut 0.6s ease-in 4s forwards; /* Добавляем исчезновение */
 }
 
-/* Ключевые кадры анимации */
+/* Анимация появления */
 @keyframes slideDown {
     from {
         top: -10rem;
         opacity: 0;
     }
     to {
-        top: 2rem; /* конечная позиция */
+        top: calc(2rem + var(--offset)); /* Динамическое смещение */
         opacity: 1;
+    }
+}
+
+/* Анимация исчезновения */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
     }
 }
 
@@ -39,12 +47,10 @@
     font-size: 1.1rem;
     color: var(--color-text4);
     padding: 0 1rem;
-    
     white-space: normal;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
-    
-    max-width: 100%; 
+    max-width: 100%;
     width: 100%;
 }
