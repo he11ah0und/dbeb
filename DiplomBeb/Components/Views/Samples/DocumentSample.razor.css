@@ -99,7 +99,7 @@ h3 {
     width: 2rem;
     height: 2rem;
     background: var(--color-light);
-    border: 2px solid var(--color-light);
+    border: 2px solid var(--color4);
     border-radius: 0.375rem;
     cursor: pointer;
     z-index: 2;
