@@ -198,7 +198,6 @@ namespace dserver.Controllers
                 User = authedUser,
                 Name = name,
                 Publish_date = DateTime.UtcNow,
-                Moderated = false,
             };
             _context.Documents.Add(doc);
 

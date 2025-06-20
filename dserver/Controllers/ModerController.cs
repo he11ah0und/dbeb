@@ -40,8 +40,7 @@ public class ModerController : ControllerBase
             _context.TempReservedDocumentPerModerator.Remove(old.Key);
             
             // getting new
-            var q1 = _context.Documents
-                .IntersectBy(_context.);
+            /*
 
             if (q1.Any())
             {
@@ -55,7 +54,7 @@ public class ModerController : ControllerBase
                     var doc = documents.First();
                     _context.TempReservedDocumentPerModerator.Add(doc.Id, new ReservationDocument(authedId));
                 }
-            }
+            }*/
         }
         else
         {
