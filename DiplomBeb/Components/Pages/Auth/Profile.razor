@@ -14,73 +14,65 @@
                         <img src="icons/upload-photo.svg" alt="Загрузить фото" />
                     </button>
                 </div>
-                <table class="profile-table">
-                    <tbody>
-                    <tr>
-                        <th>ФИО:</th>
-                        <td class="fio-cell">
-                            @if (InEdit)
-                            {
-                                <div class="edit-fields">
-                                    <input type="text" @bind="Surname" placeholder="Фамилия"/>
-                                    <input type="text" @bind="Name" placeholder="Имя"/>
-                                    <input type="text" @bind="Middlename" placeholder="Отчество (при наличии)"/>
-                                </div>
-                            }
-                            else
-                            {
-                                <span>@AccountService.Account.Get("surname") @AccountService.Account.Get("name") @AccountService.Account.Get("middlename")</span>
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Место:</th>
-                        <td>
-                            <button @onclick="OpenPlace">
-                                @AccountService.Account?.Get("place_name")
-                            </button>
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <th>Email:</th>
-                        <td>
-                            @if (InEdit)
-                            {
-                                <input type="email" @bind="Email" placeholder="example@email.com"/>
-                            }
-                            else
-                            {
-                                <span>@AccountService.Account?.Get("email")</span>
-                            }
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>Номер телефона:</th>
-                        <td>
-                            @if (InEdit)
-                            {
-                                <input type="number" @bind="Phone" placeholder="+7-XXX-XXX-XX-XX"/>
-                            }
-                            else
-                            {
-                                <span>@AccountService.Account?.Get("phone", "")</span>
-                            }
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <th>Звёзд:</th>
-                        <td>@AccountService.Account?.Get("score")</td>
-                    </tr>
-                    
-                    <tr>
-                        <th>Место в ТОПе:</th>
-                        <td>@AccountService.UserRank.Get("pos")</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="profile-list">
+                    <div class="list-line">
+                        <h4>ФИО:</h4>
+                        @if (InEdit)
+                        {
+                            <div class="edit-fields">
+                                <input type="text" @bind="Surname" placeholder="Фамилия" />
+                                <input type="text" @bind="Name" placeholder="Имя" />
+                                <input type="text" @bind="Middlename" placeholder="Отчество (при наличии)" />
+                            </div>
+                        }
+                        else
+                        {
+                            <span>@AccountService.Account.Get("surname") @AccountService.Account.Get("name")
+                                @AccountService.Account.Get("middlename")</span>
+                        }
+                    </div>
+                    <div class="list-line">
+                        <h4>Место:</h4>
+                        <button @onclick="OpenPlace">
+                            @AccountService.Account?.Get("place_name")
+                        </button>
+                    </div>
+                    <div class="list-line">
+                        <h4>Email:</h4>
+                        @if (InEdit)
+                        {
+                            <div class="edit-fields">
+                                <input type="email" @bind="Email" placeholder="example@email.com" />
+                            </div>
+                            
+                        }
+                        else
+                        {
+                            <span>@AccountService.Account?.Get("email")</span>
+                        }
+                    </div>
+                    <div class="list-line">
+                        <h4>Номер телефона:</h4>
+                        @if (InEdit)
+                        {
+                            <div class="edit-fields">
+                                <input type="number" @bind="Phone" placeholder="+7-XXX-XXX-XX-XX" />
+                            </div>
+                        }
+                        else
+                        {
+                            <span>@AccountService.Account?.Get("phone", "")</span>
+                        }
+                    </div>
+                    <div class="list-line">
+                        <h4>Звёзд:</h4>
+                        <span>@AccountService.Account?.Get("score")</span>
+                    </div>
+                    <div class="list-line">
+                        <h4>Место в ТОПе:</h4>
+                        <span>@AccountService.UserRank.Get("pos")</span>
+                    </div>
+                </div>
             </div>
             
             <div class="place-linner-button">

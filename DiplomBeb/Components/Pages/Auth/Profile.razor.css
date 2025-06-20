@@ -63,8 +63,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 17.5rem;
-    height: 17.5rem;
     overflow: hidden;
     border-radius: 0.625rem;
 }
@@ -92,94 +90,106 @@
     height: 1.5rem;
 }
 
-.profile-table {
-    border-collapse: separate;
-    border-spacing: 0 10px;
+.profile-list {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 
-.profile-table tr {
-    display: table-row;
+.list-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 1rem; 
+}
+
+.list-line h4 {
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--color-text3);
+    text-align: left;
+    margin: 0; 
+}
+
+.list-line span {
+    flex: auto;
+    text-align: right;
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: var(--color-text13);
+    word-wrap: break-word; 
+    white-space: normal; 
+    overflow-wrap: anywhere; 
+    hyphens: auto; 
+}
+
+.list-line span::after {
+    content: '';
+    display: block;
+    justify-content: flex-end;
+    width: 100%;
+    height: 1px;
+    margin-top: 0.125rem;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.list-line button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--color-text2);
+    text-align: right;
+    padding: 0;
+    transition: color 0.3s ease;
+}
+
+.list-line button:hover {
+    color: var(--color-text6); 
 }
 
 .edit-fields {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 1rem;
+    width: 100%; 
 }
 
-input::placeholder {
-    font-weight: 500;
-    font-size: 1.125rem;
-    color: var(--color-text18);
-}
-
-td > *:first-child {
-    flex-shrink: 0;
-    white-space: nowrap;
-}
-
-td input {
-    border-radius: .625rem;
-    padding: 0.5rem;
-    opacity: 1;
-    height: 1.4rem;
+.list-line input {
+    flex: 2 1 auto;
+    text-align: start;
     font-weight: 500;
     font-size: 1.125rem;
     color: var(--color-text13);
+    min-width: 150px;
+    border-radius: 0.625rem;
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
     transition: box-shadow 0.3s ease;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
 }
 
-.profile-table th {
-    height: 2rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: left;
+.list-line input:focus {
+    outline: none;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 800px) {
+    .list-line {
+        flex-direction: column; 
+        align-items: flex-start; 
+    }
     
-    font-weight: 600;
-    font-size: 1.125rem;
-    color: var(--color-text3);
-}
-
-.profile-table td {
-    
-    position: relative;
-    height: 2rem;
-    width: auto;
-    font-weight: 500;
-    font-size: 1.125rem;
-    color: var(--color-text13);
-}
-
-.profile-table span::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
-    pointer-events: none;
-}
-
-.profile-table td > button{
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-
-    height: 1.4rem;
-    width: auto;
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--color-text2);
-
-    text-align: left;
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap;
+    .list-line input {
+        text-align: left; 
+        min-width: 100%; 
+    }
 }
 
 .place-linner-button {
@@ -229,5 +239,35 @@ td input {
 }
 
 
+@media (max-width: 1800px) {
+    .container-list {
+        display: flex;
+        flex-direction: column;
+        border-radius: 0.625rem;
+        background-color: var(--color-light);
+        max-height: max-content;
+        overflow: hidden;
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: thin;
+        scrollbar-color: var(--main-color) transparent;
+    }
 
+    .container-list::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        background-color: transparent;
+    }
+
+    .container-list::-webkit-scrollbar-thumb {
+        background-color: var(--main-color);
+        border-radius: 10px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+    }
+
+    .container-list::-webkit-scrollbar-thumb:hover {
+        background-color: #0097a7;
+    }
+}
 
