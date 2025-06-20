@@ -13,7 +13,7 @@
                     listElement.Set("id", i);
                 }
                 
-                <div>
+                <div class="aeae">
                 @{
                     var listProps = ListView.DataResolver.GetListProps(ListView.DataResolver.Props, listElement.Elements);
                     var renderedProps = listProps
@@ -23,7 +23,7 @@
 
                 @foreach (var rendered in renderedProps)
                 {
-                    <div>
+                    <div class="arnold">
                         <DynamicComponent Type="rendered.ListProp.RenderType" Parameters="rendered.Parameters"/>
                     </div>
                 }

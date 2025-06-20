@@ -13,11 +13,26 @@
     gap: 2rem;
 }
 
+.aeae {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    height: 100%;
+}
+
+.arnold {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .awards-scroll-container {
-    overflow-y: auto;
+    overflow-y: auto; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
 }
 
 .awards-scroll-container::-webkit-scrollbar {
-    display: none;
-    width: 0;
+    display: none; 
+    width: 0; 
 }

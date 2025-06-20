@@ -2,10 +2,9 @@
 @using DiplomBeb.Utils.Networking
 @using dshared.Utils
 @rendermode RenderMode.InteractiveServer
-<script src="../Components/Views/Samples/DocumentSample.razor.js"></script>
 
-<div class="awards-cell">
-    @{
+
+@{
         var bordered = Value ? "img-border" : "";
     }
     <div class="img @bordered">
@@ -17,7 +16,6 @@
     </div>
 
     <div class="rating-award">
-        <div class="linner-rating-award">
         @if (bool.TryParse(ListElement.Get("moderated"), out bool ok) && ok)
         {
             <h3>+@ListElement.Get("cost")</h3>
@@ -27,10 +25,9 @@
         {
             <h3>Документ обрабывается модератором</h3>
         }
-        </div>
         <h4>@ListElement.Get(Id)</h4>
     </div>
-</div>
+
 
 @code {
 
