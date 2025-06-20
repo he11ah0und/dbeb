@@ -13,7 +13,6 @@ namespace dserver.Database.Model
         public DateTime Publish_date { get; set; }
         [Column("cost")]
         public ulong Cost { get; set; }
-        public bool Moderated { get; set; }
         
         public static implicit operator ListElement(Document model)
         {
@@ -22,7 +21,6 @@ namespace dserver.Database.Model
             le.Set("document", model.Name);
             le.Set("publish_date", model.Publish_date.Ticks);
             le.Set("cost", model.Cost);
-            le.Set("moderated", model.Moderated);
             return le;
         }
     }
