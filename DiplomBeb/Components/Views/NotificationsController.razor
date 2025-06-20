@@ -1,10 +1,11 @@
 @rendermode RenderMode.InteractiveServer
+<script src="../Components/Views/NotificationsController.razor.js">
+</script>
 <div class="nots">
-    @foreach (var not in ActiveNotifications)
-    {
-        <Notification 
-            MaxVisibleTime="MaxVisibleTime"
-            Value="not"
-            OnEnd="OnEnd"/>
+    @{
+        var animate = string.IsNullOrEmpty(CurrentValue) ? "" : "anim";
     }
+    <div id="not" class="window @animate">
+        <h3>@CurrentValue</h3>
+    </div>
 </div>

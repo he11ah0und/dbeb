@@ -15,9 +15,19 @@ public partial class Home
     [Inject]
     private NotificationService NotificationService { get; set; }
     
+    private Timer _libsTimer { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        
+        _libsTimer = new Timer(OnLibsTimerCallback, null, 0, 15000);
+    }
+    
+    private async void OnLibsTimerCallback(object? state)
+    {
+        await InvokeAsync(async () =>
+        {
+            if (!await HomeService.RequestRandomLibs())
+                NotificationService.AddNotification("Ошибка получения информации из библиотеки.");
+        });
     }
     
     private void OnListUpdated()
@@ -38,8 +48,5 @@ public partial class Home
         
         if (!await HomeService.TopUsersListView.First(1))
             NotificationService.AddNotification("Ошибка получения топа.");
-        
-        if (!await HomeService.RequestRandomLibs())
-            NotificationService.AddNotification("Ошибка получения информации из библиотеки.");
     }
 }

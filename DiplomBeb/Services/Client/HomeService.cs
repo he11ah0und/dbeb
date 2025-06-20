@@ -13,6 +13,7 @@ public class HomeService
     
     public ListView TopUsersListView { get; private set; }
     private BackendHttpClient _http { get; set; }
+    
     public HomeService(BackendHttpClient http)
     {
         _http = http;
@@ -29,6 +30,8 @@ public class HomeService
         LibraryRandomStateChanged = new Callbacker<Action>();
         RandomLibs = [];
     }
+
+    
     
     private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)
     {
