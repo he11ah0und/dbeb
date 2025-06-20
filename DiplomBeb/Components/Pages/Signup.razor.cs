@@ -17,6 +17,8 @@ public partial class Signup : ComponentBase
     private AccountService AccountService { get; set; }
     [Inject]
     private NavigationManager Navigation { get; set; }
+    [Inject]
+    private NotificationService NotificationService { get; set; }
 
     private string Surname;
     private string Name;
@@ -54,9 +56,11 @@ public partial class Signup : ComponentBase
         li.Set("password", Password);
         li.Set("confirmPassword", ConfirmPassword);
         li.Set("confirmed", Confirmed);
-        if (await AccountService.SignUp(li))
+        if (!await AccountService.SignUp(li))
         {
-            Navigation.NavigateTo("/account", true);
+            NotificationService.AddNotification("Ошибка регистрации.");
+            return;
         }
+        Navigation.NavigateTo("/account", true);
     }
 }

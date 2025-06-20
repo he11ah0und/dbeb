@@ -10,7 +10,8 @@ public partial class Controller : ComponentBase
 {
     [Inject]
     private AccountService AccountService { get; set; }
-
+    [Inject]
+    private NotificationService NotificationService { get; set; }
     protected override async Task OnInitializedAsync()
     {
         
@@ -19,7 +20,8 @@ public partial class Controller : ComponentBase
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        
-        await AccountService.Auth();
+
+        if (!await AccountService.Auth())
+                NotificationService.AddNotification("Ошибка аутентификации.");
     }
 }

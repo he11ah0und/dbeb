@@ -17,6 +17,8 @@ public partial class Place
     private AccountService AccountService { get; set; }
     [Inject]
     private NavigationManager Navigation { get; set; }
+    [Inject]
+    private NotificationService NotificationService { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -40,9 +42,12 @@ public partial class Place
     {
         if (!firstRender) return;
         
-        await UserService.Place.SelectPlace((ulong)PlaceId.Value);
+        if (!await UserService.Place.SelectPlace((ulong)PlaceId.Value))
+            NotificationService.AddNotification("Ошибка получения информации о месте.");
+            
         UserService.Place.ListView.OnListUpdated.Subscribe("place", OnListUpdated);
         
-        await UserService.Place.ListView.First(1);
+        if (!await UserService.Place.ListView.First(1))
+            NotificationService.AddNotification("Ошибка загрузки информации о месте.");
     }
 }

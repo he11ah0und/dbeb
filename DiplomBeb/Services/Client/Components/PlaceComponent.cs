@@ -39,15 +39,17 @@ public class PlaceComponent
         return http.Request($"Place/total/{CurrentPlaceId}");
     }
 
-    public async Task SelectPlace(ulong id)
+    public async Task<bool> SelectPlace(ulong id)
     {
         CurrentPlaceId = id;
         // place info
         var res = await _http.Request($"Place/{CurrentPlaceId}");
         if (!res.IsOk)
-            return;
-        
-        if (res.ResultAsJson<ListElement>(out var result))
-            CurrentPlace = result;
+            return false;
+
+        if (!res.ResultAsJson<ListElement>(out var result))
+            return false;
+        CurrentPlace = result;
+        return true;
     }
 }

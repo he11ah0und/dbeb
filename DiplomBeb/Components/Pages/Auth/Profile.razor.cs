@@ -15,6 +15,9 @@ public partial class Profile
     [Inject]
     private NavigationManager Navigation { get; set; }
     
+    [Inject]
+    private NotificationService NotificationService { get; set; }
+    
     private bool InEdit { get; set; }
     
     public string Surname { get; set; }
@@ -75,7 +78,8 @@ public partial class Profile
             newLe.Set("name", Name);
             newLe.Set("surname", Surname);
             newLe.Set("middlename", Middlename);
-            await AccountService.Update(newLe);
+            if (!await AccountService.Update(newLe))
+                NotificationService.AddNotification("Ошибка применения изменений.");
             InEdit = false;
         }
         StateHasChanged();
@@ -84,15 +88,19 @@ public partial class Profile
     private void OpenPlace()
     {
         var place = AccountService?.Account.Get("place_id");
-        
+
         if (string.IsNullOrEmpty(place))
+        {
+            NotificationService.AddNotification("У вас неназначенно место в системе.");
             return;
+        }
         Navigation.NavigateTo($"/place/{place}");
     }
 
     private async Task OnLogOut()
     {
-        await Http.Auth.LogOut();
+        if (!await Http.Auth.LogOut())
+            NotificationService.AddNotification("Ошибка серверного выхода.");
         Navigation.NavigateTo("/account", true);
     }
 }

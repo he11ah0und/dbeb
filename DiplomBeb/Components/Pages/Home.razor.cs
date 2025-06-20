@@ -12,6 +12,8 @@ public partial class Home
     
     [Inject]
     private HomeService HomeService { get; set; }
+    [Inject]
+    private NotificationService NotificationService { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
@@ -34,8 +36,10 @@ public partial class Home
         AccountService.StateChanged.
             Subscribe("home", OnListUpdated);
         
-        await HomeService.TopUsersListView.First(1);
+        if (!await HomeService.TopUsersListView.First(1))
+            NotificationService.AddNotification("Ошибка получения топа.");
         
-        await HomeService.RequestRandomLibs();
+        if (!await HomeService.RequestRandomLibs())
+            NotificationService.AddNotification("Ошибка получения информации из библиотеки.");
     }
 }

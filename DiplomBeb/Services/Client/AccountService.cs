@@ -22,8 +22,8 @@ public class AccountService
 
     public DocumentsService DocumentsService { get; private set; }
     private BackendHttpClient _http;
-    private IJSRuntime _jsRuntime;
-    public AccountService(BackendHttpClient http, IJSRuntime jsRuntime)
+
+    public AccountService(BackendHttpClient http,  IJSRuntime jsRuntime)
     {
         _http = http;
         Initialized = false;
@@ -51,19 +51,26 @@ public class AccountService
         return http.Request($"Users/personal");
     }
 
-    public async Task Auth()
+    public async Task<bool> Auth()
     {
-        await MyListView.First(1);
-        if (IsLogged = MyListView.Data.LongLength > 0)
-        {
-            var res = await _http.Request($"Users/toppos/{Account.Get("id")}");
-            IsLogged = res.IsOk;
-            if (IsLogged = res.ResultAsJson<ListElement>(out var rank))
-                UserRank = rank;
-        }
+        IsLogged = false;
+        if (!await MyListView.First(1)
+            || MyListView.Data.LongLength == 0)
+            return End(false);
+        var res = await _http.Request($"Users/toppos/{Account.Get("id")}");
+        if (!res.IsOk || !res.ResultAsJson<ListElement>(out var rank))
+            return End(false);
+        
+        UserRank = rank;
 
-        Initialized = true;
-        StateHasChanged();
+        return IsLogged = End(true);
+
+        bool End(bool state)
+        {
+            Initialized = true;
+            StateHasChanged();
+            return state;
+        }
     }
 
     public async Task<bool> Update(ListElement li)
@@ -92,10 +99,7 @@ public class AccountService
         
         if (!await _http.Auth.TrySignUp(
                 signUpData))
-        {
-            Debug.WriteLine("failed login");
             return false;
-        }
 
         return true;
     }

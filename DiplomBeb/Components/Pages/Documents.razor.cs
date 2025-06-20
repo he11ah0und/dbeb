@@ -12,12 +12,15 @@ public partial class Documents : ComponentBase
     private AccountService AccountService { get; set; }
     [Inject]
     private BackendHttpClient _http { get; set; }
+    [Inject]
+    private NotificationService NotificationService { get; set; }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        await AccountService.DocumentsService.DocumentsListView.First(1);
-        await AccountService.DocumentsService.FiltersDocumentsListView.First(1);
-        
+        if (!await AccountService.DocumentsService.DocumentsListView.First(1))
+            NotificationService.AddNotification("Ошибка загрузки документов!");
+        if (!await AccountService.DocumentsService.FiltersDocumentsListView.First(1))
+            NotificationService.AddNotification("Ошибка загрузки фильтров документов!");
     }
 
     private bool InUpload { get; set; }
@@ -68,13 +71,17 @@ public partial class Documents : ComponentBase
         var file = obj.File;
         if (file.ContentType != "image/png"
             || file.Size > MaxFileSize)
+        {
+            NotificationService.AddNotification("Неподходящий файл.");
             return;
+        }
         SelectedFile = file;
         
         var stream = OpenReadFileStream();
         if (stream is null)
         {
             ImgData = "images/img-doc.svg";
+            NotificationService.AddNotification($"Ошибка открытия файла \"{file.Name}\".");
             return;
         }
         var buffer = new byte[stream.Length];
@@ -102,7 +109,10 @@ public partial class Documents : ComponentBase
             formData,
             HttpMethod.Post);
         if (!res.IsOk)
+        {
+            NotificationService.AddNotification("Ошибка загрузки файла на сервер!");
             return;
+        }
         
         ClearUploader();
         HideUploader();

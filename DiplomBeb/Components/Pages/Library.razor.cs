@@ -19,6 +19,8 @@ public partial class Library
     private LibraryService LibraryService { get; set; }
     [Inject]
     private NavigationManager Navigation { get; set; }
+    [Inject]
+    private NotificationService NotificationService { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
@@ -38,8 +40,9 @@ public partial class Library
         
         LibraryService.LibraryListView.OnPageSwitch.Subscribe("library", OnNavigate);
         
-        
-        await LibraryService.LibraryListView.First((ulong)Page);
-        await LibraryService.FiltersListView.First(1);
+        if (!await LibraryService.LibraryListView.First((ulong)Page))
+            NotificationService.AddNotification("Ошибка получения информации из библиотеки.");
+        if (!await LibraryService.FiltersListView.First(1))
+            NotificationService.AddNotification("Ошибка получения фильтров библиотеки.");
     }
 }

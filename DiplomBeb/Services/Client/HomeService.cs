@@ -40,13 +40,15 @@ public class HomeService
         return http.NativeRequest("Users/total");
     }
     
-    public async Task RequestRandomLibs()
+    public async Task<bool> RequestRandomLibs()
     {
         var res = await _http.NativeRequest("Library/random/4");
         if (!res.IsOk)
-            return;
-        if (res.ResultAsJson<ListElement[]>(out var result))
-            RandomLibs = result;
+            return false;
+        if (!res.ResultAsJson<ListElement[]>(out var result))
+            return false;
+        RandomLibs = result;
         LibraryRandomStateChanged.InvokeAll();
+        return true;
     }
 }
