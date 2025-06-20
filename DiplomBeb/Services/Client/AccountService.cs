@@ -62,8 +62,8 @@ public class AccountService
             return End(false);
         
         UserRank = rank;
-
-        return IsLogged = End(true);
+        IsLogged = true;
+        return End(true);
 
         bool End(bool state)
         {

@@ -1,22 +1,35 @@
 ﻿@rendermode RenderMode.InteractiveServer
-
-<div class="window">
-    <h3>@Text</h3>
+<script src="../Components/Views/Notification.razor.js"></script>
+<div id="not" class="window">
+    <h3>@Value.Item2</h3>
 </div>
 
 @code{
-
+    
     [Parameter]
-    public string Text { get; set; }
+    public Action<Guid> OnEnd { get; set; }
     [Parameter]
-    public Action OnEnd { get; set; }
+    public (Guid, string) Value { get; set; }
     [Parameter]
     public ulong MaxVisibleTime { get; set; }
+    [Inject]
+    public IJSRuntime _JsRuntime { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (!firstRender) return;
+        // fade in
+        await Task.Delay(600); // 0.6
+        
+        // wait
         await Task.Delay(TimeSpan.FromMilliseconds(MaxVisibleTime));
-        OnEnd?.Invoke();
+        
+        // fade out
+        await _JsRuntime.InvokeVoidAsync("removeAnimation");
+        await Task.Delay(600); // 0.6
+        
+        // remove
+        OnEnd?.Invoke(Value.Item1);
     }
 
 }

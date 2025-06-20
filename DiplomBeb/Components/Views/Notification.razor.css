@@ -13,27 +13,32 @@
     overflow: hidden;
     z-index: 2;
     pointer-events: auto;
-    animation: slideDown 0.6s ease-out forwards, fadeOut 0.6s ease-in 4s forwards; /* Добавляем исчезновение */
+    transform: translateY(-100rem);
+    animation:
+            fadeInSlideDown 0.6s ease-out forwards,
+            fadeOutSlideUp 0.6s ease-in 4s forwards;
 }
 
 /* Анимация появления */
-@keyframes slideDown {
+@keyframes fadeInSlideDown {
     from {
-        top: -10rem;
+        transform: translateY(-100rem);
         opacity: 0;
     }
     to {
-        top: calc(2rem); /* Динамическое смещение */
+        transform: translateY(0);
         opacity: 1;
     }
 }
 
-/* Анимация исчезновения */
-@keyframes fadeOut {
+/* Анимация исчезновения: слайд вверх + исчезновение */
+@keyframes fadeOutSlideUp {
     from {
+        transform: translateY(0);
         opacity: 1;
     }
     to {
+        transform: translateY(-100rem);
         opacity: 0;
     }
 }

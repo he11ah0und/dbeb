@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using DiplomBeb.Services.Client;
 using Microsoft.AspNetCore.Components;
 
@@ -8,7 +9,7 @@ public partial class NotificationsController : ComponentBase
     [Inject]
     public NotificationService NotificationService { get; set; }
     
-    private LinkedList<(Guid, string)> ActiveNotifications { get; set; }
+    private List<(Guid, string)> ActiveNotifications { get; set; }
     private ulong MaxVisible { get; set; }
     private ulong MaxVisibleTime { get; set; }
 
@@ -27,14 +28,15 @@ public partial class NotificationsController : ComponentBase
 
         if ((ulong)ActiveNotifications.Count >= MaxVisible)
             return;
-        
         var guid = Guid.NewGuid();
-        ActiveNotifications.AddLast((guid, not));
+        Debug.WriteLine($"Add {guid} and {not}");
+        ActiveNotifications.Add((guid, not));
         StateHasChanged();
     }
 
     private void OnEnd(Guid guid)
     {
+        Debug.WriteLine($"Del {guid} and {ActiveNotifications.SingleOrDefault(an => an.Item1 == guid).Item2}");
         var not = ActiveNotifications.SingleOrDefault(an => an.Item1 == guid, default);
         if (not == default)
             return;
