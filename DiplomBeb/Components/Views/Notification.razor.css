@@ -1,7 +1,4 @@
 ﻿.window {
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
     background-color: var(--color-light);
     padding: 1rem 4rem;
     border-radius: 0.625rem;
@@ -26,7 +23,7 @@
         opacity: 0;
     }
     to {
-        top: calc(2rem + var(--offset)); /* Динамическое смещение */
+        top: calc(2rem); /* Динамическое смещение */
         opacity: 1;
     }
 }
