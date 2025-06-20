@@ -90,21 +90,42 @@
     color: var(--color-text3);
 }
 
-.image {
+.arnold {
+    flex: max-content;
     display: flex;
-    flex-direction: column;
     align-items:center;
     justify-content: center;
-    max-height: 55.125rem;
-    padding: 0 1.25rem;
 }
 
-.image div {
-    background-color: var(--color3);
-    border-radius: .625rem;
-    width: 32.125rem;
-    height: 38rem;
-    margin-bottom: 4rem;
+.image {
+    position: relative;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    max-height: 80%;
+    min-height: 50%;
+    border-radius: 0.625rem;
+    overflow: hidden;
+    background-color: var(--color-light);
+}
+
+.image img {
+    max-width: 50rem;
+    max-height: 50rem;
+    object-fit: contain;
+}
+
+.over {
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.over h4 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--color-text1);
 }
 
 .footer {
