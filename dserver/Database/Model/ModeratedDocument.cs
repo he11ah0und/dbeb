@@ -9,4 +9,5 @@ public class ModeratedDocument
     public Document Document { get; set; }
     public User Moder { get; set; }
     public DateTime DateTime { get; set; }
+    public bool State { get; set; }
 }
