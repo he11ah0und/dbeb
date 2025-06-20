@@ -8,7 +8,7 @@
         <ViewList
             ListView="@ModerationService.UsersListView"/>
     </div>
-    @if (ModerationService.SelectedUser is ListElement li)
+    @if (Selected)
     {
         <div>
             <div class="place-container">
@@ -27,7 +27,7 @@
                     else
                     {
                         <div class="linner">
-                            <h4>@li.Get("surname") @li.Get("name") @li.Get("middlename")</h4>
+                            <h4>@Surname @Name @Middlename</h4>
                         </div>
                     }
                 </div>
@@ -42,7 +42,7 @@
                         else
                         {
                             <div class="linner">
-                                <h5>@li.Get("email")</h5>
+                                <h5>@Email</h5>
                             </div>
                         }
                     </div>
@@ -55,7 +55,7 @@
                         else
                         {
                             <div class="linner">
-                                <h5>@li.Get("phone", "")</h5>
+                                <h5>@Phone</h5>
                             </div>
                         }
                     </div>
@@ -73,7 +73,7 @@
                         else
                         {
                             <div class="linner">
-                                <h5>@li.Get("place_name", "")</h5>
+                                <h5>@PlaceName</h5>
                             </div>
                         }
                     </div>
@@ -81,35 +81,32 @@
     
                 <div class="container-button">
                     <button @onclick="EditMode">Редактировать</button>
-                    <button>Отправить<br>запрос администратору</button>
+                    <button @onclick="ShowRequester">Отправить<br>запрос администратору</button>
                 </div> 
             </div>
         </div>
     }
 </div>
 
-<div class="request-window-cont">
-    <div class="request-window-back"></div>
-
-    <div class="request-window">
-        <h3>Запрос администратору</h3>
-        <div class="request-window-linner">
-            <div>
-                <input type="text" id="user" placeholder=" "/>
-                <label for="user">Пользователь</label>
+@if (InRequest)
+{
+    <div class="request-window-cont">
+        <div class="request-window-back" @onclick="HideRequester"></div>
+        <div class="request-window">
+            <h3>Запрос администратору</h3>
+            <div class="request-window-linner">
+                <div>
+                    <input type="text" id="user" />
+                    <label for="user">Пользователь</label>
+                </div>
+                <div>
+                    <input type="text" id="data"/>
+                    <label for="data">Запрос</label>
+                </div>
             </div>
-            <div>
-                <input type="text" id="data" placeholder=" "/>
-                <label for="data">Данные</label>
-            </div>
-            <div>
-                <input type="text" id="action" placeholder=" "/>
-                <label for="action">Действие</label>
-            </div>
+            <button class="send">Отправить</button>
         </div>
-        <button class="send">Отправить</button>
     </div>
-</div>
-
+}
 
 

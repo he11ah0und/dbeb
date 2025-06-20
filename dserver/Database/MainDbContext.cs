@@ -25,6 +25,8 @@ namespace dserver.Database
         public DbSet<Document> Documents { get; set; }
         public DbSet<DocumentType> DocumentTypes { get; set; }
         
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<ModeratedDocument> ModeratedDocuments { get; set; }
         
         public DbSet<Token> Tokens { get; set; }
         

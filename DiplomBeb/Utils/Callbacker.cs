@@ -15,9 +15,11 @@ public class Callbacker<TDelegate>
     {
         if (InvokeOnSubscribe)
             fn?.DynamicInvoke();
-        if (!Callbacks.TryAdd(name, fn))
-            return;
-        
+        if (Callbacks.ContainsKey(name))
+        {
+            Callbacks.Remove(name);
+        }
+        Callbacks.TryAdd(name, fn);
     }
 
     public void Unsubscribe(string name)

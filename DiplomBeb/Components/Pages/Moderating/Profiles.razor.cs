@@ -18,6 +18,9 @@ public partial class Profiles : ComponentBase
     public string Middlename { get; set; }
     public string Phone { get; set; }
     public string Email { get; set; }
+    public string PlaceName { get; set; }
+    public bool Selected { get; set; }
+    
 
     [Inject]
     private AccountService AccountService { get; set; }
@@ -59,11 +62,19 @@ public partial class Profiles : ComponentBase
 
     private void Load()
     {
-        Surname = ModerationService.SelectedUser.Get("surname");
-        Name = ModerationService.SelectedUser.Get("name");
-        Middlename = ModerationService.SelectedUser.Get("middlename");
-        Phone = ModerationService.SelectedUser.Get("phone", "");
-        Email = ModerationService.SelectedUser.Get("email");
+        var selected = ModerationService.SelectedUser;
+        if (selected is null)
+        {
+            Selected = false;
+            return;
+        }
+        Surname = selected.Get("surname");
+        Name = selected.Get("name");
+        Middlename = selected.Get("middlename");
+        Phone = selected.Get("phone", "");
+        Email = selected.Get("email");
+        PlaceName = selected.Get("place_name", "");
+        Selected = true;
     }
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -76,6 +87,23 @@ public partial class Profiles : ComponentBase
     private void OnSelected()
     {
         Load();
+        StateHasChanged();
+    }
+    
+    private bool InRequest { get; set; }
+    
+    private void HideRequester()
+    {
+        InRequest = false;
+        StateHasChanged();
+    }
+    private void ClearRequester()
+    {
+        
+    }
+    private void ShowRequester()
+    {
+        InRequest = true;
         StateHasChanged();
     }
 }

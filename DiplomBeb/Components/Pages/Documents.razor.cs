@@ -29,7 +29,6 @@ public partial class Documents : ComponentBase
         InUpload = false;
         StateHasChanged();
     }
-
     private void ClearUploader()
     {
         ImgData = "images/img-doc.svg";
