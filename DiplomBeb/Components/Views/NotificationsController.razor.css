@@ -13,3 +13,66 @@
     z-index: 2;
     pointer-events: auto;
 }
+
+.window {
+    background-color: var(--color-light);
+    padding: 1rem 4rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+    border: 0.25rem solid var(--notification-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 60vw;
+    min-width: 300px;
+    overflow: hidden;
+    z-index: 2;
+    pointer-events: auto;
+    position: relative;
+    transform: translateY(-100rem);
+    
+}
+.anim {
+    animation:
+            fadeInSlideDown 0.6s ease-out forwards,
+            fadeOutSlideUp 0.6s ease-in 5s forwards;
+}
+
+/* Анимация появления */
+@keyframes fadeInSlideDown {
+    from {
+        transform: translateY(-100rem);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Анимация исчезновения: слайд вверх + исчезновение */
+@keyframes fadeOutSlideUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-100rem);
+        opacity: 0;
+    }
+}
+
+.window h3 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-text4);
+    padding: 0 1rem;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    width: 100%;
+}

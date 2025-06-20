@@ -3,7 +3,7 @@ namespace DiplomBeb.Services.Client;
 public class NotificationService
 {
     public Queue<string> Notifications { get; private set; }
-    public Action OnNewNotification { get; set; }
+    public Func<Task>? OnNewNotification { get; set; }
     
     public NotificationService()
     {
