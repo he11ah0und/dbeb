@@ -1,38 +1,38 @@
-.container-list-2 {
-    display: flex;
-    flex-direction: column;
+.awards-scroll-container {
+    height: 100%;
+    padding: 1rem;
     overflow-y: auto;
-    border-radius: 0.625rem;
-    background-color: var(--color-light);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin-bottom: 2rem;
+}
+
+.awards-scroll-container::-webkit-scrollbar {
+    display: none;
+    width: 0;
 }
 
 .awards-grid {
+    height: max-content;
     display: grid;
+    justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    padding: 1rem;
     gap: 2rem;
 }
 
-.aeae {
-    display: flex;
-    flex-direction: column; 
-    justify-content: center; 
-    height: 100%;
+.document {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
 }
 
 .arnold {
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-height: 100%;
 }
 
-.awards-scroll-container {
-    overflow-y: auto; 
-    scrollbar-width: none; 
-    -ms-overflow-style: none; 
-}
 
-.awards-scroll-container::-webkit-scrollbar {
-    display: none; 
-    width: 0; 
-}

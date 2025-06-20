@@ -34,6 +34,7 @@
     border-top-left-radius: 0.625rem;
     border-top-right-radius: 0.625rem;
     flex: 1;
+    height: 100%;
     overflow: hidden;
     flex-basis: auto;
     overflow-y: auto;

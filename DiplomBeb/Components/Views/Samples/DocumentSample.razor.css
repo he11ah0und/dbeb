@@ -1,14 +1,12 @@
 /* awards cell */
 
 @media (max-width: 768px) {
-    .awards-cell,
     .rating-award {
         flex: 1 1 calc(50% - 0.75rem); /* 2 элемента в строке */
     }
 }
 
 @media (max-width: 480px) {
-    .awards-cell,
     .rating-award {
         flex: 1 1 100%; /* 1 элемент в строке */
     }
@@ -23,13 +21,14 @@
 }
 
 .rating-award {
+    max-height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     gap: 0.5rem;
     margin-top: 1rem;
-    flex: 1 1 calc(25% - 0.75rem);
+    
 }
 
 h4 {
