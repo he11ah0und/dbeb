@@ -5,6 +5,7 @@ namespace DiplomBeb.Components.Views;
 
 public partial class SideBar
 {
+    
     [Inject] 
     private AccountService AccountService { get; set; }
     
@@ -52,3 +53,4 @@ public partial class SideBar
     private void GoToModDocs() => Navigation.NavigateTo("/special/docs");
     private void GoToModRequests() => Navigation.NavigateTo("/special/requests");
 }
+

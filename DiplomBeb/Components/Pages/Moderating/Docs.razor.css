@@ -170,6 +170,29 @@
     color: var(--color-text16);
 }
 
+.footer select {
+    content: "";
+    border-radius: .625rem;
+    padding: 0.125rem 2rem;
+    opacity: 1;
+    height: 2.6rem;
+    text-align: center;
+    max-width: max-content;
+    font-weight: 500;
+    font-size: 1.125rem;
+    border: 0.14rem solid var(--color-text13);
+    color: var(--color-text13);
+    transition: opacity 0.3s ease;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
+}
+
+.footer option {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: var(--color-text13);
+}
+
 .image-title {
     background-color: var(--color3);
     border-radius: .625rem;
