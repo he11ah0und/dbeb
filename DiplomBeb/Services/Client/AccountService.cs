@@ -14,7 +14,6 @@ public class AccountService
 {
     public bool Initialized { get; private set; }
     public ListElement? Account => MyListView.Data.FirstOrDefault();
-    public ListElement UserRank { get; private set; }
     public bool IsLogged { get; private set; }
     
     internal ListView MyListView { get; private set; }
@@ -28,7 +27,6 @@ public class AccountService
         _http = http;
         Initialized = false;
         StateChanged = new Callbacker<Action>(false);
-        UserRank = new ListElement();
         IsLogged = false;
         MyListView = new ListView(http, typeof(TableContent),1, false)
         {
@@ -57,11 +55,7 @@ public class AccountService
         if (!await MyListView.First(1)
             || MyListView.Data.LongLength == 0)
             return End(false);
-        var res = await _http.Request($"Users/toppos/{Account.Get("id")}");
-        if (!res.IsOk || !res.ResultAsJson<ListElement>(out var rank))
-            return End(false);
         
-        UserRank = rank;
         IsLogged = true;
         return End(true);
 
