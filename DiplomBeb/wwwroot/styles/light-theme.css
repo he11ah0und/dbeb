@@ -1,0 +1,82 @@
+﻿:root {
+    /*Основные цвета*/
+    --main: #1C4A90;
+    --container: #FFFFFF;
+    --header: #182D4E;
+
+    /*Цвета текста в sidebar*/
+    --text-title: #182D4E;
+    --text-logo: #1C4A90;
+    --text-menu: #2D456C;
+    --text-name-prof: #000000;
+    --text-rol-prof: #B4B4B4;
+
+    /*Цвета текста в place-container на глав.странице*/
+    --text-title-place-container: #182D4E;
+    --text-rating: #F6A401;
+
+    /*Цвета текста в about-container на глав.странице*/
+    --text-title-about-container: #868686;
+    --text-lists-links: #4E4DB2;
+
+    /*Цвета текста в middle (список людей)*/
+    --text-title-middle: #2D456C;
+    --text-id-middle: #000000;
+    --text-name-middle: #000000;
+    --text-rol-middle: #B4B4B4;
+    --text-rating-middle: #B4B4B4;
+
+    /*Цвета кнопок в footer (панель пролист.страниц)*/
+    --button-footer: #4467A2;
+
+    /*Цвета фильтров*/
+    --container-filter: #EFEFEF;
+    --text-title-filter: #000000;
+    --text-filter: #1C4A90;
+
+    /*Цвета чекбоксов*/
+    --checkbox-to: #FFFFFF;
+    --checkbox-after: #1C4A90;
+    --checkbox-to-border: #8D8D8D;
+    --checkbox-after-border: #1C4A90;
+    --checkbox-check-mark: #EFEFEF;
+
+    /*Цвета текста на странице описания*/
+    --text-about: #000000;
+
+    /*Цвета на странице профиля*/
+    --text-name-profile: #000000;
+    --text-span-profile: #606060;
+    --text-place-profile-to: #4467A2;
+    --text-place-profile-after: #182D4E;
+    --input-text-profile: #606060;
+    --button-border-text-change-profile: #4E4DB2;
+    --button-border-text-exit-profile: #C33C3C;
+
+    /*Цвета в middle (список достижений)*/
+    --container-achiev: #C5C5C5;
+    --text-alert-rating-achiev: #686363;
+    --text-name-achiev: #000000;
+
+    /*Цвета на странице ред.достижений*/
+    --button-text-download-send-edit-achiev: #182D4E;
+    --button-text-delete-edit-achiev: #C33C3C;
+
+    /*Цвета в окне доб.дост. на странице ред.достижений*/
+    --container-window-edit-achiev: #A2B3D1;
+    --text-window-edit-achiev: #182D4E;
+    --input-window-edit-achiev: #FFFFFF;
+    --input-text-window-edit-achiev: #000000;
+    --input-border-window-edit-achiev: #868686;
+    --button--text-review-window-send-edit-achiev: #182D4E;
+    --button--text-window-send-edit-achiev: #4E4DB2;
+
+    /*Цвета в place-container в модерации*/
+    --container-title-mod: #EFEFEF;
+    --text-title-mod: #2D456C;
+    --text-name-mod: #000000;
+    --text-span-mod: #606060;
+    --input-text-mod: #606060;
+    --select--text-mod: #606060;
+    
+}

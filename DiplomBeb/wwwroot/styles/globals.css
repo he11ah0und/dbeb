@@ -12,78 +12,9 @@ body {
     height: 100%;
 }
 
-:root {
-    --color-dark: #000000;
-    --color-light: #FFFFFF;
-    --always-light: #FFFFFF;
-    --color-text1: #182D4E;
-    --color-text2: #4467A2;
-    --color-text3: #000000;
-    --color-text4: #686363;
-    --color-text5: #787878;
-    --color-text6: #2D456C;
-    --color-text7: #F6A401;
-    --color-text8: #868686;
-    --color-text9: #4E4DB2;
-    --color-text10: #C33C3C;
-    --color-text11: #2959A3;
-    --color-text12: #FFFFFF;
-    --color-text13: #606060;
-    --color-text14: #8D8D8D;
-    --color-text15: #2A4459;
-    --color-text16: #1A3156; 
-    --color-text17: #005CE0;
-    --color-text18: #B4B4B4;
-    --color-text19: #908FE3;
-    --dlya-polei: #8D8D8D;
-    --color2: #A2B3D1;
-    --color3: #B4B4B4;
-    --color4: #C5C5C5;
-    --color5: #EFEFEF;
-    --color6: #F2F2F3;
-    --color7: #4467A2;
-    --color8: #B2A978;
-    --color9: #1C4A90;
-    --main-color: #5785CB;
-    --notification-color: #bed6ff;
-    --input: #F7F7FD;
-}
 
-.dark {
-    --color-dark: #FFFFFF;
-    --color-light: #1b1b1b;
-    --always-light: #FFFFFF;
-    --color-text1: #97b5e5;
-    --color-text2: #4467A2;
-    --color-text3: #FFFFFF;
-    --color-text4: #bebebe;
-    --color-text5: #bababa;
-    --color-text6: #5987d2;
-    --color-text7: #ffaa00;
-    --color-text8: #cbcbcb;
-    --color-text9: #7170b8;
-    --color-text10: #C33C3C;
-    --color-text11: #2959A3;
-    --color-text12: #000000;
-    --color-text13: #606060;
-    --color-text14: #8D8D8D;
-    --color-text15: #2A4459;
-    --color-text16: #1A3156;
-    --color-text17: #005CE0;
-    --color-text18: #B4B4B4;
-    --color-text19: #908FE3;
-    --dlya-polei: #97b5e5;
-    --color2: #A2B3D1;
-    --color3: #B4B4B4;
-    --color4: #C5C5C5;
-    --color5: #EFEFEF;
-    --color6: #F2F2F3;
-    --color7: #4467A2;
-    --color8: #B2A978;
-    --main-color: #353D4B;
-    --notification-color: #a7c9ff;
-    --input: #F7F7FD;
-}
+
+
 
 /*Общие настройки всех страниц*/
 button {
