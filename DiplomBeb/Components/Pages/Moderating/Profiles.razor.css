@@ -262,7 +262,7 @@ main > div > div:nth-child(2) {
     text-align: center;
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--text-dark-blue);
+    color: var(--text-blue);
     padding: 0 1rem;
 }
 

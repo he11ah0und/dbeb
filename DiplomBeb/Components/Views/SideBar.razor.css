@@ -13,7 +13,7 @@
     align-items: center;
     text-align: center;
     padding: 1rem;
-    color: var(--text-blue);
+    color: var(--main);
     font-size: 1.88rem;
     font-weight: 600;
 }
@@ -34,7 +34,7 @@
 .navigation > li > button {
     display: flex;
     align-items: center;
-    color: var(--text-pale-blue);
+    color: var(--text-blue);
     gap: .625rem;
     padding: 0.6rem 1.88rem;
     font-weight: 600;
@@ -71,7 +71,7 @@
 .profile h4 {
     font-weight: 600;
     font-size: 0.875rem;
-    color: var(--text-light-gray);
+    color: var(--text-gray);
 }
 
 .spec-side {

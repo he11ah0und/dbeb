@@ -11,13 +11,13 @@
     font-size: 1.1rem;
 
     background-color: var(--container);
-    color: var(--text-dark-blue);
+    color: var(--text-blue);
 }
 
 .container-list {
     display: flex;
     flex-direction: column;
-    overflow-y: auto; /*++++*/
+    overflow-y: auto;
     border-radius: 0.625rem;
     background-color: var(--container);
 }

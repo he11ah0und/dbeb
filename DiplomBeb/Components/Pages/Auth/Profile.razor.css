@@ -151,7 +151,7 @@
 }
 
 .list-line button:hover {
-    color: var(--text-dark-blue); 
+    color: var(--text-blue); 
 }
 
 .edit-fields {

@@ -125,7 +125,7 @@
     text-align: center;
     font-weight: 700;
     font-size: 2rem;
-    color: var(--text-dark-blue);
+    color: var(--text-blue);
 }
 
 .footer {
@@ -166,7 +166,7 @@
 
 .reject {
     border: 0.14rem solid var(--border6);
-    color: var(--text-dark-blue);
+    color: var(--text-blue);
 }
 
 .footer select {
@@ -271,7 +271,7 @@
     text-align: center;
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--text-dark-blue);
+    color: var(--text-blue);
     padding: 0 1rem;
 }
 
@@ -382,7 +382,7 @@
     text-align: center;
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--text-dark-blue);
+    color: var(--text-blue);
     padding: 0 1rem;
 }
 

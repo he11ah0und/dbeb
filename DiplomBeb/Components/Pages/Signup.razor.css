@@ -91,7 +91,7 @@ main .heading > div {
 main .heading > div > h1 {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--text-dark-blue);
+    color: var(--text-blue);
     margin: 0;
     text-align: center;
 }

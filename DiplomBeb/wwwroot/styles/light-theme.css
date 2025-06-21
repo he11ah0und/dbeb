@@ -5,7 +5,7 @@
     --container2: #EFEFEF;
     --container3: #A2B3D1;
     --container4: var(--header);
-    --header: #182D4E;
+    --header: #2D456C;
     --transparent: #ffffff00;
     --shadow: rgba(0, 0, 0, 0.15);
     --shadow2: rgba(51, 90, 175, 0.73);
@@ -14,12 +14,9 @@
     /*Цвета текста*/
     --text-white: #FFFFFF;
     --text-black: #000000;
-    --text-dark-blue: var(--header);
-    --text-blue: #4467A2;
-    --text-pale-blue: #2D456C;
-    --text-pale-blue2: rgba(51, 90, 175, 0.2);
-    --text-light-gray: #B4B4B4;
-    --text-gray: #868686;
+    --text-blue: var(--header);
+    --text-blue2: rgba(51, 90, 175, 0.2);
+    --text-gray: #686363;
     --text-yellow: #F6A401;
     --tex-red:#C33C3C;
     --text-purple: #4E4DB2;
@@ -31,7 +28,7 @@
     /*Цвета чекбоксов*/
     --checkbox-to: #FFFFFF;
     --checkbox-after: var(--text-blue);
-    --checkbox-to-border: #8D8D8D;
+    --checkbox-to-border: var(--text-gray);
     --checkbox-after-border: var(--text-blue);
     --checkbox-check-mark: #EFEFEF;
 
