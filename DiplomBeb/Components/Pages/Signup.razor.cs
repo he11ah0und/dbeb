@@ -53,6 +53,7 @@ public partial class Signup : ComponentBase
         li.Set("surname", Surname);
         li.Set("name", Name);
         li.Set("middlename", Middlename);
+        li.Set("email", Email);
         li.Set("password", Password);
         li.Set("confirmPassword", ConfirmPassword);
         li.Set("confirmed", Confirmed);

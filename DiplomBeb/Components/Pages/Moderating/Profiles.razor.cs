@@ -58,7 +58,7 @@ public partial class Profiles : ComponentBase
             newLe.Set("surname", Surname);
             newLe.Set("middlename", Middlename);
             if (!await AccountService.Update(newLe, ulong
-                .Parse(selected.Get("id", "0"))))
+                .Parse(selected.Get("internalId", "0"))))
                 NotificationService
                     .AddNotification($"Ошибка обновления данных пользователя: " +
                                                     $"id: {selected.Get("id")} " +

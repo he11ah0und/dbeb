@@ -128,9 +128,9 @@ namespace dserver.Controllers
                 .Include(u => u.WebRole)
                 .Include(u => u.Documents)
                 .Include(u => u.Place)
+                .Where(a => a.Id == authedId)
                 .Select(u => new User
                 {
-                    Id = u.Id,
                     Score = u.Score,
                     Surname = u.Surname,
                     Name = u.Name,
@@ -142,9 +142,32 @@ namespace dserver.Controllers
                     WebRole = u.WebRole,
                     ApiRole = u.ApiRole
                 })
-                .Where(a => a.Id == authedId)
                 .Cast<ListElement>()
                 .ToArray();
+            
+            var userWithRank = _context.Set<UserRank>()
+                .FromSqlRaw("""
+                                    SELECT id, score, position
+                                    FROM (
+                                        SELECT 
+                                            id, 
+                                            score, 
+                                            ROW_NUMBER() OVER (ORDER BY score DESC) AS position
+                                        FROM digitalpass.users
+                                    ) AS ranked_users
+                                    WHERE id = {0}
+                            """, authedId)
+                .Select(u => new UserRank
+                {
+                    Id = u.Id,
+                    Score = u.Score,
+                    Position = u.Position
+                })
+                .Cast<ListElement>()
+                .FirstOrDefault();
+            
+            devs[0].Set("id", userWithRank.Get("pos"));
+            
             return Ok(devs);
         }
         [AuthFilter("user")]
@@ -184,7 +207,7 @@ namespace dserver.Controllers
                 .Select(
                     x => 
                         new User
-                        {   
+                        {   Id = x.Id,
                             Name = x.Name,
                             Middlename = x.Middlename,
                             Surname = x.Surname,
@@ -198,32 +221,31 @@ namespace dserver.Controllers
                 .ToArray();
 
             for (var i = 0; i < take; i++)
+            {
+                devs[i].Set("internalId", devs[i].Get("id"));
                 devs[i].Set("id", i + 1 + skip);
+            }
             
             return Ok(devs);
         }
         
         [AuthFilter("admin")]
         [HttpPatch("personal/{id}")] // update profile
-        public async Task<IActionResult> PatchPersonal(
+        public async Task<IActionResult> PatchUser(
             ulong id,
             ListElement li)
         {
-            var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
-            var authedUser = _context.Users
-                .Include(u => u.ApiRole)
-                .SingleOrDefault(a => a.Id == authedId);
-
-            if (authedId != id && authedUser?.ApiRole?.Name != "admin")
+            var user = _context.Users.SingleOrDefault(u => u.Id == id);
+            if (user is null)
                 return Ok(false);
 
-            authedUser.Email = li.Get("email", authedUser.Email);
-            if (ulong.TryParse(li.Get("phone", authedUser.Phone.ToString()), out var phone))
-                authedUser.Phone = phone;
+            user.Email = li.Get("email", user.Email);
+            if (ulong.TryParse(li.Get("phone", user.Phone.ToString()), out var phone))
+                user.Phone = phone;
             
-            authedUser.Name = li.Get("name", authedUser.Name);
-            authedUser.Surname = li.Get("surname", authedUser.Surname);
-            authedUser.Middlename = li.Get("middlename", authedUser.Middlename);
+            user.Name = li.Get("name", user.Name);
+            user.Surname = li.Get("surname", user.Surname);
+            user.Middlename = li.Get("middlename", user.Middlename);
 
             await _context.SaveChangesAsync();
             

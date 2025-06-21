@@ -13,7 +13,6 @@ public partial class Docs : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         AccountService.StateChanged.Subscribe("404", OnLoaded);
-        
     }
     private void OnLoaded()
     {

@@ -30,7 +30,6 @@ public class ModerController : ControllerBase
             return NoContent();
         
         var result = new ListElement();
-        result.Set("state", false);
         result.Set("hasWork", false);
         var now  = DateTime.UtcNow;
         var current = _context.ReservedDocuments
@@ -82,8 +81,7 @@ public class ModerController : ControllerBase
         // processing document
         result.Set("documentId", current.Document.Id);
         result.Set("documentName", current.Document.Name);
-
-        result.Set("state", true);
+        
         return Ok(result);
     }
 

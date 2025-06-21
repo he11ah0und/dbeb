@@ -12,8 +12,12 @@ public class ModerationService
     public ListElement? SelectedUser { get; private set; }
     public ListView LogsListView { get; private set; }
     public ListElement? SelectedLog { get; private set; }
-    public Callbacker<Action> OnSelectedLog { get; set; }
-    public Callbacker<Action> OnSelectedUser { get; set; }
+    public Callbacker<Action> OnSelectedLog { get; private set; }
+    public Callbacker<Action> OnSelectedUser { get; private set; }
+    
+    public ListElement? ProcessDocument { get; private set; }
+    public Callbacker<Action> OnRequestDocument { get; private set; }
+    
     private BackendHttpClient _backendHttpClient;
     public ModerationService(BackendHttpClient http)
     {
@@ -51,6 +55,8 @@ public class ModerationService
             SelectedUser = element;
             OnSelectedUser.InvokeAll();
         });
+
+        OnRequestDocument = new Callbacker<Action>(false);
     }
     private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)
     {
@@ -72,8 +78,33 @@ public class ModerationService
         return http.Request("Logs/total");
     }
 
-    public void RequestDocumentForModeration()
+    public async Task<bool> RequestDocumentForModeration()
     {
+        var res = await _backendHttpClient.Request("Moder/document");
+        if (!res.IsOk || !res.ResultAsJson<ListElement>(out var result))
+            return false;
         
+        ProcessDocument = result;
+        
+        OnRequestDocument.InvokeAll();
+        return true;
+    }
+    
+    public async Task<bool> AcceptDocumentFromModeration(ulong documentId, bool accepted)
+    {
+        var req = new ListElement();
+        req.Set("state", accepted);
+        req.Set("documentTypeId", accepted);
+        var res = await _backendHttpClient
+            .Request("Moder/document/accept",
+                JsonContent.Create(req),
+                HttpMethod.Post);
+        if (!res.IsOk || !res.ResultAsJson<ListElement>(out var result))
+            return false;
+        
+        ProcessDocument = result;
+        
+        OnRequestDocument.InvokeAll();
+        return true;
     }
 }
