@@ -83,10 +83,10 @@ public class AccountService
         return await Auth();
     }
 
-    public async Task<bool> Update(ListElement li)
+    public async Task<bool> Update(ListElement li, ulong id = 0)
     {
         var res = await _http.Request(
-            "Users/personal",
+            "Users/personal" + (id > 0 ? $"/{id}" : ""),
             JsonContent.Create(li),
             HttpMethod.Patch);
         return res.IsOk;

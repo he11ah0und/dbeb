@@ -22,7 +22,7 @@
         var listElement = ListView.Data[io];
         var hasId = ListView.DataResolver.Props.Contains("id");
         var idInLe = string.IsNullOrEmpty(listElement.Get("id"));
-        if (hasId && !idInLe)
+        if (!hasId && idInLe)
         {
             listElement.Set("id", i);
         }

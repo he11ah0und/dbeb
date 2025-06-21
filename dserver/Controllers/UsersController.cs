@@ -52,7 +52,7 @@ namespace dserver.Controllers
             for (var i = 0; i < dco; i++)
             {
                 var user = users[i];
-                user.Set("id", i + 1);
+                user.Set("id", skip + (ulong)i + 1);
             }
             return Ok(users);
         }
@@ -178,11 +178,13 @@ namespace dserver.Controllers
             var devs = _context.Users
                 .Include(x => x.WebRole)
                 .Include(x => x.Place)
+                .OrderBy(u => u.Surname)
+                .Skip((int)skip)
+                .Take((int)take)
                 .Select(
                     x => 
                         new User
                         {   
-                            Id = x.Id,
                             Name = x.Name,
                             Middlename = x.Middlename,
                             Surname = x.Surname,
@@ -192,11 +194,12 @@ namespace dserver.Controllers
                             Email = x.Email,
                             Place = x.Place,
                         })
-                .OrderByDescending(u => u.Id)
-                .Skip((int)skip)
-                .Take((int)take)
                 .Cast<ListElement>()
                 .ToArray();
+
+            for (var i = 0; i < take; i++)
+                devs[i].Set("id", i + 1 + skip);
+            
             return Ok(devs);
         }
         
@@ -211,7 +214,7 @@ namespace dserver.Controllers
                 .Include(u => u.ApiRole)
                 .SingleOrDefault(a => a.Id == authedId);
 
-            if (authedId != id && authedUser?.ApiRole?.Name == "admin")
+            if (authedId != id && authedUser?.ApiRole?.Name != "admin")
                 return Ok(false);
 
             authedUser.Email = li.Get("email", authedUser.Email);

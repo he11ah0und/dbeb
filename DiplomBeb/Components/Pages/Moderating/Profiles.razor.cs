@@ -26,6 +26,8 @@ public partial class Profiles : ComponentBase
     private AccountService AccountService { get; set; }
     [Inject]
     private NavigationManager Navigation { get; set; }
+    [Inject]
+    private NotificationService NotificationService { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -48,13 +50,19 @@ public partial class Profiles : ComponentBase
         }
         else if (InEdit)
         {
+            var selected = ModerationService.SelectedUser;
             var newLe = new ListElement();
             newLe.Set("phone", Phone);
             newLe.Set("email", Email);
             newLe.Set("name", Name);
             newLe.Set("surname", Surname);
             newLe.Set("middlename", Middlename);
-          //  await AccountService.Update(newLe);
+            if (!await AccountService.Update(newLe, ulong
+                .Parse(selected.Get("id", "0"))))
+                NotificationService
+                    .AddNotification($"Ошибка обновления данных пользователя: " +
+                                                    $"id: {selected.Get("id")} " +
+                                                    $"{selected.Get("surname")} {selected.Get("name")} {selected.Get("middlename")}");
             InEdit = false;
         }
         StateHasChanged();
@@ -103,6 +111,7 @@ public partial class Profiles : ComponentBase
     }
     private void ShowRequester()
     {
+        
         InRequest = true;
         StateHasChanged();
     }

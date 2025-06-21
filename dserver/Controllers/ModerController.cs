@@ -1,5 +1,5 @@
 ﻿using dserver.Database;
-using dserver.Database.Model.SubTypes;
+using dserver.Database.Model;
 using dserver.Filters;
 using dshared.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -23,38 +23,55 @@ public class ModerController : ControllerBase
     public async Task<IActionResult> ReserveDocumentToModeration()
     {
         var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
-
+        
+        if (_context.Users
+                .Include(u => u.ApiRole)
+                .SingleOrDefault(u => u.Id == authedId) is not User authedUser)
+            return NoContent();
+        
         var result = new ListElement();
         result.Set("state", false);
         result.Set("hasWork", false);
         var now  = DateTime.UtcNow;
-        KeyValuePair<ulong, ReservationDocument>? pair = _context.TempReservedDocumentPerModerator
-            .SingleOrDefault(p => p.Value.ModerId == authedId && p.Value.Expire < now);
+        var current = _context.ReservedDocuments
+            .Include(p => p.Moder)
+            .Include(rd => rd.Document)
+            .SingleOrDefault(p => p.Moder.Id == authedId && p.Expire < now);
         
         // assignating document to moderator
-        if (pair is null)
+        if (current is null)
         {
             // process old
-            var old = _context.TempReservedDocumentPerModerator
-                .SingleOrDefault(p => p.Value.ModerId == authedId && p.Value.Expire >= now);
-            _context.TempReservedDocumentPerModerator.Remove(old.Key);
-            
-            // getting new
-            /*
+            var old = _context.ReservedDocuments
+                .Include(p => p.Moder)
+                .SingleOrDefault(p => p.Moder.Id == authedId && p.Expire >= now);
+            if (old is not null)
+            {
+                _context.ReservedDocuments.Remove(old);
+                await _context.SaveChangesAsync();
+            }
 
+            // getting new
+            var q1 = _context.Documents
+                .Intersect(_context.ReservedDocuments
+                    .Select(rd => rd.Document));
             if (q1.Any())
             {
-                var documents = q1.ToArray()
-                    .Where(d => !_context.TempReservedDocumentPerModerator.ContainsKey(d.Id));
-
-                if (documents.Any())
+                if (q1.Any())
                 {
                     result.Set("hasWork", true);
 
-                    var doc = documents.First();
-                    _context.TempReservedDocumentPerModerator.Add(doc.Id, new ReservationDocument(authedId));
+                    var doc = q1.First();
+                    _context.ReservedDocuments.Add(
+                        new ReservedDocument()
+                        {
+                            Document = doc,
+                            Moder = authedUser,
+                            Expire = now + TimeSpan.FromMinutes(20),
+                        });
+                    await _context.SaveChangesAsync();
                 }
-            }*/
+            }
         }
         else
         {
@@ -63,23 +80,50 @@ public class ModerController : ControllerBase
         }
         
         // processing document
-        result.Set("documentId",  pair?.Key);
+        result.Set("documentId", current.Document.Id);
+        result.Set("documentName", current.Document.Name);
 
         result.Set("state", true);
         return Ok(result);
     }
 
     [AuthFilter("moderator")]
-    [HttpGet("document/accept")]
-    public async Task<IActionResult> AcceptDocument()
+    [HttpPost("document/accept")]
+    public async Task<IActionResult> AcceptDocument([FromBody] ListElement data)
     {
-        return Ok();
-    }
-    
-    [AuthFilter("moderator")]
-    [HttpGet("document/deny")]
-    public async Task<IActionResult> DenyDocument()
-    {
-        return Ok();
+        var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
+        
+        if (_context.Users
+                .Include(u => u.ApiRole)
+                .SingleOrDefault(u => u.Id == authedId) is not User authedUser)
+            return NoContent();
+        
+        var now  = DateTime.UtcNow;
+        var current = _context.ReservedDocuments
+            .Include(p => p.Moder)
+            .Include(rd => rd.Document)
+            .SingleOrDefault(p => p.Moder.Id == authedId && p.Expire < now);
+
+        var state = bool.Parse(data.Get("state", "false"));
+        if (!state)
+            return Ok(false);
+        
+        var documentTypeId = ulong.Parse(data.Get("documentTypeId", "0"));
+        if (!_context.DocumentTypes.Any(t => t.Id == documentTypeId))
+            return Ok(false);
+        
+        current.Document.DocumentType = _context.DocumentTypes.SingleOrDefault(dt => dt.Id == documentTypeId);
+
+        _context.ModeratedDocuments.Add(new ModeratedDocument()
+        {
+            Document = current.Document,
+            Moder = authedUser,
+            DateTime = now,
+        });
+        
+        _context.ReservedDocuments.Remove(current);
+        await _context.SaveChangesAsync();
+        
+        return Ok(true);
     }
 }

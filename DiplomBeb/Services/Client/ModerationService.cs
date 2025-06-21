@@ -14,8 +14,10 @@ public class ModerationService
     public ListElement? SelectedLog { get; private set; }
     public Callbacker<Action> OnSelectedLog { get; set; }
     public Callbacker<Action> OnSelectedUser { get; set; }
+    private BackendHttpClient _backendHttpClient;
     public ModerationService(BackendHttpClient http)
     {
+        _backendHttpClient = http;
         UsersListView = new ListView(http, typeof(TableContent))
         {
             OnTotal = RequestUsersTotal,
@@ -68,5 +70,10 @@ public class ModerationService
     private Task<HttpResponseState> RequestLogsTotal(BackendHttpClient http)
     {
         return http.Request("Logs/total");
+    }
+
+    public void RequestDocumentForModeration()
+    {
+        
     }
 }

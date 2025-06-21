@@ -1,5 +1,4 @@
 ﻿using dserver.Database.Model;
-using dserver.Database.Model.SubTypes;
 using Microsoft.EntityFrameworkCore;
 
 namespace dserver.Database
@@ -9,7 +8,7 @@ namespace dserver.Database
         public MainDBContext(DbContextOptions<MainDBContext> options)
             : base(options)
         {
-            TempReservedDocumentPerModerator = [];
+            
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,7 +27,7 @@ namespace dserver.Database
         
         public DbSet<Request> Requests { get; set; }
         public DbSet<ModeratedDocument> ModeratedDocuments { get; set; }
-        public Dictionary<ulong, ReservationDocument> TempReservedDocumentPerModerator { get; set; }
+        public DbSet<ReservedDocument> ReservedDocuments { get; set; }
         
         public DbSet<Token> Tokens { get; set; }
         
