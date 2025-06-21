@@ -1,4 +1,5 @@
-﻿using dserver.Database;
+﻿using System.Linq.Expressions;
+using dserver.Database;
 using dserver.Database.Model;
 using dserver.Filters;
 using dshared.Utils;
@@ -95,43 +96,72 @@ namespace dserver.Controllers
             List<ListElement> docs = [];
             if (filters.LongLength == 0)
             {
-                var moderatedDocuments = _context.ModeratedDocuments
+                 var q1 = _context.ModeratedDocuments
                     .Include(md => md.Document)
-                    .ThenInclude(d => d.User)
-                    .Include(md =>  md.Document)
-                    .ThenInclude(d => d.DocumentType)
+                    .Include(md => md.Document.DocumentType)
+                    .Include(md => md.Document.User)
                     .Where(md => md.Document.User.Id == authedUser.Id)
                     .Skip((int)skip)
                     .Take((int)take)
                     .ToArray();
 
+                var moderatedDocuments = q1.ToArray();
                 var mdco = moderatedDocuments.LongLength;
                 for (var i = 0; i < mdco; i++)
                 {
                     var md = moderatedDocuments[i];
                     var doc = (ListElement)md.Document;
-                    doc.Set("cost", md.Document.DocumentType.Cost);
+                    if (md.State)
+                        doc.Set("cost", md.Document.DocumentType.Cost);
+                    doc.Set("moderated", md.State);
                     docs.Add(doc);
                 }
+
+                var docsf = Array.ConvertAll(_context.Documents
+                        .Include(d => d.User)
+                        .Include(d => d.DocumentType)
+                        .Where(d => d.User.Id == authedUser.Id)
+                        .ToArray()
+                        .Except(q1.Select(md => md.Document))
+                        .ToArray()
+                    , input => (ListElement)input);
                 
-                var docsf = _context.Documents
-                    .Include(d => d.User)
-                    .Where(d => d.User.Id == authedUser.Id)
-                    .Skip((int)skip)
-                    .Take((int)take)
-                    .Cast<ListElement>()
-                    .ToArray();
+                docs.AddRange(docsf);
             }
             else
             {
-                /*docs = _context.Documents
-                    .Include(d => d.DocumentType)
-                    .Include(d => d.User)
-                    .Where(d => d.User.Id == authedUser.Id && filters.Contains(d.DocumentType.Name))
+                var q1 = _context.ModeratedDocuments
+                    .Include(md => md.Document)
+                    .Include(md => md.Document.DocumentType)
+                    .Where(md => md.Document.User.Id == authedUser.Id 
+                                 && filters.Contains(md.Document.DocumentType.Name))
                     .Skip((int)skip)
-                    .Take((int)take)
-                    .Cast<ListElement>()
-                    .ToArray();*/
+                    .Take((int)take);
+                
+                var moderatedDocuments = q1.ToArray();
+                var mdco = moderatedDocuments.LongLength;
+                for (var i = 0; i < mdco; i++)
+                {
+                    var md = moderatedDocuments[i];
+                    var doc = (ListElement)md.Document;
+                    if (md.State)
+                        doc.Set("cost", md.Document.DocumentType.Cost);
+                    doc.Set("moderated", md.State);
+
+                    docs.Add(doc);
+                }
+                
+                var docsf = Array.ConvertAll(_context.Documents
+                        .Include(d => d.User)
+                        .Include(d => d.DocumentType)
+                        .Where(d => d.User.Id == authedUser.Id
+                                    && filters.Contains(d.DocumentType.Name))
+                        .ToArray()
+                        .Except(q1.Select(md => md.Document))
+                        .ToArray()
+                    , input => (ListElement)input);
+                
+                docs.AddRange(docsf);
             }
 
             return Ok(docs
