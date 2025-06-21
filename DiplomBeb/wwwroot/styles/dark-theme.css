@@ -1,4 +1,56 @@
 ﻿:root {
+    /*Основные цвета*/
     --main: #353D4B;
-    --container: #FFFFFF;
+    --container: #707070;
+    --container2: #EFEFEF;
+    --container3: #A2B3D1;
+    --container4: var(--header);
+    --header: #182D4E;
+    --transparent: #ffffff00;
+    --shadow: rgba(0, 0, 0, 0.15);
+    --shadow2: rgba(51, 90, 175, 0.73);
+    --liner: var(--text-gray);
+
+    /*Цвета текста*/
+    --text-white: #FFFFFF;
+    --text-black: #000000;
+    --text-dark-blue: var(--header);
+    --text-blue: #4467A2;
+    --text-pale-blue: #2D456C;
+    --text-pale-blue2: rgba(51, 90, 175, 0.2);
+    --text-light-gray: #B4B4B4;
+    --text-gray: #868686;
+    --text-yellow: #F6A401;
+    --tex-red:#C33C3C;
+    --text-purple: #4E4DB2;
+
+    /*Цвета полей ввода*/
+    --input: var(--container);
+    --input-placeholder: var(--text-gray);
+
+    /*Цвета чекбоксов*/
+    --checkbox-to: #FFFFFF;
+    --checkbox-after: var(--text-blue);
+    --checkbox-to-border: #8D8D8D;
+    --checkbox-after-border: var(--text-blue);
+    --checkbox-check-mark: #EFEFEF;
+
+    /*Цвет селекта*/
+    --select: var(--text-gray);
+
+    /*Цвет скролла*/
+    --scroll: var(--text-blue);
+
+    /*Цвет ссылки*/
+    --link: var(--text-purple);
+    --link1: #005CE0;
+
+    /*Цвета границ*/
+    --border: var(--main);
+    --border2: var(--container3);
+    --border3: var(--text-gray);
+    --border4: var(--tex-red);
+    --border5: var(--text-purple);
+    --border6: var(--text-dark-blue);
+
 }

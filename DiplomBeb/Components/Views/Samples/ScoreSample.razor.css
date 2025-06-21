@@ -7,5 +7,5 @@
 .stars-container h4 {
     margin: 0;
     font-size: 1.25rem;
-    color: var(--color-text4);
+    color: var(--text-gray);
 }

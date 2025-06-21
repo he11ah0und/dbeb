@@ -10,8 +10,8 @@
     font-weight: 700;
     font-size: 1.1rem;
 
-    background-color: var(--color-light);
-    color: var(--color-text1);
+    background-color: var(--container);
+    color: var(--text-dark-blue);
 }
 
 .container-list {
@@ -19,7 +19,7 @@
     flex-direction: column;
     overflow-y: auto; /*++++*/
     border-radius: 0.625rem;
-    background-color: var(--color-light);
+    background-color: var(--container);
 }
 
 .maxHeight {
@@ -42,7 +42,7 @@
     
     -ms-overflow-style: none;  
     scrollbar-width: thin;     
-    scrollbar-color: var(--main-color) transparent; 
+    scrollbar-color: var(--scroll) transparent; 
 }
 
 .wrapper::-webkit-scrollbar {
@@ -52,14 +52,14 @@
 }
 
 .wrapper::-webkit-scrollbar-thumb {
-    background-color: var(--main-color);
+    background-color: var(--scroll);
     border-radius: 10px; 
     border: 2px solid transparent;
     background-clip: content-box;
 }
 
 .wrapper::-webkit-scrollbar-thumb:hover {
-    background-color: #0097a7; 
+    background-color: var(--scroll); 
 }
 
 .footer {
@@ -67,10 +67,10 @@
     border-bottom-left-radius: 0.625rem;
     position: sticky;
     bottom: 0;
-    background-color: var(--color-light);
+    background-color: var(--container);
     padding: 1rem;
     z-index: 3;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -4px 6px var(--shadow);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -93,7 +93,7 @@
 
     font-weight: 700;
     font-size: 1.25rem;
-    color: var(--color-text2);
+    color: var(--text-blue);
 }
 
 .img-update {

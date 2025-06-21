@@ -2,13 +2,13 @@
 
 @media (max-width: 768px) {
     .rating-award {
-        flex: 1 1 calc(50% - 0.75rem); /* 2 элемента в строке */
+        flex: 1 1 calc(50% - 0.75rem);
     }
 }
 
 @media (max-width: 480px) {
     .rating-award {
-        flex: 1 1 100%; /* 1 элемент в строке */
+        flex: 1 1 100%; 
     }
 }
 
@@ -39,7 +39,7 @@ h4 {
     font-weight: 600;
     font-size: 1.1rem;
     text-align: center;
-    color: var(--color-text3);
+    color: var(--text-black);
 }
 
 h3 {
@@ -51,7 +51,7 @@ h3 {
     font-weight: 600;
     font-size: 1.1rem;
 
-    color: var(--color-text4);
+    color: var(--text-gray);
 }
 
 /* img */
@@ -63,7 +63,7 @@ h3 {
     left: 0;
     right: 0;
     bottom: 0;
-    border: 0.275rem solid var(--main-color);
+    border: 0.275rem solid var(--border);
     pointer-events: none;
     z-index: 1;
     box-sizing: border-box;
@@ -78,7 +78,7 @@ h3 {
     align-items: center; 
     justify-content: center; 
     border-radius: 0.625rem;
-    background-color: var(--color4);
+    background-color: var(--container);
     overflow: hidden;
 }
 
@@ -97,8 +97,8 @@ h3 {
     -moz-appearance: none;
     width: 2rem;
     height: 2rem;
-    background: var(--color-light);
-    border: 2px solid var(--color4);
+    background: var(--checkbox-to);
+    border: 2px solid var(--checkbox-to-border);
     border-radius: 0.375rem;
     cursor: pointer;
     z-index: 2;
@@ -106,8 +106,8 @@ h3 {
 }
 
 .img .checkbox:checked {
-    background: var(--main-color);
-    border-color: var(--main-color);
+    background: var(--checkbox-after);
+    border-color: var(--checkbox-after-border);
 }
 
 .img .checkbox:checked::before {
@@ -118,7 +118,7 @@ h3 {
     transform: translate(-50%, -50%) rotate(-45deg);
     width: 0.8rem;
     height: 0.4rem;
-    border: 2px solid white;
+    border: 2px solid var(--checkbox-check-mark);
     border-top: none;
     border-right: none;
 }

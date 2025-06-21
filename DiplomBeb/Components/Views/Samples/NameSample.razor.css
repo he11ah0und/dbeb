@@ -1,19 +1,19 @@
 .name h4 {
     margin: 0;
     font-size: 1.25rem;
-    color: var(--color-text3);
+    color: var(--text-black);
 }
 
 .name a {
     margin: 0;
     font-size: 1.25rem;
-    color: var(--color-text3);
+    color: var(--text-black);
 }
 
 .name p {
     margin: 0.25rem 0 0 0;
     font-size: 1rem;
-    color: var(--color-text4);
+    color: var(--text-gray);
 }
 
 .name {

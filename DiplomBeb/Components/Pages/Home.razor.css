@@ -38,7 +38,7 @@
 }
 
 .place-container {
-    background-color: var(--color-light);
+    background-color: var(--container);
     border-radius: .625rem;
     padding: 2rem;
     margin-top: 4.5rem;
@@ -50,12 +50,12 @@
     text-align: center;
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--color-text6);
+    color: var(--text-dark-blue);
 }
 
 .about-container {
     padding: 1.5rem;
-    background-color: var(--color-light);
+    background-color: var(--container);
     border-radius: .625rem;
 }
 
@@ -63,17 +63,13 @@
     padding: 0.4rem .5rem;
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--color-text8);
-}
-
-.about-container .gray {
-    color: var(--color-text8);
+    color: var(--text-gray);
 }
 
 .about-container li > a {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--color-text9);
+    color: var(--link);
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2; 
@@ -87,19 +83,8 @@
 }
 
 .place-number {
-    color: var(--color-text7);
+    color: var(--text-yellow);
     font-size: 2.2rem;
-}
-
-.container-list {
-    display: flex;
-    flex-direction: column; 
-    height: 100%; 
-    margin-top: 1.5rem;
-
-    border-radius: .625rem;
-    overflow: hidden;
-    background-color: var(--color-light);
 }
 
 .container-current {
@@ -108,5 +93,5 @@
     margin-top: 1.5rem;
 
     border-radius: .625rem;
-    background-color: var(--color-light);
+    background-color: var(--container);
 }

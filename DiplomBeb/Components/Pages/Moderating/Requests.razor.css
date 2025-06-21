@@ -34,7 +34,7 @@ main > div > div:nth-child(2) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: var(--color-light);
+    background-color: var(--container);
     overflow-y: auto;
     &::-webkit-scrollbar
 
@@ -45,7 +45,7 @@ main > div > div:nth-child(2) {
 }
 
 main .place-container {
-    background-color: var(--color-light);
+    background-color: var(--container);
     border-radius: .625rem;
     margin-top: 4.5rem;
 
@@ -55,7 +55,7 @@ main .place-container {
 }
 
 .place-container .container-title {
-    background-color: var(--color5);
+    background-color: var(--container2);
     border-top-right-radius: .625rem;
     border-top-left-radius: .625rem;
     display: flex;
@@ -69,7 +69,7 @@ main .place-container {
 }
 
 .image {
-    background-color: var(--color3);
+    background-color: var(--container2);
     border-radius: .625rem;
     width: 2.75rem;
     height: 2.75rem;
@@ -108,36 +108,25 @@ main .place-container {
 .container-title > h4 {
     font-weight: 700;
     font-size: 1.25rem;
-    color: var(--color-text3);
+    color: var(--text-black);
 }
 
 .container-dan-title > h3 {
     font-weight: 700;
     font-size: 1.25rem;
-    color: var(--color-text6);
+    color: var(--text-pale-blue);
 }
 
 .container-dan > div > h4 {
     font-weight: 700;
     font-size: 1.25rem;
-    color: var(--color-text3);
+    color: var(--text-black);
 }
 
 .container-dan > div > h5 {
     font-weight: 700;
     font-size: 1.125rem;
-    color: var(--color-text13);
-}
-
-.container-dan .wid-status {
-    background-color: var(--color8);
-    border-radius: .625rem;
-    padding: .5rem 1rem;
-
-    font-weight: 700;
-    font-size: 1.125rem;
-    color: var(--color-text12);
-
+    color: var(--text-gray);
 }
 
 .place-container .container-button {
@@ -155,16 +144,16 @@ main .place-container {
 
 .container-button > button {
     text-align: center;
-    background-color: var(--color-text16);
+    background-color: var(--container4);
     padding: .8rem 2rem;
     border-radius: .625rem;
 
 
     font-size: 1.125rem;
-    color: var(--color-text12);
+    color: var(--text-white);
     text-transform: uppercase;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.25rem 0.5rem var(--shadow);
 
 }

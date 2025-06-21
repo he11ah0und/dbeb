@@ -4,12 +4,12 @@
 }
 
 .student-table thead {
-    background-color: var(--color5);
+    background-color: var(--container2);
     padding: 1.25rem 1.25rem;
     position: sticky;
     top: 0;
     z-index: 1;
-    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 2px -1px var(--shadow);
 }
 
 .slim {
@@ -26,12 +26,12 @@ td {
 }
 
 th {
-    background-color: var(--color5);
+    background-color: var(--container);
 
     font-weight: bold;
     margin: 0;
     font-size: 1.25rem;
-    color: var(--color-text6);
+    color: var(--text-pale-blue);
 }
 
 tr {
@@ -43,11 +43,11 @@ tr {
 }
 
 .hoverable:hover {
-    box-shadow: 0 0 10px rgba(51, 90, 175, 0.73);
+    box-shadow: 0 0 10px var(--shadow2);
 }
 
 .selected {
-    background-color: rgba(51, 90, 175, 0.2);
-    box-shadow: 0 0 10px rgba(51, 90, 175, 0.73);
+    background-color: var(--text-pale-blue2);
+    box-shadow: 0 0 10px var(--shadow2);
 }
 

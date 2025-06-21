@@ -2,7 +2,7 @@
     display: flex;
     flex: 1;
     height: 100%;
-    background: var(--main-color);
+    background: var(--main);
 }
 
 main > div {
@@ -19,12 +19,12 @@ main > div {
     height: 100%;
 }
 
-main .place-container {
+.place-container {
     width: 46.875rem;
     height: 44.75rem;
     background-attachment: fixed;
     background-size: 80%;
-    background-color: var(--color-light);
+    background-color: var(--container);
     border-radius: .625rem;
     display: flex;
     flex-direction: column;
@@ -91,7 +91,7 @@ main .heading > div {
 main .heading > div > h1 {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--color-text1);
+    color: var(--text-dark-blue);
     margin: 0;
     text-align: center;
 }
@@ -109,7 +109,9 @@ main .warp {
 input {
     width: 100%;
     border-radius: .5625rem;
-    border: 0.125rem solid var(--color-text8);
+    background-color: var(--input);
+    border: 0.125rem solid var(--border3);
+    box-shadow: 0 0.125rem 0.25rem var(--shadow);
     font-size: 1rem;
     font-weight: 800;
 }
@@ -143,11 +145,11 @@ main .place-linner-1 .linner-text-1 {
     transition: opacity .15s ease-in-out, transform .15s ease-in-out;
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--dlya-polei);
+    color: var(--input-placeholder);
 }
 
 :root .linner-text-1 .label-1 {
-    background-color: var(--color-light);
+    background-color: var(--container);
 }
 
 .dark .linner-text-1 .label-1 {
@@ -183,17 +185,17 @@ main .place-linner-2 {
 }
 
 .place-linner-2 > h4 {
-    color: var(--color-text8);
+    color: var(--text-gray);
     font-weight: 600;
     font-size: 1.125rem;
 }
 
 .place-linner-2 > a {
-    color: var(--color-text8);
+    color: var(--link1);
     font-weight: 600;
     font-size: 1.125rem;
     text-decoration: underline;
-    text-decoration-color: var(--color-text8);
+    text-decoration-color: var(--link1);
     text-decoration-thickness: 1px; 
     text-underline-offset: 3px; 
 }
@@ -209,18 +211,18 @@ main .place-linner-3 {
     width: 19.5625rem;
     height: 3.125rem;
     margin-top: 1rem;
-    background-color: var(--color-text1);
+    background-color: var(--text-dark-blue);
     padding: 1rem 0.75rem;
     border-radius: 0.4375rem;
     text-align: center;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.25rem 0.5rem var(--shadow);
 }
 
 .place-linner-3 .button_registration > h4 {
-    color: var(--color-light);
+    color: var(--text-white);
     font-weight: 700;
     font-size: 0.9375rem;
     margin: 0;
@@ -230,7 +232,7 @@ main .place-linner-3 {
 .place-linner-3 .horizontal-line {
     width: 17.0625rem;
     height: 1px;
-    background-color: var(--color-text8);
+    background-color: var(--liner);
     margin: 0 auto 0 auto;
 }
 
@@ -242,17 +244,17 @@ main .place-linner-4 {
 }
 
 .place-linner-4 > h4 {
-    color: var(--color-text8);
+    color: var(--text-gray);
     font-weight: 600;
     font-size: 1.125rem;
 }
 
 .place-linner-4 > a {
-    color: var(--color-text17);
+    color: var(--link1);
     font-weight: 600;
     font-size: 1.125rem;
     text-decoration: underline;
-    text-decoration-color: var(--color-text17); 
+    text-decoration-color: var(--link1); 
     text-decoration-thickness: 1px; 
     text-underline-offset: 3px; 
 }

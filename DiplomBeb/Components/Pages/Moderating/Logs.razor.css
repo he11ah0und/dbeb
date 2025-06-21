@@ -6,6 +6,7 @@
     width: 100%;
     margin: 2rem;
 }
+
 main > div > div:nth-child(1) {
     flex: 1;
 }
@@ -25,7 +26,7 @@ main > div > div:nth-child(2) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: var(--color-light);
+    background-color: var(--container);
     overflow-y: auto;
     &::-webkit-scrollbar
 
@@ -44,7 +45,7 @@ main > div > div:nth-child(2) {
 }
 
 .place-container {
-    background-color: var(--color-light);
+    background-color: var(--container);
     border-radius: .625rem;
     margin-top: 4.5rem;
 
@@ -54,7 +55,7 @@ main > div > div:nth-child(2) {
 }
 
 .place-container .container-title {
-    background-color: var(--color5);
+    background-color: var(--container2);
     border-top-right-radius: .625rem;
     border-top-left-radius: .625rem;
     display: flex;
@@ -68,7 +69,7 @@ main > div > div:nth-child(2) {
 }
 
 .image {
-    background-color: var(--color3);
+    background-color: var(--container2);
     border-radius: .625rem;
     width: 2.75rem;
     height: 2.75rem;
@@ -106,19 +107,19 @@ main > div > div:nth-child(2) {
 .container-title > h4 {
     flex: 1;
     font-size: 1.25rem;
-    color: var(--color-text3);
+    color: var(--text-black);
 }
 
 .container-dan-title > h3 {
     font-weight: 700;
     font-size: 1.25rem;
-    color: var(--color-text6);
+    color: var(--text-pale-blue);
 }
 
 .container-dan > div > h4 {
     font-weight: 700;
     font-size: 1.125rem;
-    color: var(--color-text3);
+    color: var(--text-black);
 
     width: 3rem;
 }
@@ -126,7 +127,7 @@ main > div > div:nth-child(2) {
 .container-dan > div > h5 {
     font-weight: 700;
     font-size: 1.125rem;
-    color: var(--color-text13);
+    color: var(--text-gray);
 
 }
 
@@ -144,7 +145,7 @@ main > div > div:nth-child(2) {
 .container-dan-act > div > h4 {
     font-weight: 700;
     font-size: 1.125rem;
-    color: var(--color-text3);
+    color: var(--text-black);
 
     width: 20rem;
 }
@@ -152,7 +153,7 @@ main > div > div:nth-child(2) {
 .container-dan-act > div > h5 {
     font-weight: 700;
     font-size: 1.125rem;
-    color: var(--color-text13);
+    color: var(--text-gray);
     
 }
 
@@ -171,13 +172,13 @@ main > div > div:nth-child(2) {
 
 .container-button > button {
     text-align: center;
-    background-color: var(--color-text16);
+    background-color: var(--container4);
     padding: .8rem 2rem;
     border-radius: .625rem;
 
 
     font-size: 1.125rem;
-    color: var(--color-text12);
+    color: var(--text-white);
     text-transform: uppercase;
     
 }

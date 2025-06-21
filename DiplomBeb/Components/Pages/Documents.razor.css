@@ -31,7 +31,7 @@
     flex-direction: column;
     overflow-y: auto;
     border-radius: 0.625rem;
-    background-color: var(--color-light);
+    background-color: var(--container);
 }
 
 .container-list::-webkit-scrollbar {
@@ -56,8 +56,8 @@
     font-size: 1.1rem;
     white-space: nowrap;
 
-    background-color: var(--color-light);
-    color: var(--color-text1);
+    background-color: var(--container);
+    color: var(--header);
 }
 
 .heading-buttons {
@@ -69,7 +69,7 @@
 }
 
 .heading-buttons div {
-    background-color: var(--color-light);
+    background-color: var(--container);
     height: 4rem;
     width: 0.25rem;
     border-radius: .5rem;
@@ -88,20 +88,20 @@
     border-radius: 0.5rem;
     font-weight: 700;
     font-size: 1.1rem;
-    background-color: var(--color-light);
+    background-color: var(--container);
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.25rem 0.5rem var(--shadow);
 }
 
 .download, 
 .review, .unload {
-    color: var(--color-text1);
+    color: var(--text-dark-blue);
     
 }
 
 .delete {
-    color: var(--color-text10);
+    color: var(--tex-red);
 }
 
 .awards-grid {
@@ -144,7 +144,7 @@
 
 .img {
     position: relative;
-    background-color: var(--color3);
+    background-color: var(--container);
     border-radius: 0.625rem;
     padding: 1rem;
     width: 12rem;
@@ -161,8 +161,8 @@
     -moz-appearance: none;
     width: 2rem;
     height: 2rem;
-    background: var(--color-light);
-    border: 2px solid #ccc;
+    background: var(--checkbox-to);
+    border: 2px solid var(--checkbox-to-border);
     border-radius: 0.375rem;
     cursor: pointer;
     top: 1rem;
@@ -172,8 +172,8 @@
 }
 
 .img input[type="checkbox"]:checked {
-    background: var(--main-color);
-    border-color: var(--main-color);
+    background: var(--checkbox-after);
+    border-color: var(--checkbox-after-border);
 }
 
 .img input[type="checkbox"]:checked::before {
@@ -184,7 +184,7 @@
     transform: translate(-50%, -50%) rotate(-45deg);
     width: 0.8rem;
     height: 0.4rem;
-    border: 2px solid white;
+    border: 2px solid var(--checkbox-check-mark);
     border-top: none;
     border-right: none;
 }
@@ -232,18 +232,18 @@
     font-weight: 600;
     font-size: 1.1rem;
 
-    color: var(--color-text3);
+    color: var(--text-black);
 }
 
 .rating-award h3 {
     font-weight: 600;
     font-size: 1.1rem;
 
-    color: var(--color-text4);
+    color: var(--text-gray);
 }
 
 .place-container {
-    background-color: var(--color-light);
+    background-color: var(--container);
     border-radius: .625rem;
     padding: 1rem;
     margin-top: 4.5rem;
@@ -258,7 +258,7 @@
 
     font-weight: 700;
     font-size: 1.125rem;
-    color: var(--color-text3);
+    color: var(--text-black);
 }
 
 .filters-list {
@@ -267,7 +267,7 @@
 
     font-weight: 700;
     font-size: 1.125rem;
-    color: var(--color-text2);
+    color: var(--text-blue);
 }
 
 /*Загрузка документов*/
@@ -295,10 +295,10 @@
 }
 
 .loading-window {
-    background-color: var(--color2);
+    background-color: var(--container3);
     padding: 2rem 4rem;
     border-radius: 0.625rem;
-    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.5rem 1.5rem var(--shadow);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -327,12 +327,12 @@
     text-align: center;
     font-weight: 700;
     font-size: clamp(1rem, 4vw, 1.25rem); 
-    color: var(--color-text1);
+    color: var(--text-dark-blue);
     padding: 0 1rem;
 }
 
 .send-mod {
-    color: var(--color-text9);
+    color: var(--text-purple);
 }
 
 .name-doc {
@@ -344,11 +344,11 @@
     width: 100%;
     box-sizing: border-box;
     border-radius: 0.5625rem;
-    border: 0.125rem solid var(--color-text8);
-    background-color: var(--color-light);
+    border: 0.125rem solid var(--border3);
+    background-color: var(--input);
     transition: all 0.3s ease;
 
     font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text3);
+    font-weight: 800;
+    color: var(--text-black);
 }

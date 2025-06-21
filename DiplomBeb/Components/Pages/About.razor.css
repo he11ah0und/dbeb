@@ -2,7 +2,7 @@
     display: flex;
     flex: 1;
     height: 100%;
-    background-color: var(--main-color);
+    background-color: var(--main);
 }
 
 .main-div  {
@@ -30,18 +30,18 @@ main .heading {
     border-radius: .5rem;
     font-weight: 700;
     font-size: 1.1rem;
-    background-color: var(--color-light);
-    color: var(--color-text1);
+    background-color: var(--container);
+    color: var(--header);
 }
 
 .place-container {
     background-attachment: fixed;
     background-size: 80%;
-    background-color: var(--color-light);
+    background-color: var(--container);
     border-radius: .625rem;
     padding: 2rem;
     font-weight: 700;
-    color: var(--color-text3);
+    color: var(--text-black);
     font-size: clamp(0.5rem, 0.1667rem + 0.6944vw, 1rem);
     display: flex;
     flex-direction: column;

@@ -39,8 +39,8 @@
     font-weight: 700;
     font-size: 1.1rem;
 
-    background-color: var(--color-light);
-    color: var(--color-text1);
+    background-color: var(--container);
+    color: var(--header);
 }
 
 .container-list {
@@ -48,7 +48,7 @@
     flex-direction: column;
     overflow-y: auto; 
     border-radius: 0.625rem;
-    background-color: var(--color-light);
+    background-color: var(--container);
 }
 
 .maxHeight {
@@ -87,7 +87,7 @@
 .title h4 {
     flex: 1;
     font-size: 1.25rem;
-    color: var(--color-text3);
+    color: var(--text-black);
 }
 
 .arnold {
@@ -106,7 +106,7 @@
     min-height: 50%;
     border-radius: 0.625rem;
     overflow: hidden;
-    background-color: var(--color-light);
+    background-color: var(--container);
 }
 
 .image img {
@@ -125,7 +125,7 @@
     text-align: center;
     font-weight: 700;
     font-size: 2rem;
-    color: var(--color-text1);
+    color: var(--text-dark-blue);
 }
 
 .footer {
@@ -133,10 +133,10 @@
     border-bottom-left-radius: 0.625rem;
     position: sticky;
     bottom: 0;
-    background-color: var(--color-light);
+    background-color: var(--container);
     padding: 1rem;
     z-index: 2;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -4px 6px var(--shadow);
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -145,29 +145,28 @@
 }
 
 .footer button {
-    background-color: var(--color-light);
+    background-color: var(--container);
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: .7rem 2.4rem;
     border-radius: .625rem;
-
     font-weight: 400;
     font-size: .8125rem;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.25rem 0.5rem var(--shadow);
 }
 
 .accept {
-    border: 0.14rem solid var(--color-text19);
-    color: var(--color-text9);
+    border: 0.14rem solid var(--border5);
+    color: var(--text-purple);
     
 }
 
 .reject {
-    border: 0.14rem solid var(--color-text16);
-    color: var(--color-text16);
+    border: 0.14rem solid var(--border6);
+    color: var(--text-dark-blue);
 }
 
 .footer select {
@@ -180,21 +179,21 @@
     max-width: max-content;
     font-weight: 500;
     font-size: 1.125rem;
-    border: 0.14rem solid var(--color-text13);
-    color: var(--color-text13);
+    border: 0.14rem solid var(--select);
+    color: var(--border3);
     transition: opacity 0.3s ease;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0.125rem 0.25rem var(--shadow);
 }
 
 .footer option {
     text-align: center;
     font-weight: 500;
     font-size: 1.125rem;
-    color: var(--color-text13);
+    color: var(--text-gray);
 }
 
 .image-title {
-    background-color: var(--color3);
+    background-color: var(--container);
     border-radius: .625rem;
     width: 2.75rem;
     height: 2.75rem;
@@ -213,18 +212,18 @@
 
 .send {
     text-align: center;
-    background-color: var(--color-text16);
+    background-color: var(--container4);
     padding: .8rem 2rem;
     border-radius: .625rem;
     max-width: 20rem;
 
     font-size: 1.125rem;
-    color: var(--color-text12);
+    color: var(--text-white);
     text-transform: uppercase;
     margin-bottom: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.25rem 0.5rem var(--shadow);
 }
 
 /*Запрос администратору */
@@ -252,10 +251,10 @@
 }
 
 .request-window {
-    background-color: var(--color-light);
+    background-color: var(--container);
     padding: 2rem 4rem;
     border-radius: 0.625rem;
-    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.5rem 1.5rem var(--shadow);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -272,7 +271,7 @@
     text-align: center;
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--color-text1);
+    color: var(--text-dark-blue);
     padding: 0 1rem;
 }
 
@@ -294,13 +293,13 @@
     width: 100%;
     box-sizing: border-box;
     border-radius: 0.5625rem;
-    border: 0.125rem solid var(--color-text8);
-    background-color: var(--color-light);
+    border: 0.125rem solid var(--border3);
+    background-color: var(--input);
     transition: all 0.3s ease;
 
     font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text3);
+    font-weight: 800;
+    color: var(--text-black);
 }
 
 .request-window-linner div {
@@ -317,11 +316,11 @@
     top: -.5rem;
     left: 1.2rem;
     padding: 0 0.4rem;
-    background-color: white;
+    background-color: var(--container);
     pointer-events: none;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--color-text8);
+    color: var(--input-placeholder);
     transition: transform 0.3s ease;
     z-index: 1;
 }
@@ -356,10 +355,10 @@
 }
 
 .rejection-doc-window {
-    background-color: var(--color-light);
+    background-color: var(--container);
     padding: 2rem 4rem;
     border-radius: 0.625rem;
-    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.5rem 1.5rem var(--shadow);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -383,7 +382,7 @@
     text-align: center;
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--color-text1);
+    color: var(--text-dark-blue);
     padding: 0 1rem;
 }
 
@@ -397,19 +396,19 @@
 }
 
 .rejection-doc-window-linner div textarea {
-    resize: none; /* запрет изменения размера */
+    resize: none; 
     padding: 1rem 1rem 0.5rem 1rem;
     height: 9.25rem;
     width: 100%;
     box-sizing: border-box;
     border-radius: 0.5625rem;
-    border: 0.125rem solid var(--color-text8);
-    background-color: var(--color-light);
+    border: 0.125rem solid var(--border3);
+    background-color: var(--input);
     font-size: 1rem;
     font-weight: 600;
-    color: var(--color-text3);
+    color: var(--text-black);
     transition: all 0.3s ease;
-    overflow-y: auto; /* добавляем скролл при переполнении */
+    overflow-y: auto; 
 }
 
 .rejection-doc-window-linner div {
@@ -426,11 +425,11 @@
     top: -.5rem;
     left: 1.2rem;
     padding: 0 0.4rem;
-    background-color: white;
+    background-color: var(--container);
     pointer-events: none;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--color-text8);
+    color: var(--input-placeholder);
     transition: transform 0.3s ease;
     z-index: 1;
 }

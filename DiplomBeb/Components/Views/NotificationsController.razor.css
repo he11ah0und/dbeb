@@ -15,11 +15,11 @@
 }
 
 .window {
-    background-color: var(--color-light);
+    background-color: var(--container);
     padding: 1rem 4rem;
     border-radius: 0.625rem;
     box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
-    border: 0.25rem solid var(--notification-color);
+    border: 0.25rem solid var(--border2);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -67,7 +67,7 @@
     text-align: center;
     font-weight: 700;
     font-size: 1.1rem;
-    color: var(--color-text4);
+    color: var(--text-gray);
     padding: 0 1rem;
     white-space: normal;
     word-wrap: break-word;
