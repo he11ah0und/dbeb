@@ -223,7 +223,7 @@
 
 .button_exit {
     border: 0.14rem solid var(--border4);
-    color: var(--tex-red);
+    color: var(--text-red);
 }
 
 .button_change {
