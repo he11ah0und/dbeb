@@ -164,22 +164,18 @@ main > div > div:nth-child(2) {
     justify-content: center;
     padding: 0 2rem;
     gap: 1rem;
-
     margin-top: 1rem;
     margin-bottom: 2rem;
-
 }
 
-.container-button button, .send {
+.container-button button, .request-window button {
+    text-transform: uppercase;
     text-align: center;
     background-color: var(--container4);
-    padding: .8rem 2rem;
-    border-radius: .625rem;
-
+    padding: 0.81rem 0.75rem;
     font-size: 1.125rem;
+    font-weight: 600;
     color: var(--text-white);
-    text-transform: uppercase;
-    cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 0.25rem 0.5rem var(--shadow);
 }
@@ -242,22 +238,8 @@ main > div > div:nth-child(2) {
     width: 100%;
 }
 
-.request-window-linner div input {
-    display: flex;
-    align-items: start;
-    justify-content: flex-start;
-    padding: 1rem 1rem 0.5rem 1rem;
-    height: 3rem;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 0.5625rem;
-    border: 0.125rem solid var(--border3);
-    background-color: var(--input);
-    transition: all 0.3s ease;
-    
-    font-size: 1rem;
-    font-weight: 800;
-    color: var(--text-black);
+.request-window-linner input {
+    transition: box-shadow 0.3s ease;
 }
 
 .request-window-linner div {
@@ -269,21 +251,3 @@ main > div > div:nth-child(2) {
     width: 100%;
 }
 
-.request-window-linner div label {
-    position: absolute;
-    top: -.5rem;
-    left: 1.2rem;
-    padding: 0 0.4rem;
-    background-color: var(--input);
-    pointer-events: none;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--input-placeholder);
-    transition: transform 0.3s ease; 
-    z-index: 1;
-}
-
-.request-window-linner div input:focus + label,
-.request-window-linner div input:not(:placeholder-shown) + label {
-    transform: scale(0.8); 
-}

@@ -97,8 +97,6 @@
         <div class="loading-window-back" @onclick="HideUploader"></div>
         <div class="loading-window">
             <img src="@ImgData" alt="Документ"/>
-            <h3>Добавьте название документу</h3>
-            <input type="text" class="name-doc" @bind="DocumentName"/>
             <div class="loading-window-button">
                 <InputFile id="upFile" accept="image/png" hidden OnChange="Callback"/>
                 <button class="review" onclick="getFile()">Обзор</button>

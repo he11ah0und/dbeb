@@ -261,15 +261,6 @@
     color: var(--text-black);
 }
 
-.filters-list {
-    align-items: start;
-    text-align: center;
-
-    font-weight: 700;
-    font-size: 1.125rem;
-    color: var(--text-blue);
-}
-
 /*Загрузка документов*/
 
 .loading-window-cont {

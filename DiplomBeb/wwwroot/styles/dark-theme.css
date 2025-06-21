@@ -20,7 +20,6 @@
     --text-yellow: #FFB84D;
     --text-red: #e65e5e;
     --text-purple: #8E8CE6;
-    --text-dark-blue: #1F3A7D;
 
     /* Цвета полей ввода */
     --input: #2A2A3D;
@@ -28,16 +27,16 @@
 
     /* Цвета чекбоксов */
     --checkbox-to: #1E1E2F;
-    --checkbox-after: var(--text-blue);
+    --checkbox-after: var(--header);
     --checkbox-to-border: var(--text-gray);
-    --checkbox-after-border: var(--text-blue);
+    --checkbox-after-border: var(--header);
     --checkbox-check-mark: #FFFFFF;
 
     /* Цвет селекта */
     --select: var(--text-gray);
 
     /* Цвет скролла */
-    --scroll: var(--text-blue);
+    --scroll: var(--header);
 
     /* Цвет ссылки */
     --link: var(--text-purple);
@@ -49,5 +48,5 @@
     --border3: var(--text-gray);
     --border4: var(--text-red);
     --border5: var(--text-purple);
-    --border6: var(--text-dark-blue);
+    --border6: var(--header);
 }

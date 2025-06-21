@@ -1,9 +1,8 @@
 .main-div {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 2rem;
-    padding: 2rem;
 }
 
 .middle {
@@ -11,6 +10,7 @@
     flex-direction: column;
     gap: 1rem;
     justify-content: start;
+    padding: 2rem 2rem 2rem 2rem;
 }
 
 .middle:nth-child(1) {
@@ -134,7 +134,7 @@
 
 .footer button {
     text-transform: uppercase;
-    background-color: var(--container);
+    background-color: var(--container2);
     padding: 0.81rem 0.75rem;
     font-weight: 600;
     font-size: 1.125rem;
@@ -360,30 +360,31 @@
 
 /*Форма начала работы*/
 
-.rejection-doc-window-cont {
-    position: relative;
+.window-cont {
+    position: absolute;
     flex: 1;
     height: 100%;
     width: 100%;
+    z-index: 4;
+
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    z-index: 4; 
 }
 
-.rejection-doc-window-back {
-    position: relative;
+.window-back {
     flex: 1;
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 5; /* затемнение под окном */
+    z-index: 5; 
 }
 
-.rejection-doc-window {
-    position: relative;
-    z-index: 6; /* само окно поверх затемнения */
+.window {
+    position: fixed;
+    z-index: 6;
     background-color: var(--container);
     padding: 2rem 4rem;
     border-radius: 0.625rem;
@@ -399,68 +400,21 @@
     overflow: hidden;
 }
 
-.rejection-doc-window-linner div textarea::-webkit-scrollbar {
-    display: none;
-}
-
-.rejection-doc-window h3 {
+.window h3 {
     text-align: center;
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--text-blue);
+    color: var(--text-black);
     padding: 0 1rem;
 }
 
-.rejection-doc-window-linner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    height: max-content;
-    width: 100%;
-}
-
-.rejection-doc-window-linner div textarea {
-    resize: none;
-    padding: 1rem 1rem 0.5rem 1rem;
-    height: 9.25rem;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 0.5625rem;
-    border: 0.125rem solid var(--border3);
-    background-color: var(--input);
-    font-size: 1rem;
+.window button {
+    text-transform: uppercase;
+    padding: 1rem 4rem;
+    background-color: var(--container4);
+    color: var(--text-white);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0.25rem 0.5rem var(--shadow);
     font-weight: 600;
-    color: var(--text-black);
-    transition: all 0.3s ease;
-    overflow-y: auto;
+    font-size: 0.9375rem;
 }
-
-.rejection-doc-window-linner div {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: flex-start;
-    width: 100%;
-}
-
-.rejection-doc-window-linner div label {
-    position: absolute;
-    top: -.5rem;
-    left: 1.2rem;
-    padding: 0 0.4rem;
-    background-color: var(--container);
-    pointer-events: none;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--input-placeholder);
-    transition: transform 0.3s ease;
-    z-index: 1;
-}
-
-.rejection-doc-window-linner div textarea:focus + label,
-.rejection-doc-window-linner div textarea:not(:placeholder-shown) + label {
-    transform: scale(0.8);
-}
-
