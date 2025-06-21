@@ -126,12 +126,4 @@ public class ModerController : ControllerBase
         
         return Ok(true);
     }
-
-    [AuthFilter()]
-    [HttpPost("document/accepts")]
-    public async Task<IActionResult> AcceptDocument()
-    {
-        await _channel.Writer.WriteAsync(new ScoreParameters(10), HttpContext.RequestAborted);
-        return Ok();
-    }
 }
