@@ -5,22 +5,36 @@ namespace DiplomBeb.Services.Client;
 
 public class ThemeService
 {
-    [Inject]
     public ProtectedLocalStorage ProtectedLocalStore { get; set; }
-    
-    public bool InDark = false;
-    public string ClassDark => InDark ? "dark" : "";
+
+
+    public const string DefaultTheme = "light-theme";
+    public string CurrentTheme { get; set; } = DefaultTheme;
+
+    public bool InDark
+    {
+        get => CurrentTheme == "dark-theme";
+        set => CurrentTheme = value ? "dark-theme" : "light-theme";
+    }
+    public ThemeService(ProtectedLocalStorage protectedLocalStore)
+    {
+        ProtectedLocalStore = protectedLocalStore;
+    }
     
     public Action OnSwitch { get; set; }
 
-    public void Load()
+    public async Task Load()
     {
-        
+        var state = await ProtectedLocalStore.GetAsync<string>("theme");
+        if (!state.Success)
+            return;
+        CurrentTheme = state.Value;
     }
     
-    public void Change()
+    public async Task Change()
     {
         InDark = !InDark;
+        await ProtectedLocalStore.SetAsync("theme", CurrentTheme);
         OnSwitch?.Invoke();
     }
 }

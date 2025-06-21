@@ -1,0 +1,35 @@
+@using DiplomBeb.Services.Client
+@rendermode RenderMode.InteractiveServer
+
+<link rel="stylesheet" href="@_styleLink" />
+@code {
+    [Inject]
+    private ThemeService ThemeService { get; set; }
+
+    private string _styleLink;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _styleLink = GetLink(ThemeService.CurrentTheme);
+        StateHasChanged();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        await ThemeService.Load();
+        ThemeService.OnSwitch = OnChange;
+        _styleLink = GetLink(ThemeService.CurrentTheme);
+        StateHasChanged();
+    }
+
+    private void OnChange()
+    {
+        _styleLink = GetLink(ThemeService.CurrentTheme);
+        StateHasChanged();
+    }
+
+    private string GetLink(string theme)
+        => $"styles/{theme}.css";
+    
+}

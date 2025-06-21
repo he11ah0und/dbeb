@@ -32,11 +32,6 @@ public partial class SideBar
         OpenedModeration = !OpenedModeration;
     }
 
-    private void SwitchTheme()
-    {
-        ThemeService.Change();
-    }
-
     private void AccountServiceOnStateChanged()
     {
         StateHasChanged();

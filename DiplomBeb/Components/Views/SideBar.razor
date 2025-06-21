@@ -1,5 +1,4 @@
-﻿@rendermode RenderMode.InteractiveServer
-
+﻿
 <div class="sidebar">
 	<h1 class="heading">
 		<img src="icons/logo-ico.svg" alt="Логотип портфолио" />Цифровое портфолио
@@ -61,13 +60,8 @@
 				<img class="img38" id="specialButton" style="cursor:pointer;" src="/icons/slab-vid-ico.svg" alt="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ" title="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ"/>
 				<!--<img class="img38" src="/icons/slab-vid-ico.svg" alt="Кнопка для слабовидящих"/>-->
 			</button>
-			<script>
-				function tswitch(){
-					darkMode = localStorage.getItem("dark");
-					darkMode == 'active' ? disableDarkMode() : enableDarkMode();
-				}
-			</script>
-			<button @onclick="SwitchTheme">
+			
+			<button @onclick="ThemeService.Change">
 				<img id="theme-switch" class="img38" src="/icons/sun-ico.svg" alt="Кнопка смены темы" />
 			</button>
 		</div>
