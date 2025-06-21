@@ -48,7 +48,7 @@ public class AuthController : ControllerBase
     {
         var token = _context.Tokens.SingleOrDefault(t => t.Id == (ulong)HttpContext.Items["authed.token.id"]);
         _context.Tokens.Remove(token);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return Ok();
     }
 }

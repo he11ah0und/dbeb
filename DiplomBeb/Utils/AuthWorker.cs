@@ -26,14 +26,17 @@ public class AuthWorker
         BHttp = client;
     }
     public async Task<bool> TrySignIn(
-        ListElement signInData)
+        ListElement signInData, bool encryptPass = true)
     {
         // hashing password
-        using (var mySha256 = SHA256.Create())
+        if (encryptPass)
         {
-            var passStream = new MemoryStream(
-                Encoding.Default.GetBytes(signInData.Get("password")));
-            signInData.Set("password", Convert.ToBase64String(await mySha256.ComputeHashAsync(passStream)));
+            using (var mySha256 = SHA256.Create())
+            {
+                var passStream = new MemoryStream(
+                    Encoding.Default.GetBytes(signInData.Get("password")));
+                signInData.Set("password", Convert.ToBase64String(await mySha256.ComputeHashAsync(passStream)));
+            }
         }
 
         var res = await BHttp.NativeRequest("Auth/signin",

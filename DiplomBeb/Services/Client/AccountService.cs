@@ -73,9 +73,9 @@ public class AccountService
         }
     }
 
-    public async Task<bool> SignIn(ListElement li)
+    public async Task<bool> SignIn(ListElement li, bool encryptPass = true)
     {
-        if (!await _http.Auth.TrySignIn(li))
+        if (!await _http.Auth.TrySignIn(li, encryptPass))
         {
             return false;
         }
@@ -119,7 +119,7 @@ public class AccountService
                 signUpData))
             return false;
         
-        return await Auth();
+        return await SignIn(signUpData, false);
     }
     
     private void StateHasChanged()
