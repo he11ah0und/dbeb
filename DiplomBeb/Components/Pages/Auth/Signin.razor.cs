@@ -14,6 +14,8 @@ public partial class Signin
     private NavigationManager Navigation { get; set; }
     [Inject]
     private NotificationService NotificationService { get; set; }
+    [Inject] 
+    private AccountService AccountService { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
@@ -34,12 +36,13 @@ public partial class Signin
         li.Set("email", Email);
         li.Set("password",Password);
         
-        if (!await Http.Auth.TrySignIn(li))
+        if (!await AccountService.SignIn(li))
         {
             NotificationService.AddNotification("Неудачная попытка входа.");
             return;
         }
 
-        Navigation.NavigateTo("/account", true);
+        //StateHasChanged();
+        //Navigation.NavigateTo("/account", true);
     }
 }

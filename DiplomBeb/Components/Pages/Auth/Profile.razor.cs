@@ -99,8 +99,8 @@ public partial class Profile
 
     private async Task OnLogOut()
     {
-        if (!await Http.Auth.LogOut())
+        if (!await AccountService.LogOut())
             NotificationService.AddNotification("Ошибка серверного выхода.");
-        Navigation.NavigateTo("/account", true);
+        //Navigation.NavigateTo("/account", true);
     }
 }

@@ -73,6 +73,16 @@ public class AccountService
         }
     }
 
+    public async Task<bool> SignIn(ListElement li)
+    {
+        if (!await _http.Auth.TrySignIn(li))
+        {
+            return false;
+        }
+
+        return await Auth();
+    }
+
     public async Task<bool> Update(ListElement li)
     {
         var res = await _http.Request(
@@ -80,6 +90,14 @@ public class AccountService
             JsonContent.Create(li),
             HttpMethod.Patch);
         return res.IsOk;
+    }
+
+    public async Task<bool> LogOut()
+    {
+        if (!await _http.Auth.LogOut())
+            return false;
+        
+        return await Auth();
     }
 
     public async Task<bool> SignUp(
@@ -100,8 +118,8 @@ public class AccountService
         if (!await _http.Auth.TrySignUp(
                 signUpData))
             return false;
-
-        return true;
+        
+        return await Auth();
     }
     
     private void StateHasChanged()

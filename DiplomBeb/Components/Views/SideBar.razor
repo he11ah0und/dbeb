@@ -17,7 +17,9 @@
 		<li>
 			<button @onclick="GoToAbout"><img src="icons/info-ico.svg" alt="О сервисе" />О сервисе</button>
 		</li>
-		@if (ulong.TryParse(AccountService?.Account?.Get("apirole_id"), out var val) && val > 1)
+		@if (AccountService.IsLogged && 
+		     ulong.TryParse(AccountService?.Account?.Get("apirole_id"), out var val)
+		     && val > 1)
 		{
 			<li>
 				<button @onclick="SwitchModeration"><img src="/icons/moder-ico.svg"/>Модерация</button>

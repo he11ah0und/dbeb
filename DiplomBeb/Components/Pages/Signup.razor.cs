@@ -61,6 +61,6 @@ public partial class Signup : ComponentBase
             NotificationService.AddNotification("Ошибка регистрации.");
             return;
         }
-        Navigation.NavigateTo("/account", true);
+        Navigation.NavigateTo("/account");
     }
 }
