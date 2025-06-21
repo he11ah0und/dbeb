@@ -1,11 +1,11 @@
 ﻿:root {
     /* Основные цвета */
     --main: #5785CB;
-    --container: #1E1E2F;      /* Темно-серый фон для основных блоков */
-    --container2: #2A2A3D;     /* Более светлый темный фон (для вторичных блоков) */
-    --container3: #3B3B5A;     /* Третичный фон или границы */
-    --container4: var(--header); /* Связь с заголовком */
-    --header: #1A2B5C;         /* Темно-синий для шапки */
+    --container: #1E1E2F;   
+    --container2: #2A2A3D;   
+    --container3: #3B3B5A;     
+    --container4: var(--header); 
+    --header: #5785CB;         
     --transparent: #00000000;
     --shadow: rgba(0, 0, 0, 0.3);
     --shadow2: rgba(87, 133, 203, 0.3);
@@ -14,11 +14,11 @@
     /* Цвета текста */
     --text-white: #E0E0E0;
     --text-black: #FFFFFF;
-    --text-blue: #5785CB;
+    --text-blue: var(--header);
     --text-blue2: rgba(87, 133, 203, 0.3);
     --text-gray: #A0A0A0;
     --text-yellow: #FFB84D;
-    --text-red: #E64A4A;
+    --text-red: #e65e5e;
     --text-purple: #8E8CE6;
     --text-dark-blue: #1F3A7D;
 
@@ -41,7 +41,7 @@
 
     /* Цвет ссылки */
     --link: var(--text-purple);
-    --link1: #5785CB;
+    --link1: var(--header);
 
     /* Цвета границ */
     --border: var(--main);

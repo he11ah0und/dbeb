@@ -12,16 +12,6 @@ body {
     height: 100%;
 }
 
-/*Общие настройки всех страниц*/
-button {
-    background-color: transparent;
-}
-
-button:hover {
-    cursor: pointer;
-    transform: scale(1.02);
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -37,4 +27,72 @@ a, ul, li {
     color: unset;
     text-decoration: none;
     list-style: none;
+}
+
+/*Общие настройки всех страниц*/
+button {
+    border-radius: 0.4375rem;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+button:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+}
+
+input {
+    width: 100%; 
+    box-sizing: border-box; 
+    padding: 1.4rem 0.75rem;
+    height: calc(.6rem + 2px);
+    border-radius: .5625rem;
+    background-color: var(--input);
+    border: 0.125rem solid var(--border3);
+    box-shadow: 0 0.125rem 0.25rem var(--shadow);
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+label {
+    position: absolute;
+    top: -.5rem;
+    left: 1.6rem;
+    pointer-events: none;
+    border: 1px solid transparent;
+    transform-origin: 0 0;
+    transition: opacity .15s ease-in-out, transform .15s ease-in-out;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--input-placeholder);
+}
+
+:root label {
+    background-color: var(--container);
+}
+
+.dark label {
+    background-color: transparent;
+}
+
+input:-moz-placeholder {
+    color: transparent;
+}
+
+input::placeholder {
+    color: transparent;
+}
+
+input:focus,
+input:not(:placeholder-shown) {
+    padding-top: 1.625rem;
+    padding-bottom: .625rem;
+}
+
+input:focus ~ label,
+input:not(:placeholder-shown) ~ label {
+    opacity: 1;
+    transform: scale(.85) translateY(0rem) translateX(.15rem);
 }

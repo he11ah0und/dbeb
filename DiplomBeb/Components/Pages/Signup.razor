@@ -1,80 +1,68 @@
 @rendermode RenderMode.InteractiveServer
 
 @page "/signup"
-<main>
-    <div>
-        <div class="middle">
-            <div class="place-container">
-                <div class="place-column">
-                    <div class="place-linner-left">
-                        <div>
-                            <img class="img1" src="../icons/logo-ico.svg" alt="Логотип портфолио"/>
-                        </div>
+
+<div class="main-div">
+    <div class="place-column">
+        <div class="linner-left">
+            <img src="../icons/logo-ico.svg" alt="Логотип портфолио"/>
+        </div>
+        <div class="linner-right">
+            <div class="heading">
+                <h1>Регистрация аккаунта</h1>
+            </div>
+                    
+            <div class="warp">
+                <div class="place-linner-1">
+                    <div>
+                        <input type="text" id="" placeholder="" @bind="Name">
+                        <label for="name">Имя</label>
                     </div>
-                    <div class="place-linner-right">
-                        <div class="heading">
-                            <div>
-                                <h1>Регистрация аккаунта</h1>
-                            </div>
-                        </div>
-                        <div class="warp">
-                            <div class="place-linner-1">
-                                <div class="linner-text-1">
-                                    <input class="input-1" type="text" id="" placeholder="" @bind="Name">
-                                    <label class="label-1" for="name">Имя</label>
-                                </div>
-                                <div class="linner-text-1">
-                                    <input class="input-1" type="text" id="" placeholder="" @bind="Surname">
-                                    <label class="label-1" for="">Фамилия</label>
-                                </div>
-                            </div>
-
-                            <div class="place-linner-2">
-                                <div class="linner-text-2">
-                                    <input class="input-2" type="text" id="" placeholder=""
-                                           @bind="Middlename">
-                                    <label class="label-2" for="">Отчество (при наличии)</label>
-                                </div>
-                                <div class="linner-text-2">
-                                    <input class="input-2" type="email" id="" placeholder="" @bind="Email">
-                                    <label class="label-2" for="">Email</label>
-                                </div>
-                                <div class="linner-text-2">
-                                    <input class="input-2" type="password" id="" placeholder="" @bind="Password">
-                                    <label class="label-2" for="">Пароль</label>
-                                </div>
-                                <div class="linner-text-2">
-                                    <input class="input-2" type="password" id="" placeholder="" @bind="ConfirmPassword">
-                                    <label class="label-2" for="">Подтверждение пароля</label>
-                                </div>
-                            </div>
-
-                            <div class="place-linner-3">
-                                <div>
-                                    <input type="checkbox" name="" @bind="Confirmed">
-                                </div>
-                                <div>
-                                    <h4>Я согласен(сна) на обработку персональных данных</h4>
-                                </div>
-                            </div>
-
-                            <div class="place-linner-4">
-                                <button class="button_registration" @onclick="OnRegistrate">
-                                    <h4>РЕГИСТРАЦИЯ</h4>
-                                </button>
-                                <div class="horizontal-line"></div>
-                            </div>
-
-                            <div class="place-linner-5">
-                                <h4>У вас уже есть аккаунт?</h4>
-                                <a href="/account">
-                                    <h4>Войти</h4>
-                                </a>
-                            </div>
-                        </div>
+                    <div>
+                        <input type="text" id="" placeholder="" @bind="Surname">
+                        <label for="">Фамилия</label>
                     </div>
+                </div>
+                        
+                <div class="place-linner-2">
+                    <div>
+                        <input type="text" id="" placeholder="" @bind="Middlename">
+                        <label for="">Отчество (при наличии)</label>
+                    </div>
+                    <div>
+                        <input type="email" id="" placeholder="" @bind="Email">
+                        <label for="">Email</label>
+                    </div>
+                    <div>
+                        <input type="password" id="" placeholder="" @bind="Password">
+                        <label for="">Пароль</label>
+                    </div>
+                    <div>
+                        <input type="password" id="" placeholder="" @bind="ConfirmPassword">
+                        <label for="">Подтверждение пароля</label>
+                    </div>
+                </div>
+
+                <div class="place-linner-3">
+                    <div>
+                        <input type="checkbox" name="" @bind="Confirmed">
+                    </div>
+                    <div>
+                        <h4>Я согласен(сна) на обработку персональных данных</h4>
+                    </div>
+                </div>
+
+                <div class="place-linner-4">
+                    <button @onclick="OnRegistrate">регистрация</button>
+                    <div class="horizontal-line"></div>
+                </div>
+
+                <div class="place-linner-5">
+                    <h4>У вас уже есть аккаунт?</h4>
+                    <a href="/account">Войти</a>
                 </div>
             </div>
         </div>
     </div>
-</main>
+</div>
+

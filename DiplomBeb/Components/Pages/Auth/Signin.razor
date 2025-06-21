@@ -2,62 +2,44 @@
 
 <PageTitle>Личное портфолио - Вход</PageTitle>
 
-<main>
-    <div>
-        <div class="middle">
-            <div class="place-container">
-                <div class="place-column">
-                    <div class="place-linner-left">
-                        <div>
-                            <img class="img1" src="icons/logo-ico.svg" alt="Логотип портфолио"/>
-                        </div>
+<div class="main-div">
+    <div class="place-column">
+        <div class="linner-left">
+            <img class="img1" src="icons/logo-ico.svg" alt="Логотип портфолио"/>
+        </div>
+        <div class="linner-right">
+            <div class="heading">
+                <h1>Авторизация</h1>
+            </div>
+            
+            <div class="warp">
+                <div class="place-linner-1">
+                    <div>
+                        <input type="email"@bind="Email" placeholder="">
+                        <label>Email/номер телефона</label>
                     </div>
-                    <div class="place-linner-right">
-                        <div class="heading">
-                            <div>
-                                <h1>Авторизация</h1>
-                            </div>
-                        </div>
-                        <div class="warp">
-
-                            <div class="place-linner-1">
-
-                                <div class="linner-text-1">
-                                    <input class="input-1" type="email"@bind="Email" placeholder="">
-                                    <label class="label-1">Email/номер телефона</label>
-                                </div>
-                                <div class="linner-text-1">
-                                    <input class="input-1" type="password" @bind="Password" placeholder="">
-                                    <label class="label-1">Пароль</label>
-                                </div>
-
-                            </div>
-
-                            <div class="place-linner-2">
-                                <h4>Забыли пароль?</h4>
-                                <a href="../recovery/index.html">
-                                    <h4>Восстановить</h4>
-                                </a>
-                            </div>
-
-
-                            <div class="place-linner-3">
-                                <button class="button_registration" @onclick="HandleValidSubmit">
-                                    <h4>ВОЙТИ</h4>
-                                </button>
-                                <div class="horizontal-line"></div>
-                            </div>
-
-                            <div class="place-linner-4">
-                                <h4>Хотите вернуться к регистрации?</h4>
-                                <a href="/signup">
-                                    <h4>Зарегистрироваться</h4>
-                                </a>
-                            </div>
-                        </div>
+                    <div>
+                        <input type="password" @bind="Password" placeholder="">
+                        <label>Пароль</label>
                     </div>
+                </div>
+
+                <div class="place-linner-2">
+                    <h4>Забыли пароль?</h4>
+                    <a href="../recovery/index.html">Восстановить</a>
+                </div>
+
+
+                <div class="place-linner-3">
+                    <button class="button_registration" @onclick="HandleValidSubmit">войти</button>
+                    <div class="horizontal-line"></div>
+                </div>
+
+                <div class="place-linner-4">
+                    <h4>У вас уже есть аккаунт?</h4>
+                    <a href="/signup">Зарегистрироваться</a>
                 </div>
             </div>
         </div>
     </div>
-</main>
+</div>
