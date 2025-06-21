@@ -92,10 +92,29 @@ namespace dserver.Controllers
             if (authedUser == null)
                 return NoContent();
 
-            ListElement[] docs;
+            List<ListElement> docs = [];
             if (filters.LongLength == 0)
             {
-                docs = _context.Documents
+                var moderatedDocuments = _context.ModeratedDocuments
+                    .Include(md => md.Document)
+                    .ThenInclude(d => d.User)
+                    .Include(md =>  md.Document)
+                    .ThenInclude(d => d.DocumentType)
+                    .Where(md => md.Document.User.Id == authedUser.Id)
+                    .Skip((int)skip)
+                    .Take((int)take)
+                    .ToArray();
+
+                var mdco = moderatedDocuments.LongLength;
+                for (var i = 0; i < mdco; i++)
+                {
+                    var md = moderatedDocuments[i];
+                    var doc = (ListElement)md.Document;
+                    doc.Set("cost", md.Document.DocumentType.Cost);
+                    docs.Add(doc);
+                }
+                
+                var docsf = _context.Documents
                     .Include(d => d.User)
                     .Where(d => d.User.Id == authedUser.Id)
                     .Skip((int)skip)
@@ -105,17 +124,20 @@ namespace dserver.Controllers
             }
             else
             {
-                docs = _context.Documents
+                /*docs = _context.Documents
                     .Include(d => d.DocumentType)
                     .Include(d => d.User)
                     .Where(d => d.User.Id == authedUser.Id && filters.Contains(d.DocumentType.Name))
                     .Skip((int)skip)
                     .Take((int)take)
                     .Cast<ListElement>()
-                    .ToArray();
+                    .ToArray();*/
             }
 
-            return Ok(docs);
+            return Ok(docs
+                .Skip((int)skip)
+                .Take((int)take)
+                .ToArray());
         }
         
         [AuthFilter("user")]

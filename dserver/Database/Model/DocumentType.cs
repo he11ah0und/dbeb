@@ -9,6 +9,7 @@ public class DocumentType
     public ulong Id { get; set; }
     public string Name { get; set; }
     public string FriendlyName { get; set; }
+    public ulong Cost { get; set; }
     
     public static implicit operator ListElement(DocumentType model)
     {

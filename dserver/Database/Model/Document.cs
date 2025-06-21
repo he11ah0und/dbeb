@@ -11,8 +11,6 @@ namespace dserver.Database.Model
         public User User { get; set; } // constrained
         public string Name { get; set; }
         public DateTime Publish_date { get; set; }
-        [Column("cost")]
-        public ulong Cost { get; set; }
         
         public static implicit operator ListElement(Document model)
         {
@@ -20,7 +18,6 @@ namespace dserver.Database.Model
             le.Set("id", model.Id);
             le.Set("document", model.Name);
             le.Set("publish_date", model.Publish_date.Ticks);
-            le.Set("cost", model.Cost);
             return le;
         }
     }
