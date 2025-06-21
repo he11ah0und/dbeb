@@ -96,7 +96,7 @@ h3 {
     -webkit-appearance: none;
     -moz-appearance: none;
     width: 2rem;
-    height: 2rem;
+    min-height: 2rem;
     background: var(--checkbox-to);
     border: 2px solid var(--checkbox-to-border);
     border-radius: 0.375rem;

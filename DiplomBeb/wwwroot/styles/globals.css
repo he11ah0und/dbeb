@@ -44,14 +44,16 @@ button:hover {
 }
 
 input {
-    width: 100%; 
-    box-sizing: border-box; 
-    padding: 1.4rem 0.75rem;
-    height: calc(.6rem + 2px);
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem 0.75rem; 
+    min-height: 3rem; 
+    line-height: 1; 
     border-radius: .5625rem;
     background-color: var(--input);
     border: 0.125rem solid var(--border3);
     box-shadow: 0 0.125rem 0.25rem var(--shadow);
+    color: var(--text-gray);
     font-size: 1rem;
     font-weight: 800;
 }
@@ -61,20 +63,21 @@ label {
     top: -.5rem;
     left: 1.6rem;
     pointer-events: none;
-    border: 1px solid transparent;
+    display: inline-block;
+    padding: 0 0.4rem;
+    white-space: nowrap;
     transform-origin: 0 0;
     transition: opacity .15s ease-in-out, transform .15s ease-in-out;
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--input-placeholder);
-}
-
-:root label {
-    background-color: var(--container);
-}
-
-.dark label {
-    background-color: transparent;
+    
+    text-shadow:
+            0 0 0 var(--container),      
+            2px 0 0 var(--container),
+            -2px 0 0 var(--container),
+            0 2px 0 var(--container),
+            0 -2px 0 var(--container);
 }
 
 input:-moz-placeholder {
@@ -87,7 +90,7 @@ input::placeholder {
 
 input:focus,
 input:not(:placeholder-shown) {
-    padding-top: 1.625rem;
+    padding-top: 1rem;
     padding-bottom: .625rem;
 }
 
@@ -95,4 +98,27 @@ input:focus ~ label,
 input:not(:placeholder-shown) ~ label {
     opacity: 1;
     transform: scale(.85) translateY(0rem) translateX(.15rem);
+}
+
+select {
+    content: "";
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem 0.75rem;
+    min-height: 3rem;
+    line-height: 1;
+    border-radius: .5625rem;
+    background-color: var(--input);
+    border: 0.125rem solid var(--border3);
+    box-shadow: 0 0.125rem 0.25rem var(--shadow);
+    color: var(--text-gray);
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+option {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: var(--text-gray);
 }

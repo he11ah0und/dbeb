@@ -98,10 +98,8 @@ main > div > div:nth-child(2) {
     align-items: start;
     text-align: start;
     flex-wrap: wrap;
-
-    padding: 1.25rem 2.25rem;
+    padding: 1.25rem 1.25rem;
     gap: 1.5rem;
-
 }
 
 .container-dan div h4 {
@@ -122,6 +120,7 @@ main > div > div:nth-child(2) {
     position: relative;
     display: flex;
     align-items: start;
+    padding: 0 0.75rem;
     width: 100%;
     height: 2rem;
     box-shadow: 0 4px 6px -2px var(--shadow);
@@ -152,42 +151,10 @@ main > div > div:nth-child(2) {
     box-sizing: border-box; 
 }
 
-.container-dan input,
-.container-dan select {
-    flex-grow: 1;
-    min-width: 0; 
-    box-sizing: border-box; 
-}
-
 .edit-fields input, 
 .container-dan input {
-    border-radius: .625rem;
-    padding: 1rem;
     opacity: 1;
-    height: 1.4rem;
-    font-weight: 800;
-    font-size: 1.125rem;
-    color: var(--text-black);
     transition: box-shadow 0.3s ease;
-    box-shadow: 0 0.125rem 0.25rem var(--shadow); 
-}
-
-.container-dan select {
-    border-radius: .625rem;
-    padding: 1rem;
-    opacity: 1;
-    height: 2rem;
-    font-weight: 500;
-    font-size: 1.125rem;
-    color: var(--select);
-    transition: opacity 0.3s ease;
-    box-shadow: 0 0.125rem 0.25rem var(--shadow);
-}
-
-.container-dan option {
-    font-weight: 500;
-    font-size: 1.125rem;
-    color: var(--shadow);
 }
 
 .container-button {
