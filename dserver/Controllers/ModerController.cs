@@ -1,6 +1,8 @@
-﻿using dserver.Database;
+﻿using System.Threading.Channels;
+using dserver.Database;
 using dserver.Database.Model;
 using dserver.Filters;
+using dserver.Services;
 using dshared.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +14,11 @@ namespace dserver.Controllers;
 public class ModerController : ControllerBase
 {
     private readonly MainDBContext _context;
-
-    public ModerController(MainDBContext context)
+    private readonly Channel<ScoreParameters> _channel;
+    public ModerController(MainDBContext context, Channel<ScoreParameters> channel)
     {
         _context = context;
+        _channel = channel;
     }
     
     [AuthFilter("moderator")]
@@ -101,10 +104,6 @@ public class ModerController : ControllerBase
             .Include(p => p.Moder)
             .Include(rd => rd.Document)
             .SingleOrDefault(p => p.Moder.Id == authedId && p.Expire < now);
-
-        var state = bool.Parse(data.Get("state", "false"));
-        if (!state)
-            return Ok(false);
         
         var documentTypeId = ulong.Parse(data.Get("documentTypeId", "0"));
         if (!_context.DocumentTypes.Any(t => t.Id == documentTypeId))
@@ -117,11 +116,22 @@ public class ModerController : ControllerBase
             Document = current.Document,
             Moder = authedUser,
             DateTime = now,
+            State = bool.Parse(data.Get("state", "false"))
         });
         
         _context.ReservedDocuments.Remove(current);
         await _context.SaveChangesAsync();
         
+        await _channel.Writer.WriteAsync(new ScoreParameters(current.Document.Id), HttpContext.RequestAborted);
+        
         return Ok(true);
+    }
+
+    [AuthFilter()]
+    [HttpPost("document/accepts")]
+    public async Task<IActionResult> AcceptDocument()
+    {
+        await _channel.Writer.WriteAsync(new ScoreParameters(10), HttpContext.RequestAborted);
+        return Ok();
     }
 }

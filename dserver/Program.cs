@@ -1,4 +1,6 @@
+using System.Threading.Channels;
 using dserver.Database;
+using dserver.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,9 @@ builder.Services.AddDbContext<MainDBContext>(
 
 // adds web (rest) api controllers
 builder.Services.AddControllers();
+
+builder.Services.AddSingleton<Channel<ScoreParameters>>(Channel.CreateUnbounded<ScoreParameters>());
+builder.Services.AddHostedService<ScoreService>();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
