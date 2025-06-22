@@ -1,58 +1,84 @@
-@if (SvgParams is not null)
+@if (SvgParams?.Root != null)
 {
-    <svg class="@Class" id="@Id" @attributes="SvgParams.Attributes">
-        @foreach (var pathItem in SvgParams.Paths)
-        {
-            <path d="@pathItem.D" @attributes="pathItem.Attributes"/>
-        }
-    </svg>
+    @RenderElement(SvgParams.Root)
 }
 <script src="../Components/Views/SVG.razor.js"></script>
 @code {
     [Parameter]
     public string Source { get; set; }
+
     [Parameter]
     public string Class { get; set; }
+
     [Parameter]
     public string Id { get; set; }
-    
+
     private HttpClient Http { get; set; }
+
     [Inject]
-    private IJSRuntime _JsRuntime { get; set; }
+    private IJSRuntime JSRuntime { get; set; }
+
     [Inject]
     private NavigationManager NavManager { get; set; }
-    
-    public SvgParameters SvgParams { get; set; }
-    
+
+    public SvgParameters? SvgParams { get; set; }
+    private string SvgContent { get; set; }
     protected override async Task OnInitializedAsync()
     {
         Http = new HttpClient();
+        
+        var absoluteUrl = NavManager.ToAbsoluteUri(Source).ToString();
+        SvgContent = await Http.GetStringAsync(absoluteUrl);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!firstRender) return;
-        // Resolve relative path to absolute URL
-        var absoluteUrl = NavManager.ToAbsoluteUri(Source).ToString();
+        if (!firstRender || string.IsNullOrEmpty(Source)) return;
 
-        // Fetch SVG content
-        var svgContent = await Http.GetStringAsync(absoluteUrl);
+        // Call JS parser
+        SvgParams = await JSRuntime.InvokeAsync<SvgParameters>("parse", SvgContent);
 
-        // Parse with JSInterop
-        SvgParams = await _JsRuntime.InvokeAsync<SvgParameters>("parse", svgContent);
+        if (SvgParams?.Root == null)
+        {
+            await Console.Error.WriteLineAsync("SVG parsing failed: Root is null");
+        }
+
         StateHasChanged();
+    }
+
+    private RenderFragment RenderElement(SvgElement element)
+    {
+        return builder =>
+        {
+            builder.OpenElement(0, element.TagName);
+            
+            builder.AddAttribute(1, "class", Class);
+            builder.AddAttribute(2, "id", Id);
+
+            foreach (var attr in element.Attributes)
+            {
+                builder.AddAttribute(3, attr.Key, attr.Value);
+            }
+
+            foreach (var child in element.Children)
+            {
+                builder.AddContent(4, RenderElement(child));
+            }
+
+            builder.CloseElement();
+        };
     }
 
     
     public class SvgParameters
     {
-        public Dictionary<string, object> Attributes { get; set; } = [];
-        public List<PathData> Paths { get; set; } = [];
+        public SvgElement Root { get; set; }
     }
 
-    public class PathData
+    public class SvgElement
     {
-        public string D { get; set; } = string.Empty;
-        public Dictionary<string, object> Attributes { get; set; } = [];
+        public string TagName { get; set; }
+        public Dictionary<string, string> Attributes { get; set; } = new();
+        public List<SvgElement> Children { get; set; } = new();
     }
 }
