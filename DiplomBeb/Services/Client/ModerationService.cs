@@ -15,13 +15,14 @@ public class ModerationService
     public Callbacker<Action> OnSelectedLog { get; private set; }
     public Callbacker<Action> OnSelectedUser { get; private set; }
     
+    public byte[] DocumentImage { get; private set; }
     public ListElement? ProcessDocument { get; private set; }
     public Callbacker<Func<Task>> OnRequestDocument { get; private set; }
     
-    private BackendHttpClient _backendHttpClient;
+    private BackendHttpClient _http;
     public ModerationService(BackendHttpClient http)
     {
-        _backendHttpClient = http;
+        _http = http;
         UsersListView = new ListView(http, typeof(TableContent))
         {
             OnTotal = RequestUsersTotal,
@@ -80,13 +81,24 @@ public class ModerationService
 
     public async Task<bool> RequestDocumentForModeration()
     {
-        var res = await _backendHttpClient.Request("Moder/document");
-        if (!res.IsOk || !res.ResultAsJson<ListElement>(out var result))
+        var res = await _http.Request("Moder/document");
+        if (!res.IsOk 
+            || !res.ResultAsJson<ListElement>(out var result)
+            || !await DownloadImage(result))
             return false;
         
         ProcessDocument = result;
         
         await OnRequestDocument.InvokeAllAsync();
+        return true;
+    }
+
+    private async Task<bool> DownloadImage(ListElement element)
+    {
+        var res = await _http.Request($"Documents/down/{element.Get("documentId")}");
+        if (!res.IsOk || !res.ReadAsBytes(out var data)) 
+            return false;
+        DocumentImage = data;
         return true;
     }
     
@@ -95,16 +107,16 @@ public class ModerationService
         var req = new ListElement();
         req.Set("state", accepted);
         req.Set("documentTypeId", accepted);
-        var res = await _backendHttpClient
+        var res = await _http
             .Request("Moder/document/accept",
                 JsonContent.Create(req),
                 HttpMethod.Post);
-        if (!res.IsOk || !res.ResultAsJson<ListElement>(out var result))
+        if (!res.IsOk 
+            || !res.ResultAsJson<ListElement>(out var result))
             return false;
         
         ProcessDocument = result;
-        
-        OnRequestDocument.InvokeAll();
+        await OnRequestDocument.InvokeAllAsync();
         return true;
     }
 }

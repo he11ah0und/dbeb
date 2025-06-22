@@ -10,7 +10,7 @@ public class HttpResponseState
         IsOk = isok;
     }
 
-    public bool ResultAsString(out string result)
+    public bool ResultAsString(out string? result)
     {
         try
         {
@@ -18,7 +18,26 @@ public class HttpResponseState
         }
         catch
         {
-            result = default;
+            result = null;
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool ReadAsBytes(out byte[]? data)
+    {
+        try
+        {
+            var s = Value.Content.ReadAsStreamAsync().Result;
+            var ms = new MemoryStream();
+            s.CopyTo(ms);
+            data = ms.ToArray();
+            ms.Close();
+        }
+        catch
+        {
+            data = null;
             return false;
         }
 

@@ -48,11 +48,9 @@
     private async Task Get()
     {
         var res = await _http.Request($"Documents/down/{ListElement.Get("id")}");
-        if (!res.IsOk) return;
-        var s = await res.Value.Content.ReadAsStreamAsync();
-        var ms = new MemoryStream();
-        await s.CopyToAsync(ms);
-        Data = ms.ToArray();
+        if (!res.IsOk || !res.ReadAsBytes(out var data)) 
+            return;
+        Data = data;
     }
 
     private bool Value;
