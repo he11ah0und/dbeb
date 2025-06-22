@@ -1,7 +1,10 @@
 @if (SvgParams is not null)
 {
-    <svg class="@Class" @attributes="SvgParams.Attributes">
-        <path d="@SvgParams.Paths[0].D" @attributes="SvgParams.Paths[0].Attributes"/>
+    <svg class="@Class" id="@Id" @attributes="SvgParams.Attributes">
+        @foreach (var pathItem in SvgParams.Paths)
+        {
+            <path d="@pathItem.D" @attributes="pathItem.Attributes"/>
+        }
     </svg>
 }
 <script src="../Components/Views/SVG.razor.js"></script>
@@ -10,6 +13,8 @@
     public string Source { get; set; }
     [Parameter]
     public string Class { get; set; }
+    [Parameter]
+    public string Id { get; set; }
     
     private HttpClient Http { get; set; }
     [Inject]
