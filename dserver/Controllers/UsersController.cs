@@ -246,6 +246,10 @@ namespace dserver.Controllers
             user.Name = li.Get("name", user.Name);
             user.Surname = li.Get("surname", user.Surname);
             user.Middlename = li.Get("middlename", user.Middlename);
+            user.Place = _context.Places.SingleOrDefault(p =>
+                p.Id == ulong.Parse(
+                    li.Get("placeId", user.Place.Id.ToString())
+                ));
 
             await _context.SaveChangesAsync();
             

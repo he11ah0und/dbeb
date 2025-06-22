@@ -1,6 +1,7 @@
 @page "/special/profiles"
 @rendermode RenderMode.InteractiveServer
 @using DiplomBeb.Components.Views
+@using dshared.Utils
 <PageTitle>Пользователи - Цифровое портфолио</PageTitle>
 
 <div class="main-div">
@@ -63,17 +64,23 @@
                         <h4>Место:</h4>
                         @if (InEdit)
                         {
-                            <select >
-                                <option >КГА ПОУ "ДВТК" 1041</option>
-                                <option>КГА ПОУ "ДВТК" 1041</option>
-                                <option >КГА ПОУ "ДВТК" 1041</option>
-                                <option >КГА ПОУ "ДВТК" 1041</option>
-                            </select>
+                            @if (ModerationService.Places is ListElement[] places)
+                            {
+                                <!--<InputSelect ValueChanged="">
+                                    
+                                </InputSelect>-->
+                                <select @onchange="OnChangePlace">
+                                    @foreach (var place in places)
+                                    {
+                                        <option value="@place.Get("id")">@place.Get("name")</option>
+                                    }
+                                </select>
+                            }
                         }
                         else
                         {
                             <div class="linner">
-                                <h5>@PlaceName</h5>
+                                <h5>@ModerationService.SelectedUser.Get("place_name")</h5>
                             </div>
                         }
                     </div>

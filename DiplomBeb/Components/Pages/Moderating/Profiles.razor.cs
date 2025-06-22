@@ -18,7 +18,7 @@ public partial class Profiles : ComponentBase
     public string Middlename { get; set; }
     public string Phone { get; set; }
     public string Email { get; set; }
-    public string PlaceName { get; set; }
+    public ulong PlaceId { get; set; }
     public bool Selected { get; set; }
     
 
@@ -33,6 +33,11 @@ public partial class Profiles : ComponentBase
     {
         AccountService.StateChanged.Subscribe("404", OnLoaded);
         
+        if (!await ModerationService.RequestPlaces())
+        {
+            NotificationService.AddNotification("Ошибка получения информации о местах!");
+            return;
+        }
     }
     private void OnLoaded()
     {
@@ -57,6 +62,8 @@ public partial class Profiles : ComponentBase
             newLe.Set("name", Name);
             newLe.Set("surname", Surname);
             newLe.Set("middlename", Middlename);
+            newLe.Set("place_id", PlaceId);
+            
             if (!await AccountService.Update(newLe, ulong
                 .Parse(selected.Get("internalId", "0"))))
                 NotificationService
@@ -66,6 +73,14 @@ public partial class Profiles : ComponentBase
             InEdit = false;
         }
         StateHasChanged();
+    }
+
+    private void OnChangePlace(ChangeEventArgs e)
+    {
+        var place = ModerationService.Places
+            .SingleOrDefault(p => p.Get("place_name") == (string)e.Value);
+
+        PlaceId = (ulong)e.Value;
     }
 
     private void Load()
@@ -81,8 +96,9 @@ public partial class Profiles : ComponentBase
         Middlename = selected.Get("middlename");
         Phone = selected.Get("phone", "");
         Email = selected.Get("email");
-        PlaceName = selected.Get("place_name", "");
+        PlaceId = ulong.Parse(selected.Get("place_id", "0"));
         Selected = true;
+        InEdit = false;
     }
     
     protected override async Task OnAfterRenderAsync(bool firstRender)

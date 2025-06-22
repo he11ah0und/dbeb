@@ -20,6 +20,7 @@ public class ModerationService
     public Callbacker<Func<Task>> OnRequestDocument { get; private set; }
     
     public ListElement[] DocumentTypes { get; private set; }
+    public ListElement[] Places { get; private set; }
     
     private BackendHttpClient _http;
     public ModerationService(BackendHttpClient http)
@@ -93,6 +94,20 @@ public class ModerationService
             || !res.ResultAsJson<ListElement[]>(out var types))
             return false;
         DocumentTypes = types;
+        return true;
+    }
+    public async Task<bool> RequestPlaces()
+    {
+        var res = await _http.Request("Place/total");
+        if (!res.IsOk
+            || !res.ResultAsULong(out ulong total))
+            return false;
+        
+        res = await _http.Request($"Place/get/0/{total}");
+        if (!res.IsOk
+            || !res.ResultAsJson<ListElement[]>(out var places))
+            return false;
+        Places = places;
         return true;
     }
 

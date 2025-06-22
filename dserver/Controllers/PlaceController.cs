@@ -58,6 +58,13 @@ public class PlaceController : ControllerBase
             })
             .Cast<ListElement>()
             .ToArray();
+        
+        var dco = users.LongLength;
+        for (var i = 0; i < dco; i++)
+        {
+            var user = users[i];
+            user.Set("id", skip + (ulong)i + 1);
+        }
 
         return Ok(users);
     }
@@ -196,6 +203,29 @@ public class PlaceController : ControllerBase
         
         var places = _context.Places
             .Count();
+        return Ok(places);
+    }
+    [AuthFilter("admin")]
+    [HttpGet("get/{skip}/{take}")]
+    public async Task<IActionResult> GetPlaces(ulong skip, ulong take)
+    {
+        var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
+        var authedUser = _context.Users
+            .Include(u => u.ApiRole)
+            .Include(u => u.Place)
+            .SingleOrDefault(u => u.Id == authedId);
+
+        if (authedUser == null)
+            return NoContent();
+        
+        if (!authedUser.ApiRole.IsMoreUser())
+            return NoContent();
+        
+        var places = _context.Places
+            .OrderBy(p => p.Id)
+            .Skip((int)skip)
+            .Take((int)take)
+            .Cast<ListElement>();
         return Ok(places);
     }
 }
