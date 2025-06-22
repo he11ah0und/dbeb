@@ -21,6 +21,7 @@ public partial class Docs : ComponentBase
             NotificationService.AddNotification("Ошибка получения информации о документах!");
             return;
         }
+        SelectedDocumentTypeId = ulong.Parse(ModerationService.DocumentTypes.First().Get("id", "0"));
     }
     private void OnLoaded()
     {
