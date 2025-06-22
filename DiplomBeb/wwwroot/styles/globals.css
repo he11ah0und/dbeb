@@ -73,11 +73,11 @@ label {
     color: var(--input-placeholder);
     
     text-shadow:
-            0 0 0 var(--container),      
-            2px 0 0 var(--container),
-            -2px 0 0 var(--container),
-            0 2px 0 var(--container),
-            0 -2px 0 var(--container);
+            0 0 0 var(--input),      
+            2px 0 0 var(--input),
+            -2px 0 0 var(--input),
+            0 2px 0 var(--input),
+            0 -2px 0 var(--input);
 }
 
 input:-moz-placeholder {

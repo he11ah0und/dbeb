@@ -4,7 +4,8 @@
     --container: #1E1E2F;   
     --container2: #2A2A3D;   
     --container3: #3B3B5A;     
-    --container4: var(--header); 
+    --container4: var(--container2);
+    --container5: var(--container2);
     --header: #5785CB;         
     --transparent: #00000000;
     --shadow: rgba(0, 0, 0, 0.3);

@@ -249,6 +249,17 @@
     width: 100%;
 }
 
+.request-window button {
+    text-transform: uppercase;
+    background-color: var(--container4);
+    color: var(--text-white);
+    padding: 0.81rem 0.75rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0.25rem 0.5rem var(--shadow);
+}
+
 /*Панель отклонения документа */
 
 .rejection-doc-window-cont {
@@ -314,7 +325,7 @@
     width: 100%;
 }
 
-.rejection-doc-window-linner div textarea {
+.rejection-doc-window-linner textarea {
     resize: none; 
     padding: 1rem 1rem 0.5rem 1rem;
     height: 9.25rem;
@@ -327,7 +338,10 @@
     font-weight: 600;
     color: var(--text-black);
     transition: all 0.3s ease;
-    overflow-y: auto; 
+    overflow-y: auto;
+    &::placeholder {
+        color: transparent;
+    }
 }
 
 .rejection-doc-window-linner div {
@@ -339,23 +353,51 @@
     width: 100%;
 }
 
-.rejection-doc-window-linner div label {
+.rejection-doc-window-linner label {
     position: absolute;
     top: -.5rem;
-    left: 1.2rem;
-    padding: 0 0.4rem;
-    background-color: var(--container);
+    left: 1.6rem;
     pointer-events: none;
-    font-size: 1rem;
-    font-weight: 600;
+    display: inline-block;
+    padding: 0 0.4rem;
+    white-space: nowrap;
+    transform-origin: 0 0;
+    transition: opacity .15s ease-in-out, transform .15s ease-in-out;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--input-placeholder);
-    transition: transform 0.3s ease;
-    z-index: 1;
+    text-shadow:
+            0 0 0 var(--input),
+            2px 0 0 var(--input),
+            -2px 0 0 var(--input),
+            0 2px 0 var(--input),
+            0 -2px 0 var(--input);
+    
 }
 
-.rejection-doc-window-linner div textarea:focus + label,
-.rejection-doc-window-linner div textarea:not(:placeholder-shown) + label {
-    transform: scale(0.8);
+/* Состояние при фокусе или наличии текста */
+.rejection-doc-window-linner textarea:focus,
+.rejection-doc-window-linner textarea:not(:placeholder-shown) {
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+/* Перемещаем label при фокусе или заполненном поле */
+.rejection-doc-window-linner textarea:focus + label,
+.rejection-doc-window-linner textarea:not(:placeholder-shown) + label {
+    opacity: 1;
+    transform: scale(0.85) translateY(-0.1rem) translateX(0.15rem);
+}
+
+.rejection-doc-window-cont button {
+    text-transform: uppercase;
+    background-color: var(--container4);
+    color: var(--text-white);
+    padding: 0.81rem 0.75rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0.25rem 0.5rem var(--shadow);
 }
 
 /*Форма начала работы*/

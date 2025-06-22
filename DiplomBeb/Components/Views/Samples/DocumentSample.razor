@@ -18,8 +18,10 @@
     <div class="rating-award">
         @if (bool.TryParse(ListElement.Get("moderated"), out bool ok) && ok)
         {
-            <h3>+@ListElement.Get("cost")</h3>
-            <img src="/icons/star1-ico.svg" alt="звёзды"/>
+            <div>
+                <h3>+@ListElement.Get("cost")</h3>
+                <img src="/icons/star1-ico.svg" alt="звёзды"/>
+            </div>
         }
         else
         {

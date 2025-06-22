@@ -13,7 +13,7 @@
     align-items: center;
     text-align: center;
     padding: 1rem;
-    color: var(--main);
+    color: var(--header);
     font-size: 1.88rem;
     font-weight: 600;
 }
