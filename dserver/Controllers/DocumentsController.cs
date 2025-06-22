@@ -40,7 +40,6 @@ namespace dserver.Controllers
             }
             return true;
         }
-
         private bool RemoveDocument(ulong documentId)
         {
             var path = Path.Combine(ServerDocsPath, $"{documentId}.png");

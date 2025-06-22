@@ -15,6 +15,12 @@ public partial class Docs : ComponentBase
         AccountService.StateChanged.Subscribe("docs", OnLoaded);
         ModerationService.OnRequestDocument.Subscribe("docs", OnDocument);
         StartText = "Приступить модерировать?";
+
+        if (!await ModerationService.RequestDocumentTypes())
+        {
+            NotificationService.AddNotification("Ошибка получения информации о документах!");
+            return;
+        }
     }
     private void OnLoaded()
     {
@@ -42,6 +48,13 @@ public partial class Docs : ComponentBase
         StateHasChanged();
     }
 
+    private ulong SelectedDocumentTypeId { get; set; }
+    private void OnDocumentTypeChange(ChangeEventArgs e)
+    {
+        SelectedDocumentTypeId = ulong.Parse(ModerationService.DocumentTypes
+            .SingleOrDefault(dt => dt.Get("check") == (string)e.Value).Get("id", "0"));
+    }
+
     private async Task OnDocument()
     {
         StateHasChanged();
@@ -51,6 +64,11 @@ public partial class Docs : ComponentBase
     {
         StartText = "Продолжить модерировать?";
         Started = false;
+        if (!await ModerationService.AcceptDocumentFromModeration(SelectedDocumentTypeId, state))
+        {
+            NotificationService.AddNotification("Ошибка отправки состояния документа!");
+            return;
+        }
         StateHasChanged();
     }
 }

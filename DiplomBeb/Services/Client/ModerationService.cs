@@ -15,9 +15,11 @@ public class ModerationService
     public Callbacker<Action> OnSelectedLog { get; private set; }
     public Callbacker<Action> OnSelectedUser { get; private set; }
     
-    public byte[] DocumentImage { get; private set; }
+    public byte[]? DocumentImage { get; private set; }
     public ListElement? ProcessDocument { get; private set; }
     public Callbacker<Func<Task>> OnRequestDocument { get; private set; }
+    
+    public ListElement[] DocumentTypes { get; private set; }
     
     private BackendHttpClient _http;
     public ModerationService(BackendHttpClient http)
@@ -79,6 +81,21 @@ public class ModerationService
         return http.Request("Logs/total");
     }
 
+    public async Task<bool> RequestDocumentTypes()
+    {
+        var res = await _http.Request("Documents/total_types");
+        if (!res.IsOk
+            || !res.ResultAsULong(out ulong total_types))
+            return false;
+        
+        res = await _http.Request($"Documents/types/0/{total_types}");
+        if (!res.IsOk
+            || !res.ResultAsJson<ListElement[]>(out var types))
+            return false;
+        DocumentTypes = types;
+        return true;
+    }
+
     public async Task<bool> RequestDocumentForModeration()
     {
         var res = await _http.Request("Moder/document");
@@ -106,7 +123,7 @@ public class ModerationService
     {
         var req = new ListElement();
         req.Set("state", accepted);
-        req.Set("documentTypeId", accepted);
+        req.Set("documentTypeId", documentId);
         var res = await _http
             .Request("Moder/document/accept",
                 JsonContent.Create(req),
@@ -114,7 +131,9 @@ public class ModerationService
         if (!res.IsOk 
             || !res.ResultAsJson<ListElement>(out var result))
             return false;
-        
+
+        ProcessDocument = null;
+        DocumentImage = null;
         ProcessDocument = result;
         await OnRequestDocument.InvokeAllAsync();
         return true;

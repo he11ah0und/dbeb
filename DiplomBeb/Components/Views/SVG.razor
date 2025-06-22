@@ -1,4 +1,3 @@
-@using System.Text.Json
 @using DiplomBeb.Services.Client
 @if (SvgCache.GetCachedInstance(CacheId, out var cache))
 {
@@ -37,7 +36,12 @@
     protected override async Task OnInitializedAsync()
     {
         Http = new HttpClient();
+    }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender || string.IsNullOrEmpty(Source)) return;
+        
         IsCachedSvg = SvgCache.CachedSvgs.TryGetValue(Source, out CacheSvg);
         if (!IsCachedSvg)
         {
@@ -46,15 +50,9 @@
         }
         CacheId = new CacheId(Class, Source);
         IsCachedInstance = SvgCache.CachedInstances.TryGetValue(CacheId, out CacheInstance);
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (!firstRender || string.IsNullOrEmpty(Source)) return;
-
+        
         try
         {
-            
             if (!IsCachedSvg)
             {
                 var svgParams = await JSRuntime.InvokeAsync<SvgParameters>("parse", SvgContent);

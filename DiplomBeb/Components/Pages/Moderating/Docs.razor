@@ -11,34 +11,43 @@
         </div>
         <div class="container-list">
             <div class="wrapper">
-            @if (ModerationService.ProcessDocument is ListElement pdoc)
-            {
-                <div class="title">
-                    <h4>@pdoc.Get("documentName")</h4>
-                </div>
-                <div class="arnold">
-                    <div class="image">
-                        <img src="data:image;base64, @Convert.ToBase64String(ModerationService.DocumentImage)" alt="документ"/>
+                @if (ModerationService.ProcessDocument is ListElement pdoc)
+                {
+                    <div class="title">
+                        <h4>@pdoc.Get("documentName")</h4>
                     </div>
-                </div>
-            }
-            else
-            {
-                <div class="arnold">
-                    <div class="over">
-                        <h4>На данный момент документы закончились!</h4>
+                    <div class="arnold">
+                        <div class="image">
+                            @{
+                                var src = ModerationService.DocumentImage is null ? "" : $"data:image;base64, {Convert.ToBase64String(ModerationService.DocumentImage)}";
+                            }
+                            <img src="@src"
+                                 alt="документ"/>
+                        </div>
                     </div>
-                </div>
-            }
+                }
+                else
+                {
+                    <div class="arnold">
+                        <div class="over">
+                            <h4>На данный момент документы закончились!</h4>
+                        </div>
+                    </div>
+                }
             </div>
             <div class="footer">
                 <button class="accept" @onclick="async () => await AcceptDocument(true)">принять</button>
                 <button class="reject" @onclick="async () => await AcceptDocument(false)">отклонить</button>
-                <select>
-                    <option>Грамота</option>
-                    <option>Сертификат</option>
-                    <option>Диплом</option>
-                </select>
+                @if (ModerationService.DocumentTypes is ListElement[] dts)
+                {
+                    <select @onchange="OnDocumentTypeChange">
+
+                        @foreach (var dt in dts)
+                        {
+                            <option>@dt.Get("check")</option>
+                        }
+                    </select>
+                }
             </div>
         </div>
     </div>
