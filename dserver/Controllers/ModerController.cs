@@ -84,6 +84,10 @@ public class ModerController : ControllerBase
         // processing document
         result.Set("documentId", current.Document.Id);
         result.Set("documentName", current.Document.Name);
+        // user
+        result.Set("surname", current.Document.User.Surname);
+        result.Set("name", current.Document.User.Name);
+        result.Set("middlename", current.Document.User.Middlename);
         
         return Ok(result);
     }

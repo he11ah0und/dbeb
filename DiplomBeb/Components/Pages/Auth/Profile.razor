@@ -27,8 +27,7 @@
                         }
                         else
                         {
-                            <span>@AccountService.Account.Get("surname") @AccountService.Account.Get("name")
-                                @AccountService.Account.Get("middlename")</span>
+                            <span>@AccountService.Account.GetCombined(" ","surname", "name", "middlename")</span>
                         }
                     </div>
                     <div class="list-line">

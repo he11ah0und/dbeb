@@ -1,4 +1,5 @@
 @page "/special/docs"
+@using dshared.Utils
 @rendermode RenderMode.InteractiveServer
 
 <PageTitle>Модерация документов - Цифровое портфолио</PageTitle>
@@ -35,19 +36,22 @@
             </div>
         </div>
     </div>
-    <div class="middle">
-        <div class="container-list">
-            <div class="title">
-                <div class="image-title">
-                    <img class="img39" alt="" src="/images/prof-foto-img.svg"/>
+    @if (ModerationService.ProcessDocument is ListElement doc)
+    {
+        <div class="middle">
+            <div class="container-list">
+                <div class="title">
+                    <div class="image-title">
+                        <img class="img39" alt="" src="/images/prof-foto-img.svg"/>
+                    </div>
+                    <h4>@doc.Get("")</h4>
                 </div>
-                <h4>Акакий Акакиевич Акаков</h4>
-            </div>
-            <div class="dan-title">
-                <button>отправить запрос администратору</button>
+                <div class="dan-title">
+                    <button>отправить запрос администратору</button>
+                </div>
             </div>
         </div>
-    </div>
+    }
 
     @if (!Started)
     {
@@ -55,7 +59,7 @@
             <div class="window-back"></div>
 
             <div class="window">
-                <h3>Нажмите, чтобы начать работу</h3>
+                <h3>Приступить модерировать?</h3>
                 <button @onclick="Begin">приступить</button>
             </div>
         </div>

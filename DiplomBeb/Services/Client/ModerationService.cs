@@ -16,7 +16,7 @@ public class ModerationService
     public Callbacker<Action> OnSelectedUser { get; private set; }
     
     public ListElement? ProcessDocument { get; private set; }
-    public Callbacker<Action> OnRequestDocument { get; private set; }
+    public Callbacker<Func<Task>> OnRequestDocument { get; private set; }
     
     private BackendHttpClient _backendHttpClient;
     public ModerationService(BackendHttpClient http)
@@ -56,7 +56,7 @@ public class ModerationService
             OnSelectedUser.InvokeAll();
         });
 
-        OnRequestDocument = new Callbacker<Action>(false);
+        OnRequestDocument = new Callbacker<Func<Task>>(false);
     }
     private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)
     {
@@ -86,7 +86,7 @@ public class ModerationService
         
         ProcessDocument = result;
         
-        OnRequestDocument.InvokeAll();
+        await OnRequestDocument.InvokeAllAsync();
         return true;
     }
     

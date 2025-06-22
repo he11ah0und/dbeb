@@ -21,6 +21,18 @@ public class ListElement
     public string Get(string key, string defaultValue)
         => Elements.GetValueOrDefault(key, defaultValue);
 
+    public string? GetCombined(string divider, params string[] keys)
+        => string.Join(divider, keys.Select(Get).Where(s => !string.IsNullOrEmpty(s)));
+
+    public void Intersect(params string[] keys)
+    {
+        List<string> toRemove = [];
+        toRemove
+            .AddRange(from key in Elements where !keys.Contains(key.Key) select key.Key);
+        foreach (var key in toRemove)
+            Elements.Remove(key);
+    }
+
     public void Del(string key)
     {
         Elements.Remove(key);

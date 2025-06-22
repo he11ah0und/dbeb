@@ -3,7 +3,7 @@
 @{
     var hasLink = DataResolver.IsHave("link");
     var mainTextContent = (DataResolver.IsHave("surname", "middlename")
-        ? $"{ListElement.Get("surname")} {ListElement.Get(Id)} {ListElement.Get("middlename")}"
+        ? $"{ListElement.GetCombined(" ","surname", Id, "middlename")}"
         : ListElement.Get(Id));
 }
 <div class="name">

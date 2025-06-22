@@ -42,7 +42,7 @@
 			<div>
 				@if (AccountService.IsLogged)
 				{
-					<h3>@AccountService?.Account?.Get("name") @AccountService?.Account?.Get("middlename")</h3>
+					<h3>@AccountService?.Account?.GetCombined(" ", "name", "middlename")</h3>
 					<h4>@AccountService?.Account?.Get("webrole_name")</h4>
 				}
 				else

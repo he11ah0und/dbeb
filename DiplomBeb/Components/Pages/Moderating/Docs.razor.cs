@@ -9,11 +9,10 @@ public partial class Docs : ComponentBase
     private AccountService AccountService { get; set; }
     [Inject]
     private NavigationManager Navigation { get; set; }
-    
-    private bool Started { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        AccountService.StateChanged.Subscribe("404", OnLoaded);
+        AccountService.StateChanged.Subscribe("docs", OnLoaded);
+        ModerationService.OnRequestDocument.Subscribe("docs", OnDocument);
     }
     private void OnLoaded()
     {
@@ -23,9 +22,28 @@ public partial class Docs : ComponentBase
         Navigation.NavigateTo($"/error/403");
     }
 
-    private void Begin()
+    [Inject]
+    private NotificationService NotificationService { get; set; }
+    [Inject]
+    private ModerationService ModerationService { get; set; }
+    private bool Started { get; set; }
+    private async Task Begin()
     {
         Started = true;
+
+        if (!await ModerationService.RequestDocumentForModeration())
+            NotificationService.AddNotification("Ошибка получения документа!");
+        
         StateHasChanged();
+    }
+
+    private async Task OnDocument()
+    {
+        StateHasChanged();
+    }
+
+    private async Task AcceptDocument(bool state)
+    {
+        
     }
 }

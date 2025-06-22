@@ -15,10 +15,7 @@ public class Callbacker<TDelegate>
     {
         if (InvokeOnSubscribe)
             fn?.DynamicInvoke();
-        if (Callbacks.ContainsKey(name))
-        {
-            Callbacks.Remove(name);
-        }
+        Callbacks.Remove(name);
         Callbacks.TryAdd(name, fn);
     }
 
@@ -33,5 +30,15 @@ public class Callbacker<TDelegate>
         var cbs = Callbacks.Values.ToList();
         for (var i = 0; i < co; i++)
             cbs[i]?.DynamicInvoke(args);
+    }
+    public async Task InvokeAllAsync(params object[] args)
+    {
+        var co = Callbacks.Count;
+        var cbs = Callbacks.Values.ToList();
+        for (var i = 0; i < co; i++)
+        {
+            var cb = cbs[i];
+            await (Task)cb.DynamicInvoke(args);
+        }
     }
 }

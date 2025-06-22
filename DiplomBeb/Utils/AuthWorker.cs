@@ -28,6 +28,7 @@ public class AuthWorker
     public async Task<bool> TrySignIn(
         ListElement signInData, bool encryptPass = true)
     {
+        signInData.Intersect("email", "password");
         // hashing password
         if (encryptPass)
         {
@@ -67,7 +68,7 @@ public class AuthWorker
         var res = await BHttp.NativeRequest("Auth/signup",
             JsonContent.Create(signUpData),
             HttpMethod.Post);
-        if (!res.IsOk || !res.ResultAsBool(out bool bOk))
+        if (!res.IsOk || !res.ResultAsBool(out var bOk))
             return false;
 
         return bOk;
