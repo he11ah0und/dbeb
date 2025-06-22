@@ -1,4 +1,7 @@
 @page "/about"
+@using DiplomBeb.Components.Views
+@rendermode RenderMode.InteractiveServer
+
 <PageTitle>О сервисе - Цифровое портфолио</PageTitle>
 <div class="main-div">
 	<div class="middle">
@@ -8,7 +11,9 @@
 		<div class="place-container">
 			<div class="place-inner-top">
 				<div class="logo">
-					<img class="img39" src="icons/logo-ico.svg" alt="Логотип ДВТК" />
+					<div class="l-i">
+						<SVG Class="logo-icon-about" Source="/icons/logo-ico.svg"/>
+					</div>
 					<div class="place-inner-top-text">
 						<div>
 							<h1>Сервис “Цифровое портфолио”</h1>
@@ -21,13 +26,13 @@
 					</div>
 					<div class="socials">
 						<a href="#">
-							<img class="img38" src="icons/TG-ico.svg" alt="Кнопка vk" />
+							<SVG Class="mes-icon" Source="/icons/TG-ico.svg"/>
 						</a>
 						<a href="#">
-							<img class="img38" src="icons/OK-ico.svg" alt="Кнопка ok" />
+							<SVG Class="mes-icon" Source="/icons/OK-ico.svg"/>
 						</a>
 						<a href="#">
-							<img class="img38" src="icons/VK-ico.svg" alt="Кнопка tg" />
+							<SVG Class="mes-icon" Source="/icons/VK-ico.svg"/>
 						</a>
 					</div>
 				</div>

@@ -35,12 +35,6 @@
     height: 100%;
 }
 
-.linner-left img {
-    width: 80%;
-    filter: brightness(0) invert(1);
-    margin: 4rem 0;
-}
-
 .linner-right {
     padding: 3rem 4rem;
     gap: 1rem;
@@ -111,7 +105,6 @@ button {
     margin-top: 2rem;
     background-color: var(--container4);
     color: var(--text-white);
-    transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 0.25rem 0.5rem var(--shadow);
     font-weight: 600;
     font-size: 0.9375rem;
