@@ -70,6 +70,7 @@ public partial class Docs : ComponentBase
         }
         StartText = "Продолжить модерировать?";
         Started = false;
+        SelectedDocumentTypeId = ulong.Parse(ModerationService.DocumentTypes.First().Get("id", "0"));
         StateHasChanged();
     }
 }
