@@ -39,7 +39,7 @@ public class ModerController : ControllerBase
             .Include(p => p.Moder)
             .Include(rd => rd.Document)
             .ThenInclude(document => document.User)
-            .SingleOrDefault(p => p.Moder.Id == authedId && p.Expire < now);
+            .SingleOrDefault(p => p.Moder.Id == authedId && p.Expire < now.Ticks);
         
         // assignating document to moderator
         if (current is null)
@@ -47,7 +47,7 @@ public class ModerController : ControllerBase
             // process old
             var old = _context.ReservedDocuments
                 .Include(p => p.Moder)
-                .SingleOrDefault(p => p.Moder.Id == authedId && p.Expire >= now);
+                .SingleOrDefault(p => p.Moder.Id == authedId && p.Expire >= now.Ticks);
             if (old is not null)
             {
                 _context.ReservedDocuments.Remove(old);
@@ -69,7 +69,7 @@ public class ModerController : ControllerBase
                 {
                     Document = doc,
                     Moder = authedUser,
-                    Expire = now + TimeSpan.FromMinutes(20),
+                    Expire = (now + TimeSpan.FromMinutes(20)).Ticks,
                 };
                 _context.ReservedDocuments.Add(current);
                 await _context.SaveChangesAsync();
@@ -107,7 +107,11 @@ public class ModerController : ControllerBase
         var current = _context.ReservedDocuments
             .Include(p => p.Moder)
             .Include(rd => rd.Document)
-            .SingleOrDefault(p => p.Moder.Id == authedId && p.Expire < now);
+            .ThenInclude(document => document.User)
+            .SingleOrDefault(p => p.Moder.Id == authedId);
+
+        if (current is null)
+            return Ok(false);
         
         var documentTypeId = ulong.Parse(data.Get("documentTypeId", "0"));
         if (!_context.DocumentTypes.Any(t => t.Id == documentTypeId))
@@ -126,7 +130,7 @@ public class ModerController : ControllerBase
         _context.ReservedDocuments.Remove(current);
         await _context.SaveChangesAsync();
         
-        await _channel.Writer.WriteAsync(new ScoreParameters(current.Document.Id), HttpContext.RequestAborted);
+        await _channel.Writer.WriteAsync(new ScoreParameters((ulong)current.Document.User.Id), HttpContext.RequestAborted);
         
         return Ok(true);
     }

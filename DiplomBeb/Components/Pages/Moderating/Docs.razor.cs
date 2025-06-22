@@ -62,13 +62,13 @@ public partial class Docs : ComponentBase
 
     private async Task AcceptDocument(bool state)
     {
-        StartText = "Продолжить модерировать?";
-        Started = false;
         if (!await ModerationService.AcceptDocumentFromModeration(SelectedDocumentTypeId, state))
         {
             NotificationService.AddNotification("Ошибка отправки состояния документа!");
             return;
         }
+        StartText = "Продолжить модерировать?";
+        Started = false;
         StateHasChanged();
     }
 }

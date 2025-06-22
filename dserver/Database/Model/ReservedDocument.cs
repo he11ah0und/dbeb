@@ -9,5 +9,5 @@ public class ReservedDocument
     public ulong Id { get; set; }
     public Document Document { get; set; }
     public User Moder { get; set; }
-    public DateTime Expire { get; set; }
+    public long Expire { get; set; }
 }

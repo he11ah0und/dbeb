@@ -129,12 +129,13 @@ public class ModerationService
                 JsonContent.Create(req),
                 HttpMethod.Post);
         if (!res.IsOk 
-            || !res.ResultAsJson<ListElement>(out var result))
+            || !res.ResultAsBool(out var result)
+            || !result)
             return false;
 
         ProcessDocument = null;
         DocumentImage = null;
-        ProcessDocument = result;
+        
         await OnRequestDocument.InvokeAllAsync();
         return true;
     }
