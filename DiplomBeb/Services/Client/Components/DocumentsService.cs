@@ -57,11 +57,11 @@ public class DocumentsService
         FiltersDocumentsListView.DataResolver.Props.AddRange(
             ["check"]);
         
-        DocumentsSelector = new Selector(DocumentsListView, DocumentsListView, "id")
+        DocumentsSelector = new Selector("1", DocumentsListView, DocumentsListView, "id")
         {
             UpdateDestination = false
         };
-        DocumentTypesSelector = new Selector(FiltersDocumentsListView, DocumentsListView, "name");
+        DocumentTypesSelector = new Selector("2", FiltersDocumentsListView, DocumentsListView, "name");
     }
     
     private Task<HttpResponseState> RequestDocuments(BackendHttpClient http, ulong skip, ulong take)

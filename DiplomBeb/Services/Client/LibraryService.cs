@@ -33,7 +33,7 @@ public class LibraryService
         };
         FiltersListView.DataResolver.Props.AddRange(
             ["check"]);
-        FiltersSelector = new Selector(FiltersListView, LibraryListView, "name");
+        FiltersSelector = new Selector("", FiltersListView, LibraryListView, "name");
     }
     
     private Task<HttpResponseState> RequestLibs(BackendHttpClient http, ulong skip, ulong take)

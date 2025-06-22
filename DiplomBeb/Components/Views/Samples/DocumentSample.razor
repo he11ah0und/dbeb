@@ -16,16 +16,23 @@
     </div>
 
     <div class="rating-award">
-        @if (bool.TryParse(ListElement.Get("moderated"), out bool ok) && ok)
+        @if (bool.Parse(ListElement.Get("moderated", "false")))
         {
-            <div>
-                <h3>+@ListElement.Get("cost")</h3>
-                <SVG Class="doc-icon" Source="/icons/star-ico.svg"/>
-            </div>
+            @if (bool.Parse(ListElement.Get("state", "false")))
+            {
+                <div>
+                    <h3>+@ListElement.Get("cost")</h3>
+                    <SVG Class="doc-icon" Source="/icons/star-ico.svg"/>
+                </div>
+            }
+            else
+            {
+                <h3>Документ отклонён модератором</h3>
+            }
         }
         else
         {
-            <h3>Документ обрабывается модератором</h3>
+            <h3>Документ обрабатывается модератором</h3>
         }
         <h4>@ListElement.Get(Id)</h4>
     </div>

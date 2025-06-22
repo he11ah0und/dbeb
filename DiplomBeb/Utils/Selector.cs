@@ -17,11 +17,11 @@ public class Selector
         {
             _sourceListView?
                 .OnElementCallback?
-                .Unsubscribe("Selector");
+                .Unsubscribe("Selector" + Id);
             _sourceListView = value;
             _sourceListView?
                 .OnElementCallback?
-                .Subscribe("Selector", OnElementCallback);
+                .Subscribe("Selector" + Id, OnElementCallback);
         }
     }
     
@@ -29,20 +29,12 @@ public class Selector
     public ListView? DestListView
     {
         get => _destListView;
-        set
-        {
-            _destListView?
-                .OnElementCallback?
-                .Unsubscribe("Selector");
-            _destListView = value;
-            _destListView?
-                .OnElementCallback?
-                .Subscribe("Selector", OnElementCallback);
-        }
+        set => _destListView = value;
     }
-
-    public Selector(ListView? sourcelistView, ListView? destListView, string saveProp)
+    public string Id { get; set; }
+    public Selector(string id, ListView? sourcelistView, ListView? destListView, string saveProp)
     {
+        Id = id;
         SaveProp = saveProp;
         DestListView = destListView;
         Values = [];

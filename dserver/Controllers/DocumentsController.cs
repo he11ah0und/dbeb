@@ -117,7 +117,8 @@ namespace dserver.Controllers
                     var doc = (ListElement)md.Document;
                     if (md.State)
                         doc.Set("cost", md.Document.DocumentType.Cost);
-                    doc.Set("moderated", md.State);
+                    doc.Set("moderated", true);
+                    doc.Set("state", md.State);
                     docs.Add(doc);
                 }
 
@@ -190,7 +191,14 @@ namespace dserver.Controllers
                 .Where(d => d.User.Id == authedUser.Id && documentIds.Contains(d.Id))
                 .ToArray();
             
-            _context.RemoveRange(docs);
+            var modDocs = _context.ModeratedDocuments
+                .Include(md => md.Document)
+                .ThenInclude(d => d.User)
+                .Where(md => md.Document.User.Id == authedUser.Id && documentIds.Contains(md.Document.Id))
+                .ToArray();
+            
+            _context.Documents.RemoveRange(docs);
+            _context.ModeratedDocuments.RemoveRange(modDocs);
 
             await _context.SaveChangesAsync();
 
