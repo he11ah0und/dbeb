@@ -9,7 +9,8 @@
         <div class="heading">
             <div>Документы</div>
         </div>
-        <div class="container-list">
+
+        <div class="scrollable-content">
             <div class="wrapper">
                 @if (ModerationService.ProcessDocument is ListElement pdoc && bool.Parse(pdoc.Get("hasWork", "false")))
                 {
@@ -21,8 +22,7 @@
                             @{
                                 var src = ModerationService.DocumentImage is null ? "" : $"data:image;base64, {Convert.ToBase64String(ModerationService.DocumentImage)}";
                             }
-                            <img src="@src"
-                                 alt="документ"/>
+                            <img src="@src" alt="документ"/>
                         </div>
                     </div>
                 }
@@ -43,7 +43,6 @@
                     @if (ModerationService.DocumentTypes is ListElement[] dts)
                     {
                         <select @onchange="OnDocumentTypeChange">
-
                             @foreach (var dt in dts)
                             {
                                 <option>@dt.Get("check")</option>
@@ -54,17 +53,18 @@
             </div>
         </div>
     </div>
+
     @if (ModerationService.ProcessDocument is ListElement doc && bool.Parse(doc.Get("hasWork", "false")))
     {
-        <div class="middle">
+        <div class="middle fixed-bottom">
             <div class="container-list">
-                <div class="title">
-                    <div class="image-title">
-                        <img class="img39" alt="" src="/images/prof-foto-img.png"/>
-                    </div>
-                    <h4>@doc.GetCombined(" ", "surname", "name", "middlename")</h4>
-                </div>
                 <div class="dan-title">
+                    <div class="title">
+                        <div class="img">
+                            <img class="img39" alt="" src="/images/prof-foto-img.png"/>
+                        </div>
+                        <h4>@doc.GetCombined(" ", "surname", "name", "middlename")</h4>
+                    </div>
                     <button>отправить запрос администратору</button>
                 </div>
             </div>
@@ -75,7 +75,6 @@
     {
         <div class="window-cont">
             <div class="window-back"></div>
-
             <div class="window">
                 <h3>@StartText</h3>
                 <button @onclick="Begin">приступить</button>

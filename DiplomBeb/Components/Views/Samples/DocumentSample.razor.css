@@ -51,7 +51,7 @@ h4 {
     color: var(--text-black);
 }
 
-h3 {
+h3, .cancel {
     max-width: 100%;
     white-space: normal; 
     word-wrap: break-word; 
@@ -59,8 +59,14 @@ h3 {
     text-align: center;
     font-weight: 600;
     font-size: 1.1rem;
+}
 
+h3 {
     color: var(--text-gray);
+}
+
+.cancel {
+    color: var(--text-red);
 }
 
 /* img */
