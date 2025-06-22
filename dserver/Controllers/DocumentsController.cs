@@ -1,7 +1,9 @@
 ﻿using System.Linq.Expressions;
+using System.Threading.Channels;
 using dserver.Database;
 using dserver.Database.Model;
 using dserver.Filters;
+using dserver.Services;
 using dshared.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,13 +15,16 @@ namespace dserver.Controllers
     public class DocumentsController : ControllerBase
     {
         private readonly MainDBContext _context;
+        private readonly Channel<ScoreParameters> _channel;
+        
         
         private const string DocumentsFolder = "docs";
         private string ServerDocsPath;
 
-        public DocumentsController(MainDBContext context)
+        public DocumentsController(MainDBContext context, Channel<ScoreParameters> channel)
         {
             _context = context;
+            _channel = channel;
             ServerDocsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DocumentsFolder);
             if (!Directory.Exists(ServerDocsPath))
                 Directory.CreateDirectory(ServerDocsPath);
@@ -192,6 +197,8 @@ namespace dserver.Controllers
             var dco = docs.LongLength;
             for (var i = 0; i < dco; i++)
                 RemoveDocument(docs[i].Id);
+            
+            await _channel.Writer.WriteAsync(new ScoreParameters(authedId), HttpContext.RequestAborted);
             
             return Ok(true);
         }
