@@ -122,8 +122,3 @@ option {
     font-size: 1.125rem;
     color: var(--text-gray);
 }
-
-.nav-icon path {
-    fill: var(--text-red);
-    stroke: var(--text-red);
-}
