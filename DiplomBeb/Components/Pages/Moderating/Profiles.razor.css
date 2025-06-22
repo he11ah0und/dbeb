@@ -2,16 +2,15 @@
     display: flex;
     flex-direction: row;
     gap: 2rem;
-
     width: 100%;
     margin: 2rem;
 }
 
-main > div > div:nth-child(1) {
+.main-div > div:nth-child(1) {
     flex: 1;
 }
 
-main > div > div:nth-child(2) {
+.main-div > div:nth-child(2) {
     display: flex;
     flex-direction: column;
     width: 30%;
@@ -26,13 +25,15 @@ main > div > div:nth-child(2) {
 }
 
 .container-list {
+    max-height: max-content;
     flex: 1;
-    margin-top: 1.5rem;
+    margin-top: 4.5rem;
     border-radius: .625rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-content: center;
+    justify-content: flex-start;
     background-color: var(--container);
     overflow-y: auto;
     &::-webkit-scrollbar
@@ -40,15 +41,6 @@ main > div > div:nth-child(2) {
     {
         display: none;
     }
-
-}
-
-.place-container {
-    background-color: var(--container);
-    border-radius: .625rem;
-    margin-top: 4.5rem;
-    display: flex;
-    flex-direction: column;
 }
 
 .container-title {
@@ -56,22 +48,43 @@ main > div > div:nth-child(2) {
     border-top-right-radius: .625rem;
     border-top-left-radius: .625rem;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 1.25rem 1.25rem;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: flex-start;
+    align-content: center;
+    padding: 1.25rem;
+    position: relative;
+    flex-wrap: wrap;
     gap: 1rem;
-    
-    min-height: auto;
-    max-height: none;
-    overflow: visible;
 }
 
-.container-title h4 {
-    flex: 1 1 auto;
+.container-title span {
+    display: block;
+    flex: 1 1 100%;
+    text-align: left;
+    font-weight: 700;
     font-size: 1.25rem;
     color: var(--text-black);
-    white-space: normal; 
-    word-wrap: break-word; 
+    word-wrap: break-word;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    min-height: 1.5em;
+    position: relative;
+}
+
+.container-title span::after {
+    content: '';
+    display: block;
+    text-align: end;
+    justify-content: flex-end;
+    width: 100%;
+    height: 1px;
+    margin-top: 0.125rem;
+    background-color: var(--liner);
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 .image {
@@ -95,66 +108,75 @@ main > div > div:nth-child(2) {
 .container-dan {
     display: flex;
     flex-direction: column;
-    align-items: start;
-    text-align: start;
-    flex-wrap: wrap;
-    padding: 1.25rem 1.25rem;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem 2.25rem;
     gap: 1.5rem;
 }
 
-.container-dan div h4 {
-    font-weight: 700;
+.container-dan div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    text-align: end;
+    gap: 2rem;
+}
+
+.container-dan h4 {
+    font-weight: 500;
     font-size: 1.125rem;
     color: var(--text-black);
+    text-align: start;
     width: 6rem;
 }
 
-.container-dan div h5 {
-    font-weight: 700;
+.container-dan span {
+    flex: auto;
+    text-align: right;
+    font-weight: 500;
     font-size: 1.125rem;
     color: var(--text-gray);
-    width: max-content;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+
+    min-height: 1.5em; 
+    display: inline-block; 
+    position: relative; 
 }
 
-.linner {
-    position: relative;
-    display: flex;
-    align-items: start;
-    padding: 0 0.75rem;
+.container-dan span::after {
+    content: '';
+    display: block;
+    justify-content: flex-end;
+    text-align: end;
     width: 100%;
-    height: 2rem;
-    box-shadow: 0 4px 6px -2px var(--shadow);
+    height: 1px;
+    margin-top: 0.125rem;
+    background-color: var(--liner);
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
-.container-dan div {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: nowrap;
-    width: 100%; 
-}
 
-.container-dan div > *:first-child {
-    flex-shrink: 0; 
-    white-space: nowrap;
-}
 
 .edit-fields {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    width: 100%; 
+    width: 100%;
 }
 
 .edit-fields input {
     width: 100%;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 .edit-fields input, 
 .container-dan input {
     opacity: 1;
-    transition: box-shadow 0.3s ease;
 }
 
 .container-button {
@@ -235,10 +257,6 @@ main > div > div:nth-child(2) {
     gap: 1rem;
     height: max-content;
     width: 100%;
-}
-
-.request-window-linner input {
-    transition: box-shadow 0.3s ease;
 }
 
 .request-window-linner div {

@@ -167,7 +167,6 @@
     top: 1rem;
     right: 1rem;
     z-index: 2;
-    transition: background 0.3s ease;
 }
 
 .img input[type="checkbox"]:checked {

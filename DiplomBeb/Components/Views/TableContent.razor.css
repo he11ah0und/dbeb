@@ -35,7 +35,6 @@ th {
 }
 
 tr {
-    transition: all 0.3s ease;
     border-radius: 0.5rem;
     overflow: hidden;
     box-shadow: 0 0 0 transparent;

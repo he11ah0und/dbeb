@@ -11,8 +11,8 @@
     </div>
     @if (Selected)
     {
-        <div>
-            <div class="place-container">
+        <div class="middle">
+            <div class="container-list">
                 <div class="container-title">
                     <div class="image">
                         <img class="img39" alt="" src="/images/prof-foto-img.png"/>
@@ -28,7 +28,7 @@
                     else
                     {
                         <div class="linner">
-                            <h4>@Surname @Name @Middlename</h4>
+                            <span>@Surname @Name @Middlename</span>
                         </div>
                     }
                 </div>
@@ -43,7 +43,7 @@
                         else
                         {
                             <div class="linner">
-                                <h5>@Email</h5>
+                                <span>@Email</span>
                             </div>
                         }
                     </div>
@@ -56,7 +56,7 @@
                         else
                         {
                             <div class="linner">
-                                <h5>@Phone</h5>
+                                <span>@Phone</span>
                             </div>
                         }
                     </div>
@@ -89,7 +89,7 @@
                         else
                         {
                             <div class="linner">
-                                <h5>@ModerationService.SelectedUser.Get("place_name")</h5>
+                                <span>@ModerationService.SelectedUser.Get("place_name")</span>
                             </div>
                         }
                     </div>

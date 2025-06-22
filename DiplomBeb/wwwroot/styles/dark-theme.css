@@ -11,7 +11,7 @@
     --transparent: #00000000;
     --shadow: rgba(0, 0, 0, 0.3);
     --shadow2: rgba(87, 133, 203, 0.3);
-    --liner: linear-gradient(145deg, #2a2a3d, #1e1e2f);
+    --liner: var(--main);
 
     /* Цвета текста */
     --text-white: #E0E0E0;

@@ -371,7 +371,6 @@
     font-size: 1rem;
     font-weight: 600;
     color: var(--text-black);
-    transition: all 0.3s ease;
     overflow-y: auto;
     &::placeholder {
         color: transparent;
@@ -396,7 +395,6 @@
     padding: 0 0.4rem;
     white-space: nowrap;
     transform-origin: 0 0;
-    transition: opacity .15s ease-in-out, transform .15s ease-in-out;
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--input-placeholder);
@@ -488,7 +486,6 @@
     padding: 1rem 4rem;
     background-color: var(--container4);
     color: var(--text-white);
-    transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 0.25rem 0.5rem var(--shadow);
     font-weight: 600;
     font-size: 0.9375rem;

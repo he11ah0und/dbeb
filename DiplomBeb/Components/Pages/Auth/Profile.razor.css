@@ -127,7 +127,10 @@
     word-wrap: break-word; 
     white-space: normal; 
     overflow-wrap: anywhere; 
-    hyphens: auto; 
+    hyphens: auto;
+    min-height: 1.5em;
+    display: inline-block;
+    position: relative;
 }
 
 .list-line span::after {
@@ -137,7 +140,10 @@
     width: 100%;
     height: 1px;
     margin-top: 0.125rem;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: var(--liner);
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 .list-line button {
@@ -149,11 +155,6 @@
     color: var(--text-blue);
     text-align: right;
     padding: 0;
-    transition: color 0.3s ease;
-}
-
-.list-line button:hover {
-    color: var(--text-blue); 
 }
 
 .edit-fields {
