@@ -43,7 +43,6 @@
         {
             var absoluteUrl = NavManager.ToAbsoluteUri(Source).ToString();
             SvgContent = await Http.GetStringAsync(absoluteUrl);
-            
         }
         CacheId = new CacheId(Class, Source);
         IsCachedInstance = SvgCache.CachedInstances.TryGetValue(CacheId, out CacheInstance);
