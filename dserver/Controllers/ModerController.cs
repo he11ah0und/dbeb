@@ -64,14 +64,14 @@ public class ModerController : ControllerBase
             {
                 result.Set("hasWork", true);
 
-                var doc = q1.First();
-                _context.ReservedDocuments.Add(
-                    new ReservedDocument()
-                    {
-                        Document = doc,
-                        Moder = authedUser,
-                        Expire = now + TimeSpan.FromMinutes(20),
-                    });
+                var doc = q1.Include(document => document.User).First();
+                current = new ReservedDocument()
+                {
+                    Document = doc,
+                    Moder = authedUser,
+                    Expire = now + TimeSpan.FromMinutes(20),
+                };
+                _context.ReservedDocuments.Add(current);
                 await _context.SaveChangesAsync();
             }
         }
