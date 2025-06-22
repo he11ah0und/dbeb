@@ -14,6 +14,7 @@ public partial class Docs : ComponentBase
     {
         AccountService.StateChanged.Subscribe("docs", OnLoaded);
         ModerationService.OnRequestDocument.Subscribe("docs", OnDocument);
+        StartText = "Приступить модерировать?";
     }
     private void OnLoaded()
     {
@@ -28,13 +29,16 @@ public partial class Docs : ComponentBase
     [Inject]
     private ModerationService ModerationService { get; set; }
     private bool Started { get; set; }
+    private string StartText = "";
     private async Task Begin()
     {
-        Started = true;
-
         if (!await ModerationService.RequestDocumentForModeration())
+        {
             NotificationService.AddNotification("Ошибка получения документа!");
-        
+            return;
+        }
+
+        Started = true;
         StateHasChanged();
     }
 
@@ -45,6 +49,8 @@ public partial class Docs : ComponentBase
 
     private async Task AcceptDocument(bool state)
     {
-        
+        StartText = "Продолжить модерировать?";
+        Started = false;
+        StateHasChanged();
     }
 }

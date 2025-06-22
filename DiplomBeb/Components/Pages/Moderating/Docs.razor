@@ -32,12 +32,12 @@
             }
             </div>
             <div class="footer">
-                <button class="accept">принять</button>
-                <button class="reject">отклонить</button>
+                <button class="accept" @onclick="async () => await AcceptDocument(true)">принять</button>
+                <button class="reject" @onclick="async () => await AcceptDocument(false)">отклонить</button>
                 <select>
-                    <option >Грамота</option>
+                    <option>Грамота</option>
                     <option>Сертификат</option>
-                    <option >Диплом</option>
+                    <option>Диплом</option>
                 </select>
             </div>
         </div>
@@ -65,7 +65,7 @@
             <div class="window-back"></div>
 
             <div class="window">
-                <h3>Приступить модерировать?</h3>
+                <h3>@StartText</h3>
                 <button @onclick="Begin">приступить</button>
             </div>
         </div>
