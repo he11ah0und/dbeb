@@ -9,7 +9,8 @@ public partial class Docs : ComponentBase
     private AccountService AccountService { get; set; }
     [Inject]
     private NavigationManager Navigation { get; set; }
-
+    
+    private bool Started { get; set; }
     protected override async Task OnInitializedAsync()
     {
         AccountService.StateChanged.Subscribe("404", OnLoaded);
@@ -20,5 +21,11 @@ public partial class Docs : ComponentBase
             && val >= 5)
             return;
         Navigation.NavigateTo($"/error/403");
+    }
+
+    private void Begin()
+    {
+        Started = true;
+        StateHasChanged();
     }
 }

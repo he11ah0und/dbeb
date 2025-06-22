@@ -48,15 +48,18 @@
             </div>
         </div>
     </div>
-    
-    <!--<div class="window-cont">
-        <div class="window-back"></div>
 
-        <div class="window">
-            <h3>Нажмите, чтобы начать работу</h3>
-            <button>приступить</button>
+    @if (!Started)
+    {
+        <div class="window-cont">
+            <div class="window-back"></div>
+
+            <div class="window">
+                <h3>Нажмите, чтобы начать работу</h3>
+                <button @onclick="Begin">приступить</button>
+            </div>
         </div>
-    </div>-->
+    }
 </div>
 
 <!--<div class="request-window-cont">
