@@ -1,0 +1,53 @@
+@if (SvgParams is not null)
+{
+    <svg class="@Class" @attributes="SvgParams.Attributes">
+        <path d="@SvgParams.Paths[0].D" @attributes="SvgParams.Paths[0].Attributes"/>
+    </svg>
+}
+<script src="../Components/Views/SVG.razor.js"></script>
+@code {
+    [Parameter]
+    public string Source { get; set; }
+    [Parameter]
+    public string Class { get; set; }
+    
+    private HttpClient Http { get; set; }
+    [Inject]
+    private IJSRuntime _JsRuntime { get; set; }
+    [Inject]
+    private NavigationManager NavManager { get; set; }
+    
+    public SvgParameters SvgParams { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        Http = new HttpClient();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        // Resolve relative path to absolute URL
+        var absoluteUrl = NavManager.ToAbsoluteUri(Source).ToString();
+
+        // Fetch SVG content
+        var svgContent = await Http.GetStringAsync(absoluteUrl);
+
+        // Parse with JSInterop
+        SvgParams = await _JsRuntime.InvokeAsync<SvgParameters>("parse", svgContent);
+        StateHasChanged();
+    }
+
+    
+    public class SvgParameters
+    {
+        public Dictionary<string, object> Attributes { get; set; } = [];
+        public List<PathData> Paths { get; set; } = [];
+    }
+
+    public class PathData
+    {
+        public string D { get; set; } = string.Empty;
+        public Dictionary<string, object> Attributes { get; set; } = [];
+    }
+}

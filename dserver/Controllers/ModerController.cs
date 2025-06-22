@@ -38,6 +38,7 @@ public class ModerController : ControllerBase
         var current = _context.ReservedDocuments
             .Include(p => p.Moder)
             .Include(rd => rd.Document)
+            .ThenInclude(document => document.User)
             .SingleOrDefault(p => p.Moder.Id == authedId && p.Expire < now);
         
         // assignating document to moderator
@@ -54,25 +55,22 @@ public class ModerController : ControllerBase
             }
 
             // getting new
-            var q1 = _context.Documents
-                .Intersect(_context.ReservedDocuments
-                    .Select(rd => rd.Document));
-            if (q1.Any())
+            var q2 = _context.Documents
+                .Where(d => _context.ReservedDocuments.Any(rd => rd.Document.Id == d.Id));
+            
+            if (q2.Any())
             {
-                if (q1.Any())
-                {
-                    result.Set("hasWork", true);
+                result.Set("hasWork", true);
 
-                    var doc = q1.First();
-                    _context.ReservedDocuments.Add(
-                        new ReservedDocument()
-                        {
-                            Document = doc,
-                            Moder = authedUser,
-                            Expire = now + TimeSpan.FromMinutes(20),
-                        });
-                    await _context.SaveChangesAsync();
-                }
+                var doc = q2.First();
+                _context.ReservedDocuments.Add(
+                    new ReservedDocument()
+                    {
+                        Document = doc,
+                        Moder = authedUser,
+                        Expire = now + TimeSpan.FromMinutes(20),
+                    });
+                await _context.SaveChangesAsync();
             }
         }
         else
