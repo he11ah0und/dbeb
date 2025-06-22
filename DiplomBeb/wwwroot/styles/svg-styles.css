@@ -1,6 +1,11 @@
 ﻿.logo-icon path {
+    max-width: 17rem;
     fill: var(--header);
     stroke: var(--header);
+}
+
+.logo-icon {
+    max-width: 7rem;
 }
 
 .nav-icon path {
@@ -8,7 +13,25 @@
     stroke: var(--text-blue);
 }
 
+.nav-icon {
+    width: 2rem;
+}
+
 .prof-icon path {
     fill: var(--text-black);
     stroke: var(--text-black);
+}
+
+.prof-icon {
+    width: 4rem;
+}
+
+.doc-icon path, .pep-icon path {
+    fill: var(--text-yellow);
+    stroke: var(--text-yellow);
+}
+
+.doc-icon, .pep-icon {
+    width: 2rem;
+    height: max-content;
 }
