@@ -1,6 +1,8 @@
-@if (SvgParams?.Root != null)
+@using System.Text.Json
+@using DiplomBeb.Services.Client
+@if (SvgCache.GetCachedInstance(CacheId, out var cache))
 {
-    @RenderElement(SvgParams.Root)
+    @cache
 }
 <script src="../Components/Views/SVG.razor.js"></script>
 @code {
@@ -21,32 +23,73 @@
     [Inject]
     private NavigationManager NavManager { get; set; }
 
-    public SvgParameters? SvgParams { get; set; }
+    [Inject]
+    private SvgCache SvgCache { get; set; }
+    
     private string SvgContent { get; set; }
+    private CacheId CacheId { get; set; }
+    
+    private bool IsCachedInstance { get; set; }
+    private bool IsCachedSvg { get; set; }
+    private CacheData CacheSvg;
+    private RenderFragment CacheInstance;
+    
     protected override async Task OnInitializedAsync()
     {
         Http = new HttpClient();
-        
-        var absoluteUrl = NavManager.ToAbsoluteUri(Source).ToString();
-        SvgContent = await Http.GetStringAsync(absoluteUrl);
+
+        IsCachedSvg = SvgCache.CachedSvgs.TryGetValue(Source, out CacheSvg);
+        if (!IsCachedSvg)
+        {
+            var absoluteUrl = NavManager.ToAbsoluteUri(Source).ToString();
+            SvgContent = await Http.GetStringAsync(absoluteUrl);
+            
+        }
+        CacheId = new CacheId(Class, Source);
+        IsCachedInstance = SvgCache.CachedInstances.TryGetValue(CacheId, out CacheInstance);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender || string.IsNullOrEmpty(Source)) return;
 
-        // Call JS parser
-        SvgParams = await JSRuntime.InvokeAsync<SvgParameters>("parse", SvgContent);
-
-        if (SvgParams?.Root == null)
+        try
         {
-            await Console.Error.WriteLineAsync("SVG parsing failed: Root is null");
+            
+            if (!IsCachedSvg)
+            {
+                var svgParams = await JSRuntime.InvokeAsync<SvgParameters>("parse", SvgContent);
+
+                if (svgParams == null)
+                {
+                    await Console.Error.WriteLineAsync("Failed to parse SVG.");
+                    return;
+                }
+
+                if (svgParams?.Root == null)
+                {
+                    await Console.Error.WriteLineAsync("SVG parsing returned null root.");
+                }
+                
+                CacheSvg = new CacheData(RenderElements(svgParams), svgParams);
+                SvgCache.CachedSvgs.Add(Source, CacheSvg);
+            }
+
+            if (!IsCachedInstance)
+            {
+                CacheInstance = RenderElement(CacheSvg.sp.Root, CacheSvg.rf);
+                SvgCache.SaveCachedInstance(CacheId, CacheInstance);
+            }
+            
+            StateHasChanged();
         }
-
-        StateHasChanged();
+        catch (Exception ex)
+        {
+            await Console.Error.WriteLineAsync($"Error loading/parsing SVG: {ex.Message}");
+        }
     }
-
-    private RenderFragment RenderElement(SvgElement element)
+    
+    private RenderFragment RenderElement(SvgElement element, RenderFragment cached)
     {
         return builder =>
         {
@@ -60,25 +103,40 @@
                 builder.AddAttribute(3, attr.Key, attr.Value);
             }
 
-            foreach (var child in element.Children)
-            {
-                builder.AddContent(4, RenderElement(child));
-            }
+            builder.AddContent(4, cached);
 
             builder.CloseElement();
         };
     }
-
     
-    public class SvgParameters
+    private RenderFragment RenderElements(SvgParameters element)
     {
-        public SvgElement Root { get; set; }
+        return builder =>
+        {
+            foreach (var child in element.Root.Children)
+            {
+                builder.AddContent(2, RenderContent(child));
+            }
+        };
     }
 
-    public class SvgElement
+    private RenderFragment RenderContent(SvgElement element)
     {
-        public string TagName { get; set; }
-        public Dictionary<string, string> Attributes { get; set; } = new();
-        public List<SvgElement> Children { get; set; } = new();
+        return builder =>
+        {
+            builder.OpenElement(0, element.TagName);
+
+            foreach (var attr in element.Attributes)
+            {
+                builder.AddAttribute(1, attr.Key, attr.Value);
+            }
+
+            foreach (var child in element.Children)
+            {
+                builder.AddContent(2, RenderContent(child));
+            }
+
+            builder.CloseElement();
+        };
     }
 }

@@ -1,7 +1,24 @@
-function parse (fileContent) {
+function parse(fileContent) {
     const parser = new DOMParser();
-    const svgDoc = parser.parseFromString(fileContent, "image/svg+xml");
-    const root = svgDoc.documentElement;
+
+    // Remove XML declaration to avoid parsing issues
+    fileContent = fileContent.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "").trim();
+
+    // Try parsing with text/xml
+    const svgDoc = parser.parseFromString(fileContent, "text/xml");
+
+    // Check for parser errors
+    const parserError = svgDoc.querySelector("parsererror");
+    if (parserError) {
+        console.error("SVG parsing failed:", parserError.textContent);
+        return null;
+    }
+
+    // Ensure we got an SVG document
+    if (svgDoc.documentElement.tagName.toLowerCase() !== "svg") {
+        console.error("Expected <svg> root element, got:", svgDoc.documentElement.tagName);
+        return null;
+    }
 
     function parseElement(element) {
         const result = {
@@ -27,8 +44,7 @@ function parse (fileContent) {
         return result;
     }
 
-    // Wrap the root element in a Root property
     return {
-        Root: parseElement(root)
+        Root: parseElement(svgDoc.documentElement)
     };
 }

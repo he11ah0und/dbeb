@@ -35,6 +35,9 @@ namespace DiplomBeb
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<ModerationService>();
             
+            // for svg caching
+            builder.Services.AddSingleton<SvgCache>();
+            
             // swagger for debuggin web apis
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
