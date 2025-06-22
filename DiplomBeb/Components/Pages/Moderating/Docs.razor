@@ -11,7 +11,7 @@
         </div>
         <div class="container-list">
             <div class="wrapper">
-                @if (ModerationService.ProcessDocument is ListElement pdoc)
+                @if (ModerationService.ProcessDocument is ListElement pdoc && bool.Parse(pdoc.Get("hasWork", "false")))
                 {
                     <div class="title">
                         <h4>@pdoc.Get("documentName")</h4>
@@ -36,22 +36,25 @@
                 }
             </div>
             <div class="footer">
-                <button class="accept" @onclick="async () => await AcceptDocument(true)">принять</button>
-                <button class="reject" @onclick="async () => await AcceptDocument(false)">отклонить</button>
-                @if (ModerationService.DocumentTypes is ListElement[] dts)
+                @if (ModerationService.ProcessDocument is ListElement sdoc && bool.Parse(sdoc.Get("hasWork", "false")))
                 {
-                    <select @onchange="OnDocumentTypeChange">
+                    <button class="accept" @onclick="async () => await AcceptDocument(true)">принять</button>
+                    <button class="reject" @onclick="async () => await AcceptDocument(false)">отклонить</button>
+                    @if (ModerationService.DocumentTypes is ListElement[] dts)
+                    {
+                        <select @onchange="OnDocumentTypeChange">
 
-                        @foreach (var dt in dts)
-                        {
-                            <option>@dt.Get("check")</option>
-                        }
-                    </select>
+                            @foreach (var dt in dts)
+                            {
+                                <option>@dt.Get("check")</option>
+                            }
+                        </select>
+                    }
                 }
             </div>
         </div>
     </div>
-    @if (ModerationService.ProcessDocument is ListElement doc)
+    @if (ModerationService.ProcessDocument is ListElement doc && bool.Parse(doc.Get("hasWork", "false")))
     {
         <div class="middle">
             <div class="container-list">

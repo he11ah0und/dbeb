@@ -100,8 +100,10 @@ public class ModerationService
     {
         var res = await _http.Request("Moder/document");
         if (!res.IsOk 
-            || !res.ResultAsJson<ListElement>(out var result)
-            || !await DownloadImage(result))
+            || !res.ResultAsJson<ListElement>(out var result))
+            return false;
+        
+        if (bool.Parse(result.Get("hasWork", "false")) && !await DownloadImage(result))
             return false;
         
         ProcessDocument = result;
