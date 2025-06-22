@@ -77,10 +77,7 @@ public partial class Profiles : ComponentBase
 
     private void OnChangePlace(ChangeEventArgs e)
     {
-        var place = ModerationService.Places
-            .SingleOrDefault(p => p.Get("place_name") == (string)e.Value);
-
-        PlaceId = (ulong)e.Value;
+        PlaceId = ulong.Parse((string)e.Value);
     }
 
     private void Load()

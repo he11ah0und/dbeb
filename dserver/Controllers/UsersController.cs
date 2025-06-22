@@ -233,9 +233,11 @@ namespace dserver.Controllers
         [HttpPatch("personal/{id}")] // update profile
         public async Task<IActionResult> PatchUser(
             ulong id,
-            ListElement li)
+            [FromBody] ListElement li)
         {
-            var user = _context.Users.SingleOrDefault(u => u.Id == id);
+            var user = _context.Users
+                .Include(user => user.Place)
+                .SingleOrDefault(u => u.Id == id);
             if (user is null)
                 return Ok(false);
 
@@ -246,10 +248,21 @@ namespace dserver.Controllers
             user.Name = li.Get("name", user.Name);
             user.Surname = li.Get("surname", user.Surname);
             user.Middlename = li.Get("middlename", user.Middlename);
-            user.Place = _context.Places.SingleOrDefault(p =>
-                p.Id == ulong.Parse(
-                    li.Get("placeId", user.Place.Id.ToString())
-                ));
+            if (user.Place is not null)
+            {
+                var localPlaceId = ulong.Parse(li.Get("place_id", user.Place.Id.ToString()));
+                user.Place = _context.Places.SingleOrDefault(p =>
+                    p.Id == localPlaceId);
+            }
+            else
+            {
+                var localPlaceId = ulong.Parse(li.Get("place_id", "0"));
+                if (localPlaceId > 0)
+                {
+                    user.Place = _context.Places.SingleOrDefault(p =>
+                        p.Id == localPlaceId);
+                }
+            }
 
             await _context.SaveChangesAsync();
             

@@ -32,7 +32,7 @@
                         </div>
                     }
                 </div>
-                
+
                 <div class="container-dan">
                     <div>
                         <h4>Email:</h4>
@@ -70,9 +70,18 @@
                                     
                                 </InputSelect>-->
                                 <select @onchange="OnChangePlace">
+                                    <option value="0">Выберите место</option>
                                     @foreach (var place in places)
                                     {
-                                        <option value="@place.Get("id")">@place.Get("name")</option>
+                                        var isSelected = ulong.Parse(place.Get("id", "0")) == PlaceId;
+                                        if (isSelected)
+                                        {
+                                            <option selected value="@place.Get("id")">@place.Get("name")</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@place.Get("id")">@place.Get("name")</option>
+                                        }
                                     }
                                 </select>
                             }
@@ -85,11 +94,11 @@
                         }
                     </div>
                 </div>
-    
+
                 <div class="container-button">
                     <button @onclick="EditMode">Редактировать</button>
                     <button @onclick="ShowRequester">Отправить<br>запрос администратору</button>
-                </div> 
+                </div>
             </div>
         </div>
     }
@@ -103,7 +112,7 @@
             <h3>Запрос администратору</h3>
             <div class="request-window-linner">
                 <div>
-                    <input disabled type="text" id="user" />
+                    <input disabled type="text" id="user"/>
                     <label for="user">Пользователь</label>
                 </div>
                 <div>

@@ -79,8 +79,9 @@ public class AccountService
 
     public async Task<bool> Update(ListElement li, ulong id = 0)
     {
+        var url = "Users/personal" + (id > 0 ? $"/{id}" : "");
         var res = await _http.Request(
-            "Users/personal" + (id > 0 ? $"/{id}" : ""),
+            url,
             JsonContent.Create(li),
             HttpMethod.Patch);
         return res.IsOk;
