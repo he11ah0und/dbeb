@@ -23,7 +23,7 @@
             {
                 <div class="footer-left">
                     <button class="update" @onclick="_listView.Update">
-                        <img class="img-update" src="/icons/update.svg" alt="">
+                        <SVG Class="fut-icon" Source="/icons/update.svg"/>
                     </button>
                 </div>
             }
@@ -32,7 +32,7 @@
                 <div class="footer-right">
                     @if (_listView.CanPrevious)
                     {
-                        <button class="nazad" @onclick="_listView.PreviousPage"><img src="/icons/nazad.svg" alt="">
+                        <button class="nazad" @onclick="_listView.PreviousPage"><SVG Class="fut-icon" Source="/icons/nazad.svg"/>
                         </button>
                     }
                     @if (_listView.MaxPages > 1)
@@ -45,7 +45,7 @@
                     }
                     @if (_listView.CanNext)
                     {
-                        <button class="vpered" @onclick="_listView.NextPage"><img src="/icons/vpered.svg" alt="">
+                        <button class="vpered" @onclick="_listView.NextPage"><SVG Class="fut-icon" Source="/icons/vpered.svg"/>
                         </button>
                     }
                 </div>

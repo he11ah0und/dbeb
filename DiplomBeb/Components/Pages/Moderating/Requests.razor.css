@@ -140,7 +140,6 @@ main .place-container {
     font-weight: 600;
     font-size: 1.125rem;
     color: var(--text-white);
-    transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 0.25rem 0.5rem var(--shadow);
 
 }
