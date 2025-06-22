@@ -55,14 +55,16 @@ public class ModerController : ControllerBase
             }
 
             // getting new
-            var q2 = _context.Documents
-                .Where(d => _context.ReservedDocuments.Any(rd => rd.Document.Id == d.Id));
+            var q1 = _context.Documents
+                .Where(d =>
+                !_context.ModeratedDocuments.Any(rd => rd.Document.Id == d.Id)
+                && !_context.ReservedDocuments.Any(rd => rd.Document.Id == d.Id));
             
-            if (q2.Any())
+            if (q1.Any())
             {
                 result.Set("hasWork", true);
 
-                var doc = q2.First();
+                var doc = q1.First();
                 _context.ReservedDocuments.Add(
                     new ReservedDocument()
                     {
