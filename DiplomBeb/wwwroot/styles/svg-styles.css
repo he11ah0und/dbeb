@@ -1,0 +1,14 @@
+﻿.logo-icon path {
+    fill: var(--header);
+    stroke: var(--header);
+}
+
+.nav-icon path {
+    fill: var(--text-blue);
+    stroke: var(--text-blue);
+}
+
+.prof-icon path {
+    fill: var(--text-black);
+    stroke: var(--text-black);
+}

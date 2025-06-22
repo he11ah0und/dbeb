@@ -2,27 +2,25 @@
 
 <div class="sidebar">
 	<h1 class="heading">
-		<img src="icons/logo-ico.svg" alt="Логотип портфолио" />Цифровое портфолио
+		<SVG Class="logo-icon" Source="/icons/logo-ico.svg"/>
+		Цифровое портфолио
 	</h1>
 	<ul class="navigation">
 		<li>
-			<button @onclick="GoToMain"><img src="icons/star-ico.svg" alt="Общий рейтинг" />Общий рейтинг</button>
+			<button @onclick="GoToMain"><SVG Class="nav-icon" Source="/icons/star-ico.svg"/>Общий рейтинг</button>
 		</li>
 		<li>
-			<button @onclick="GoToLibrary" href="/library/1">
-				<img src="icons/biblio-ico.svg" alt="Библиотека ссылок" />Библиотека
-				ссылок
-			</button>
+			<button @onclick="GoToLibrary" href="/library/1"><SVG Class="nav-icon" Source="/icons/biblio-ico.svg"/>Библиотека ссылок</button>
 		</li>
 		<li>
-			<button @onclick="GoToAbout"><img src="icons/info-ico.svg" alt="О сервисе" />О сервисе</button>
+			<button @onclick="GoToAbout"><SVG Class="nav-icon" Source="/icons/info-ico.svg"/>О сервисе</button>
 		</li>
 		@if (AccountService.IsLogged && 
 		     ulong.TryParse(AccountService?.Account?.Get("apirole_id"), out var val)
 		     && val > 1)
 		{
 			<li>
-				<button @onclick="SwitchModeration"><img src="/icons/moder-ico.svg"/>Модерация</button>
+				<button @onclick="SwitchModeration"><SVG Class="nav-icon" Source="/icons/moder-ico.svg"/>Модерация</button>
 				@if (OpenedModeration)
 				{
 					<button @onclick="GoToModLogs"><img/>Логи</button>
@@ -37,8 +35,8 @@
 		}
 	</ul>
 	<div class="bottom">
-		<button class="profile"  @onclick="GoToAccount">
-			<img class="img38" src="/icons/profil-ico.svg" alt="Аватар" />
+		<button class="profile" @onclick="GoToAccount">
+			<SVG Class="prof-icon" Source="/icons/profil-ico.svg"/>
 			<div>
 				@if (AccountService.IsLogged)
 				{
@@ -53,17 +51,13 @@
 		</button>
 		<div class="spec-side">
 			<button class="spec-side">
-				<!-- ДЛЯ СЛЕПЫХ -->
-				<script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+				<!--<script src="https://lidrekon.ru/slep/js/jquery.js"></script>
 				<script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
-				<!-- ДЛЯ СЛЕПЫХ -->
-				<!--<img id="specialButton" style="cursor:pointer;" src="https://lidrekon.ru/images/special.png" alt="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ" title="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ"/>-->
-				<img class="img38" id="specialButton" style="cursor:pointer;" src="/icons/slab-vid-ico.svg" alt="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ" title="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ"/>
-				<!--<img class="img38" src="/icons/slab-vid-ico.svg" alt="Кнопка для слабовидящих"/>-->
+				<SVG Class="prof-icon" Source="/icons/slab-vid-ico.svg" id="theme-switch"/>-->
 			</button>
 			
 			<button @onclick="ThemeService.Change">
-				<SVG Class="nav-icon" Source="/icons/sun-ico.svg"/>
+				<SVG Class="prof-icon" Source="/icons/sun-ico.svg"/>
 			</button>
 		</div>
 	</div>
