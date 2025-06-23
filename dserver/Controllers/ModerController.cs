@@ -1,4 +1,5 @@
-﻿using System.Threading.Channels;
+﻿using System.Drawing;
+using System.Threading.Channels;
 using dserver.Database;
 using dserver.Database.Model;
 using dserver.Filters;
@@ -6,6 +7,7 @@ using dserver.Services;
 using dshared.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SkiaSharp;
 
 namespace dserver.Controllers;
 
@@ -122,7 +124,9 @@ public class ModerController : ControllerBase
         
         current.Document.DocumentType = _context.DocumentTypes.SingleOrDefault(dt => dt.Id == documentTypeId);
         current.Document.Name = data.Get("documentName", current.Document.Name);
-        Bitmap
+
+        if (!DocumentsController.RotateImage(current.Document.Id, ulong.Parse(data.Get("documentRotation", "0"))))
+            return Ok(false);
 
         _context.ModeratedDocuments.Add(new ModeratedDocument()
         {
