@@ -7,6 +7,7 @@ using dserver.Services;
 using dshared.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SkiaSharp;
 
 namespace dserver.Controllers
 {
@@ -19,7 +20,7 @@ namespace dserver.Controllers
         
         
         private const string DocumentsFolder = "docs";
-        private string ServerDocsPath;
+        private static string ServerDocsPath;
 
         public DocumentsController(MainDBContext context, Channel<ScoreParameters> channel)
         {
@@ -29,7 +30,44 @@ namespace dserver.Controllers
             if (!Directory.Exists(ServerDocsPath))
                 Directory.CreateDirectory(ServerDocsPath);
         }
+        public static bool RotateImage(ulong documentId, float angle)
+        {
+            var path = Path.Combine(ServerDocsPath, $"{documentId}.png");
+            if (!System.IO.File.Exists(path))
+                return false;
+            
+            // Load the original image
+            var imageData = System.IO.File.ReadAllBytes(path);
+            using var original = SKBitmap.Decode(imageData);
+            int width = original.Width;
+            int height = original.Height;
 
+            // Вычисляем новый размер холста
+            double radians = angle * Math.PI / 180.0;
+            double cos = Math.Abs(Math.Cos(radians));
+            double sin = Math.Abs(Math.Sin(radians));
+            int newWidth = (int)Math.Ceiling(width * cos + height * sin);
+            int newHeight = (int)Math.Ceiling(width * sin + height * cos);
+
+            // Создаём новый битмап нужного размера
+            using var rotatedBitmap = new SKBitmap(newWidth, newHeight);
+            using var canvas = new SKCanvas(rotatedBitmap);
+            canvas.Clear(SKColors.Transparent); // Прозрачный фон
+
+            // Центрируем изображение и поворачиваем
+            canvas.Translate(newWidth / 2f, newHeight / 2f);
+            canvas.RotateDegrees(angle);
+            canvas.Translate(-width / 2f, -height / 2f);
+
+            // Рисуем изображение
+            canvas.DrawBitmap(original, 0, 0);
+
+            // Сохраняем результат
+            using var image = SKImage.FromBitmap(rotatedBitmap);
+            using var data = image.Encode(SKEncodedImageFormat.Png, 100);
+            System.IO.File.WriteAllBytes(path, data.ToArray());
+            return true;
+        }
         private bool SaveDocument(ulong documentId, MemoryStream ms)
         {
             var path = Path.Combine(ServerDocsPath, $"{documentId}.png");

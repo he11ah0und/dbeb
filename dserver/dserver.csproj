@@ -10,6 +10,8 @@
         <PackageReference Include="jose-jwt" Version="5.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.16"/>
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.3" />
+        <PackageReference Include="SkiaSharp" Version="3.119.0" />
+        <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
     </ItemGroup>
 
