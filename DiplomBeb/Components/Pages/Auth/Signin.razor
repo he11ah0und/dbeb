@@ -20,9 +20,16 @@
                         <label>Email/номер телефона</label>
                     </div>
                     <div>
-                        <SVG Class="pas-icon" Source="/icons/open.svg"/>
-                        <SVG Class="pas-icon" Source="/icons/close.svg"/>
-                        <input type="password" @bind="Password" placeholder="">
+                        @if (PasswordController.Visible)
+                        {
+                            <SVG OnClick="PasswordController.Hide" Class="pas-icon" Source="/icons/open.svg"/>
+                        }
+                        else
+                        {
+                            <SVG OnClick="PasswordController.Show" Class="pas-icon" Source="/icons/close.svg"/>
+                        }
+                        
+                        <input type="@(PasswordController.Visible ? "text" : "password")" @bind="Password" placeholder="">
                         <label>Пароль</label>
                     </div>
                 </div>

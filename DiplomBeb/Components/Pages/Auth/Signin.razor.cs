@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using DiplomBeb.Services.Client;
+using DiplomBeb.Utils;
 using DiplomBeb.Utils.Networking;
 using dshared.Utils;
 using Microsoft.AspNetCore.Components;
@@ -17,9 +18,12 @@ public partial class Signin
     [Inject] 
     private AccountService AccountService { get; set; }
     
+    private Password PasswordController { get; set; }
+    
     protected override async Task OnInitializedAsync()
     {
         Password = "";
+        PasswordController = new Password();
     }
 
     private string Password;
