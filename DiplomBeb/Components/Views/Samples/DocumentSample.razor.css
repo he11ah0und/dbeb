@@ -1,6 +1,6 @@
 /* awards cell */
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .rating-award {
         flex: 1 1 calc(50% - 0.75rem);
     }
