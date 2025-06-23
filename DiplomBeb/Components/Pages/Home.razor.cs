@@ -53,6 +53,6 @@ public partial class Home
         HomeService.LibraryRandomStateChanged
             .Subscribe("home", OnListUpdated);
 
-        AccountService.StateChanged.Subscribe("home", () => OnAccountState());
+        AccountService.StateChangedNoCall.Subscribe("home", () => OnAccountState());
     }
 }
