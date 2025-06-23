@@ -49,4 +49,9 @@ public class ListElement
             return;
         Elements[key] = value;
     }
+
+    public override string ToString()
+    {
+        return Elements.Aggregate("", (current, e) => current + $"{e.Key}: {e.Value.Truncate(30)}\n");
+    }
 }

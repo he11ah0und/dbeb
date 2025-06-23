@@ -93,17 +93,5 @@
     </div>
 </div>
 
-@if (InAvatarUpload)
-{
-    <div class="loading-window-cont">
-        <div class="loading-window-back" @onclick="HideAvatarUploader"></div>
-        <div class="loading-window">
-            <img src="@AccountService.AvatarUploader.FileData" alt="Документ"/>
-            <div class="loading-window-button">
-                <InputFile id="upFile" accept="image/png" OnChange="AccountService.AvatarUploader.OnFileSelect" hidden/>
-                <button class="review" onclick="getFile()">Обзор</button>
-                <button class="send-mod" @onclick="AccountService.AvatarUploader.Upload">Отправить</button>
-            </div>
-        </div>
-    </div>
-}
+<ViewUploader 
+    Uploader="AccountService.AvatarUploader"/>

@@ -10,4 +10,9 @@ public class ModeratedDocument
     public User Moder { get; set; }
     public DateTime DateTime { get; set; }
     public bool State { get; set; }
+
+    public override string ToString()
+    {
+        return $"{Document.Id} {(State ? "accepted" : "denied")}";
+    }
 }

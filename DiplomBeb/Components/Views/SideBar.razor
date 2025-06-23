@@ -51,9 +51,12 @@
 		</button>
 		<div class="spec-side">
 			<button class="spec-side">
-				<!--<script src="https://lidrekon.ru/slep/js/jquery.js"></script>
-				<script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
-				<SVG Class="prof-icon" Source="/icons/slab-vid-ico.svg" Id="theme-switch"/>-->
+				@if (LowViewState)
+				{
+					<script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+					<script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+				}
+				<SVG Class="prof-icon" Source="/icons/slab-vid-ico.svg" OnClick="OnSwitchLowView"/>
 			</button>
 			
 			<button @onclick="ThemeService.Change">
