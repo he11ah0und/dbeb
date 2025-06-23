@@ -23,9 +23,9 @@
 				<button @onclick="SwitchModeration"><SVG Class="mod-icon" Source="/icons/moder-ico.svg"/>Модерация</button>
 				@if (OpenedModeration)
 				{
-					<button @onclick="GoToModLogs">Логи</button>
-					<button @onclick="GoToModProfiles">Пользователи</button>
-					<button @onclick="GoToModDocs">Документы</button>
+					<button @onclick="GoToModLogs"><img/>Логи</button>
+					<button @onclick="GoToModProfiles"><img/>Пользователи</button>
+					<button @onclick="GoToModDocs"><img/>Документы</button>
 					@if (AccountService?.Account?.Get("apirole_name") == "admin")
 					{
 						<button @onclick="GoToModRequests"><img/>Запросы</button>
