@@ -21,12 +21,13 @@ public class AccountService
 
     public DocumentsService DocumentsService { get; private set; }
     private BackendHttpClient _http;
-
+    
+    public byte[]? AvatarImage { get; private set; }
     public AccountService(BackendHttpClient http,  IJSRuntime jsRuntime)
     {
         _http = http;
         Initialized = false;
-        StateChanged = new Callbacker<Action>(false);
+        StateChanged = new Callbacker<Action>();
         IsLogged = false;
         MyListView = new ListView(http, typeof(TableContent),1, false)
         {

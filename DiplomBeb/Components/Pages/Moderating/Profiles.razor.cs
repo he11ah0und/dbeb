@@ -125,10 +125,6 @@ public partial class Profiles : ComponentBase
         InRequest = false;
         StateHasChanged();
     }
-    private void ClearRequester()
-    {
-        
-    }
     private void ShowRequester()
     {
         

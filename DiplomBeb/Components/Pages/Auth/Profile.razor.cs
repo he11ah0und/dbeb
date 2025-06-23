@@ -46,11 +46,11 @@ public partial class Profile
 
     private void Load()
     {
-        Surname = AccountService.Account.Get("surname");
-        Name = AccountService.Account.Get("name");
-        Middlename = AccountService.Account.Get("middlename");
+        Surname = AccountService.Account.Get("surname", "???");
+        Name = AccountService.Account.Get("name", "???");
+        Middlename = AccountService.Account.Get("middlename", "");
         Phone = AccountService.Account.Get("phone", "");
-        Email = AccountService.Account.Get("email");
+        Email = AccountService.Account.Get("email", "???");
     }
 
     private void AccountServiceOnStateChanged()
@@ -80,6 +80,7 @@ public partial class Profile
             newLe.Set("middlename", Middlename);
             if (!await AccountService.Update(newLe))
                 NotificationService.AddNotification("Ошибка применения изменений.");
+            await AccountService.Auth();
             InEdit = false;
         }
         StateHasChanged();
@@ -102,5 +103,10 @@ public partial class Profile
         if (!await AccountService.LogOut())
             NotificationService.AddNotification("Ошибка серверного выхода.");
         //Navigation.NavigateTo("/account", true);
+    }
+
+    private async Task OnAvatarUpload()
+    {
+        
     }
 }
