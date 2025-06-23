@@ -1,4 +1,16 @@
-﻿.logo-icon path {
+﻿
+.pas-icon path {
+    width: 100%;
+    fill: var(--input);
+    stroke: var(--text-blue);
+}
+
+.pas-icon {
+    max-width: 1rem;
+    height: 100%;
+}
+
+.logo-icon path {
     width: 100%;
     fill: var(--header);
     stroke: var(--header);

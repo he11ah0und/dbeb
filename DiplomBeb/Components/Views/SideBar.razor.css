@@ -76,6 +76,24 @@
     color: var(--text-gray);
 }
 
+.image {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: var(--container);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
 .spec-side {
     display: flex;
     align-items: start;
