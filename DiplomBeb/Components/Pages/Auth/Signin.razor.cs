@@ -24,6 +24,7 @@ public partial class Signin
     {
         Password = "";
         PasswordController = new Password();
+        PasswordController.Update.Subscribe("signin", StateHasChanged);
     }
 
     private string Password;
