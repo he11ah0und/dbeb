@@ -37,8 +37,20 @@
     stroke: var(--text-blue);
 }
 
-.nav-icon {
+.nav-icon path {
+    fill: var(--text-blue);
+    stroke: var(--text-blue);
+}
+
+.nav-icon, .mod-icon {
+    max-height: max-content;
     width: 2.5rem;
+}
+
+.mod-icon path {
+    fill: var(--text-blue);
+    stroke: var(--container);
+    transition: fill 0.3s ease, stroke 0.3s ease, transform 0.2s ease;
 }
 
 .fut-icon path {
@@ -47,8 +59,20 @@
 }
 
 .fut-icon {
+    max-height: max-content;
     width: 1.5rem;
 }
+
+.turn-icon path {
+    stroke: var(--text-blue);
+}
+
+.turn-icon {
+    max-height: max-content;
+    width: 1.1rem;
+}
+
+
 
 .prof-icon path {
     fill: var(--text-black);

@@ -1,26 +1,34 @@
 @page "/special/docs"
-@using dshared.Utils
+@using DiplomBeb.Components.Views
 @rendermode RenderMode.InteractiveServer
 
 <PageTitle>Модерация документов - Цифровое портфолио</PageTitle>
 
 <div class="main-div">
+    @{
+        var processDoc = ModerationService.ProcessDocument;
+        var state = processDoc != null && bool.Parse(processDoc.Get("hasWork", "false"));
+    }
     <div class="middle">
         <div class="heading">
             <div>Документы</div>
         </div>
+        <div class="wrapper">
 
-        <div class="scrollable-content">
-            <div class="wrapper">
-                @if (ModerationService.ProcessDocument is ListElement pdoc && bool.Parse(pdoc.Get("hasWork", "false")))
+            @if (state)
+            {
+                <div class="title">
+                    <input type="text" value="@DocumentName" />
+                </div>
+            }
+            <div class="scrollable-content">
+                @if (state)
                 {
-                    <div class="title">
-                        <h4>@pdoc.Get("documentName")</h4>
-                    </div>
                     <div class="arnold">
                         <div class="image">
                             @{
-                                var src = ModerationService.DocumentImage is null ? "" : $"data:image;base64, {Convert.ToBase64String(ModerationService.DocumentImage)}";
+                                var data = Convert.ToBase64String(ModerationService.DocumentImage);
+                                var src = ModerationService.DocumentImage is null ? "" : $"data:image;base64, {data}";
                             }
                             <img src="@src" alt="документ"/>
                         </div>
@@ -38,7 +46,7 @@
         </div>
     </div>
 
-    @if (ModerationService.ProcessDocument is ListElement doc && bool.Parse(doc.Get("hasWork", "false")))
+    @if (state)
     {
         <div class="middle fixed-bottom">
             <div class="container-list">
@@ -47,10 +55,25 @@
                         <div class="img">
                             <img class="img39" alt="" src="/images/prof-foto-img.png"/>
                         </div>
-                        <h4>@doc.GetCombined(" ", "surname", "name", "middlename")</h4>
+                        <h4>@processDoc?.GetCombined(" ", "surname", "name", "middlename")</h4>
                     </div>
                     <div class="title">
                         <button class="request">Запрос администратору</button>
+                        @if (state)
+                        {
+                            <button class="accept" @onclick="async () => await AcceptDocument(true)">принять</button>
+                            <button class="reject" @onclick="async () => await AcceptDocument(false)">отклонить</button>
+                            <button class="turn" @onclick="async () => await AcceptDocument(false)"><SVG Class="turn-icon" Source="/icons/turn.svg"/>Повернуть</button>
+                            @if (ModerationService.DocumentTypes is { } dts)
+                            {
+                                <select @onchange="OnDocumentTypeChange">
+                                    @foreach (var dt in dts)
+                                    {
+                                        <option>@dt.Get("check")</option>
+                                    }
+                                </select>
+                            }
+                        }
                     </div>
                 </div>
             </div>
@@ -64,21 +87,6 @@
             <div class="window">
                 <h3>@StartText</h3>
                 <button @onclick="Begin">приступить</button>
-                
-                @if (ModerationService.ProcessDocument is ListElement sdoc && bool.Parse(sdoc.Get("hasWork", "false")))
-                {
-                    <button class="accept" @onclick="async () => await AcceptDocument(true)">принять</button>
-                    <button class="reject" @onclick="async () => await AcceptDocument(false)">отклонить</button>
-                    @if (ModerationService.DocumentTypes is ListElement[] dts)
-                    {
-                        <select @onchange="OnDocumentTypeChange">
-                            @foreach (var dt in dts)
-                            {
-                                <option>@dt.Get("check")</option>
-                            }
-                        </select>
-                    }
-                }
             </div>
         </div>
     }

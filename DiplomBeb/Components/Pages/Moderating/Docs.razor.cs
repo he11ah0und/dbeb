@@ -21,7 +21,7 @@ public partial class Docs : ComponentBase
             NotificationService.AddNotification("Ошибка получения информации о документах!");
             return;
         }
-        SelectedDocumentTypeId = ulong.Parse(ModerationService.DocumentTypes.First().Get("id", "0"));
+        SelectedDocumentTypeId = ulong.Parse(ModerationService.DocumentTypes.First().Get("id", "0")); ;
     }
     private void OnLoaded()
     {
@@ -58,9 +58,11 @@ public partial class Docs : ComponentBase
 
     private async Task OnDocument()
     {
+        DocumentName = ModerationService.ProcessDocument.Get("documentName", "???");
         StateHasChanged();
     }
 
+    private string DocumentName { get; set; } = "???";
     private async Task AcceptDocument(bool state)
     {
         if (!await ModerationService.AcceptDocumentFromModeration(SelectedDocumentTypeId, state))
