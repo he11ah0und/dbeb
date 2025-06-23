@@ -29,20 +29,7 @@ public partial class Documents : ComponentBase
     private async Task OnUploadDocument()
     {
         DocumentsService.DocumentUploader.DocumentName = "";
-        HideUploader();
         await DocumentsService.DocumentsListView.Update();
-    }
-
-    private bool InUpload { get; set; }
-    private void HideUploader()
-    {
-        InUpload = false;
-        StateHasChanged();
-    }
-    private void ShowUploader()
-    {
-        InUpload = true;
-        StateHasChanged();
     }
 
     private Task DownloadSelectedDocuments()
@@ -61,7 +48,7 @@ public partial class Documents : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        AccountService.StateChanged.Subscribe("docs", OnLoaded);
+        AccountService.StateChangedNoCall.Subscribe("docs", OnLoaded);
     }
     private void OnLoaded()
     {

@@ -11,8 +11,9 @@ public class Uploader
     public string DefaultFileData { get; set; }
     public string DocumentName { get; set; }
     
+    public Action OnShow { get; set; }
     public Callbacker<Func<Task>> OnUploaded { get; set; }
-    
+    public Func<MultipartFormDataContent, Task<HttpResponseState>> OnUpload { get; set; }
     private IBrowserFile SelectedFile  { get; set; }
     private NotificationService _notificationService { get; set; }
     private BackendHttpClient _http { get; set; }
@@ -26,6 +27,11 @@ public class Uploader
         MaxFileSize = maxFileSize;
         FileData = DefaultFileData;
         OnUploaded = new (false);
+    }
+
+    public void Show()
+    {
+        OnShow?.Invoke();
     }
     private Stream? OpenReadFileStream()
     {
@@ -85,16 +91,18 @@ public class Uploader
         
         formData.Add(fileStreamContent, "File", SelectedFile.Name);
         formData.Add(new StringContent(DocumentName), "Name");
-        
-        var res = await _http.Request(
-            "Documents/up",
-            formData,
-            HttpMethod.Post);
+
+        var res = await OnUpload(formData);
         if (!res.IsOk)
         {
             _notificationService.AddNotification("Ошибка загрузки файла на сервер!");
             return;
         }
         await OnUploaded.InvokeAllAsync();
+    }
+
+    public void SetDefaultFileData()
+    {
+        FileData = DefaultFileData;;
     }
 }

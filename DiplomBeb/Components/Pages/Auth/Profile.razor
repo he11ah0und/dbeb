@@ -98,7 +98,7 @@
     <div class="loading-window-cont">
         <div class="loading-window-back" @onclick="HideAvatarUploader"></div>
         <div class="loading-window">
-            <img src="@src" alt="Документ"/>
+            <img src="@AccountService.AvatarUploader.FileData" alt="Документ"/>
             <div class="loading-window-button">
                 <InputFile id="upFile" accept="image/png" OnChange="AccountService.AvatarUploader.OnFileSelect" hidden/>
                 <button class="review" onclick="getFile()">Обзор</button>

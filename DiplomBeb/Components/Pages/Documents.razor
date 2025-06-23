@@ -11,7 +11,7 @@
             <div class="heading-buttons">
                 <button class="download" @onclick="DownloadSelectedDocuments">Скачать</button>
                 <div></div>
-                <button class="unload" @onclick="ShowUploader">Отправить</button>
+                <button class="unload" @onclick="DocumentsService.DocumentUploader.Show">Отправить</button>
                 <button class="delete" @onclick="RemoveSelectedDocuments">Удалить</button>
             </div>
         </div>
@@ -26,22 +26,8 @@
     </div>
 </div>
 
-@if (InUpload)
-{
-    <div class="loading-window-cont">
-        <div class="loading-window-back" @onclick="HideUploader"></div>
-        <div class="loading-window">
-            <img src="@DocumentsService.DocumentUploader.FileData" alt="Документ"/>
-            <h3>Название документа</h3>
-            <input type="text" class="name-doc" @bind="DocumentsService.DocumentUploader.DocumentName"/>
-            <div class="loading-window-button">
-                <InputFile id="upFile" accept="image/png" hidden OnChange="DocumentsService.DocumentUploader.OnFileSelect"/>
-                <button class="review" onclick="getFile()">Обзор</button>
-                <button class="send-mod" @onclick="DocumentsService.DocumentUploader.Upload">Отправить</button>
-            </div>
-        </div>
-    </div>
-}
+<ViewUploader
+    Uploader="DocumentsService.DocumentUploader"/>
 
 
 

@@ -42,7 +42,10 @@ public class AccountService
         MyListView.DataResolver.Props.AddRange(
             ["id", "avatar", "name", "middlename", "surname", "score", "webrole_name"]);
 
-        AvatarUploader = new Uploader(http, nots, "images/prof-foto-img.png");
+        AvatarUploader = new Uploader(http, nots, "images/prof-foto-img.png")
+        {
+
+        };
     }
     
     private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)

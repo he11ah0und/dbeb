@@ -1,0 +1,17 @@
+@if (Show && _uploader != null)
+{
+    <script src="../Components/Views/ViewUploader.razor.js"></script>
+    <div class="loading-window-cont">
+        <div class="loading-window-back" @onclick="HideUploader"></div>
+        <div class="loading-window">
+            <img src="@_uploader.FileData" alt="Документ"/>
+            <h3>Название документа</h3>
+            <input type="text" class="name-doc" @bind="_uploader.DocumentName"/>
+            <div class="loading-window-button">
+                <InputFile id="upFile" accept="image/png" hidden OnChange="_uploader.OnFileSelect"/>
+                <button class="review" onclick="getFile()">Обзор</button>
+                <button class="send-mod" @onclick="_uploader.Upload">Отправить</button>
+            </div>
+        </div>
+    </div>
+}

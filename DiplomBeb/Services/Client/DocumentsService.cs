@@ -63,8 +63,14 @@ public class DocumentsService
         };
         DocumentTypesSelector = new Selector("2", FiltersDocumentsListView, DocumentsListView, "name");
 
-        DocumentUploader = new Uploader(http, nots, "images/img-doc.svg");
+        DocumentUploader = new Uploader(http, nots, "images/img-doc.svg")
+        {
+            OnUpload = UploadDocument,
+        };
     }
+    
+    private Task<HttpResponseState> UploadDocument(MultipartFormDataContent formData)
+        => _http.Request("Documents/up", formData, HttpMethod.Post);
     
     private Task<HttpResponseState> RequestDocuments(BackendHttpClient http, ulong skip, ulong take)
     {
