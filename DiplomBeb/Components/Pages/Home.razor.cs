@@ -1,4 +1,5 @@
-﻿using DiplomBeb.Services.Client;
+﻿using System.Timers;
+using DiplomBeb.Services.Client;
 using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
 using Microsoft.AspNetCore.Components;
@@ -15,15 +16,17 @@ public partial class Home
     [Inject]
     private NotificationService NotificationService { get; set; }
     
-    private Timer _libsTimer { get; set; }
+    private System.Timers.Timer _libsTimer { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        _libsTimer = new Timer(OnLibsTimerCallback, null, 0, 15000);
+        _libsTimer = new System.Timers.Timer(15000);
+        _libsTimer.Elapsed += LibsTimerOnElapsed;
+        _libsTimer.Start();
     }
-    
-    private async void OnLibsTimerCallback(object? state)
+
+    private void LibsTimerOnElapsed(object? sender, ElapsedEventArgs e)
     {
-        await InvokeAsync(async () =>
+        InvokeAsync(async () =>
         {
             if (!await HomeService.RequestRandomLibs())
                 NotificationService.AddNotification("Ошибка получения информации из библиотеки.");
