@@ -22,6 +22,10 @@ public class SvgCache
         return CachedInstances.TryGetValue(cache, out renderFragment);
     }
 
+    public bool SaveCachedSvg(string source, CacheData cacheData)
+    {
+        return CachedSvgs.TryAdd(source, cacheData);
+    }
     public bool SaveCachedInstance(CacheId? cache, RenderFragment renderFragment)
     {
         return CachedInstances.TryAdd(cache, renderFragment);

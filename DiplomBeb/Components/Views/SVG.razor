@@ -69,7 +69,7 @@
                 }
                 
                 CacheSvg = new CacheData(RenderElements(svgParams), svgParams);
-                SvgCache.CachedSvgs.Add(Source, CacheSvg);
+                SvgCache.SaveCachedSvg(Source, CacheSvg);
             }
 
             if (!IsCachedInstance)

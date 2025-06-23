@@ -1,7 +1,4 @@
-using System.Diagnostics;
-using System.Text;
 using DiplomBeb.Components.Views;
-using DiplomBeb.Services.Client.Components;
 using DiplomBeb.Utils;
 using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
@@ -19,12 +16,12 @@ public class AccountService
     internal ListView MyListView { get; private set; }
     public Callbacker<Action> StateChanged { get; private set; }
     public Callbacker<Action> StateChangedNoCall { get; private set; }
-
-    public DocumentsService DocumentsService { get; private set; }
+    public Uploader AvatarUploader { get; private set; }
+    
     private BackendHttpClient _http;
     
     public byte[]? AvatarImage { get; private set; }
-    public AccountService(BackendHttpClient http,  IJSRuntime jsRuntime)
+    public AccountService(BackendHttpClient http, NotificationService nots, IJSRuntime jsRuntime)
     {
         _http = http;
         Initialized = false;
@@ -44,7 +41,8 @@ public class AccountService
         };
         MyListView.DataResolver.Props.AddRange(
             ["id", "avatar", "name", "middlename", "surname", "score", "webrole_name"]);
-        DocumentsService = new DocumentsService(http, jsRuntime);
+
+        AvatarUploader = new Uploader(http, nots, "images/prof-foto-img.png");
     }
     
     private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)

@@ -3,7 +3,6 @@
 
 @rendermode RenderMode.InteractiveServer
 <PageTitle>Документы - Цифровое портфолио</PageTitle>
-<script src="../Components/Pages/Documents.razor.js"></script>
 
 <div class="main-div">
     <div class="middle">
@@ -17,13 +16,13 @@
             </div>
         </div>
         <ViewList
-            ListView="AccountService.DocumentsService.DocumentsListView"/>
+            ListView="DocumentsService.DocumentsListView"/>
     </div>
 
     <div class="place-container">
         <div class="place-heading">Фильтры</div>
         <ViewList
-            ListView="AccountService.DocumentsService.FiltersDocumentsListView"/>
+            ListView="DocumentsService.FiltersDocumentsListView"/>
     </div>
 </div>
 
@@ -32,13 +31,13 @@
     <div class="loading-window-cont">
         <div class="loading-window-back" @onclick="HideUploader"></div>
         <div class="loading-window">
-            <img src="@ImgData" alt="Документ"/>
-            <h3>Добавьте название документу</h3>
-            <input type="text" class="name-doc" @bind="DocumentName"/>
+            <img src="@DocumentsService.DocumentUploader.FileData" alt="Документ"/>
+            <h3>Название документа</h3>
+            <input type="text" class="name-doc" @bind="DocumentsService.DocumentUploader.DocumentName"/>
             <div class="loading-window-button">
-                <InputFile id="upFile" accept="image/png" hidden OnChange="Callback"/>
+                <InputFile id="upFile" accept="image/png" hidden OnChange="DocumentsService.DocumentUploader.OnFileSelect"/>
                 <button class="review" onclick="getFile()">Обзор</button>
-                <button class="send-mod" @onclick="UploadSelectedDocument">Отправить</button>
+                <button class="send-mod" @onclick="DocumentsService.DocumentUploader.Upload">Отправить</button>
             </div>
         </div>
     </div>
