@@ -288,8 +288,8 @@ namespace dserver.Controllers
             
             var doc = _context.Documents
                 .Include(d => d.User)
-                .SingleOrDefault(d => d.Id == docId && d.User.Id == authedUser.Id);
-            if (doc == null)
+                .SingleOrDefault(d => d.Id == docId);
+            if (doc == null || (doc.User.Id != authedId && !authedUser.ApiRole.IsMoreUser()))
                 return NoContent();
             
             var documentStream = GetDocument(doc.Id);

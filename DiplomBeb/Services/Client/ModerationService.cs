@@ -129,7 +129,8 @@ public class ModerationService
 
     private async Task<bool> DownloadImage(ListElement element)
     {
-        var res = await _http.Request($"Documents/down/{element.Get("documentId")}");
+        var url = $"Documents/down/{element.Get("documentId")}";
+        var res = await _http.Request(url);
         if (!res.IsOk || !res.ReadAsBytes(out var data)) 
             return false;
         DocumentImage = data;
