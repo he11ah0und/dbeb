@@ -3,6 +3,7 @@ using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
 using dshared.Utils;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace DiplomBeb.Components.Pages.Auth;
 
@@ -10,6 +11,8 @@ public partial class Profile
 {
     [Inject] 
     private AccountService AccountService { get; set; }
+    [Inject] 
+    private DocumentsService DocumentsService { get; set; }
     [Inject]
     private BackendHttpClient Http { get; set; }
     [Inject]
@@ -40,8 +43,8 @@ public partial class Profile
     {
         if (!firstRender) return;
         AccountService.StateChanged.Subscribe("profile", AccountServiceOnStateChanged);
-        AccountService.DocumentsService.ProfileListView.OnListUpdated.Subscribe("profile", DocumentsUpdated);
-        await AccountService.DocumentsService.ProfileListView.First(1);
+        DocumentsService.ProfileListView.OnListUpdated.Subscribe("profile", DocumentsUpdated);
+        await DocumentsService.ProfileListView.First(1);
     }
 
     private void Load()
@@ -105,8 +108,16 @@ public partial class Profile
         //Navigation.NavigateTo("/account", true);
     }
 
-    private async Task OnAvatarUpload()
+    private bool InAvatarUpload;
+    private async Task ShowAvatarUploader()
     {
+        InAvatarUpload = true;
         
+        StateHasChanged();
+    }
+    private async Task HideAvatarUploader()
+    {
+        InAvatarUpload = false;
+        StateHasChanged();
     }
 }

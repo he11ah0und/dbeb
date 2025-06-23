@@ -10,17 +10,27 @@ public partial class Documents : ComponentBase
 {
     [Inject] 
     private AccountService AccountService { get; set; }
-    [Inject]
-    private BackendHttpClient _http { get; set; }
+    [Inject] 
+    private DocumentsService DocumentsService { get; set; }
     [Inject]
     private NotificationService NotificationService { get; set; }
+    
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        if (!await AccountService.DocumentsService.DocumentsListView.First(1))
+        if (!await DocumentsService.DocumentsListView.First(1))
             NotificationService.AddNotification("Ошибка загрузки документов!");
-        if (!await AccountService.DocumentsService.FiltersDocumentsListView.First(1))
+        if (!await DocumentsService.FiltersDocumentsListView.First(1))
             NotificationService.AddNotification("Ошибка загрузки фильтров документов!");
+        
+        DocumentsService.DocumentUploader.OnUploaded.Subscribe("Documents", OnUploadDocument);
+    }
+    
+    private async Task OnUploadDocument()
+    {
+        DocumentsService.DocumentUploader.DocumentName = "";
+        HideUploader();
+        await DocumentsService.DocumentsListView.Update();
     }
 
     private bool InUpload { get; set; }
@@ -28,11 +38,6 @@ public partial class Documents : ComponentBase
     {
         InUpload = false;
         StateHasChanged();
-    }
-    private void ClearUploader()
-    {
-        ImgData = "images/img-doc.svg";
-        DocumentName = "";
     }
     private void ShowUploader()
     {
@@ -42,81 +47,13 @@ public partial class Documents : ComponentBase
 
     private Task DownloadSelectedDocuments()
     {
-        return AccountService.DocumentsService.DownloadSelected();
+        return DocumentsService.DownloadSelected();
     }
     private Task RemoveSelectedDocuments()
     {
-        return AccountService.DocumentsService.RemoveSelected();
+        return DocumentsService.RemoveSelected();
     }
-    private IBrowserFile SelectedFile { get; set; }
-
-    private Stream? OpenReadFileStream()
-    {
-        try
-        {
-            return SelectedFile.OpenReadStream(MaxFileSize);
-        }
-        catch
-        {
-            return null;
-        }
-    }
-
-    private string ImgData = "images/img-doc.svg";
-
-    private long MaxFileSize { get; set; } = 10 * 1024 * 1024;
-    private async Task Callback(InputFileChangeEventArgs obj)
-    {
-        var file = obj.File;
-        if (file.ContentType != "image/png"
-            || file.Size > MaxFileSize)
-        {
-            NotificationService.AddNotification("Неподходящий файл.");
-            return;
-        }
-        SelectedFile = file;
-        
-        var stream = OpenReadFileStream();
-        if (stream is null)
-        {
-            ImgData = "images/img-doc.svg";
-            NotificationService.AddNotification($"Ошибка открытия файла \"{file.Name}\".");
-            return;
-        }
-        var buffer = new byte[stream.Length];
-        await stream.ReadExactlyAsync(buffer);
-        ImgData = $"data:image;base64,{Convert.ToBase64String(buffer)}";
-    }
-
-    private string DocumentName;
-    private async Task UploadSelectedDocument()
-    {
-        var stream = OpenReadFileStream();
-        
-        using var fileStreamContent = new StreamContent(stream);
-        fileStreamContent.Headers.ContentType =
-            new MediaTypeHeaderValue(SelectedFile.ContentType);
-
-        using var client = new HttpClient();
-        using var formData = new MultipartFormDataContent();
-        
-        formData.Add(fileStreamContent, "File", SelectedFile.Name);
-        formData.Add(new StringContent(DocumentName), "Name");
-        
-        var res = await _http.Request(
-            "Documents/up",
-            formData,
-            HttpMethod.Post);
-        if (!res.IsOk)
-        {
-            NotificationService.AddNotification("Ошибка загрузки файла на сервер!");
-            return;
-        }
-        
-        ClearUploader();
-        HideUploader();
-        await AccountService.DocumentsService.DocumentsListView.Update();
-    }
+    
     
     // ERROR HANDLING
     [Inject]
@@ -125,7 +62,6 @@ public partial class Documents : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         AccountService.StateChanged.Subscribe("docs", OnLoaded);
-        DocumentName = "";
     }
     private void OnLoaded()
     {

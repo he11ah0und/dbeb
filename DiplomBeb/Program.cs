@@ -1,5 +1,6 @@
 using DiplomBeb.Components;
 using DiplomBeb.Services.Client;
+using DiplomBeb.Services.Client.Components;
 using DiplomBeb.Utils.Networking;
 
 namespace DiplomBeb
@@ -32,6 +33,7 @@ namespace DiplomBeb
             builder.Services.AddScoped<LibraryService>();
             builder.Services.AddScoped<HomeService>();
             builder.Services.AddScoped<AccountService>();
+            builder.Services.AddScoped<DocumentsService>();
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<ModerationService>();
             

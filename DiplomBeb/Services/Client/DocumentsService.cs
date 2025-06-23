@@ -4,7 +4,7 @@ using DiplomBeb.Utils.AdaptiveListing;
 using DiplomBeb.Utils.Networking;
 using Microsoft.JSInterop;
 
-namespace DiplomBeb.Services.Client.Components;
+namespace DiplomBeb.Services.Client;
 
 public class DocumentsService
 {
@@ -14,11 +14,11 @@ public class DocumentsService
     public List<string> Filters { get; private set; }
     public Selector DocumentsSelector { get; private set; }
     public Selector DocumentTypesSelector { get; private set; }
-    
+    public Uploader DocumentUploader { get; private set; }
     
     private BackendHttpClient _http;
     private IJSRuntime _jsRuntime;
-    public DocumentsService(BackendHttpClient http, IJSRuntime jsRuntime)
+    public DocumentsService(BackendHttpClient http, NotificationService nots, IJSRuntime jsRuntime)
     {
         _http = http;
         _jsRuntime = jsRuntime;
@@ -62,6 +62,8 @@ public class DocumentsService
             UpdateDestination = false
         };
         DocumentTypesSelector = new Selector("2", FiltersDocumentsListView, DocumentsListView, "name");
+
+        DocumentUploader = new Uploader(http, nots, "images/img-doc.svg");
     }
     
     private Task<HttpResponseState> RequestDocuments(BackendHttpClient http, ulong skip, ulong take)

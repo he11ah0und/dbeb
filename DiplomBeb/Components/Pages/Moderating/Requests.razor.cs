@@ -8,6 +8,8 @@ public partial class Requests : ComponentBase
     [Inject]
     private AccountService AccountService { get; set; }
     [Inject]
+    private DocumentsService DocumentsService { get; set; }
+    [Inject]
     private NavigationManager Navigation { get; set; }
 
     protected override async Task OnInitializedAsync()

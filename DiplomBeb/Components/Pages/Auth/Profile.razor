@@ -1,6 +1,10 @@
 ﻿@using DiplomBeb.Components.Views
 @rendermode RenderMode.InteractiveServer
 
+@{
+    var src = AccountService.AvatarImage is { LongLength: > 0 } avatar ? $"data:image;base64, {Convert.ToBase64String(avatar)}": "/images/prof-foto-img.png";
+}
+
 <div class="main-div">
     <div class="middle">
         <div class="heading">
@@ -9,9 +13,10 @@
         <div class="container-list">
             <div class="place-linner-top">
                 <div class="column-img">
-                    <img class="img39" alt="" src="/images/prof-foto-img.png"/>
-                    <button class="upload-photo" @onclick="OnAvatarUpload">
-                        <img src="icons/upload-photo.svg" alt="аватар" />
+                    <img class="img39" alt="" src="@src"/>
+                    <button class="upload-photo" @onclick="ShowAvatarUploader">
+                        
+                        <img src="icons/upload-photo.svg" alt="аватар"/>
                     </button>
                 </div>
                 <div class="profile-list">
@@ -27,7 +32,7 @@
                         }
                         else
                         {
-                            <span>@AccountService.Account.GetCombined(" ","surname", "name", "middlename")</span>
+                            <span>@AccountService.Account?.GetCombined(" ","surname", "name", "middlename")</span>
                         }
                     </div>
                     <div class="list-line">
@@ -69,16 +74,14 @@
                     </div>
                     <div class="list-line">
                         <h4>Место в ТОПе:</h4>
-                        <span>@AccountService.Account.Get("id")</span>
+                        <span>@AccountService.Account?.Get("id")</span>
                     </div>
                 </div>
             </div>
             
             <div class="place-linner-button">
                 <button class="button_change" @onclick="EditMode"><SVG Class="red-icon" Source="/icons/redactir-ico.svg"/>ИЗМЕНИТЬ</button>
-                
                 <button class="button_exit" @onclick="OnLogOut">ВЫЙТИ</button>
-                
                 <button class="button_change" @onclick="GoToDocuments"><SVG Class="red-icon" Source="/icons/redactir-ico.svg"/>ИЗМЕНИТЬ ДОКУМЕНТЫ</button>
             </div>
         </div>
@@ -86,21 +89,21 @@
     
     <div class="middle">
         <ViewList
-            ListView="AccountService.DocumentsService.ProfileListView"/>
+            ListView="DocumentsService.ProfileListView"/>
     </div>
 </div>
 
-<!--@if (InUpload)
+@if (InAvatarUpload)
 {
     <div class="loading-window-cont">
-        <div class="loading-window-back" @onclick="HideUploader"></div>
+        <div class="loading-window-back" @onclick="HideAvatarUploader"></div>
         <div class="loading-window">
-            <img src="@ImgData" alt="Документ"/>
+            <img src="@src" alt="Документ"/>
             <div class="loading-window-button">
-                <InputFile id="upFile" accept="image/png" hidden OnChange="Callback"/>
+                <InputFile id="upFile" accept="image/png" OnChange="AccountService.AvatarUploader.OnFileSelect" hidden/>
                 <button class="review" onclick="getFile()">Обзор</button>
-                <button class="send-mod" @onclick="UploadSelectedDocument">Отправить</button>
+                <button class="send-mod" @onclick="AccountService.AvatarUploader.Upload">Отправить</button>
             </div>
         </div>
     </div>
-}-->
+}
