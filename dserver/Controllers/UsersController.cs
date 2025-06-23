@@ -13,9 +13,14 @@ namespace dserver.Controllers
     {
         private readonly MainDBContext _context;
 
+        private const string AvatarsFolder = "avatars";
+        private static string ServerAvatarsPath;
         public UsersController(MainDBContext context)
         {
             _context = context;
+            ServerAvatarsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AvatarsFolder);
+            if (!Directory.Exists(ServerAvatarsPath))
+                Directory.CreateDirectory(ServerAvatarsPath);
         }
         
         // PUBLIC APIs
@@ -232,6 +237,86 @@ namespace dserver.Controllers
         [AuthFilter("admin")]
         [HttpPatch("personal/{id}")] // update profile
         public async Task<IActionResult> PatchUser(
+            ulong id,
+            [FromBody] ListElement li)
+        {
+            var user = _context.Users
+                .Include(user => user.Place)
+                .SingleOrDefault(u => u.Id == id);
+            if (user is null)
+                return Ok(false);
+
+            user.Email = li.Get("email", user.Email);
+            if (ulong.TryParse(li.Get("phone", user.Phone.ToString()), out var phone))
+                user.Phone = phone;
+            
+            user.Name = li.Get("name", user.Name);
+            user.Surname = li.Get("surname", user.Surname);
+            user.Middlename = li.Get("middlename", user.Middlename);
+            if (user.Place is not null)
+            {
+                var localPlaceId = ulong.Parse(li.Get("place_id", user.Place.Id.ToString()));
+                user.Place = _context.Places.SingleOrDefault(p =>
+                    p.Id == localPlaceId);
+            }
+            else
+            {
+                var localPlaceId = ulong.Parse(li.Get("place_id", "0"));
+                if (localPlaceId > 0)
+                {
+                    user.Place = _context.Places.SingleOrDefault(p =>
+                        p.Id == localPlaceId);
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            
+            return Ok(true);
+        }
+        
+        private bool SaveAvatar(ulong documentId, MemoryStream ms)
+        {
+            var path = Path.Combine(ServerAvatarsPath, $"{documentId}.png");
+            if (System.IO.File.Exists(path))
+                return false;
+            try
+            {
+                System.IO.File.WriteAllBytes(path, ms.ToArray());
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+        private MemoryStream GetAvatar(ulong documentId)
+        {
+            var memoryStream = new MemoryStream();
+            var path = Path.Combine(ServerAvatarsPath, $"{documentId}.png");
+            if (!System.IO.File.Exists(path))
+                return memoryStream;
+            FileStream? fs = null;
+            try
+            {
+                fs = System.IO.File.OpenRead(path);
+                fs.CopyTo(memoryStream);
+            }
+            catch
+            {
+                return memoryStream;
+            }
+            finally
+            {
+                memoryStream.Position = 0;
+                fs?.Close();
+            }
+            
+            return memoryStream;
+        }
+        
+        [AuthFilter("admin")]
+        [HttpPatch("avatar/{id}")] // upload avatar
+        public async Task<IActionResult> UploadAvatar(
             ulong id,
             [FromBody] ListElement li)
         {

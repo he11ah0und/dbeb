@@ -18,7 +18,7 @@ public class AccountService
     public Callbacker<Action> StateChangedNoCall { get; private set; }
     public Uploader AvatarUploader { get; private set; }
     
-    private BackendHttpClient _http;
+    private BackendHttpClient _http { get; set; }
     
     public byte[]? AvatarImage { get; private set; }
     public AccountService(BackendHttpClient http, NotificationService nots, IJSRuntime jsRuntime)

@@ -143,6 +143,7 @@ namespace dserver.Controllers
                     .Include(md => md.Document.DocumentType)
                     .Include(md => md.Document.User)
                     .Where(md => md.Document.User.Id == authedUser.Id)
+                    .OrderBy(md => md.Document.Id)
                     .Skip((int)skip)
                     .Take((int)take)
                     .ToArray();
@@ -164,8 +165,11 @@ namespace dserver.Controllers
                         .Include(d => d.User)
                         .Include(d => d.DocumentType)
                         .Where(d => d.User.Id == authedUser.Id)
-                        .ToArray()
-                        .Except(q1.Select(md => md.Document))
+                        .OrderBy(d => d.Id)
+                        .Skip((int)skip)
+                        .Take((int)take)
+                        .AsEnumerable()
+                        .Except(moderatedDocuments.Select(md => md.Document))
                         .ToArray()
                     , input => (ListElement)input);
                 
@@ -178,6 +182,7 @@ namespace dserver.Controllers
                     .Include(md => md.Document.DocumentType)
                     .Where(md => md.Document.User.Id == authedUser.Id 
                                  && filters.Contains(md.Document.DocumentType.Name))
+                    .OrderBy(md => md.Document.Id)
                     .Skip((int)skip)
                     .Take((int)take);
                 
@@ -200,8 +205,11 @@ namespace dserver.Controllers
                         .Include(d => d.DocumentType)
                         .Where(d => d.User.Id == authedUser.Id
                                     && filters.Contains(d.DocumentType.Name))
-                        .ToArray()
-                        .Except(q1.Select(md => md.Document))
+                        .OrderBy(d => d.Id)
+                        .Skip((int)skip)
+                        .Take((int)take)
+                        .AsEnumerable()
+                        .Except(moderatedDocuments.Select(md => md.Document))
                         .ToArray()
                     , input => (ListElement)input);
                 
@@ -209,8 +217,6 @@ namespace dserver.Controllers
             }
 
             return Ok(docs
-                .Skip((int)skip)
-                .Take((int)take)
                 .ToArray());
         }
         
@@ -333,7 +339,7 @@ namespace dserver.Controllers
             var documentStream = GetDocument(doc.Id);
             
             if (documentStream.Length == 0)
-                return NoContent();
+                return Ok();
             
             return File(documentStream, "image/png");
         }

@@ -32,6 +32,13 @@ public partial class SideBar
         OpenedModeration = !OpenedModeration;
     }
 
+    private bool LowViewState { get; set; }
+    private void OnSwitchLowView()
+    {
+        LowViewState = !LowViewState;
+        StateHasChanged();
+    }
+
     private void AccountServiceOnStateChanged()
     {
         StateHasChanged();

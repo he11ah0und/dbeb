@@ -1,18 +1,18 @@
 @using DiplomBeb.Services.Client
 @if (SvgCache.GetCachedInstance(CacheId, out var cache))
 {
-    @cache
+    <div @onclick="onClick">
+        @cache
+    </div>
 }
 <script src="../Components/Views/SVG.razor.js"></script>
 @code {
     [Parameter]
     public string Source { get; set; }
-
     [Parameter]
     public string Class { get; set; }
-
     [Parameter]
-    public string Id { get; set; }
+    public Action OnClick { get; set; }
 
     private HttpClient Http { get; set; }
 
@@ -36,6 +36,11 @@
     protected override async Task OnInitializedAsync()
     {
         Http = new HttpClient();
+    }
+
+    private void onClick()
+    {
+        OnClick?.Invoke();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -93,14 +98,13 @@
             builder.OpenElement(0, element.TagName);
             
             builder.AddAttribute(1, "class", Class);
-            builder.AddAttribute(2, "id", Id);
 
             foreach (var attr in element.Attributes)
             {
-                builder.AddAttribute(3, attr.Key, attr.Value);
+                builder.AddAttribute(2, attr.Key, attr.Value);
             }
 
-            builder.AddContent(4, cached);
+            builder.AddContent(3, cached);
 
             builder.CloseElement();
         };
