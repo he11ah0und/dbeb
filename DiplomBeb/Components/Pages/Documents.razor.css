@@ -25,19 +25,6 @@
     grid-template-rows: auto 1fr auto;
 }
 
-.container-list {
-    scrollbar-width: none;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    border-radius: 0.625rem;
-    background-color: var(--container);
-}
-
-.container-list::-webkit-scrollbar {
-    display: none;
-}
-
 .heading {
     display: flex;
     flex-direction: column;
@@ -110,136 +97,6 @@
     gap: 2rem;
 }
 
-/* Адаптация под маленькие экраны */
-@media (max-width: 768px) {
-    .awards-cell {
-        flex: 1 1 calc(50% - 0.75rem); 
-    }
-}
-
-@media (max-width: 480px) {
-    .awards-cell {
-        flex: 1 1 100%; 
-    }
-}
-
-.awards-scroll-container {
-    overflow-y: auto; 
-    scrollbar-width: none; 
-}
-
-.awards-scroll-container::-webkit-scrollbar {
-    display: none;
-}
-
-.awards-cell {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    border-radius: 0.625rem;
-}
-
-.img {
-    position: relative;
-    background-color: var(--container);
-    border-radius: 0.625rem;
-    padding: 1rem;
-    width: 12rem;
-    height: 16rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.img input[type="checkbox"] {
-    position: absolute;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 2rem;
-    height: 2rem;
-    background: var(--checkbox-to);
-    border: 2px solid var(--checkbox-to-border);
-    border-radius: 0.375rem;
-    cursor: pointer;
-    top: 1rem;
-    right: 1rem;
-    z-index: 2;
-}
-
-.img input[type="checkbox"]:checked {
-    background: var(--checkbox-after);
-    border-color: var(--checkbox-after-border);
-}
-
-.img input[type="checkbox"]:checked::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    width: 0.8rem;
-    height: 0.4rem;
-    border: 2px solid var(--checkbox-check-mark);
-    border-top: none;
-    border-right: none;
-}
-
-.linner-rating-award {
-    display: flex;
-    horiz-align: center;
-    align-items: center;
-    gap: 0.5rem;
-    white-space: nowrap;
-    min-width: max-content;
-    flex-shrink: 0;
-}
-
-.linner-rating-award h3,
-.linner-rating-award img {
-    flex-shrink: 0;
-}
-
-.rating-award {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    min-width: 120px;
-    flex: 1 1 calc(25% - 0.75rem);
-}
-
-@media (max-width: 768px) {
-    .awards-cell,
-    .rating-award {
-        flex: 1 1 calc(50% - 0.75rem); 
-    }
-}
-
-@media (max-width: 480px) {
-    .awards-cell,
-    .rating-award {
-        flex: 1 1 100%; 
-    }
-}
-
-.rating-award h4 {
-    font-weight: 600;
-    font-size: 1.1rem;
-
-    color: var(--text-black);
-}
-
-.rating-award h3 {
-    font-weight: 600;
-    font-size: 1.1rem;
-
-    color: var(--text-gray);
-}
-
 .place-container {
     background-color: var(--container);
     border-radius: .625rem;
@@ -259,7 +116,14 @@
     color: var(--text-black);
 }
 
-/*Загрузка документов*/
+.filters-list {
+    align-items: start;
+    text-align: center;
+
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--text-blue);
+}
 
 
 

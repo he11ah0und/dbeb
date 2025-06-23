@@ -17,30 +17,12 @@
     width: 30%;
 }
 
-.main-div .middle {
+.middle {
     height: 100%;
     display: grid;
     gap: 1.5rem;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto;
-}
-
-.container-list {
-    flex: 1;
-    margin-top: 1.5rem;
-    border-radius: .625rem;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: var(--container);
-    overflow-y: auto;
-    &::-webkit-scrollbar
-
-    {
-        display: none;
-    }
-
 }
 
 .place-container {

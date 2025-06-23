@@ -41,3 +41,5 @@ input[type="checkbox"]:checked::before {
     border-left: 2px solid var(--checkbox-check-mark);    
     box-sizing: border-box;
 }
+
+
