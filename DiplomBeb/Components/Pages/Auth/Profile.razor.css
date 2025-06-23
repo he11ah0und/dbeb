@@ -216,7 +216,7 @@
     color: var(--text-purple);
 }
 
-@media (max-width: 1800px) {
+@media (max-width: 2400px) {
     .container-list {
         display: flex;
         flex-direction: column;

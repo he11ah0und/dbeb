@@ -12,7 +12,7 @@ public partial class Docs : ComponentBase
     private NavigationManager Navigation { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        AccountService.StateChanged.Subscribe("docs", OnLoaded);
+        AccountService.StateChangedNoCall.Subscribe("docs", OnLoaded);
         ModerationService.OnRequestDocument.Subscribe("docs", OnDocument);
         StartText = "Приступить модерировать?";
 

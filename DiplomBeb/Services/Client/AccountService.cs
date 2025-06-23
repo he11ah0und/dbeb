@@ -18,6 +18,7 @@ public class AccountService
     
     internal ListView MyListView { get; private set; }
     public Callbacker<Action> StateChanged { get; private set; }
+    public Callbacker<Action> StateChangedNoCall { get; private set; }
 
     public DocumentsService DocumentsService { get; private set; }
     private BackendHttpClient _http;
@@ -28,6 +29,7 @@ public class AccountService
         _http = http;
         Initialized = false;
         StateChanged = new Callbacker<Action>();
+        StateChangedNoCall = new Callbacker<Action>(false);
         IsLogged = false;
         MyListView = new ListView(http, typeof(TableContent),1, false)
         {
@@ -121,5 +123,6 @@ public class AccountService
     private void StateHasChanged()
     {
         StateChanged.InvokeAll();
+        StateChangedNoCall.InvokeAll();
     }
 }
