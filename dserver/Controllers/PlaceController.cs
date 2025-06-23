@@ -50,6 +50,7 @@ public class PlaceController : ControllerBase
             .Take((int)take)
             .Select(u => new User
             {
+                Id = u.Id,
                 Name = u.Name,
                 Middlename = u.Middlename,
                 Surname = u.Surname,
@@ -63,6 +64,7 @@ public class PlaceController : ControllerBase
         for (var i = 0; i < dco; i++)
         {
             var user = users[i];
+            user.Set("internalId", user.Get("id"));
             user.Set("id", skip + (ulong)i + 1);
         }
 

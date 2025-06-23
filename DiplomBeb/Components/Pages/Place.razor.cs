@@ -22,7 +22,7 @@ public partial class Place
 
     protected override async Task OnInitializedAsync()
     {
-        AccountService.StateChanged.Subscribe("404", OnLoaded);
+        AccountService.StateChangedNoCall.Subscribe("404", OnLoaded);
         
     }
     private void OnLoaded()

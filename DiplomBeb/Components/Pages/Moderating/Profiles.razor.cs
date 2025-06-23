@@ -31,7 +31,7 @@ public partial class Profiles : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        AccountService.StateChanged.Subscribe("404", OnLoaded);
+        AccountService.StateChangedNoCall.Subscribe("404", OnLoaded);
         
         if (!await ModerationService.RequestPlaces())
         {
