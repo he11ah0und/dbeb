@@ -93,7 +93,7 @@ public class Uploader
         formData.Add(new StringContent(DocumentName), "Name");
 
         var res = await OnUpload(formData);
-        if (!res.IsOk)
+        if (!res.IsOk || !res.ResultAsBool(out bool state) || !state)
         {
             _notificationService.AddNotification("Ошибка загрузки файла на сервер!");
             return;
