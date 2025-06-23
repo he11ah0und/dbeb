@@ -64,9 +64,7 @@
 
 .download, 
 .unload, 
-.delete, 
-.review,
-.send-mod {
+.delete {
     padding: 0.5rem 2rem; 
     height: 3rem;
     display: flex;
@@ -81,7 +79,7 @@
 }
 
 .download, 
-.review, .unload {
+.unload {
     color: var(--text-blue);
     
 }
