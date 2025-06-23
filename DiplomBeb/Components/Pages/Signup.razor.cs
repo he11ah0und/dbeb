@@ -3,6 +3,7 @@ using System.Net;
 using System.Text;
 using DiplomBeb.Services;
 using DiplomBeb.Services.Client;
+using DiplomBeb.Utils;
 using DiplomBeb.Utils.Networking;
 using dshared.Utils;
 using Microsoft.AspNetCore.Components;
@@ -20,6 +21,9 @@ public partial class Signup : ComponentBase
     [Inject]
     private NotificationService NotificationService { get; set; }
 
+    private Password FirstPasswordController { get; set; }
+    
+    
     private string Surname;
     private string Name;
     private string Middlename;
@@ -31,6 +35,8 @@ public partial class Signup : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         Confirmed = false;
+        FirstPasswordController = new Password();
+        FirstPasswordController.Update.Subscribe("signup", StateHasChanged);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

@@ -13,10 +13,12 @@ public class HomeService
     
     public ListView TopUsersListView { get; private set; }
     private BackendHttpClient _http { get; set; }
+    private AccountService _accountService { get; set; }
     
-    public HomeService(BackendHttpClient http)
+    public HomeService(BackendHttpClient http,  AccountService accountService)
     {
         _http = http;
+        _accountService = accountService;
         TopUsersListView = new ListView(http, typeof(TableContent),1, false)
         {
             ElementsOnPage = 100,
@@ -30,12 +32,14 @@ public class HomeService
         LibraryRandomStateChanged = new Callbacker<Action>();
         RandomLibs = [];
     }
-
-    
     
     private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)
     {
-        return http.NativeRequest($"Users/top/{skip}/{take}");
+        var url = $"Users/top/{skip}/{take}";
+        if (_accountService.IsLogged)
+            return http.Request(url);
+        else
+            return http.NativeRequest(url);
     }
 
     private Task<HttpResponseState> RequestUsersTotal(BackendHttpClient http)

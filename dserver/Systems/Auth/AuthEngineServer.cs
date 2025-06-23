@@ -64,7 +64,7 @@ public class AuthEngineServer
         cuser.Middlename = middlename;
         cuser.Email = email;
         cuser.Password = password;
-        cuser.ApiRole = context.ApiRoles.SingleOrDefault((a) => a.Id == 1);
+        cuser.ApiRole = context.ApiRoles.SingleOrDefault((a) => a.Name == "user");
         cuser.WebRole = context.WebRoles.SingleOrDefault((a) => a.Id == 1);
         cuser.Score = 0;
         

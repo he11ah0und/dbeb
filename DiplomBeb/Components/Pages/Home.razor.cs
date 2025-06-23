@@ -37,6 +37,13 @@ public partial class Home
     {
         StateHasChanged();
     }
+
+    private async Task OnAccountState()
+    {
+        if (!await HomeService.TopUsersListView.First(1))
+            NotificationService.AddNotification("Ошибка получения топа.");
+        OnListUpdated();
+    }
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -45,11 +52,7 @@ public partial class Home
         
         HomeService.LibraryRandomStateChanged
             .Subscribe("home", OnListUpdated);
-        
-        AccountService.StateChanged.
-            Subscribe("home", OnListUpdated);
-        
-        if (!await HomeService.TopUsersListView.First(1))
-            NotificationService.AddNotification("Ошибка получения топа.");
+
+        AccountService.StateChangedNoCall.Subscribe("home", () => OnAccountState());
     }
 }

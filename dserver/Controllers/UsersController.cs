@@ -110,10 +110,16 @@ namespace dserver.Controllers
         {
             return Ok(_context.Users.Count());
         }
-        //[AuthFilter]
+        [AuthFilter]
         [HttpGet("top/{skip}/{take}")] // топ 100 пользователей
         public async Task<IActionResult> GetTop(ulong skip, ulong take)
         {
+            var aid = (string)HttpContext.Items["authed.id"];
+            var logged = 
+                ulong.TryParse(aid, out var authedId) && _context.Users
+                .Include(u => u.ApiRole)
+                .SingleOrDefault(u => u.Id == authedId) is User authedUser;
+            
             skip = 0;
             take = Math.Clamp(take, 10, 100);
             var users = _context.Users
@@ -138,7 +144,9 @@ namespace dserver.Controllers
             for (var i = 0; i < dco; i++)
             {
                 var user = users[i];
-                user.Set("internalId", user.Get("id"));
+                if (logged)
+                    user.Set("internalId", user.Get("id"));
+
                 user.Set("id", skip + (ulong)i + 1);
             }
             return Ok(users);
