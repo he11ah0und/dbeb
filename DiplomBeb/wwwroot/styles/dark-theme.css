@@ -12,6 +12,7 @@
     --shadow: rgba(0, 0, 0, 0.3);
     --shadow2: rgba(87, 133, 203, 0.3);
     --liner: var(--main);
+    --svg-pas: #FFFFFF;
 
     /* Цвета текста */
     --text-white: #E0E0E0;
