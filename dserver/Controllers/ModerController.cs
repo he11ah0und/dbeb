@@ -121,6 +121,8 @@ public class ModerController : ControllerBase
             return Ok(false);
         
         current.Document.DocumentType = _context.DocumentTypes.SingleOrDefault(dt => dt.Id == documentTypeId);
+        current.Document.Name = data.Get("documentName", current.Document.Name);
+        Bitmap
 
         _context.ModeratedDocuments.Add(new ModeratedDocument()
         {

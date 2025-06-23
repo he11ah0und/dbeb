@@ -137,11 +137,13 @@ public class ModerationService
         return true;
     }
     
-    public async Task<bool> AcceptDocumentFromModeration(ulong documentId, bool accepted)
+    public async Task<bool> AcceptDocumentFromModeration(ulong documentId, bool accepted, string documentName, ulong rotation)
     {
         var req = new ListElement();
         req.Set("state", accepted);
         req.Set("documentTypeId", documentId);
+        req.Set("documentName", documentName);
+        req.Set("documentRotation", rotation);
         var res = await _http
             .Request("Moder/document/accept",
                 JsonContent.Create(req),
@@ -150,11 +152,11 @@ public class ModerationService
             || !res.ResultAsBool(out var result)
             || !result)
             return false;
-
-        ProcessDocument = null;
-        DocumentImage = null;
         
         await OnRequestDocument.InvokeAllAsync();
+        
+        ProcessDocument = null;
+        DocumentImage = null;
         return true;
     }
 }

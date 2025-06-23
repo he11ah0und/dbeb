@@ -58,13 +58,14 @@ public partial class Docs : ComponentBase
     private async Task OnDocument()
     {
         DocumentName = ModerationService.ProcessDocument.Get("documentName", "???");
+        ClearRotate();
         StateHasChanged();
     }
 
     private string DocumentName { get; set; } = "???";
     private async Task AcceptDocument(bool state)
     {
-        if (!await ModerationService.AcceptDocumentFromModeration(SelectedDocumentTypeId, state))
+        if (!await ModerationService.AcceptDocumentFromModeration(SelectedDocumentTypeId, state, DocumentName, Rotation))
         {
             NotificationService.AddNotification("Ошибка отправки состояния документа!");
             return;
@@ -73,5 +74,18 @@ public partial class Docs : ComponentBase
         Started = false;
         SelectedDocumentTypeId = ulong.Parse(ModerationService.DocumentTypes.First().Get("id", "0"));
         StateHasChanged();
+    }
+    
+    private ulong Rotation { get; set; }
+
+    public void Rotate()
+    {
+        Rotation = (Rotation + 90) % 360;
+        StateHasChanged();
+    }
+
+    public void ClearRotate()
+    {
+        Rotation = 0;
     }
 }

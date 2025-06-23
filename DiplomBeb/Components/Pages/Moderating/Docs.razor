@@ -18,7 +18,7 @@
             @if (state)
             {
                 <div class="title">
-                    <input type="text" value="@DocumentName" />
+                    <input type="text" @bind="DocumentName" />
                 </div>
             }
             <div class="scrollable-content">
@@ -30,7 +30,7 @@
                                 var data = Convert.ToBase64String(ModerationService.DocumentImage);
                                 var src = ModerationService.DocumentImage is null ? "" : $"data:image;base64, {data}";
                             }
-                            <img src="@src" alt="документ"/>
+                            <img src="@src" alt="документ" style="transform: rotate(@(Rotation)deg) !important;"/>
                         </div>
                     </div>
                 }
@@ -63,7 +63,7 @@
                         {
                             <button class="accept" @onclick="async () => await AcceptDocument(true)">принять</button>
                             <button class="reject" @onclick="async () => await AcceptDocument(false)">отклонить</button>
-                            <button class="turn" @onclick="async () => await AcceptDocument(false)"><SVG Class="turn-icon" Source="/icons/turn.svg"/>Повернуть</button>
+                            <button class="turn" @onclick="Rotate"><SVG Class="turn-icon" Source="/icons/turn.svg"/>Повернуть</button>
                             @if (ModerationService.DocumentTypes is { } dts)
                             {
                                 <select @onchange="OnDocumentTypeChange">
