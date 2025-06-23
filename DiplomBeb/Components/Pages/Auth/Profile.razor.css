@@ -212,8 +212,8 @@
 }
 
 .button_change {
-    border: 0.14rem solid var(--border5);
-    color: var(--text-purple);
+    border: 0.14rem solid var(--border6);
+    color: var(--text-blue);
 }
 
 @media (max-width: 2400px) {
