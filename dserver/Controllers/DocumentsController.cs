@@ -284,7 +284,7 @@ namespace dserver.Controllers
             }
             return Ok(count);
         }
-        private long MaxFileSize { get; set; } = 10 * 1024 * 1024;
+        public const long MaxFileSize = 10 * 1024 * 1024;
         [AuthFilter("user")]
         [HttpPost("up")]
         public async Task<IActionResult> Upload([FromForm]string name, IFormFile file)
@@ -326,6 +326,7 @@ namespace dserver.Controllers
         {
             var authedId = ulong.Parse((string)HttpContext.Items["authed.id"]);
             var authedUser = _context.Users
+                .Include(user => user.ApiRole)
                 .SingleOrDefault(a => a.Id == authedId);
             if (authedUser == null)
                 return NoContent();

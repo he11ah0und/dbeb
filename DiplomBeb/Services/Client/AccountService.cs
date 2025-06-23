@@ -21,7 +21,7 @@ public class AccountService
     private BackendHttpClient _http { get; set; }
     
     public byte[]? AvatarImage { get; private set; }
-    public AccountService(BackendHttpClient http, NotificationService nots, IJSRuntime jsRuntime)
+    public AccountService(BackendHttpClient http, NotificationService nots)
     {
         _http = http;
         Initialized = false;
@@ -44,13 +44,37 @@ public class AccountService
 
         AvatarUploader = new Uploader(http, nots, "images/prof-foto-img.png")
         {
-
+            OnUpload = UploadAvatar,
         };
+        AvatarUploader.OnUploaded.Subscribe("accountService", OnUploadedAvatar);
     }
+    private async Task OnUploadedAvatar()
+    {
+        await DownloadAvatar(true);
+        AvatarUploader.Hide();
+        StateHasChanged();
+    }
+    
+    private Task<HttpResponseState> UploadAvatar(MultipartFormDataContent formData)
+        => _http.Request($"Users/avatar/up", formData, HttpMethod.Post);
     
     private Task<HttpResponseState> RequestUsers(BackendHttpClient http, ulong skip, ulong take)
     {
         return http.Request($"Users/personal");
+    }
+
+    public async Task<bool> DownloadAvatar(bool refresh = false)
+    {
+        var res = await _http.Request("Users/avatar/down/0");
+        if (!res.IsOk || !res.ReadAsBytes(out var data))
+        {
+            return false;
+        }
+
+        AvatarImage = data;
+        if (refresh)
+            StateHasChanged();
+        return true;
     }
 
     public async Task<bool> Auth()
@@ -58,6 +82,9 @@ public class AccountService
         IsLogged = false;
         if (!await MyListView.First(1)
             || MyListView.Data.LongLength == 0)
+            return End(false);
+        
+        if (!await DownloadAvatar())
             return End(false);
         
         IsLogged = true;

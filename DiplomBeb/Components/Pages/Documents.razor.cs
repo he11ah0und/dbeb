@@ -28,7 +28,6 @@ public partial class Documents : ComponentBase
     
     private async Task OnUploadDocument()
     {
-        DocumentsService.DocumentUploader.DocumentName = "";
         await DocumentsService.DocumentsListView.Update();
     }
 

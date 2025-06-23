@@ -14,11 +14,18 @@ public partial class ViewUploader : ComponentBase
         {
             _uploader?.OnUploaded.Unsubscribe("ViewUploader");
             if (_uploader != null)
+            {
+                _uploader.OnHide = null;
                 _uploader.OnShow = null;
+            }
+
             _uploader = value;
             _uploader?.OnUploaded.Subscribe("ViewUploader", OnUploaded);
             if (_uploader != null)
+            {
+                _uploader.OnHide = HideUploader;
                 _uploader.OnShow = OnShowUploader;
+            }
         }
     }
 

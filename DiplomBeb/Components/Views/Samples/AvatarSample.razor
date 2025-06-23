@@ -1,9 +1,41 @@
 @using DiplomBeb.Utils.AdaptiveListing
+@using DiplomBeb.Utils.Networking
 @using dshared.Utils
 
+@{
+    
+    var src = Data is not null && Data.LongLength > 0 
+        ? $"data:image;base64, {Convert.ToBase64String(Data)}" 
+        : "/images/prof-foto-img.png";
+}
 <div class="image">
-    <img class="img39" alt="" src="/images/prof-foto-img.png"/>
+    <img class="img39" alt="" src="@src"/>
 </div>
+
+@code{
+
+    [Inject]
+    public BackendHttpClient _http { get; set; }
+    
+    public byte[] Data;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await Get();
+        StateHasChanged();
+    }
+
+    private async Task Get()
+    {
+        var id = ListElement.Get("internalId");
+        if (id is null)
+            return;
+        var res = await _http.Request($"Users/avatar/down/{id}");
+        if (!res.IsOk || !res.ReadAsBytes(out var data)) 
+            return;
+        Data = data;
+    }
+}
 
 @code {
     [Parameter]

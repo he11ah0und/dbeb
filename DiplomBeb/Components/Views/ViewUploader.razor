@@ -4,9 +4,12 @@
     <div class="loading-window-cont">
         <div class="loading-window-back" @onclick="HideUploader"></div>
         <div class="loading-window">
-            <img src="@_uploader.FileData" alt="Документ"/>
-            <h3>Название документа</h3>
-            <input type="text" class="name-doc" @bind="_uploader.DocumentName"/>
+            <img src="@_uploader.FileData" alt="файл"/>
+            @if (_uploader.IncludeName)
+            {
+                <h3>Название</h3>
+                <input type="text" class="name-doc" @bind="_uploader.DocumentName"/>
+            }
             <div class="loading-window-button">
                 <InputFile id="upFile" accept="image/png" hidden OnChange="_uploader.OnFileSelect"/>
                 <button class="review" onclick="getFile()">Обзор</button>

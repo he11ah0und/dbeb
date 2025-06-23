@@ -66,6 +66,7 @@ public class DocumentsService
         DocumentUploader = new Uploader(http, nots, "images/img-doc.svg")
         {
             OnUpload = UploadDocument,
+            IncludeName = true,
         };
     }
     

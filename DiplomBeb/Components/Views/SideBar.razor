@@ -36,7 +36,14 @@
 	</ul>
 	<div class="bottom">
 		<button class="profile" @onclick="GoToAccount">
-			<SVG Class="prof-icon" Source="/icons/profil-ico.svg"/>
+			@if (AccountService?.AvatarImage is { LongLength: > 0 } data)
+			{
+				<img src="data:image;base64,@Convert.ToBase64String(data)" alt="аватар"/>
+			}
+			else
+			{
+				<SVG Class="prof-icon" Source="/icons/profil-ico.svg"/>
+			}
 			<div>
 				@if (AccountService.IsLogged)
 				{
@@ -54,7 +61,7 @@
 				@if (LowViewState)
 				{
 					<script src="https://lidrekon.ru/slep/js/jquery.js"></script>
-					<script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+					<script src="https://lidrekon.ru/slep/js/uhpv-full.min.js"></script>
 				}
 				<SVG Class="prof-icon" Source="/icons/slab-vid-ico.svg" OnClick="OnSwitchLowView"/>
 			</button>

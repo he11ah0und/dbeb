@@ -10,8 +10,10 @@ public class Uploader
     public long MaxFileSize { get; set; }
     public string DefaultFileData { get; set; }
     public string DocumentName { get; set; }
+    public bool IncludeName { get; set; }
     
     public Action OnShow { get; set; }
+    public Action OnHide { get; set; }
     public Callbacker<Func<Task>> OnUploaded { get; set; }
     public Func<MultipartFormDataContent, Task<HttpResponseState>> OnUpload { get; set; }
     private IBrowserFile SelectedFile  { get; set; }
@@ -32,6 +34,10 @@ public class Uploader
     public void Show()
     {
         OnShow?.Invoke();
+    }
+    public void Hide()
+    {
+        OnHide?.Invoke();
     }
     private Stream? OpenReadFileStream()
     {
@@ -69,7 +75,7 @@ public class Uploader
 
     public async Task Upload()
     {
-        if (string.IsNullOrEmpty(DocumentName))
+        if (IncludeName && string.IsNullOrEmpty(DocumentName))
         {
             _notificationService.AddNotification("Укажите имя файла!");
             return;
@@ -90,7 +96,10 @@ public class Uploader
         using var formData = new MultipartFormDataContent();
         
         formData.Add(fileStreamContent, "File", SelectedFile.Name);
-        formData.Add(new StringContent(DocumentName), "Name");
+        if (IncludeName)
+        {
+            formData.Add(new StringContent(DocumentName), "Name");
+        }
 
         var res = await OnUpload(formData);
         if (!res.IsOk || !res.ResultAsBool(out bool state) || !state)
@@ -98,6 +107,8 @@ public class Uploader
             _notificationService.AddNotification("Ошибка загрузки файла на сервер!");
             return;
         }
+
+        DocumentName = "";
         await OnUploaded.InvokeAllAsync();
     }
 

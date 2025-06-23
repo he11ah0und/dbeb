@@ -17,7 +17,6 @@ public partial class Profile
     private BackendHttpClient Http { get; set; }
     [Inject]
     private NavigationManager Navigation { get; set; }
-    
     [Inject]
     private NotificationService NotificationService { get; set; }
     
@@ -43,7 +42,6 @@ public partial class Profile
     {
         if (!firstRender) return;
         AccountService.StateChanged.Subscribe("profile", AccountServiceOnStateChanged);
-        DocumentsService.ProfileListView.OnListUpdated.Subscribe("profile", DocumentsUpdated);
         await DocumentsService.ProfileListView.First(1);
     }
 
@@ -59,11 +57,6 @@ public partial class Profile
     private void AccountServiceOnStateChanged()
     {
         Load();
-        StateHasChanged();
-    }
-
-    private void DocumentsUpdated()
-    {
         StateHasChanged();
     }
 
@@ -105,19 +98,5 @@ public partial class Profile
     {
         if (!await AccountService.LogOut())
             NotificationService.AddNotification("Ошибка серверного выхода.");
-        //Navigation.NavigateTo("/account", true);
-    }
-
-    private bool InAvatarUpload;
-    private async Task ShowAvatarUploader()
-    {
-        InAvatarUpload = true;
-        
-        StateHasChanged();
-    }
-    private async Task HideAvatarUploader()
-    {
-        InAvatarUpload = false;
-        StateHasChanged();
     }
 }
