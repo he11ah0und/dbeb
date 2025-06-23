@@ -63,13 +63,20 @@ public partial class Profiles : ComponentBase
             newLe.Set("surname", Surname);
             newLe.Set("middlename", Middlename);
             newLe.Set("place_id", PlaceId);
+
+            var uid = ulong.Parse(selected.Get("internalId", "0"));
             
-            if (!await AccountService.Update(newLe, ulong
-                .Parse(selected.Get("internalId", "0"))))
+            if (!await AccountService.Update(newLe, uid))
                 NotificationService
                     .AddNotification($"Ошибка обновления данных пользователя: " +
                                                     $"id: {selected.Get("id")} " +
                                                     $"{selected.Get("surname")} {selected.Get("name")} {selected.Get("middlename")}");
+            if (AccountService.Account.Get("email", "") == ModerationService.SelectedUser.Get("email", ""))
+            {
+                await AccountService.Auth();
+                await ModerationService.UsersListView.Update();
+            }
+
             InEdit = false;
         }
         StateHasChanged();

@@ -151,7 +151,8 @@ namespace dserver.Controllers
                     var doc = (ListElement)md.Document;
                     if (md.State)
                         doc.Set("cost", md.Document.DocumentType.Cost);
-                    doc.Set("moderated", md.State);
+                    doc.Set("moderated", true);
+                    doc.Set("state", md.State);
 
                     docs.Add(doc);
                 }
