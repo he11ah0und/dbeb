@@ -8,8 +8,6 @@ namespace dserver.Systems.Auth;
 
 public class AuthEngineServer
 {
-    
-    
     internal static async Task<bool> Execute(
         HttpContext context,
         string theApiRole = "none",

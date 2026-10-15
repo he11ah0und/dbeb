@@ -58,7 +58,7 @@ public class HttpResponseState
         return state;
     }
     
-    public bool ResultAsJson<T>(out T result)
+    public bool ResultAsJson<T>(out T? result)
     {
         try
         {

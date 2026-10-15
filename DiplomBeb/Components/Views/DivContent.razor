@@ -10,7 +10,7 @@
             {
                 listElement.Set("id", i);
             }
-                
+            
             <div class="document">
                 @{
                     var listProps = ListView.DataResolver.GetListProps(ListView.DataResolver.Props, listElement.Elements);
@@ -18,7 +18,7 @@
                         .Select(pair => ListView.DataResolver.GetProp(pair.Key, listElement, (ulong)i, ListView))
                         .Where(rendered => rendered.Ok);
                 }
-
+                
                 @foreach (var rendered in renderedProps)
                 {
                     <div class="arnold">
